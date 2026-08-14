@@ -86,7 +86,7 @@
                 Konteks Spasial & Wilayah
               </div>
               <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.5;">
-                Pengalaman Anda di tempat bertugas sangat berharga tanpa harus dikelompokkan secara prematur.
+                Pengalaman Anda di tempat bertugas penting bagi kami. Sampaikan sesuai dengan apa yang Anda alami.
               </p>
             </div>
 
