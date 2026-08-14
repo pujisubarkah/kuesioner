@@ -41,7 +41,7 @@
               Pengantar
             </div>
             <p style="font-size: 0.95rem; color: var(--color-text-primary); line-height: 1.6; margin-bottom: 0.5rem;">
-              Bapak/Ibu/Saudara/i ASN yang terhormat, perkenalkan saya <strong>Pujiatmo Subarkah</strong>, Mahasiswa Program Doktoral (S3). Kuesioner ini dirancang khusus sebagai instrumen pengumpulan data riset akademis disertasi untuk memetakan pengalaman nyata, kendala teknis jaringan, sarana perangkat, serta dinamika beban tugas kedinasan saat ASN mengikuti pembelajaran digital (e-learning/LMS/MOOC).
+              Bapak/Ibu/Saudara/i ASN yang terhormat, perkenalkan saya <strong>Pujiatmo Subarkah</strong>, Analis Kebijakan Madya Direktorat Strategi Peningkatan Kualitas Kebijakan LAN, Mahasiswa Program Doktoral (S3). Kuesioner ini dirancang khusus sebagai instrumen pengumpulan data riset akademis disertasi untuk memetakan pengalaman nyata, kendala teknis jaringan, sarana perangkat, serta dinamika beban tugas kedinasan saat ASN mengikuti pembelajaran digital (e-learning/LMS/MOOC).
             </p>
             <p style="font-size: 0.875rem; color: var(--color-text-secondary); font-style: italic;">
               Partisipasi dan jawaban jujur dari pengalaman lapangan Anda sangat berharga untuk menghasilkan analisis empiris yang obyektif dan membumi demi kemajuan kualitas pelatihan ASN di Indonesia.
