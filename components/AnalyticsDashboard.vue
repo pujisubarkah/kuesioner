@@ -1,11 +1,15 @@
 <template>
   <div style="display: flex; flex-direction: column; gap: 2rem;">
     <!-- Top Action Bar -->
-    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; background: white; padding: 1.25rem 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; background: var(--color-surface-card); padding: 1.25rem 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--color-stroke-secondary); box-shadow: var(--shadow-sm);">
       <div>
-        <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main);">Dashboard Hasil & Analisis Riset</h2>
-        <p style="font-size: 0.875rem; color: var(--text-muted);">
-          Ringkasan data kuantitatif & kompilasi narasi kualitatif responden ASN.
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
+          <span class="section-badge" style="margin-bottom: 0;">Analisis Data ASN</span>
+          <span style="font-size: 0.75rem; font-weight: 700; color: var(--brand-lan-navy);">Riset Mandiri • Analytics</span>
+        </div>
+        <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--color-text-primary);">Dashboard Hasil & Analisis Riset E-Learning</h2>
+        <p style="font-size: 0.875rem; color: var(--color-text-secondary);">
+          Kompilasi data kuantitatif & ekspresi kualitatif responden ASN di seluruh Indonesia.
         </p>
       </div>
 
@@ -29,11 +33,11 @@
 
     <!-- Empty State -->
     <div v-if="responses.length === 0" class="card" style="text-align: center; padding: 4rem 2rem;">
-      <div style="width: 64px; height: 64px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem auto;">
+      <div style="width: 64px; height: 64px; background: var(--brand-lan-blue-light); color: var(--brand-lan-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem auto;">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
       </div>
-      <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Belum Ada Respon Kuesioner</h3>
-      <p style="font-size: 0.9rem; color: var(--text-muted); max-width: 500px; margin: 0 auto 1.5rem auto;">
+      <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--color-text-primary); margin-bottom: 0.5rem;">Belum Ada Respon Kuesioner Terdata</h3>
+      <p style="font-size: 0.9rem; color: var(--color-text-secondary); max-width: 500px; margin: 0 auto 1.5rem auto;">
         Belum ada jawaban kuesioner yang tersimpan di sistem. Anda dapat mengklik tombol "Load Data Simulasi Riset" untuk mengisi sampel data riset ASN.
       </p>
       <button class="btn btn-primary" @click="$emit('seed-mock')">
@@ -45,59 +49,59 @@
       <!-- Stats Overview Cards -->
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
         <div class="card" style="padding: 1.25rem; margin-bottom: 0;">
-          <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Total Responden</div>
-          <div style="font-size: 2.25rem; font-weight: 800; color: var(--primary); margin-top: 0.25rem;">{{ responses.length }}</div>
-          <div style="font-size: 0.75rem; color: var(--text-light); margin-top: 0.2rem;">Orang ASN terdata</div>
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase;">Total Responden</div>
+          <div style="font-size: 2.25rem; font-weight: 800; color: var(--brand-lan-navy); margin-top: 0.25rem;">{{ responses.length }}</div>
+          <div style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.2rem;">Orang ASN terdata</div>
         </div>
 
         <div class="card" style="padding: 1.25rem; margin-bottom: 0;">
-          <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Pernah E-Learning</div>
-          <div style="font-size: 2.25rem; font-weight: 800; color: var(--accent); margin-top: 0.25rem;">{{ elearningParticipationRate }}%</div>
-          <div style="font-size: 0.75rem; color: var(--text-light); margin-top: 0.2rem;">Dalam 12 bulan terakhir</div>
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase;">Pernah E-Learning</div>
+          <div style="font-size: 2.25rem; font-weight: 800; color: var(--brand-lan-blue); margin-top: 0.25rem;">{{ elearningParticipationRate }}%</div>
+          <div style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.2rem;">Dalam 12 bulan terakhir</div>
         </div>
 
         <div class="card" style="padding: 1.25rem; margin-bottom: 0;">
-          <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Rata-rata Tetap Bekerja</div>
-          <div style="font-size: 2.25rem; font-weight: 800; color: #d97706; margin-top: 0.25rem;">{{ avgWorkloadDisruption }}/5.0</div>
-          <div style="font-size: 0.75rem; color: var(--text-light); margin-top: 0.2rem;">Indikator Beban Kedinasan (Q15)</div>
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase;">Beban Tugas Kedinasan</div>
+          <div style="font-size: 2.25rem; font-weight: 800; color: var(--brand-lan-gold-dark); margin-top: 0.25rem;">{{ avgWorkloadDisruption }}/5.0</div>
+          <div style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.2rem;">Indikator Beban Bekerja (Q15)</div>
         </div>
 
         <div class="card" style="padding: 1.25rem; margin-bottom: 0;">
-          <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Perangkat Utama</div>
-          <div style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-top: 0.5rem; text-transform: capitalize;">{{ topDevice }}</div>
-          <div style="font-size: 0.75rem; color: var(--text-light); margin-top: 0.2rem;">Paling banyak digunakan</div>
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase;">Perangkat Utama</div>
+          <div style="font-size: 1.35rem; font-weight: 800; color: var(--color-text-primary); margin-top: 0.5rem; text-transform: capitalize;">{{ topDevice }}</div>
+          <div style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.2rem;">Paling banyak digunakan</div>
         </div>
       </div>
 
       <!-- Regional Distribution -->
       <div class="card">
-        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
           Sebaran Wilayah Penugasan Responden
         </h3>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
           <div>
-            <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.75rem;">Per Provinsi:</h4>
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--color-text-secondary); margin-bottom: 0.75rem;">Per Provinsi:</h4>
             <div v-for="(count, prov) in provinceBreakdown" :key="prov" style="margin-bottom: 0.6rem;">
               <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.2rem;">
                 <span>{{ prov }}</span>
                 <span>{{ count }} ASN ({{ Math.round((count / responses.length) * 100) }}%)</span>
               </div>
-              <div style="height: 8px; background: var(--bg-subtle); border-radius: 999px; overflow: hidden;">
-                <div :style="{ width: `${(count / responses.length) * 100}%` }" style="height: 100%; background: var(--primary); border-radius: 999px;"></div>
+              <div style="height: 8px; background: var(--color-surface-secondary); border-radius: 999px; overflow: hidden;">
+                <div :style="{ width: `${(count / responses.length) * 100}%` }" style="height: 100%; background: var(--brand-lan-navy); border-radius: 999px;"></div>
               </div>
             </div>
           </div>
 
           <div>
-            <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.75rem;">Jenis Wilayah (Q2):</h4>
+            <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--color-text-secondary); margin-bottom: 0.75rem;">Jenis Wilayah (Q2):</h4>
             <div v-for="(count, area) in areaTypeBreakdown" :key="area" style="margin-bottom: 0.6rem;">
               <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.2rem;">
                 <span>{{ area }}</span>
                 <span>{{ count }} ASN</span>
               </div>
-              <div style="height: 8px; background: var(--bg-subtle); border-radius: 999px; overflow: hidden;">
-                <div :style="{ width: `${(count / responses.length) * 100}%` }" style="height: 100%; background: var(--accent); border-radius: 999px;"></div>
+              <div style="height: 8px; background: var(--color-surface-secondary); border-radius: 999px; overflow: hidden;">
+                <div :style="{ width: `${(count / responses.length) * 100}%` }" style="height: 100%; background: var(--brand-lan-blue); border-radius: 999px;"></div>
               </div>
             </div>
           </div>
@@ -105,11 +109,11 @@
       </div>
 
       <!-- Qualitative Findings Section -->
-      <div class="card" style="border-left: 5px solid #f59e0b;">
+      <div class="card" style="border-left: 5px solid var(--brand-lan-gold);">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
           <div>
             <span class="gold-question-tag">Temuan Kualitatif Utama (Open-ended)</span>
-            <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--text-main);">Eksplorasi Konteks Belajar & Suara Lapangan ASN</h3>
+            <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--color-text-primary);">Eksplorasi Konteks Belajar & Suara Lapangan ASN</h3>
           </div>
 
           <!-- Question Selector Filter -->
@@ -126,13 +130,13 @@
           <div 
             v-for="(ans, idx) in currentQualitativeAnswers" 
             :key="idx"
-            style="background: #fffbeb; border: 1px solid #fef3c7; padding: 1.1rem; border-radius: var(--radius-md);"
+            style="background: var(--brand-lan-gold-subtle); border: 1px solid #FDE68A; padding: 1.1rem; border-radius: var(--radius-md);"
           >
-            <div style="display: flex; justify-content: space-between; font-size: 0.775rem; font-weight: 700; color: #b45309; margin-bottom: 0.4rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.775rem; font-weight: 700; color: var(--brand-lan-gold-dark); margin-bottom: 0.4rem;">
               <span>ASN #{{ idx + 1 }} • {{ ans.province }} ({{ ans.regency }})</span>
               <span>Instansi: {{ ans.instansi }} | Usia: {{ ans.age }}</span>
             </div>
-            <div style="font-size: 0.95rem; font-style: italic; color: #78350f; line-height: 1.5;">
+            <div style="font-size: 0.95rem; font-style: italic; color: #78350F; line-height: 1.5;">
               "{{ ans.text }}"
             </div>
           </div>

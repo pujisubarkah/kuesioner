@@ -1,7 +1,7 @@
 <template>
-  <div style="display: flex; flex-direction: column; gap: 1.25rem; background: #fafcff; padding: 1.25rem; border-radius: var(--radius-md); border: 1.5px solid var(--border-color);">
+  <div style="display: flex; flex-direction: column; gap: 1.25rem; background: var(--color-surface-secondary); padding: 1.25rem; border-radius: var(--radius-md); border: 1.5px solid var(--color-stroke-secondary);">
     <div>
-      <label style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.4rem;">
+      <label style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.4rem;">
         1. Provinsi Tempat Bertugas <span class="required-star">*</span>
       </label>
       <select 
@@ -17,7 +17,7 @@
     </div>
 
     <div>
-      <label style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.4rem;">
+      <label style="display: block; font-size: 0.875rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.4rem;">
         2. Kabupaten / Kota Tempat Bertugas <span class="required-star">*</span>
       </label>
       <select 
@@ -35,7 +35,7 @@
     </div>
 
     <div v-if="selectedKab === 'Lainnya'" style="margin-top: 0.25rem;">
-      <label style="display: block; font-size: 0.825rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.3rem;">
+      <label style="display: block; font-size: 0.825rem; font-weight: 600; color: var(--color-text-secondary); margin-bottom: 0.3rem;">
         Tuliskan nama Kabupaten / Kota / Satuan Kerja:
       </label>
       <input 

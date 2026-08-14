@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="maxSelections" style="font-size: 0.8rem; font-weight: 700; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.35rem;">
+    <div v-if="maxSelections" style="font-size: 0.8rem; font-weight: 700; color: var(--brand-lan-blue); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.35rem;">
       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       Terpilih: {{ selectedItems.length }} / Maksimal {{ maxSelections }} pilihan
     </div>

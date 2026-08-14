@@ -1,31 +1,33 @@
 <template>
   <div style="margin-bottom: 2rem;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-      <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+      <span style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-secondary);">
         Kemajuan Pengisian Kuesioner
       </span>
-      <span style="font-size: 0.85rem; font-weight: 800; color: var(--primary);">
+      <span style="font-size: 0.85rem; font-weight: 800; color: var(--brand-lan-blue);">
         Bagian {{ currentIndex + 1 }} dari {{ totalSections }} ({{ progressPercent }}%)
       </span>
     </div>
 
     <!-- Stepper Lines -->
-    <div class="stepper-bar">
-      <div 
+    <nav aria-label="Langkah Kuesioner" class="stepper-bar">
+      <button 
         v-for="(sec, idx) in sections" 
         :key="sec.id" 
+        type="button"
         class="stepper-item"
         :class="{
           active: idx === currentIndex,
           completed: idx < currentIndex
         }"
         @click="$emit('jump', idx)"
+        :aria-current="idx === currentIndex ? 'step' : undefined"
         :title="`Bagian ${sec.code}: ${sec.title}`"
       >
         <div class="stepper-line"></div>
         <div class="stepper-title">Bagian {{ sec.code }}</div>
-      </div>
-    </div>
+      </button>
+    </nav>
   </div>
 </template>
 
