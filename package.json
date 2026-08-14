@@ -1,0 +1,25 @@
+{
+  "name": "kuesioner-elearning-asn",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --host 0.0.0.0",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "db:push": "drizzle-kit push:pg"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.30.10",
+    "lucide-vue-next": "^0.344.0",
+    "nuxt": "^3.11.2",
+    "postgres": "^3.4.4",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.20.18",
+    "typescript": "^5.4.2"
+  }
+}
