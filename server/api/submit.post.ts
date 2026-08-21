@@ -1,3 +1,4 @@
+import { getRequestIP, getRequestHeader } from 'h3';
 import { db } from '../db';
 import { responses } from '../db/schema';
 
@@ -9,6 +10,47 @@ export default defineEventHandler(async (event) => {
         statusCode: 400,
         statusMessage: 'Data jawaban kuesioner tidak valid atau kosong.'
       });
+    }
+
+    // Capture Client IP Address automatically (supports Cloudflare, Nginx, H3)
+    const rawIp = getRequestHeader(event, 'cf-connecting-ip') ||
+                  getRequestHeader(event, 'x-real-ip') ||
+                  getRequestIP(event, { xForwardedFor: true }) ||
+                  event.node.req.socket?.remoteAddress || '';
+    const firstIp = typeof rawIp === 'string' ? rawIp.split(',')[0].trim() : '';
+    const clientIp = firstIp.replace(/^::ffff:/, '');
+
+    // Check if IP is private / local loopback / docker bridge
+    const isPrivateIp = !clientIp || 
+      clientIp === '127.0.0.1' || 
+      clientIp === '::1' || 
+      clientIp.startsWith('10.') || 
+      clientIp.startsWith('192.168.') || 
+      /^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(clientIp);
+
+    // Lookup Geolocation based on IP (using ip-api.com)
+    let geo = { city: '', regionName: '', country: '', lat: '', lon: '' };
+    try {
+      // If public IP, query specific IP; if private/local IP (dev mode), query server/tester public IP
+      const geoUrl = isPrivateIp
+        ? `http://ip-api.com/json/?fields=status,country,regionName,city,lat,lon`
+        : `http://ip-api.com/json/${clientIp}?fields=status,country,regionName,city,lat,lon`;
+
+      const geoRes = await fetch(geoUrl);
+      if (geoRes.ok) {
+        const geoData = await geoRes.json();
+        if (geoData.status === 'success') {
+          geo = {
+            city: geoData.city || '',
+            regionName: geoData.regionName || '',
+            country: geoData.country || '',
+            lat: geoData.lat != null ? String(geoData.lat) : '',
+            lon: geoData.lon != null ? String(geoData.lon) : ''
+          };
+        }
+      }
+    } catch (err) {
+      console.error('GeoIP lookup failed:', err);
     }
 
     const answers = body.answers || {};
@@ -24,6 +66,13 @@ export default defineEventHandler(async (event) => {
     // Insert into PostgreSQL schema "kuesioner.responses" wide table
     const inserted = await db.insert(responses).values({
       id,
+      ipAddress: clientIp,
+      locationCity: geo.city,
+      locationRegion: geo.regionName,
+      locationCountry: geo.country,
+      latitude: geo.lat,
+      longitude: geo.lon,
+
       province,
       regency,
       areaType: answers['q_2'] || '',

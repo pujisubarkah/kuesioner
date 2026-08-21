@@ -8,6 +8,14 @@ export const responses = kuesionerSchema.table('responses', {
   id: text('id').primaryKey(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 
+  // Auto-captured IP & Location Metadata
+  ipAddress: text('ip_address'),
+  locationCity: text('location_city'),
+  locationRegion: text('location_region'),
+  locationCountry: text('location_country'),
+  latitude: text('latitude'),
+  longitude: text('longitude'),
+
   // Section A: Demografi (Q1 - Q5)
   province: text('province'),
   regency: text('regency'),

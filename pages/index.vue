@@ -37,14 +37,28 @@
 
           <!-- Researcher Academic Intro Box -->
           <div style="background: var(--color-surface-secondary); border: 1.5px solid var(--color-stroke-secondary); padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; border-left: 4px solid var(--brand-lan-blue);">
-            <div style="font-size: 0.775rem; font-weight: 800; text-transform: uppercase; color: var(--brand-lan-blue); margin-bottom: 0.35rem; letter-spacing: 0.5px;">
-              Pengantar
+            <div style="font-size: 0.775rem; font-weight: 800; text-transform: uppercase; color: var(--brand-lan-blue); margin-bottom: 0.5rem; letter-spacing: 0.5px;">
+              Pengantar Riset
             </div>
-            <p style="font-size: 0.95rem; color: var(--color-text-primary); line-height: 1.6; margin-bottom: 0.5rem;">
+            <p style="font-size: 0.95rem; color: var(--color-text-primary); line-height: 1.6; margin-bottom: 1rem;">
               Bapak/Ibu/Saudara/i ASN yang terhormat, perkenalkan saya <strong>Pujiatmo Subarkah</strong>, Analis Kebijakan Madya Direktorat Strategi Peningkatan Kualitas Kebijakan LAN, Mahasiswa Program Doktoral (S3). Kuesioner ini dirancang khusus sebagai instrumen pengumpulan data riset akademis disertasi untuk memetakan pengalaman nyata, kendala teknis jaringan, sarana perangkat, serta dinamika beban tugas kedinasan saat ASN mengikuti pembelajaran digital (e-learning/LMS/MOOC).
             </p>
-            <p style="font-size: 0.875rem; color: var(--color-text-secondary); font-style: italic;">
-              Partisipasi dan jawaban jujur dari pengalaman lapangan Anda sangat berharga untuk menghasilkan analisis empiris yang obyektif dan membumi demi kemajuan kualitas pelatihan ASN di Indonesia.
+
+            <div style="background: #FFFFFF; border: 1px solid var(--color-stroke-secondary); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1rem;">
+              <div style="font-weight: 700; font-size: 0.9rem; color: var(--brand-lan-navy); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                Penting untuk Kami Sampaikan:
+              </div>
+              <p style="font-size: 0.9rem; color: var(--color-text-primary); line-height: 1.6; margin-bottom: 0.75rem;">
+                Penelitian ini <strong>bukan bertujuan untuk membangun aplikasi e-learning baru</strong>, maupun untuk mengevaluasi kinerja atau kedisiplinan individu. Sebaliknya, riset ini berfokus pada <strong>memperbaiki cara sistem membaca dan menginterpretasi data pembelajaran</strong>, agar tidak terjadi kesalahpahaman yang secara tidak adil "menyalahkan" peserta dengan kendala infrastruktur.
+              </p>
+              <p style="font-size: 0.9rem; color: var(--color-text-primary); line-height: 1.6;">
+                Secara spesifik, penelitian <em>Data Science</em> ini bertujuan mengembangkan model yang mampu membedakan antara rendahnya aktivitas karena faktor motivasi dengan rendahnya aktivitas karena hambatan teknis (seperti sinyal yang tidak stabil, perangkat terbatas, atau kendala kelistrikan). Pemahaman ini nantinya akan digunakan untuk merancang mekanisme rekomendasi pelatihan yang lebih adil, kontekstual, dan sesuai dengan kondisi wilayah Bapak/Ibu bertugas.
+              </p>
+            </div>
+
+            <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6; font-style: italic;">
+              Oleh karena itu, pengalaman dan jawaban jujur dari kondisi lapangan Bapak/Ibu sangat berharga untuk menghasilkan analisis empiris yang objektif, demi kemajuan kualitas pelatihan ASN di Indonesia.
             </p>
           </div>
 
@@ -54,19 +68,19 @@
             <div>
               <strong style="color: #166534; font-size: 0.9rem;">Jaminan Keamanan & Bebas Phishing:</strong>
               <p style="color: #15803D; font-size: 0.85rem; margin-top: 0.2rem; line-height: 1.5;">
-                Kuesioner riset murni ini <strong>TIDAK PERNAH meminta kode OTP, password, PIN, NIK, maupun akses keuangan/kedinasan</strong> Anda. Formulir ini aman digunakan dan hanya mengumpulkan persepsi serta pengalaman pembelajaran digital ASN.
+                Kuesioner riset murni ini <strong>TIDAK PERNAH meminta kode OTP, password, PIN, NIK, maupun akses keuangan/kedinasan Bapak/Ibu</strong>. Formulir ini aman digunakan dan hanya mengumpulkan persepsi serta pengalaman pembelajaran digital.
               </p>
             </div>
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 2.25rem;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1.75rem;">
             <div style="background: var(--color-surface-secondary); border: 1.5px solid var(--color-stroke-secondary); padding: 1.1rem; border-radius: var(--radius-md);">
               <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--brand-lan-navy); font-size: 0.95rem; margin-bottom: 0.35rem;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 Jaminan Kerahasiaan
               </div>
               <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.5;">
-                Kuesioner ini <strong>bukan evaluasi kinerja individu/instansi</strong> dan tidak mengumpulkan identitas pribadi sensitif.
+                Data yang dikumpulkan bersifat anonim (tanpa nama) dan sama sekali tidak akan digunakan untuk evaluasi kinerja individu maupun instansi.
               </p>
             </div>
 
@@ -82,23 +96,20 @@
 
             <div style="background: var(--color-surface-secondary); border: 1.5px solid var(--color-stroke-secondary); padding: 1.1rem; border-radius: var(--radius-md);">
               <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--brand-lan-navy); font-size: 0.95rem; margin-bottom: 0.35rem;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                Konteks Spasial & Wilayah
-              </div>
-              <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.5;">
-                Pengalaman Anda di tempat bertugas penting bagi kami. Sampaikan sesuai dengan apa yang Anda alami.
-              </p>
-            </div>
-
-            <div style="background: var(--color-surface-secondary); border: 1.5px solid var(--color-stroke-secondary); padding: 1.1rem; border-radius: var(--radius-md);">
-              <div style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--brand-lan-navy); font-size: 0.95rem; margin-bottom: 0.35rem;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                 Kebebasan Berpendapat
               </div>
               <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.5;">
-                Tersedia ruang ekspresi terbuka untuk menyampaikan cerita & kendala sebenarnya di lapangan.
+                Tersedia ruang ekspresi terbuka untuk menyampaikan cerita & kendala sebenarnya di lapangan tanpa rasa khawatir.
               </p>
             </div>
+          </div>
+
+          <!-- Thank You Note Banner -->
+          <div style="background: #EFF6FF; border: 1px dashed var(--brand-lan-blue); padding: 0.9rem 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.75rem; text-align: center;">
+            <p style="font-size: 0.925rem; font-weight: 600; color: var(--brand-lan-navy); margin: 0;">
+              Terima kasih atas waktu, partisipasi, dan kontribusi berharga Bapak/Ibu untuk riset ini.
+            </p>
           </div>
 
           <div style="display: flex; justify-content: flex-end;">
@@ -278,11 +289,29 @@
               </div>
 
               <!-- QUESTION TYPE: Narrative Text Area -->
-              <div v-else-if="q.type === 'text'">
+              <div v-else-if="q.type === 'text'" class="narrative-wrapper">
+                <div class="narrative-notice">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                  <div>
+                    <span>
+                      <strong>Pemberitahuan:</strong> Pertanyaan ini perlu diisi untuk melanjutkan ke tahap berikutnya. Jika Anda tidak berkenan memberikan jawaban secara rinci, silakan isi dengan <code>....</code>
+                    </span>
+                    <div>
+                      <button 
+                        type="button" 
+                        class="narrative-notice-btn"
+                        @click="answers[`q_${q.id}`] = '...'"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        Klik di sini untuk isi otomatis '...'
+                      </button>
+                    </div>
+                  </div>
+                </div>
                 <textarea 
                   class="form-control"
                   rows="4"
-                  placeholder="Tuliskan pengalaman atau pendapat Anda secara rinci di sini..."
+                  placeholder="Tuliskan pengalaman atau pendapat Anda di sini... (atau klik tombol di atas jika ingin melewati dengan '...')"
                   v-model="answers[`q_${q.id}`]"
                 ></textarea>
               </div>
@@ -415,7 +444,7 @@ const validateCurrentSection = (): boolean => {
     } else if (q.type === 'text') {
       const val = answers.value[`q_${q.id}`];
       if (!val || val.trim() === '') {
-        validationError.value = `${q.code}: Harap isi uraian jawaban pada kolom teks yang disediakan.`;
+        validationError.value = `${q.code}: Pertanyaan ini perlu diisi untuk melanjutkan ke tahap berikutnya. Jika Anda tidak berkenan memberikan jawaban secara rinci, silakan isi dengan ....`;
         return false;
       }
     } else if (q.type === 'matrix') {

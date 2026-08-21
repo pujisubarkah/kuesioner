@@ -14,7 +14,7 @@
     </div>
 
     <!-- Main Header -->
-    <div class="navbar-content">
+    <div class="navbar-content" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
       <div class="logo-group">
         <div class="logo-badge-lan" style="background: var(--brand-lan-navy);">
           <span class="logo-badge-emblem" style="background: var(--brand-lan-blue);">ASN</span>
@@ -25,11 +25,76 @@
           <p>Riset Konteks, Perangkat & Kendala Kedinasan E-Learning</p>
         </div>
       </div>
+
+      <!-- Navigation Tabs (Hanya ditampilkan pada halaman internal riset, disembunyikan untuk responden pada halaman /) -->
+      <nav v-if="!isRespondentView" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <NuxtLink 
+          to="/" 
+          class="nav-tab" 
+          active-class="active"
+          exact
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Form Kuesioner
+        </NuxtLink>
+
+        <NuxtLink 
+          to="/hasil-survey/sementara" 
+          class="nav-tab" 
+          active-class="active"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Hasil Survey
+        </NuxtLink>
+
+        <NuxtLink 
+          to="/referensi" 
+          class="nav-tab" 
+          active-class="active"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          Referensi
+        </NuxtLink>
+      </nav>
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const isRespondentView = computed(() => route.path === '/');
 </script>
+
+<style scoped>
+.nav-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-secondary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid var(--color-stroke-secondary);
+}
+
+.nav-tab:hover {
+  color: var(--brand-lan-navy);
+  background: #E0E7FF;
+}
+
+.nav-tab.active {
+  color: #FFFFFF;
+  background: var(--brand-lan-navy);
+  border-color: var(--brand-lan-navy);
+  box-shadow: var(--shadow-sm);
+}
+</style>
 
 
