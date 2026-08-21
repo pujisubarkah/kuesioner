@@ -7,6 +7,10 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
+  runtimeConfig: {
+    googleDriveApiKey: process.env.GOOGLE_DRIVE_API_KEY || '',
+    googleDriveParentFolderId: process.env.GOOGLE_DRIVE_PARENT_FOLDER_ID || '',
+  },
   app: {
     head: {
       title: 'Kuesioner Pembelajaran Digital ASN - Riset Konteks & Kendala E-Learning',
