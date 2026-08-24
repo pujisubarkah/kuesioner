@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "drizzle-orm": "^0.30.10",
+    "echarts": "^6.1.0",
     "lucide-vue-next": "^0.344.0",
     "nuxt": "^3.11.2",
     "postgres": "^3.4.4",

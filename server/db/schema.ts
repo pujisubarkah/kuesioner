@@ -1,4 +1,4 @@
-import { pgSchema, text, timestamp, jsonb, integer } from 'drizzle-orm/pg-core';
+import { pgSchema, text, timestamp, jsonb, integer, serial, boolean, varchar } from 'drizzle-orm/pg-core';
 
 // PostgreSQL Schema: kuesioner
 export const kuesionerSchema = pgSchema('kuesioner');
@@ -74,4 +74,24 @@ export const responses = kuesionerSchema.table('responses', {
   // Backup Full JSON Document
   answers: jsonb('answers').notNull()
 });
+
+// Table: kuesioner.research_gaps_simple
+export const researchGapsSimple = kuesionerSchema.table('research_gaps_simple', {
+  id: serial('id').primaryKey(),
+  topic: varchar('topic', { length: 255 }),
+  sourcePaperTitle: text('source_paper_title'),
+  sourcePaperUrl: text('source_paper_url'),
+  gapType: varchar('gap_type', { length: 255 }),
+  problemStatement: text('problem_statement'),
+  currentState: text('current_state'),
+  futureOpportunity: text('future_opportunity'),
+  priority: varchar('priority', { length: 50 }),
+  isSolved: boolean('is_solved').default(false),
+  createdAt: timestamp('created_at').defaultNow().notNull()
+});
+
+// Alias for backward compatibility
+export const researchGapSimple = researchGapsSimple;
+
+
 

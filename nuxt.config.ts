@@ -6,6 +6,9 @@ export default defineNuxtConfig({
     port: 3000
   },
   devtools: { enabled: true },
+  experimental: {
+    appManifest: false
+  },
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
     googleDriveApiKey: process.env.GOOGLE_DRIVE_API_KEY || '',
