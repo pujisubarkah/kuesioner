@@ -93,5 +93,20 @@ export const researchGapsSimple = kuesionerSchema.table('research_gaps_simple', 
 // Alias for backward compatibility
 export const researchGapSimple = researchGapsSimple;
 
+// Table: kuesioner.ipp_evaluations (Indeks Pelayanan Publik 2025)
+export const ippEvaluations = kuesionerSchema.table('ipp_evaluations', {
+  id: serial('id').primaryKey(),
+  nama: text('nama').notNull(),
+  ippPredikat: varchar('ipp_predikat', { length: 50 }),
+  tahun: integer('tahun').default(2025),
+  createdAt: timestamp('created_at').defaultNow().notNull()
+});
 
-
+// Table: kuesioner.spbe_evaluations (Indeks SPBE 2025)
+export const spbeEvaluations = kuesionerSchema.table('spbe_evaluations', {
+  id: serial('id').primaryKey(),
+  nama: text('nama').notNull(),
+  spbePredikat: varchar('spbe_predikat', { length: 50 }),
+  tahun: integer('tahun').default(2025),
+  createdAt: timestamp('created_at').defaultNow().notNull()
+});
