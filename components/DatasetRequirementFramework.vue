@@ -4,7 +4,7 @@
     <div class="framework-banner">
       <div class="banner-top-badges">
         <span class="badge-tag mindmap">🧠 Visual Mindmap Framework</span>
-        <span class="badge-tag academic">📚 Literature-Grounded Dataset</span>
+        <span class="badge-tag missingness">🧩 Missingness Attribution</span>
         <span class="badge-tag context">🏛️ SPBE & IPP Data Terintegrasi</span>
         <span class="badge-tag validation">⚡ Explanatory Power Grounded</span>
       </div>
@@ -12,7 +12,7 @@
         Mindmap & Kerangka Spesifikasi Dataset Berbasis Literatur
       </h2>
       <p class="banner-desc">
-        Peta pohon konseptual (<em>Mindmap</em>) yang menghubungkan domain spesifik <strong>Kompetensi Layanan Publik ASN</strong> dengan variabel dataset empiris kuesioner, data evaluasi nasional (<strong>Indeks SPBE & IPP 2025</strong>), dan acuan jurnal ilmiah.
+        Peta pohon konseptual (<em>Mindmap</em>) yang menghubungkan domain spesifik <strong>Kompetensi Layanan Publik ASN</strong> dengan variabel dataset empiris kuesioner, taksonomi penanganan <em>missingness</em>/inaktivitas cerdas, dan data evaluasi nasional (<strong>Indeks SPBE & IPP 2025</strong>).
       </p>
     </div>
 
@@ -79,73 +79,329 @@
       </div>
     </div>
 
-    <!-- TAB 2: Data Evaluasi Nasional (SPBE & IPP 2025) -->
-    <div v-if="activeTab === 'spbe-ipp'" class="framework-content-section">
-      <!-- Top Overview KPI Cards -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;">
-        <div class="card" style="padding: 1.25rem; border-top: 4px solid #2563EB;">
-          <div style="font-size: 0.75rem; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase;">Total Data Indeks Pelayanan Publik (IPP)</div>
-          <div style="font-size: 2.25rem; font-weight: 800; color: #2563EB; margin-top: 0.2rem;">{{ evalSummary.totalIpp }} <span style="font-size: 0.9rem; color: var(--color-text-muted);">Instansi / Pemda</span></div>
-          <div style="font-size: 0.75rem; color: #166534; background: #DCFCE7; display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 700; margin-top: 0.35rem;">
-            Tersimpan di DB PostgreSQL (2025)
-          </div>
+    <!-- TAB 2: Taksonomi Missingness & Friksi Cerdas -->
+    <div v-if="activeTab === 'missingness'" class="framework-content-section">
+      <!-- Paradigm Banner -->
+      <div class="card" style="padding: 1.5rem 1.75rem; background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%); color: #FFFFFF; border: 1px solid rgba(255,255,255,0.15);">
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
+          <span class="badge" style="background: rgba(168, 85, 247, 0.25); color: #C084FC; border: 1px solid rgba(192, 132, 252, 0.3);">
+            🧠 Kebaruan Metodologi Learning Analytics
+          </span>
+          <span class="badge" style="background: rgba(59, 130, 246, 0.25); color: #60A5FA; border: 1px solid rgba(96, 165, 250, 0.3);">
+            Rubin Missing Data Theory Extension
+          </span>
         </div>
+        <h3 style="font-size: 1.35rem; font-weight: 800; color: #F8FAFC; margin-bottom: 0.4rem;">
+          Context-Aware Missingness & Friksi Lapangan ASN
+        </h3>
+        <p style="font-size: 0.9rem; color: #C7D2FE; margin: 0; max-width: 950px; line-height: 1.6;">
+          Dalam sistem konvensional, ketidakaktifan (<em>inactivity/dropout</em>) sering kali dicap sebagai "kurang motivasi". Model disertasi ini mematahkan paradigma tersebut: <strong>Inaktivitas belajar ASN adalah respons rasional terhadap kendala spasial eksternal (listrik/sinyal) dan friksi pelayanan publik mendadak</strong>.
+        </p>
+      </div>
 
-        <div class="card" style="padding: 1.25rem; border-top: 4px solid #7C3AED;">
-          <div style="font-size: 0.75rem; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase;">Total Data Indeks SPBE Nasional</div>
-          <div style="font-size: 2.25rem; font-weight: 800; color: #7C3AED; margin-top: 0.2rem;">{{ evalSummary.totalSpbe }} <span style="font-size: 0.9rem; color: var(--color-text-muted);">Instansi / Pemda</span></div>
-          <div style="font-size: 0.75rem; color: #166534; background: #DCFCE7; display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 700; margin-top: 0.35rem;">
-            Tersimpan di DB PostgreSQL (2025)
+      <!-- 3 Taxonomy Cards Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
+        <!-- Card 1: Spatial -->
+        <div class="card" style="border-top: 5px solid #7C3AED; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span class="badge" style="background: #EDE9FE; color: #7C3AED; font-weight: 800; font-family: monospace;">MNAR-S (Spatial)</span>
+            <span style="font-size: 0.75rem; font-weight: 700; color: #7C3AED;">Moderator: M_spatial</span>
           </div>
-        </div>
-
-        <div class="card" style="padding: 1.25rem; border-top: 4px solid #10B981;">
-          <div style="font-size: 0.75rem; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase;">Status Integrasi Triangulasi</div>
-          <div style="font-size: 1.25rem; font-weight: 800; color: #10B981; margin-top: 0.5rem;">C_apply Auto-Enrichment Ready</div>
-          <p style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.2rem; line-height: 1.4;">
-            Terhubung otomatis dengan pilihan wilayah penugasan ASN pada Kuesioner (Q1-Q3).
+          <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--color-text-primary); margin: 0;">
+            1. Spatial-Exogenous Missingness
+          </h4>
+          <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.5; margin: 0;">
+            Inaktivitas yang dipicu oleh faktor fisik geografis di luar kendali ASN (pemadaman listrik wilayah, sinyal blankspot 3T, perangkat drop).
           </p>
+          <div style="background: var(--color-surface-secondary); padding: 0.75rem; border-radius: var(--radius-md); font-size: 0.8rem;">
+            <strong>📝 Data Kuesioner:</strong> Q12 (Frekuensi gangguan), Q13 (Listrik padam), Q47 (Sinyal drop saat Zoom).
+          </div>
+          <div style="background: #FAF5FF; border: 1px solid #E9D5FF; padding: 0.75rem; border-radius: var(--radius-md); font-size: 0.8rem; color: #6B21A8;">
+            <strong>⚡ Respon Mesin Adaptif:</strong>
+            <ul style="margin: 0.3rem 0 0 1rem; padding: 0;">
+              <li><strong>Zero-Penalty Policy:</strong> Jangan kurangi nilai absensi.</li>
+              <li>Otomatis beralih ke <em>Offline Caching & Audio Recap</em>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 2: Workload / Service -->
+        <div class="card" style="border-top: 5px solid #2563EB; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span class="badge" style="background: #DBEAFE; color: #1D4ED8; font-weight: 800; font-family: monospace;">MAR-W (Workload)</span>
+            <span style="font-size: 0.75rem; font-weight: 700; color: #1D4ED8;">Prediktor: X_service</span>
+          </div>
+          <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--color-text-primary); margin: 0;">
+            2. Service-Friction Missingness
+          </h4>
+          <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.5; margin: 0;">
+            Inaktivitas akibat interupsi tugas mendadak dari pimpinan, SPPD luar kota, atau panggilan melayani antrean warga di loket.
+          </p>
+          <div style="background: var(--color-surface-secondary); padding: 0.75rem; border-radius: var(--radius-md); font-size: 0.8rem;">
+            <strong>📝 Data Kuesioner:</strong> Q15 (Beban tugas), Q17 (Instruksi mendadak), Q47 (Mengurus warga saat Zoom).
+          </div>
+          <div style="background: #EFF6FF; border: 1px solid #BFDBFE; padding: 0.75rem; border-radius: var(--radius-md); font-size: 0.8rem; color: #1E40AF;">
+            <strong>⚡ Respon Mesin Adaptif:</strong>
+            <ul style="margin: 0.3rem 0 0 1rem; padding: 0;">
+              <li><strong>Graceful Auto-Bookmark:</strong> Simpan progres otomatis.</li>
+              <li>Pecah modul menjadi <em>Micro-pacing (3–5 menit)</em>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 3: Cognitive Fatigue -->
+        <div class="card" style="border-top: 5px solid #059669; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span class="badge" style="background: #DCFCE7; color: #15803D; font-weight: 800; font-family: monospace;">MCAR-C (Cognitive)</span>
+            <span style="font-size: 0.75rem; font-weight: 700; color: #15803D;">Prediktor: X_behavior</span>
+          </div>
+          <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--color-text-primary); margin: 0;">
+            3. Cognitive-Fatigue Missingness
+          </h4>
+          <p style="font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.5; margin: 0;">
+            Kelelahan menatap layar (<em>Zoom fatigue</em>), perhatian terbelah (<em>multitasking</em>), dan hilangnya fokus belajar setelah 15 menit.
+          </p>
+          <div style="background: var(--color-surface-secondary); padding: 0.75rem; border-radius: var(--radius-md); font-size: 0.8rem;">
+            <strong>📝 Data Kuesioner:</strong> Q25 (Durasi fokus), Q27 (Multitasking), Q46 & Q47 (Kamera off pasif).
+          </div>
+          <div style="background: #F0FDF4; border: 1px solid #BBF7D0; padding: 0.75rem; border-radius: var(--radius-md); font-size: 0.8rem; color: #166534;">
+            <strong>⚡ Respon Mesin Adaptif:</strong>
+            <ul style="margin: 0.3rem 0 0 1rem; padding: 0;">
+              <li><strong>Smart Cognitive Pause:</strong> Berikan jeda interaktif.</li>
+              <li>Picu <em>Checkpoint</em> 1 pertanyaan ringan berbasis audio/teks.</li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      <!-- Predicate Distribution Pills -->
-      <div class="card" style="padding: 1.25rem 1.5rem;">
-        <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--color-text-primary); margin-bottom: 0.75rem;">
-          📊 Distribusi Predikat KemenPAN-RB (2025)
+      <!-- Decision Matrix Table -->
+      <div class="table-card">
+        <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--color-text-primary); margin-bottom: 0.5rem;">
+          📑 Matriks Algoritma Pengambilan Keputusan (LMS Adaptive Decision Rules)
         </h4>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-          <!-- IPP Breakdown -->
-          <div>
-            <div style="font-size: 0.8rem; font-weight: 700; color: #2563EB; margin-bottom: 0.5rem;">Indeks Pelayanan Publik (IPP)</div>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-              <span v-for="stat in evalSummary.ippStats" :key="stat.predikat" class="badge" style="background: #EFF6FF; color: #1E40AF; border: 1px solid #BFDBFE; font-size: 0.8rem; padding: 0.3rem 0.6rem;">
-                <strong>Predikat {{ stat.predikat || 'N/A' }}:</strong> {{ stat.count }} Pemda
-              </span>
+        <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1.25rem;">
+          Aturan logika sistem rekomendasi saat mendeteksi *trigger* inaktivitas/missingness dari perilaku ASN di platform.
+        </p>
+
+        <div class="table-responsive">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Sinyal Deteksi di LMS / Kuesioner</th>
+                <th>Klasifikasi Missingness</th>
+                <th>Kondisi Lingkungan ASN</th>
+                <th>Tindakan Sistem Adaptif (Intervention)</th>
+                <th>Status Nilai & Rekam Jejak</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Kamera Zoom Mati & Sinyal Turun</strong></td>
+                <td><span class="badge" style="background:#EDE9FE; color:#7C3AED; font-weight:800;">MNAR-S</span></td>
+                <td>Wilayah 3T / Sinyal Rendah (M_spatial > 60)</td>
+                <td>Turunkan resolusi ke audio-only & kirimkan transkrip teks otomatis.</td>
+                <td><span class="badge" style="background:#DCFCE7; color:#166534; font-weight:700;">100% Hadir (No Penalty)</span></td>
+              </tr>
+              <tr>
+                <td><strong>Sesi Belajar Ditutup Tiba-tiba di Menit ke-4</strong></td>
+                <td><span class="badge" style="background:#DBEAFE; color:#1D4ED8; font-weight:800;">MAR-W</span></td>
+                <td>Beban Tugas Tinggi (X_service > 70)</td>
+                <td>Simpan bookmark titik henti & kirim notifikasi ringkasan 3 butir via email/WA.</td>
+                <td><span class="badge" style="background:#DBEAFE; color:#1E40AF; font-weight:700;">Progres Tersimpan (Auto-Resume)</span></td>
+              </tr>
+              <tr>
+                <td><strong>Inaktivitas Kursor / Tab Berpindah > 5 Menit</strong></td>
+                <td><span class="badge" style="background:#DCFCE7; color:#15803D; font-weight:800;">MCAR-C</span></td>
+                <td>Multitasking Tinggi (X_behavior > 65)</td>
+                <td>Tampilkan popup kuis 1-pertanyaan interaktif untuk mengembalikan fokus.</td>
+                <td><span class="badge" style="background:#FEF3C7; color:#92400E; font-weight:700;">Fokus Re-engagement</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: Matriks Komparasi SPBE x IPP Nasional (2025) -->
+    <div v-if="activeTab === 'spbe-ipp'" class="framework-content-section">
+      <!-- Top Paradigm Overview Card -->
+      <div class="card" style="padding: 1.5rem 1.75rem; background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFFFFF; border: 1px solid rgba(255,255,255,0.15);">
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
+          <span class="badge" style="background: rgba(59, 130, 246, 0.25); color: #60A5FA; border: 1px solid rgba(96, 165, 250, 0.3);">
+            🏛️ Triangulasi Data Sekunder Nasional
+          </span>
+          <span class="badge" style="background: rgba(16, 185, 129, 0.25); color: #34D399; border: 1px solid rgba(52, 211, 153, 0.3);">
+            SPBE 2025 × IPP 2025 (KemenPAN-RB)
+          </span>
+          <span class="badge" style="background: rgba(168, 85, 247, 0.25); color: #C084FC; border: 1px solid rgba(192, 132, 252, 0.3);">
+            📚 Grounded on 4 Grand Theories
+          </span>
+        </div>
+        <h3 style="font-size: 1.35rem; font-weight: 800; color: #F8FAFC; margin-bottom: 0.4rem;">
+          Matriks Komparasi 4-Kuadran: Kematangan Digital vs Kualitas Pelayanan Publik
+        </h3>
+        <p style="font-size: 0.9rem; color: #94A3B8; margin: 0; max-width: 950px; line-height: 1.6;">
+          Menggabungkan evaluasi <strong>Indeks SPBE</strong> (kesiapan sistem digital) dengan <strong>Indeks Pelayanan Publik (IPP)</strong> (kualitas layanan langsung) untuk memetakan 518 Pemerintah Daerah ke dalam 4 kuadran tipologi yang <strong>berlandaskan pada teori administrasi publik & teknologi pembelajaran</strong>.
+        </p>
+      </div>
+
+      <!-- 4-Quadrant KPI Hero Cards (Interactive Filters) -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;">
+        <!-- Kuadran I -->
+        <div 
+          :class="['card', 'quadrant-stat-card', evalQuadrantFilter === 'q1' ? 'active-q1' : '']"
+          style="padding: 1.25rem; border-top: 4px solid #10B981; cursor: pointer;"
+          @click="setEvalQuadrantFilter(evalQuadrantFilter === 'q1' ? 'all' : 'q1')"
+        >
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span class="badge" style="background: #DCFCE7; color: #166534; font-weight: 800;">Kuadran I</span>
+            <span style="font-size: 1.75rem; font-weight: 800; color: #10B981;">{{ evalMatrix.counts.q1 }} <span style="font-size: 0.75rem; color: var(--color-text-muted);">Pemda</span></span>
+          </div>
+          <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--color-text-primary); margin: 0.4rem 0 0.2rem 0;">
+            Digital Exemplar
+          </h4>
+          <div style="font-size: 0.75rem; color: var(--color-text-secondary); line-height: 1.4;">
+            <strong>High SPBE × High IPP:</strong> Sistem digital matang & kepuasan pelayanan warga sangat tinggi.
+          </div>
+          <div style="margin-top: 0.5rem; padding: 0.4rem 0.5rem; background: #F0FDF4; border-radius: 4px; font-size: 0.725rem; color: #166534;">
+            📖 <strong>Teori Acuan:</strong> <em>Digital Era Governance (Dunleavy et al., 2006) & System-Level Bureaucracy (Bovens & Zouridis, 2002)</em>
+          </div>
+          <div style="font-size: 0.725rem; color: #047857; margin-top: 0.35rem; font-weight: 700;">
+            🎯 Modul: <em>Smart MPP, Predictive AI Service, & Big Data SPBE</em>
+          </div>
+        </div>
+
+        <!-- Kuadran II -->
+        <div 
+          :class="['card', 'quadrant-stat-card', evalQuadrantFilter === 'q2' ? 'active-q2' : '']"
+          style="padding: 1.25rem; border-top: 4px solid #2563EB; cursor: pointer;"
+          @click="setEvalQuadrantFilter(evalQuadrantFilter === 'q2' ? 'all' : 'q2')"
+        >
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span class="badge" style="background: #DBEAFE; color: #1E40AF; font-weight: 800;">Kuadran II</span>
+            <span style="font-size: 1.75rem; font-weight: 800; color: #2563EB;">{{ evalMatrix.counts.q2 }} <span style="font-size: 0.75rem; color: var(--color-text-muted);">Pemda</span></span>
+          </div>
+          <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--color-text-primary); margin: 0.4rem 0 0.2rem 0;">
+            Human-Heroic Delivery
+          </h4>
+          <div style="font-size: 0.75rem; color: var(--color-text-secondary); line-height: 1.4;">
+            <strong>Low SPBE × High IPP:</strong> Pelayanan tatap muka prima didukung dedikasi ASN, meski SPBE transisi.
+          </div>
+          <div style="margin-top: 0.5rem; padding: 0.4rem 0.5rem; background: #EFF6FF; border-radius: 4px; font-size: 0.725rem; color: #1E40AF;">
+            📖 <strong>Teori Acuan:</strong> <em>Street-Level Bureaucracy (Lipsky, 2010) & Situated Learning CoP (Lave & Wenger, 1991)</em>
+          </div>
+          <div style="font-size: 0.725rem; color: #1D4ED8; margin-top: 0.35rem; font-weight: 700;">
+            🎯 Modul: <em>Digitalisasi Bertahap, Mobile SOP, & Standardisasi Layanan</em>
+          </div>
+        </div>
+
+        <!-- Kuadran III -->
+        <div 
+          :class="['card', 'quadrant-stat-card', evalQuadrantFilter === 'q3' ? 'active-q3' : '']"
+          style="padding: 1.25rem; border-top: 4px solid #D97706; cursor: pointer;"
+          @click="setEvalQuadrantFilter(evalQuadrantFilter === 'q3' ? 'all' : 'q3')"
+        >
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span class="badge" style="background: #FEF3C7; color: #92400E; font-weight: 800;">Kuadran III</span>
+            <span style="font-size: 1.75rem; font-weight: 800; color: #D97706;">{{ evalMatrix.counts.q3 }} <span style="font-size: 0.75rem; color: var(--color-text-muted);">Pemda</span></span>
+          </div>
+          <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--color-text-primary); margin: 0.4rem 0 0.2rem 0;">
+            Digital Silo / Adoption Gap
+          </h4>
+          <div style="font-size: 0.75rem; color: var(--color-text-secondary); line-height: 1.4;">
+            <strong>High SPBE × Low IPP:</strong> Aplikasi canggih dibangun, tetapi warga/petugas mengeluhkan kompleksitas.
+          </div>
+          <div style="margin-top: 0.5rem; padding: 0.4rem 0.5rem; background: #FFFBEB; border-radius: 4px; font-size: 0.725rem; color: #92400E;">
+            📖 <strong>Teori Acuan:</strong> <em>Design-Actuality Gap (Heeks, 2006) & UTAUT2 / Effort Expectancy (Venkatesh, 2012)</em>
+          </div>
+          <div style="font-size: 0.725rem; color: #B45309; margin-top: 0.35rem; font-weight: 700;">
+            🎯 Modul: <em>UX Pelayanan Publik, Komunikasi Empatis, & Manajemen Komplain</em>
+          </div>
+        </div>
+
+        <!-- Kuadran IV -->
+        <div 
+          :class="['card', 'quadrant-stat-card', evalQuadrantFilter === 'q4' ? 'active-q4' : '']"
+          style="padding: 1.25rem; border-top: 4px solid #7C3AED; cursor: pointer;"
+          @click="setEvalQuadrantFilter(evalQuadrantFilter === 'q4' ? 'all' : 'q4')"
+        >
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <span class="badge" style="background: #EDE9FE; color: #6B21A8; font-weight: 800;">Kuadran IV</span>
+            <span style="font-size: 1.75rem; font-weight: 800; color: #7C3AED;">{{ evalMatrix.counts.q4 }} <span style="font-size: 0.75rem; color: var(--color-text-muted);">Pemda</span></span>
+          </div>
+          <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--color-text-primary); margin: 0.4rem 0 0.2rem 0;">
+            Priority Scaffolding / 3T
+          </h4>
+          <div style="font-size: 0.75rem; color: var(--color-text-secondary); line-height: 1.4;">
+            <strong>Low SPBE × Low IPP:</strong> Daerah tertinggal/pemekaran dengan keterbatasan sarana & infrastruktur.
+          </div>
+          <div style="margin-top: 0.5rem; padding: 0.4rem 0.5rem; background: #FAF5FF; border-radius: 4px; font-size: 0.725rem; color: #6B21A8;">
+            📖 <strong>Teori Acuan:</strong> <em>E-Learning 3T (Agustyarsyah et al., 2025) & ZPD Scaffolding (Vygotsky / Bruner)</em>
+          </div>
+          <div style="font-size: 0.725rem; color: #6B21A8; margin-top: 0.35rem; font-weight: 700;">
+            🎯 Modul: <em>SPM Dasar & Layanan Jemput Bola 3T</em>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed Theoretical Foundation Accordion / Cards Box -->
+      <div class="card" style="padding: 1.5rem 1.75rem; border-left: 4px solid #3B82F6;">
+        <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--color-text-primary); margin-bottom: 0.35rem;">
+          📚 Landasan Teoretis & Justifikasi Literatur 4-Kuadran SPBE × IPP
+        </h4>
+        <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1.25rem;">
+          Penjelasan komprehensif mengapa setiap kombinasi kuadran memerlukan paket materi dan format pembelajaran yang berbeda secara ilmiah:
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
+          <!-- Theory 1 -->
+          <div style="background: var(--color-surface-secondary); padding: 1rem; border-radius: var(--radius-md); border-top: 3px solid #10B981;">
+            <div style="font-size: 0.75rem; font-weight: 800; color: #10B981; margin-bottom: 0.2rem;">KUADRAN I: DIGITAL EXEMPLAR</div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.35rem;">Digital Era Governance (DEG)</div>
+            <div style="font-size: 0.775rem; color: #475569; line-height: 1.45;">
+              <strong>Rasional Ilmiah:</strong> Menurut Dunleavy et al. (2006) dan Bovens & Zouridis (2002), ketika infrastruktur digital telah mapan, peran ASN bergeser dari pelaksana transaksi manual menjadi pengelola ekosistem data. Modul difokuskan pada <em>Predictive AI Governance, Smart MPP, dan Integrasi Big Data Kebijakan</em>.
             </div>
           </div>
 
-          <!-- SPBE Breakdown -->
-          <div>
-            <div style="font-size: 0.8rem; font-weight: 700; color: #7C3AED; margin-bottom: 0.5rem;">Indeks SPBE (Digital Governance)</div>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-              <span v-for="stat in evalSummary.spbeStats" :key="stat.predikat" class="badge" style="background: #FAF5FF; color: #6B21A8; border: 1px solid #E9D5FF; font-size: 0.8rem; padding: 0.3rem 0.6rem;">
-                <strong>{{ stat.predikat || 'N/A' }}:</strong> {{ stat.count }} Instansi
-              </span>
+          <!-- Theory 2 -->
+          <div style="background: var(--color-surface-secondary); padding: 1rem; border-radius: var(--radius-md); border-top: 3px solid #2563EB;">
+            <div style="font-size: 0.75rem; font-weight: 800; color: #2563EB; margin-bottom: 0.2rem;">KUADRAN II: HUMAN-HEROIC</div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.35rem;">Street-Level Bureaucracy & Situated CoP</div>
+            <div style="font-size: 0.775rem; color: #475569; line-height: 1.45;">
+              <strong>Rasional Ilmiah:</strong> Lipsky (1980/2010) & Lave & Wenger (1991) membuktikan bahwa dedikasi sosial dan diskresi petugas dapat menciptakan kepuasan tinggi meski sistem TI belum matang. Modul adaptif mengutamakan <em>Kodifikasi Praktik Baik (Storytelling/CoP) dan Digitalisasi Bertahap</em> tanpa merusak kedekatan sosial warga.
+            </div>
+          </div>
+
+          <!-- Theory 3 -->
+          <div style="background: var(--color-surface-secondary); padding: 1rem; border-radius: var(--radius-md); border-top: 3px solid #D97706;">
+            <div style="font-size: 0.75rem; font-weight: 800; color: #D97706; margin-bottom: 0.2rem;">KUADRAN III: DIGITAL SILO</div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.35rem;">Design-Actuality Gap & UTAUT2</div>
+            <div style="font-size: 0.775rem; color: #475569; line-height: 1.45;">
+              <strong>Rasional Ilmiah:</strong> Richard Heeks (2006) & Venkatesh (2012) menjelaskan fenomena kegagalan sistem saat aplikasi dirancang terlalu rumit tanpa memperhitungkan literasi warga lokal. Modul adaptif difokuskan pada <em>Citizen-Centric UX, Komunikasi Empatis, dan De-eskalasi Keluhan</em>.
+            </div>
+          </div>
+
+          <!-- Theory 4 -->
+          <div style="background: var(--color-surface-secondary); padding: 1rem; border-radius: var(--radius-md); border-top: 3px solid #7C3AED;">
+            <div style="font-size: 0.75rem; font-weight: 800; color: #7C3AED; margin-bottom: 0.2rem;">KUADRAN IV: PRIORITY 3T</div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.35rem;">E-Learning 3T & ZPD Scaffolding</div>
+            <div style="font-size: 0.775rem; color: #475569; line-height: 1.45;">
+              <strong>Rasional Ilmiah:</strong> Agustyarsyah et al. (2025) & Vygotsky/Bruner menegaskan daerah 3T memerlukan <em>Offline-First Microlearning (3-5 menit)</em> dan pembelajaran berjenjang (scaffolding) mulai dari <em>Standar Pelayanan Minimal (SPM) Dasar & Pelayanan Jemput Bola</em>.
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Filter Scope Bar (Pemda vs KL / Jakarta) -->
+      <!-- Filter Controls Row -->
       <div class="control-panel-card" style="margin-bottom: 0;">
-        <div class="filter-group">
+        <div style="display: flex; flex-direction: column; gap: 0.4rem;">
           <label class="filter-label">Cakupan Wilayah / Entitas Instansi:</label>
           <div class="pill-buttons-row">
             <button 
               :class="['pill-btn', evalTypeFilter === 'pemda' ? 'active' : '']"
               @click="setEvalTypeFilter('pemda')"
             >
-              🏛️ Pemerintah Daerah Saja (509 Pemda - Prov/Kab/Kota)
+              🏛️ Pemerintah Daerah Saja (518 Pemda)
             </button>
             <button 
               :class="['pill-btn', evalTypeFilter === 'kl' ? 'active' : '']"
@@ -162,97 +418,128 @@
           </div>
         </div>
 
-        <div style="font-size: 0.8rem; color: #64748B; max-width: 420px; line-height: 1.4;">
-          💡 <em>Rekomendasi Disertasi:</em> Fokuskan analisis pada <strong>Pemerintah Daerah</strong> untuk menguji disparitas spasial antar-wilayah (3T vs Perkotaan). ASN K/L otomatis dikelompokkan ke <strong>DKI Jakarta (Pusat)</strong>.
+        <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+          <label class="filter-label">Filter Berdasarkan Kuadran:</label>
+          <div class="pill-buttons-row">
+            <button 
+              :class="['pill-btn', evalQuadrantFilter === 'all' ? 'active' : '']"
+              @click="setEvalQuadrantFilter('all')"
+            >
+              Semua Kuadran ({{ evalMatrix.counts.total }})
+            </button>
+            <button 
+              :class="['pill-btn', evalQuadrantFilter === 'q1' ? 'active' : '']"
+              @click="setEvalQuadrantFilter('q1')"
+            >
+              Kuadran I ({{ evalMatrix.counts.q1 }})
+            </button>
+            <button 
+              :class="['pill-btn', evalQuadrantFilter === 'q2' ? 'active' : '']"
+              @click="setEvalQuadrantFilter('q2')"
+            >
+              Kuadran II ({{ evalMatrix.counts.q2 }})
+            </button>
+            <button 
+              :class="['pill-btn', evalQuadrantFilter === 'q3' ? 'active' : '']"
+              @click="setEvalQuadrantFilter('q3')"
+            >
+              Kuadran III ({{ evalMatrix.counts.q3 }})
+            </button>
+            <button 
+              :class="['pill-btn', evalQuadrantFilter === 'q4' ? 'active' : '']"
+              @click="setEvalQuadrantFilter('q4')"
+            >
+              Kuadran IV ({{ evalMatrix.counts.q4 }})
+            </button>
+          </div>
+        </div>
+
+        <div class="search-box-wrapper" style="width: 260px;">
+          <input 
+            v-model="evalSearchQuery"
+            @input="fetchEvaluationsData"
+            type="text" 
+            placeholder="Cari nama pemda / instansi..." 
+            class="form-control"
+            style="font-size: 0.85rem;"
+          />
         </div>
       </div>
 
-      <!-- Live Search & Data Explorer -->
+      <!-- Unified Comparative Matrix Table -->
       <div class="table-card">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
+        <div class="table-header-info">
           <div>
-            <h3 class="table-title">🔍 Data Explorer: Nilai Evaluasi IPP & SPBE Instansi / Daerah</h3>
+            <h3 class="table-title">📑 Tabel Komparasi Terpadu SPBE × IPP Nasional</h3>
             <p style="font-size: 0.825rem; color: var(--color-text-secondary); margin: 0.2rem 0 0 0;">
-              Data ini menjadi ground-truth objektif untuk menentukan kuadran kesiapan layanan publik ASN.
+              Data ini menjadi <em>objective ground-truth label</em> untuk memandu rekomendasi materi pembelajaran adaptif ASN.
             </p>
           </div>
-          <div style="width: 320px;">
-            <input 
-              v-model="evalSearchQuery"
-              @input="fetchEvaluationsData"
-              type="text" 
-              placeholder="Cari nama kementerian / pemprov / kab / kota..." 
-              class="form-control"
-              style="font-size: 0.85rem;"
-            />
-          </div>
+          <span class="badge-counter">Menampilkan {{ evalMatrix.items.length }} Daerah / Instansi</span>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem;">
-          <!-- IPP Table -->
-          <div style="border: 1px solid var(--color-stroke-secondary); border-radius: var(--radius-md); overflow: hidden;">
-            <div style="background: #EFF6FF; padding: 0.75rem 1rem; border-bottom: 1px solid #BFDBFE; font-weight: 800; font-size: 0.85rem; color: #1E40AF; display: flex; justify-content: space-between;">
-              <span>Tabel Indeks Pelayanan Publik (IPP)</span>
-              <span>{{ evalData.ippList.length }} Ditampilkan</span>
-            </div>
-            <div style="max-height: 400px; overflow-y: auto;">
-              <table class="spec-table" style="font-size: 0.8rem;">
-                <thead>
-                  <tr>
-                    <th>Nama Instansi / Pemda</th>
-                    <th style="width: 30%;">Predikat IPP</th>
-                    <th style="width: 20%;">Tahun</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in evalData.ippList" :key="'ipp-' + item.id">
-                    <td style="font-weight: 600;">{{ item.nama }}</td>
-                    <td>
-                      <span class="badge" :style="getIppBadgeStyle(item.ipp_predikat)">
-                        {{ item.ipp_predikat }}
-                      </span>
-                    </td>
-                    <td>{{ item.tahun }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- SPBE Table -->
-          <div style="border: 1px solid var(--color-stroke-secondary); border-radius: var(--radius-md); overflow: hidden;">
-            <div style="background: #FAF5FF; padding: 0.75rem 1rem; border-bottom: 1px solid #E9D5FF; font-weight: 800; font-size: 0.85rem; color: #6B21A8; display: flex; justify-content: space-between;">
-              <span>Tabel Indeks SPBE (Digital Maturity)</span>
-              <span>{{ evalData.spbeList.length }} Ditampilkan</span>
-            </div>
-            <div style="max-height: 400px; overflow-y: auto;">
-              <table class="spec-table" style="font-size: 0.8rem;">
-                <thead>
-                  <tr>
-                    <th>Nama Instansi / Pemda</th>
-                    <th style="width: 35%;">Predikat SPBE</th>
-                    <th style="width: 20%;">Tahun</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in evalData.spbeList" :key="'spbe-' + item.id">
-                    <td style="font-weight: 600;">{{ item.nama }}</td>
-                    <td>
-                      <span class="badge" :style="getSpbeBadgeStyle(item.spbe_predikat)">
-                        {{ item.spbe_predikat }}
-                      </span>
-                    </td>
-                    <td>{{ item.tahun }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+        <div class="table-responsive">
+          <table class="spec-table" style="font-size: 0.85rem;">
+            <thead>
+              <tr>
+                <th style="width: 24%;">Nama Instansi / Pemerintah Daerah</th>
+                <th style="width: 12%;">Kategori</th>
+                <th style="width: 13%;">Predikat SPBE (2025)</th>
+                <th style="width: 12%;">Predikat IPP (2025)</th>
+                <th style="width: 15%;">Kuadran Tipologi</th>
+                <th style="width: 24%;">Landasan Teori & Rekomendasi Modul</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in evalMatrix.items" :key="item.nama" class="spec-row">
+                <td style="font-weight: 700; color: var(--color-text-primary);">
+                  {{ item.nama }}
+                </td>
+                <td>
+                  <span class="badge" style="background: #F1F5F9; color: #475569; font-size: 0.75rem;">
+                    {{ item.category }}
+                  </span>
+                </td>
+                <td>
+                  <span v-if="item.spbe_predikat" class="badge" :style="getSpbeBadgeStyle(item.spbe_predikat)">
+                    {{ item.spbe_predikat }}
+                  </span>
+                  <span v-else style="color: #94A3B8; font-size: 0.75rem; font-style: italic;">
+                    Belum Terindeks
+                  </span>
+                </td>
+                <td>
+                  <span v-if="item.ipp_predikat" class="badge" :style="getIppBadgeStyle(item.ipp_predikat)">
+                    Predikat {{ item.ipp_predikat }}
+                  </span>
+                  <span v-else style="color: #94A3B8; font-size: 0.75rem; font-style: italic;">
+                    Belum Terindeks
+                  </span>
+                </td>
+                <td>
+                  <span 
+                    class="badge" 
+                    :style="getQuadrantBadgeStyle(item.quadrant_code)"
+                  >
+                    {{ item.quadrant_title }}
+                  </span>
+                </td>
+                <td>
+                  <div style="font-size: 0.725rem; color: #2563EB; font-weight: 700; margin-bottom: 0.2rem;">
+                    📖 {{ item.quadrant_theory || 'Grounded Theory' }}
+                  </div>
+                  <div style="font-size: 0.8rem; color: var(--color-text-secondary); line-height: 1.4;">
+                    🎯 <strong>{{ item.recommended_module }}</strong>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
 
-    <!-- TAB 3: Matriks Pemetaan Dataset & Literatur Review (Table View) -->
+    <!-- TAB 4: Matriks Pemetaan Dataset & Literatur Review (Table View) -->
     <div v-if="activeTab === 'mapping'" class="framework-content-section">
       <!-- Search & Filter Controls -->
       <div class="control-panel-card">
@@ -361,7 +648,7 @@
       </div>
     </div>
 
-    <!-- TAB 4: Matriks Dualitas Konteks Interaktif (C_learn x C_apply) -->
+    <!-- TAB 5: Matriks Dualitas Konteks Interaktif (C_learn x C_apply) -->
     <div v-if="activeTab === 'matrix'" class="framework-content-section">
       <div class="matrix-overview-card">
         <h3 class="section-title">🧭 Matriks Dualitas Konteks Spasio-Layanan ($C_{\text{learn}} \times C_{\text{apply}}$)</h3>
@@ -458,7 +745,7 @@
       </div>
     </div>
 
-    <!-- TAB 5: Kamus Data & Struktur Skema Dataset (Data Dictionary) -->
+    <!-- TAB 6: Kamus Data & Struktur Skema Dataset (Data Dictionary) -->
     <div v-if="activeTab === 'dictionary'" class="framework-content-section">
       <div class="dictionary-card">
         <div class="dict-header-row">
@@ -501,7 +788,7 @@
       </div>
     </div>
 
-    <!-- TAB 6: Formula Matematis Explanatory Power & Justifikasi -->
+    <!-- TAB 7: Formula Matematis Explanatory Power & Justifikasi -->
     <div v-if="activeTab === 'validation'" class="framework-content-section">
       <div class="validation-grid">
         <!-- Formula Card -->
@@ -563,32 +850,41 @@
 import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick, h } from 'vue';
 import * as echarts from 'echarts';
 
-const activeTab = ref<'mindmap' | 'spbe-ipp' | 'mapping' | 'matrix' | 'dictionary' | 'validation'>('mindmap');
+const activeTab = ref<'mindmap' | 'missingness' | 'spbe-ipp' | 'mapping' | 'matrix' | 'dictionary' | 'validation'>('mindmap');
 const selectedCategory = ref('SEMUA');
 const searchQuery = ref('');
 const evalSearchQuery = ref('');
 const evalTypeFilter = ref<'pemda' | 'kl' | 'all'>('pemda');
+const evalQuadrantFilter = ref<'all' | 'q1' | 'q2' | 'q3' | 'q4'>('all');
 const selectedQuadrant = ref('q1');
 const selectedNodeInfo = ref<any | null>(null);
 
 const mindmapContainerRef = ref<HTMLDivElement | null>(null);
 let mindmapChartInstance: echarts.ECharts | null = null;
 
-// Evaluations SPBE & IPP State
-const evalSummary = ref({
-  totalIpp: 509,
-  totalSpbe: 238,
-  ippStats: [] as any[],
-  spbeStats: [] as any[]
+// Unified SPBE x IPP Matrix State
+const evalMatrix = ref({
+  counts: { q1: 121, q2: 126, q3: 88, q4: 183, total: 518 },
+  items: [] as any[]
 });
 
-const evalData = ref({
-  ippList: [] as any[],
-  spbeList: [] as any[]
-});
+const frameworkTabs = [
+  { id: 'mindmap', label: '🧠 Visual Mindmap Framework', icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [h('path', { d: 'M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6' })]) },
+  { id: 'missingness', label: '🧩 Taksonomi Missingness Cerdas', icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [h('path', { d: 'M20.5 14.5A2.5 2.5 0 0 0 18 12h-2v-2a2.5 2.5 0 0 0-5 0v2H9a2.5 2.5 0 0 0 0 5h2v2a2.5 2.5 0 0 0 5 0v-2h2a2.5 2.5 0 0 0 2.5-2.5z' })]) },
+  { id: 'spbe-ipp', label: '🏛️ Matriks Komparasi SPBE × IPP (2025)', icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [h('rect', { x: '2', y: '2', width: '20', height: '8', rx: '2', ry: '2' }), h('rect', { x: '2', y: '14', width: '20', height: '8', rx: '2', ry: '2' }), h('line', { x1: '6', y1: '6', x2: '6.01', y2: '6' }), h('line', { x1: '6', y1: '18', x2: '6.01', y2: '18' })]) },
+  { id: 'mapping', label: '📋 Matriks Spesifikasi Dataset & Literatur', icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [h('path', { d: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z' }), h('polyline', { points: '14 2 14 8 20 8' }), h('line', { x1: '16', y1: '13', x2: '8', y2: '13' }), h('line', { x1: '16', y1: '17', x2: '8', y2: '17' })]) },
+  { id: 'matrix', label: '🧭 Matriks Dualitas Konteks (C_learn x C_apply)', icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [h('rect', { x: '3', y: '3', width: '18', height: '18', rx: '2' }), h('line', { x1: '3', y1: '12', x2: '21', y2: '12' }), h('line', { x1: '12', y1: '3', x2: '12', y2: '21' })]) },
+  { id: 'dictionary', label: '🗂️ Kamus Data & Skema Ekspor/Impor', icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [h('path', { d: 'M4 19.5A2.5 2.5 0 0 1 6.5 17H20' }), h('path', { d: 'M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z' })]) },
+  { id: 'validation', label: '📐 Formula Explanatory Power & Justifikasi', icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [h('circle', { cx: '12', cy: '12', r: '10' }), h('line', { x1: '12', y1: '16', x2: '12', y2: '12' }), h('line', { x1: '12', y1: '8', x2: '12.01', y2: '8' })]) }
+];
 
 function setEvalTypeFilter(type: 'pemda' | 'kl' | 'all') {
   evalTypeFilter.value = type;
+  fetchEvaluationsData();
+}
+
+function setEvalQuadrantFilter(quadrant: 'all' | 'q1' | 'q2' | 'q3' | 'q4') {
+  evalQuadrantFilter.value = quadrant;
   fetchEvaluationsData();
 }
 
@@ -597,33 +893,37 @@ async function fetchEvaluationsData() {
     const res: any = await $fetch('/api/evaluations/spbe-ipp', {
       params: { 
         q: evalSearchQuery.value,
-        type: evalTypeFilter.value
+        type: evalTypeFilter.value,
+        quadrant: evalQuadrantFilter.value
       }
     });
     if (res && res.success && res.data) {
-      evalData.value.ippList = res.data.ippList || [];
-      evalData.value.spbeList = res.data.spbeList || [];
-      evalSummary.value.totalIpp = evalTypeFilter.value === 'pemda' ? res.data.totalIppPemda : (evalTypeFilter.value === 'all' ? res.data.totalIppAll : res.data.currentIppCount);
-      evalSummary.value.totalSpbe = evalTypeFilter.value === 'pemda' ? res.data.totalSpbePemda : (evalTypeFilter.value === 'all' ? res.data.totalSpbeAll : res.data.currentSpbeCount);
-      evalSummary.value.ippStats = res.data.ippStats || [];
-      evalSummary.value.spbeStats = res.data.spbeStats || [];
+      evalMatrix.value.items = res.data.items || [];
+      evalMatrix.value.counts = res.data.quadrantCounts || { q1: 0, q2: 0, q3: 0, q4: 0, total: 0 };
     }
   } catch (e) {
-    console.error('Failed to fetch SPBE/IPP evaluations:', e);
+    console.error('Failed to fetch SPBE/IPP comparative matrix:', e);
   }
 }
 
 function getIppBadgeStyle(predikat: string) {
-  if (predikat === 'A' || predikat === '-A') return 'background: #DCFCE7; color: #166534; border: 1px solid #86EFAC;';
-  if (predikat === 'B' || predikat === '-B') return 'background: #DBEAFE; color: #1E40AF; border: 1px solid #93C5FD;';
-  return 'background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D;';
+  if (predikat === 'A' || predikat === '-A') return 'background: #DCFCE7; color: #166534; border: 1px solid #86EFAC; font-weight: 700;';
+  if (predikat === 'B' || predikat === '-B') return 'background: #DBEAFE; color: #1E40AF; border: 1px solid #93C5FD; font-weight: 700;';
+  return 'background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-weight: 700;';
 }
 
 function getSpbeBadgeStyle(predikat: string) {
   if (predikat === 'Memuaskan') return 'background: #DCFCE7; color: #166534; border: 1px solid #86EFAC; font-weight: 800;';
   if (predikat === 'Sangat Baik') return 'background: #DBEAFE; color: #1E40AF; border: 1px solid #93C5FD; font-weight: 700;';
-  if (predikat === 'Baik') return 'background: #FAF5FF; color: #6B21A8; border: 1px solid #E9D5FF;';
-  return 'background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D;';
+  if (predikat === 'Baik') return 'background: #FAF5FF; color: #6B21A8; border: 1px solid #E9D5FF; font-weight: 600;';
+  return 'background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-weight: 600;';
+}
+
+function getQuadrantBadgeStyle(code: string) {
+  if (code === 'q1') return 'background: #DCFCE7; color: #166534; border: 1px solid #86EFAC; font-weight: 800; font-size: 0.75rem;';
+  if (code === 'q2') return 'background: #DBEAFE; color: #1E40AF; border: 1px solid #93C5FD; font-weight: 800; font-size: 0.75rem;';
+  if (code === 'q3') return 'background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; font-weight: 800; font-size: 0.75rem;';
+  return 'background: #EDE9FE; color: #6B21A8; border: 1px solid #DDD6FE; font-weight: 800; font-size: 0.75rem;';
 }
 
 // Hierarchical Tree Data for Mindmap
@@ -674,7 +974,7 @@ const mindmapTreeData = {
         {
           name: 'Data Nasional: Indeks SPBE & IPP (2025)',
           category: 'Ground-Truth Evaluasi Nasional',
-          literature: 'KemenPAN-RB Satudata (582 IPP & 267 SPBE)',
+          literature: 'KemenPAN-RB Satudata (509 Pemda & 73 KL)',
           questions: 'Lookup otomatis via Provinsi/Kabupaten (Q1-Q3)',
           role: 'External Objective Feature Vector (C_apply)',
           description: 'Skor resmi maturitas SPBE & Indeks Pelayanan Publik (IPP) instansi.',
@@ -709,12 +1009,25 @@ const mindmapTreeData = {
       ]
     },
     {
-      name: '3. State Perilaku Belajar (X_behavior)',
+      name: '3. State Perilaku Belajar & Missingness (X_behavior)',
       category: 'Behavioral State',
       itemStyle: { color: '#059669' },
       label: { color: '#059669', fontWeight: 'bold' },
-      description: 'Dinamika kebiasaan ASN saat mengikuti pelatihan daring tatap muka maupun mandiri.',
+      description: 'Dinamika kebiasaan ASN saat mengikuti pelatihan daring tatap muka maupun mandiri, serta atribusi penyebab missingness.',
       children: [
+        {
+          name: 'Pola Missingness: Spatial (MNAR-S) vs Workload (MAR-W)',
+          category: 'Rubin Theory Extension',
+          literature: 'Learning Analytics & Missingness Studies (2024)',
+          questions: 'Q12, Q15, Q26, Q47',
+          role: 'Context-Aware Missingness Attribution',
+          description: 'Klasifikasi inaktivitas belajar: fisik sinyal vs tugas pimpinan vs kelelahan layar.',
+          children: [
+            { name: 'MNAR-S: Zero-Penalty Offline Fallback' },
+            { name: 'MAR-W: Auto-Bookmark & Micro-Pacing' },
+            { name: 'MCAR-C: Smart Cognitive Pause' }
+          ]
+        },
         {
           name: 'Multitasking & Split Attention',
           category: 'Learning Analytics',
@@ -724,17 +1037,6 @@ const mindmapTreeData = {
           description: 'Membuka pekerjaan kantor atau urusan dinas saat mendengarkan materi zoom.',
           children: [
             { name: 'Smart Prompt & Interactive Checkpoints' }
-          ]
-        },
-        {
-          name: 'Sesi Sinkronus & Kamera Mati',
-          category: 'Missingness & Engagement',
-          literature: 'Computer Vision & Dropout Analysis',
-          questions: 'Q43, Q47, Q48',
-          role: 'Friction Trigger Detection',
-          description: 'Kamera dimatikan akibat kendala bandwidth atau kelelahan layar.',
-          children: [
-            { name: 'Fallback ke Transkrip & Ringkasan Audio' }
           ]
         }
       ]
@@ -985,25 +1287,25 @@ const dataSpecs: DataSpecItem[] = [
   {
     id: 'spec-3',
     dimensionCode: 'X_behavior',
-    dimensionName: 'Dinamika Perilaku Belajar',
+    dimensionName: 'Dinamika Perilaku Belajar & Missingness',
     dimensionCategory: 'Perilaku & Beban Kerja',
     dimensionBadgeClass: 'badge-green',
-    variableName: 'Behavioral Multitasking & Engagement State',
-    description: 'Frekuensi multitasking saat pelatihan, mematikan kamera saat synchronous zoom, dan durasi retensi fokus.',
-    featureTags: ['Multitasking', 'Kamera Mati', 'Durasi Fokus', 'Dropout'],
+    variableName: 'Behavioral Multitasking & Context-Aware Missingness',
+    description: 'Frekuensi multitasking, pola kamera mati (MNAR-S vs MAR-W vs MCAR-C), dan durasi retensi fokus.',
+    featureTags: ['Multitasking', 'Missingness', 'Kamera Mati', 'Durasi Fokus', 'Dropout'],
     literature: {
-      author: 'SLR Multimodal Engagement',
+      author: 'SLR Multimodal Engagement / Rubin Theory',
       year: '2025',
       title: 'Students Engagement Detection Based on Computer Vision & Missingness Analysis',
       journal: 'Expert Systems with Applications',
       groundingTheory: 'Ketidakaktifan pebelajar pada instrumen sinkronus mencerminkan beban kognitif dan friksi lingkungan kerja.'
     },
     instrumentSource: 'Kuesioner Section B, F, I',
-    questionCodes: ['Q25', 'Q27', 'Q28', 'Q43', 'Q46', 'Q47'],
-    dataType: 'Frekuensi 1-5 & Durasi (Menit)',
+    questionCodes: ['Q25', 'Q26', 'Q27', 'Q28', 'Q43', 'Q46', 'Q47'],
+    dataType: 'Frekuensi 1-5 & Kategori Alasan',
     roleType: 'Predictor State (X)',
     roleBadgeClass: 'role-predictor',
-    explanatoryExplanation: 'Mengatur pacing adaptif, rekomendasi durasi modul per sesi (bite-sized 5-10 menit), dan pengingat kognitif.'
+    explanatoryExplanation: 'Mengatur pacing adaptif, rekomendasi durasi modul per sesi (bite-sized 3-5 menit), dan zero-penalty policy.'
   },
   {
     id: 'spec-4',
@@ -1170,6 +1472,12 @@ onBeforeUnmount(() => {
   border: 1px solid rgba(244, 114, 182, 0.3);
 }
 
+.badge-tag.missingness {
+  background: rgba(168, 85, 247, 0.25);
+  color: #C084FC;
+  border: 1px solid rgba(192, 132, 252, 0.3);
+}
+
 .badge-tag.academic {
   background: rgba(59, 130, 246, 0.2);
   color: #60A5FA;
@@ -1177,9 +1485,9 @@ onBeforeUnmount(() => {
 }
 
 .badge-tag.context {
-  background: rgba(168, 85, 247, 0.2);
-  color: #C084FC;
-  border: 1px solid rgba(192, 132, 252, 0.3);
+  background: rgba(16, 185, 129, 0.2);
+  color: #34D399;
+  border: 1px solid rgba(52, 211, 153, 0.3);
 }
 
 .badge-tag.validation {
@@ -1854,5 +2162,36 @@ onBeforeUnmount(() => {
   color: var(--color-text-secondary);
   line-height: 1.45;
   margin: 0;
+}
+
+/* Quadrant Stat Cards */
+.quadrant-stat-card {
+  transition: all 0.2s ease;
+  border: 1px solid var(--color-stroke-secondary);
+}
+
+.quadrant-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.quadrant-stat-card.active-q1 {
+  background: #F0FDF4;
+  border: 2px solid #10B981;
+}
+
+.quadrant-stat-card.active-q2 {
+  background: #EFF6FF;
+  border: 2px solid #2563EB;
+}
+
+.quadrant-stat-card.active-q3 {
+  background: #FFFBEB;
+  border: 2px solid #D97706;
+}
+
+.quadrant-stat-card.active-q4 {
+  background: #FAF5FF;
+  border: 2px solid #7C3AED;
 }
 </style>
