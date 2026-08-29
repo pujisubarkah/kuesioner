@@ -224,25 +224,82 @@
 
     <!-- TAB 3: Matriks Komparasi SPBE x IPP Nasional (2025) -->
     <div v-if="activeTab === 'spbe-ipp'" class="framework-content-section">
-      <!-- Top Paradigm Overview Card -->
+      <!-- 🎛️ PERSPECTIVE SELECTOR BAR -->
+      <div class="card" style="padding: 1.25rem 1.5rem; background: var(--color-surface-card); border: 1px solid var(--color-stroke-secondary); display: flex; flex-direction: column; gap: 0.85rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="font-size: 1.25rem;">🎛️</span>
+            <span style="font-size: 0.95rem; font-weight: 800; color: var(--color-text-primary);">
+              PILIH SUDUT PANDANG MATRIKS 4-KUADRAN:
+            </span>
+          </div>
+          <span style="font-size: 0.775rem; color: var(--color-text-secondary); font-weight: 600;">
+            Triangulasi 3 Tingkat Analisis: Makro (Institusi), Mikro (Perilaku Belajar ASN), & Meso (Spasial Wilayah)
+          </span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.75rem;">
+          <button
+            type="button"
+            @click="setPerspective('macro')"
+            :class="['perspective-btn', quadrantPerspective === 'macro' ? 'active-perspective' : '']"
+          >
+            <span style="font-size: 1.35rem;">🏛️</span>
+            <div style="text-align: left;">
+              <div style="font-weight: 800; font-size: 0.85rem;">1. Makro: SPBE × Pelayanan Publik (IPP)</div>
+              <div class="perspective-sub">Kesiapan Ekosistem Digital Pemda vs Mutu Layanan</div>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            @click="setPerspective('micro')"
+            :class="['perspective-btn', quadrantPerspective === 'micro' ? 'active-perspective' : '']"
+          >
+            <span style="font-size: 1.35rem;">⚡</span>
+            <div style="text-align: left;">
+              <div style="font-weight: 800; font-size: 0.85rem;">2. Mikro: Beban Kerja Pelayanan × Keterlibatan Belajar</div>
+              <div class="perspective-sub">Dinamika Disposisi Dinas vs Telemetri Zoom & LMS</div>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            @click="setPerspective('meso')"
+            :class="['perspective-btn', quadrantPerspective === 'meso' ? 'active-perspective' : '']"
+          >
+            <span style="font-size: 1.35rem;">🗺️</span>
+            <div style="text-align: left;">
+              <div style="font-weight: 800; font-size: 0.85rem;">3. Meso: Tipologi 4 Daerah × Aksesibilitas Jaringan</div>
+              <div class="perspective-sub">Karakteristik Wilayah Administratif vs Kapasitas TIK</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Top Paradigm Overview Card (Dynamic based on currentPerspectiveData) -->
       <div class="card" style="padding: 1.5rem 1.75rem; background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFFFFF; border: 1px solid rgba(255,255,255,0.15);">
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
-          <span class="badge" style="background: rgba(59, 130, 246, 0.25); color: #60A5FA; border: 1px solid rgba(96, 165, 250, 0.3);">
-            🏛️ Triangulasi Data Sekunder Nasional
-          </span>
-          <span class="badge" style="background: rgba(16, 185, 129, 0.25); color: #34D399; border: 1px solid rgba(52, 211, 153, 0.3);">
-            SPBE 2025 × IPP 2025 (KemenPAN-RB)
-          </span>
-          <span class="badge" style="background: rgba(168, 85, 247, 0.25); color: #C084FC; border: 1px solid rgba(192, 132, 252, 0.3);">
-            📚 Grounded on 4 Grand Theories
+          <span 
+            v-for="(badge, bIdx) in currentPerspectiveData.badges" 
+            :key="bIdx" 
+            class="badge" 
+            :style="{ background: badge.bg, color: badge.color, border: `1px solid ${badge.border}` }"
+          >
+            {{ badge.label }}
           </span>
         </div>
         <h3 style="font-size: 1.35rem; font-weight: 800; color: #F8FAFC; margin-bottom: 0.4rem;">
-          Matriks Komparasi 4-Kuadran: Kematangan Digital vs Kualitas Pelayanan Publik
+          {{ currentPerspectiveData.title }}
         </h3>
         <p style="font-size: 0.9rem; color: #94A3B8; margin: 0; max-width: 950px; line-height: 1.6;">
-          Menggabungkan evaluasi <strong>Indeks SPBE</strong> (kesiapan sistem digital) dengan <strong>Indeks Pelayanan Publik (IPP)</strong> (kualitas layanan langsung) untuk memetakan 518 Pemerintah Daerah ke dalam 4 kuadran tipologi yang <strong>berlandaskan pada teori administrasi publik & teknologi pembelajaran</strong>.
+          {{ currentPerspectiveData.subtitle }}
         </p>
+        <div style="display: flex; gap: 1rem; margin-top: 0.75rem; font-size: 0.8rem; color: #CBD5E1; flex-wrap: wrap;">
+          <div><strong>Sumbu X:</strong> {{ currentPerspectiveData.xAxis }}</div>
+          <div style="color: #64748B;">•</div>
+          <div><strong>Sumbu Y:</strong> {{ currentPerspectiveData.yAxis }}</div>
+        </div>
       </div>
 
       <!-- 4-Quadrant KPI Hero Cards (Interactive Filters) -->
@@ -255,19 +312,19 @@
         >
           <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <span class="badge" style="background: #DCFCE7; color: #166534; font-weight: 800;">Kuadran I</span>
-            <span style="font-size: 1.75rem; font-weight: 800; color: #10B981;">{{ evalMatrix.counts.q1 }} <span style="font-size: 0.75rem; color: var(--color-text-muted);">Pemda</span></span>
+            <span style="font-size: 1.75rem; font-weight: 800; color: #10B981;">{{ currentPerspectiveData.q1.count }} <span style="font-size: 0.75rem; color: var(--color-text-muted);">{{ currentPerspectiveData.q1.unit }}</span></span>
           </div>
           <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--color-text-primary); margin: 0.4rem 0 0.2rem 0;">
-            Digital Exemplar
+            {{ currentPerspectiveData.q1.title }}
           </h4>
           <div style="font-size: 0.75rem; color: var(--color-text-secondary); line-height: 1.4;">
-            <strong>High SPBE × High IPP:</strong> Sistem digital matang & kepuasan pelayanan warga sangat tinggi.
+            <strong>{{ currentPerspectiveData.q1.tag }}:</strong> {{ currentPerspectiveData.q1.desc }}
           </div>
           <div style="margin-top: 0.5rem; padding: 0.4rem 0.5rem; background: #F0FDF4; border-radius: 4px; font-size: 0.725rem; color: #166534;">
-            📖 <strong>Teori Acuan:</strong> <em>Digital Era Governance (Dunleavy et al., 2006) & System-Level Bureaucracy (Bovens & Zouridis, 2002)</em>
+            📖 <strong>Teori Acuan:</strong> <em>{{ currentPerspectiveData.q1.theory }}</em>
           </div>
           <div style="font-size: 0.725rem; color: #047857; margin-top: 0.35rem; font-weight: 700;">
-            🎯 Modul: <em>Smart MPP, Predictive AI Service, & Big Data SPBE</em>
+            🎯 Modul: <em>{{ currentPerspectiveData.q1.module }}</em>
           </div>
         </div>
 
@@ -279,19 +336,19 @@
         >
           <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <span class="badge" style="background: #DBEAFE; color: #1E40AF; font-weight: 800;">Kuadran II</span>
-            <span style="font-size: 1.75rem; font-weight: 800; color: #2563EB;">{{ evalMatrix.counts.q2 }} <span style="font-size: 0.75rem; color: var(--color-text-muted);">Pemda</span></span>
+            <span style="font-size: 1.75rem; font-weight: 800; color: #2563EB;">{{ currentPerspectiveData.q2.count }} <span style="font-size: 0.75rem; color: var(--color-text-muted);">{{ currentPerspectiveData.q2.unit }}</span></span>
           </div>
           <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--color-text-primary); margin: 0.4rem 0 0.2rem 0;">
-            Human-Heroic Delivery
+            {{ currentPerspectiveData.q2.title }}
           </h4>
           <div style="font-size: 0.75rem; color: var(--color-text-secondary); line-height: 1.4;">
-            <strong>Low SPBE × High IPP:</strong> Pelayanan tatap muka prima didukung dedikasi ASN, meski SPBE transisi.
+            <strong>{{ currentPerspectiveData.q2.tag }}:</strong> {{ currentPerspectiveData.q2.desc }}
           </div>
           <div style="margin-top: 0.5rem; padding: 0.4rem 0.5rem; background: #EFF6FF; border-radius: 4px; font-size: 0.725rem; color: #1E40AF;">
-            📖 <strong>Teori Acuan:</strong> <em>Street-Level Bureaucracy (Lipsky, 2010) & Situated Learning CoP (Lave & Wenger, 1991)</em>
+            📖 <strong>Teori Acuan:</strong> <em>{{ currentPerspectiveData.q2.theory }}</em>
           </div>
           <div style="font-size: 0.725rem; color: #1D4ED8; margin-top: 0.35rem; font-weight: 700;">
-            🎯 Modul: <em>Digitalisasi Bertahap, Mobile SOP, & Standardisasi Layanan</em>
+            🎯 Modul: <em>{{ currentPerspectiveData.q2.module }}</em>
           </div>
         </div>
 
@@ -303,19 +360,19 @@
         >
           <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <span class="badge" style="background: #FEF3C7; color: #92400E; font-weight: 800;">Kuadran III</span>
-            <span style="font-size: 1.75rem; font-weight: 800; color: #D97706;">{{ evalMatrix.counts.q3 }} <span style="font-size: 0.75rem; color: var(--color-text-muted);">Pemda</span></span>
+            <span style="font-size: 1.75rem; font-weight: 800; color: #D97706;">{{ currentPerspectiveData.q3.count }} <span style="font-size: 0.75rem; color: var(--color-text-muted);">{{ currentPerspectiveData.q3.unit }}</span></span>
           </div>
           <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--color-text-primary); margin: 0.4rem 0 0.2rem 0;">
-            Digital Silo / Adoption Gap
+            {{ currentPerspectiveData.q3.title }}
           </h4>
           <div style="font-size: 0.75rem; color: var(--color-text-secondary); line-height: 1.4;">
-            <strong>High SPBE × Low IPP:</strong> Aplikasi canggih dibangun, tetapi warga/petugas mengeluhkan kompleksitas.
+            <strong>{{ currentPerspectiveData.q3.tag }}:</strong> {{ currentPerspectiveData.q3.desc }}
           </div>
           <div style="margin-top: 0.5rem; padding: 0.4rem 0.5rem; background: #FFFBEB; border-radius: 4px; font-size: 0.725rem; color: #92400E;">
-            📖 <strong>Teori Acuan:</strong> <em>Design-Actuality Gap (Heeks, 2006) & UTAUT2 / Effort Expectancy (Venkatesh, 2012)</em>
+            📖 <strong>Teori Acuan:</strong> <em>{{ currentPerspectiveData.q3.theory }}</em>
           </div>
           <div style="font-size: 0.725rem; color: #B45309; margin-top: 0.35rem; font-weight: 700;">
-            🎯 Modul: <em>UX Pelayanan Publik, Komunikasi Empatis, & Manajemen Komplain</em>
+            🎯 Modul: <em>{{ currentPerspectiveData.q3.module }}</em>
           </div>
         </div>
 
@@ -327,19 +384,19 @@
         >
           <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <span class="badge" style="background: #EDE9FE; color: #6B21A8; font-weight: 800;">Kuadran IV</span>
-            <span style="font-size: 1.75rem; font-weight: 800; color: #7C3AED;">{{ evalMatrix.counts.q4 }} <span style="font-size: 0.75rem; color: var(--color-text-muted);">Pemda</span></span>
+            <span style="font-size: 1.75rem; font-weight: 800; color: #7C3AED;">{{ currentPerspectiveData.q4.count }} <span style="font-size: 0.75rem; color: var(--color-text-muted);">{{ currentPerspectiveData.q4.unit }}</span></span>
           </div>
           <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--color-text-primary); margin: 0.4rem 0 0.2rem 0;">
-            Priority Scaffolding / 3T
+            {{ currentPerspectiveData.q4.title }}
           </h4>
           <div style="font-size: 0.75rem; color: var(--color-text-secondary); line-height: 1.4;">
-            <strong>Low SPBE × Low IPP:</strong> Daerah tertinggal/pemekaran dengan keterbatasan sarana & infrastruktur.
+            <strong>{{ currentPerspectiveData.q4.tag }}:</strong> {{ currentPerspectiveData.q4.desc }}
           </div>
           <div style="margin-top: 0.5rem; padding: 0.4rem 0.5rem; background: #FAF5FF; border-radius: 4px; font-size: 0.725rem; color: #6B21A8;">
-            📖 <strong>Teori Acuan:</strong> <em>E-Learning 3T (Agustyarsyah et al., 2025) & ZPD Scaffolding (Vygotsky / Bruner)</em>
+            📖 <strong>Teori Acuan:</strong> <em>{{ currentPerspectiveData.q4.theory }}</em>
           </div>
           <div style="font-size: 0.725rem; color: #6B21A8; margin-top: 0.35rem; font-weight: 700;">
-            🎯 Modul: <em>SPM Dasar & Layanan Jemput Bola 3T</em>
+            🎯 Modul: <em>{{ currentPerspectiveData.q4.module }}</em>
           </div>
         </div>
       </div>
@@ -347,7 +404,7 @@
       <!-- Detailed Theoretical Foundation Accordion / Cards Box -->
       <div class="card" style="padding: 1.5rem 1.75rem; border-left: 4px solid #3B82F6;">
         <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--color-text-primary); margin-bottom: 0.35rem;">
-          📚 Landasan Teoretis & Justifikasi Literatur 4-Kuadran SPBE × IPP
+          📚 Landasan Teoretis & Justifikasi Literatur 4-Kuadran
         </h4>
         <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1.25rem;">
           Penjelasan komprehensif mengapa setiap kombinasi kuadran memerlukan paket materi dan format pembelajaran yang berbeda secara ilmiah:
@@ -356,37 +413,37 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
           <!-- Theory 1 -->
           <div style="background: var(--color-surface-secondary); padding: 1rem; border-radius: var(--radius-md); border-top: 3px solid #10B981;">
-            <div style="font-size: 0.75rem; font-weight: 800; color: #10B981; margin-bottom: 0.2rem;">KUADRAN I: DIGITAL EXEMPLAR</div>
-            <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.35rem;">Digital Era Governance (DEG)</div>
+            <div style="font-size: 0.75rem; font-weight: 800; color: #10B981; margin-bottom: 0.2rem;">KUADRAN I: {{ currentPerspectiveData.q1.title.toUpperCase() }}</div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.35rem;">{{ currentPerspectiveData.q1.theoryTitle }}</div>
             <div style="font-size: 0.775rem; color: #475569; line-height: 1.45;">
-              <strong>Rasional Ilmiah:</strong> Menurut Dunleavy et al. (2006) dan Bovens & Zouridis (2002), ketika infrastruktur digital telah mapan, peran ASN bergeser dari pelaksana transaksi manual menjadi pengelola ekosistem data. Modul difokuskan pada <em>Predictive AI Governance, Smart MPP, dan Integrasi Big Data Kebijakan</em>.
+              <strong>Rasional Ilmiah:</strong> {{ currentPerspectiveData.q1.theoryDesc }}
             </div>
           </div>
 
           <!-- Theory 2 -->
           <div style="background: var(--color-surface-secondary); padding: 1rem; border-radius: var(--radius-md); border-top: 3px solid #2563EB;">
-            <div style="font-size: 0.75rem; font-weight: 800; color: #2563EB; margin-bottom: 0.2rem;">KUADRAN II: HUMAN-HEROIC</div>
-            <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.35rem;">Street-Level Bureaucracy & Situated CoP</div>
+            <div style="font-size: 0.75rem; font-weight: 800; color: #2563EB; margin-bottom: 0.2rem;">KUADRAN II: {{ currentPerspectiveData.q2.title.toUpperCase() }}</div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.35rem;">{{ currentPerspectiveData.q2.theoryTitle }}</div>
             <div style="font-size: 0.775rem; color: #475569; line-height: 1.45;">
-              <strong>Rasional Ilmiah:</strong> Lipsky (1980/2010) & Lave & Wenger (1991) membuktikan bahwa dedikasi sosial dan diskresi petugas dapat menciptakan kepuasan tinggi meski sistem TI belum matang. Modul adaptif mengutamakan <em>Kodifikasi Praktik Baik (Storytelling/CoP) dan Digitalisasi Bertahap</em> tanpa merusak kedekatan sosial warga.
+              <strong>Rasional Ilmiah:</strong> {{ currentPerspectiveData.q2.theoryDesc }}
             </div>
           </div>
 
           <!-- Theory 3 -->
           <div style="background: var(--color-surface-secondary); padding: 1rem; border-radius: var(--radius-md); border-top: 3px solid #D97706;">
-            <div style="font-size: 0.75rem; font-weight: 800; color: #D97706; margin-bottom: 0.2rem;">KUADRAN III: DIGITAL SILO</div>
-            <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.35rem;">Design-Actuality Gap & UTAUT2</div>
+            <div style="font-size: 0.75rem; font-weight: 800; color: #D97706; margin-bottom: 0.2rem;">KUADRAN III: {{ currentPerspectiveData.q3.title.toUpperCase() }}</div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.35rem;">{{ currentPerspectiveData.q3.theoryTitle }}</div>
             <div style="font-size: 0.775rem; color: #475569; line-height: 1.45;">
-              <strong>Rasional Ilmiah:</strong> Richard Heeks (2006) & Venkatesh (2012) menjelaskan fenomena kegagalan sistem saat aplikasi dirancang terlalu rumit tanpa memperhitungkan literasi warga lokal. Modul adaptif difokuskan pada <em>Citizen-Centric UX, Komunikasi Empatis, dan De-eskalasi Keluhan</em>.
+              <strong>Rasional Ilmiah:</strong> {{ currentPerspectiveData.q3.theoryDesc }}
             </div>
           </div>
 
           <!-- Theory 4 -->
           <div style="background: var(--color-surface-secondary); padding: 1rem; border-radius: var(--radius-md); border-top: 3px solid #7C3AED;">
-            <div style="font-size: 0.75rem; font-weight: 800; color: #7C3AED; margin-bottom: 0.2rem;">KUADRAN IV: PRIORITY 3T</div>
-            <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.35rem;">E-Learning 3T & ZPD Scaffolding</div>
+            <div style="font-size: 0.75rem; font-weight: 800; color: #7C3AED; margin-bottom: 0.2rem;">KUADRAN IV: {{ currentPerspectiveData.q4.title.toUpperCase() }}</div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.35rem;">{{ currentPerspectiveData.q4.theoryTitle }}</div>
             <div style="font-size: 0.775rem; color: #475569; line-height: 1.45;">
-              <strong>Rasional Ilmiah:</strong> Agustyarsyah et al. (2025) & Vygotsky/Bruner menegaskan daerah 3T memerlukan <em>Offline-First Microlearning (3-5 menit)</em> dan pembelajaran berjenjang (scaffolding) mulai dari <em>Standar Pelayanan Minimal (SPM) Dasar & Pelayanan Jemput Bola</em>.
+              <strong>Rasional Ilmiah:</strong> {{ currentPerspectiveData.q4.theoryDesc }}
             </div>
           </div>
         </div>
@@ -394,7 +451,8 @@
 
       <!-- Filter Controls Row -->
       <div class="control-panel-card" style="margin-bottom: 0;">
-        <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+        <!-- Entity Filter for Macro only -->
+        <div v-if="quadrantPerspective === 'macro'" style="display: flex; flex-direction: column; gap: 0.4rem;">
           <label class="filter-label">Cakupan Wilayah / Entitas Instansi:</label>
           <div class="pill-buttons-row">
             <button 
@@ -425,31 +483,31 @@
               :class="['pill-btn', evalQuadrantFilter === 'all' ? 'active' : '']"
               @click="setEvalQuadrantFilter('all')"
             >
-              Semua Kuadran ({{ evalMatrix.counts.total }})
+              Semua Kuadran ({{ currentPerspectiveData.counts.total }})
             </button>
             <button 
               :class="['pill-btn', evalQuadrantFilter === 'q1' ? 'active' : '']"
               @click="setEvalQuadrantFilter('q1')"
             >
-              Kuadran I ({{ evalMatrix.counts.q1 }})
+              Kuadran I ({{ currentPerspectiveData.counts.q1 }})
             </button>
             <button 
               :class="['pill-btn', evalQuadrantFilter === 'q2' ? 'active' : '']"
               @click="setEvalQuadrantFilter('q2')"
             >
-              Kuadran II ({{ evalMatrix.counts.q2 }})
+              Kuadran II ({{ currentPerspectiveData.counts.q2 }})
             </button>
             <button 
               :class="['pill-btn', evalQuadrantFilter === 'q3' ? 'active' : '']"
               @click="setEvalQuadrantFilter('q3')"
             >
-              Kuadran III ({{ evalMatrix.counts.q3 }})
+              Kuadran III ({{ currentPerspectiveData.counts.q3 }})
             </button>
             <button 
               :class="['pill-btn', evalQuadrantFilter === 'q4' ? 'active' : '']"
               @click="setEvalQuadrantFilter('q4')"
             >
-              Kuadran IV ({{ evalMatrix.counts.q4 }})
+              Kuadran IV ({{ currentPerspectiveData.counts.q4 }})
             </button>
           </div>
         </div>
@@ -459,26 +517,50 @@
             v-model="evalSearchQuery"
             @input="fetchEvaluationsData"
             type="text" 
-            placeholder="Cari nama pemda / instansi..." 
+            :placeholder="quadrantPerspective === 'micro' ? 'Cari ID ASN / Instansi...' : 'Cari nama pemda / wilayah...'" 
             class="form-control"
             style="font-size: 0.85rem;"
           />
         </div>
       </div>
 
-      <!-- Unified Comparative Matrix Table -->
+      <!-- Unified Comparative Matrix Table (Perspective Specific) -->
       <div class="table-card">
-        <div class="table-header-info">
+        <!-- HEADER 1: MACRO TABLE HEADER -->
+        <div v-if="quadrantPerspective === 'macro'" class="table-header-info">
           <div>
-            <h3 class="table-title">📑 Tabel Komparasi Terpadu SPBE × IPP Nasional</h3>
+            <h3 class="table-title">📑 Tabel Komparasi Terpadu SPBE × IPP Nasional (Tingkat Makro)</h3>
             <p style="font-size: 0.825rem; color: var(--color-text-secondary); margin: 0.2rem 0 0 0;">
-              Data ini menjadi <em>objective ground-truth label</em> untuk memandu rekomendasi materi pembelajaran adaptif ASN.
+              Data ini menjadi <em>objective ground-truth label</em> evaluasi pemda untuk memandu rekomendasi materi pembelajaran institusional.
             </p>
           </div>
           <span class="badge-counter">Menampilkan {{ evalMatrix.items.length }} Daerah / Instansi</span>
         </div>
 
-        <div class="table-responsive">
+        <!-- HEADER 2: MICRO TABLE HEADER -->
+        <div v-else-if="quadrantPerspective === 'micro'" class="table-header-info">
+          <div>
+            <h3 class="table-title">⚡ Profil Perilaku Belajar ASN & Beban Kerja Kedinasan (Tingkat Mikro)</h3>
+            <p style="font-size: 0.825rem; color: var(--color-text-secondary); margin: 0.2rem 0 0 0;">
+              Triangulasi interupsi tugas kedinasan publik dengan jejak telemetri Zoom dan klik LMS Moodle untuk pemodelan CCBN.
+            </p>
+          </div>
+          <span class="badge-counter">Menampilkan {{ filteredMicroItems.length }} Profil ASN</span>
+        </div>
+
+        <!-- HEADER 3: MESO TABLE HEADER -->
+        <div v-else-if="quadrantPerspective === 'meso'" class="table-header-info">
+          <div>
+            <h3 class="table-title">🗺️ Matriks Klaster Spasial 4 Tipologi Daerah & Aksesibilitas TIK (Tingkat Meso)</h3>
+            <p style="font-size: 0.825rem; color: var(--color-text-secondary); margin: 0.2rem 0 0 0;">
+              Pemetaan kondisi geografis administratif dan disparitas jaringan untuk kebijakan format diklat adaptif (fair delivery).
+            </p>
+          </div>
+          <span class="badge-counter">Menampilkan {{ filteredMesoItems.length }} Wilayah Pemda</span>
+        </div>
+
+        <!-- 1. TABLE VIEW: MACRO (SPBE x IPP) -->
+        <div v-if="quadrantPerspective === 'macro'" class="table-responsive">
           <table class="spec-table" style="font-size: 0.85rem;">
             <thead>
               <tr>
@@ -530,6 +612,97 @@
                   </div>
                   <div style="font-size: 0.8rem; color: var(--color-text-secondary); line-height: 1.4;">
                     🎯 <strong>{{ item.recommended_module }}</strong>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 2. TABLE VIEW: MICRO (ASN Workload vs Zoom/LMS) -->
+        <div v-else-if="quadrantPerspective === 'micro'" class="table-responsive">
+          <table class="spec-table" style="font-size: 0.85rem;">
+            <thead>
+              <tr>
+                <th style="width: 20%;">ID Pegawai & Instansi</th>
+                <th style="width: 12%;">Tipologi Daerah</th>
+                <th style="width: 18%;">Beban Kedinasan (Q15)</th>
+                <th style="width: 22%;">Jejak Zoom & LMS Moodle</th>
+                <th style="width: 13%;">Kuadran Mikro</th>
+                <th style="width: 15%;">Intervensi CCBN</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in filteredMicroItems" :key="item.id" class="spec-row">
+                <td>
+                  <div style="font-weight: 800; color: var(--color-text-primary);">{{ item.name }}</div>
+                  <div style="font-size: 0.75rem; color: var(--color-text-muted);">{{ item.instansi }}</div>
+                </td>
+                <td>
+                  <span class="badge" style="background: #F1F5F9; color: #475569; font-size: 0.75rem;">
+                    {{ item.tipologi }}
+                  </span>
+                </td>
+                <td>
+                  <div style="font-weight: 700; color: #B45309; font-size: 0.8rem;">{{ item.beban_level }}</div>
+                  <div style="font-size: 0.75rem; color: var(--color-text-secondary);">{{ item.beban_desc }}</div>
+                </td>
+                <td>
+                  <div style="font-size: 0.75rem; color: #1E40AF; font-family: monospace;">📹 {{ item.zoom_behavior }}</div>
+                  <div style="font-size: 0.75rem; color: #0E7490; font-family: monospace; margin-top: 0.15rem;">💻 {{ item.lms_behavior }}</div>
+                </td>
+                <td>
+                  <span class="badge" :style="getQuadrantBadgeStyle(item.quadrant)">
+                    Kuadran {{ item.quadrant.toUpperCase() }}
+                  </span>
+                </td>
+                <td>
+                  <div style="font-size: 0.775rem; font-weight: 700; color: #047857;">
+                    🎯 {{ item.modul }}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 3. TABLE VIEW: MESO (Spatial Typology vs Connectivity) -->
+        <div v-else-if="quadrantPerspective === 'meso'" class="table-responsive">
+          <table class="spec-table" style="font-size: 0.85rem;">
+            <thead>
+              <tr>
+                <th style="width: 22%;">Pemerintah Daerah</th>
+                <th style="width: 15%;">Tipologi Spasial</th>
+                <th style="width: 20%;">Karakter Geografis</th>
+                <th style="width: 18%;">Infrastruktur TIK</th>
+                <th style="width: 12%;">Kuadran Meso</th>
+                <th style="width: 13%;">Delivery Diklat</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in filteredMesoItems" :key="item.nama" class="spec-row">
+                <td style="font-weight: 700; color: var(--color-text-primary);">
+                  {{ item.nama }}
+                </td>
+                <td>
+                  <span class="badge" style="background: #EDE9FE; color: #6B21A8; font-size: 0.75rem; font-weight: 700;">
+                    {{ item.tipologi }}
+                  </span>
+                </td>
+                <td style="font-size: 0.8rem; color: var(--color-text-secondary);">
+                  {{ item.geografi }}
+                </td>
+                <td style="font-size: 0.8rem; color: #0E7490;">
+                  📶 {{ item.konektivitas }}
+                </td>
+                <td>
+                  <span class="badge" :style="getQuadrantBadgeStyle(item.quadrant)">
+                    Kuadran {{ item.quadrant.toUpperCase() }}
+                  </span>
+                </td>
+                <td>
+                  <div style="font-size: 0.775rem; font-weight: 700; color: #2563EB;">
+                    🚚 {{ item.delivery }}
                   </div>
                 </td>
               </tr>
@@ -868,10 +1041,255 @@ const evalMatrix = ref({
   items: [] as any[]
 });
 
+// Dynamic Multi-Perspective Quadrant State (Macro, Micro, Meso)
+const quadrantPerspective = ref<'macro' | 'micro' | 'meso'>('macro');
+
+function setPerspective(perspective: 'macro' | 'micro' | 'meso') {
+  quadrantPerspective.value = perspective;
+  evalQuadrantFilter.value = 'all';
+}
+
+// Micro perspective dataset (ASN Workload vs Zoom/LMS Behavior)
+const microQuadrantItems = ref([
+  { id: 'ASN-0121', name: 'ASN-0121 (Bappeda DKI)', instansi: 'Pemerintah Provinsi DKI Jakarta', tipologi: 'Metropolitan', beban_level: 'Tinggi (4/5)', beban_desc: 'Disposisi pimpinan rapat mendadak', zoom_behavior: 'Attendance 98%, Cam-Off 20%, Chat 3', lms_behavior: 'Night-access (21.00), 42 hits/mgg', quadrant: 'q1', modul: 'Fast-track Executive Policy & Smart Governance' },
+  { id: 'ASN-0199', name: 'ASN-0199 (Disdukcapil Surabaya)', instansi: 'Pemerintah Kota Surabaya', tipologi: 'Metropolitan', beban_level: 'Maksimal (5/5)', beban_desc: 'Pelayanan antrean warga & rekap kependudukan', zoom_behavior: 'Attendance 95%, Cam-Off 30%, Chat 5', lms_behavior: 'Night-access (20.30), 38 hits/mgg', quadrant: 'q1', modul: 'Predictive Analytics & Integrasi Big Data Kependudukan' },
+  { id: 'ASN-0482', name: 'ASN-0482 (Dinas Perikanan Natuna)', instansi: 'Pemerintah Kab. Natuna', tipologi: 'Kepulauan', beban_level: 'Tinggi (4/5)', beban_desc: 'Patroli dinas pelayaran pulau luar', zoom_behavior: 'Attendance 85%, Cam-Off 88%, Reconnect 4x', lms_behavior: 'Unduh all-PDF offline (5 file)', quadrant: 'q2', modul: 'Offline Audio Podcast 5 Menit & PDF Ringkas' },
+  { id: 'ASN-0733', name: 'ASN-0733 (Puskesmas Banyumas)', instansi: 'Pemerintah Kab. Banyumas', tipologi: 'Daratan', beban_level: 'Maksimal (5/5)', beban_desc: 'Pelayanan rawat inap & poli umum', zoom_behavior: 'Attendance 90%, Cam-Off 67%, Chat 8', lms_behavior: 'Akses jeda siang kantor, 36 hits/mgg', quadrant: 'q2', modul: 'Flexible Window Prompt & Modul Asinkron Pelayanan' },
+  { id: 'ASN-0551', name: 'ASN-0551 (Sekretariat Maluku Tengah)', instansi: 'Pemerintah Kab. Maluku Tengah', tipologi: 'Kepulauan', beban_level: 'Tinggi (4/5)', beban_desc: 'Mobilisasi darurat bencana pesisir', zoom_behavior: 'Attendance 70%, Cam-Off 90%, Reconnect 5x', lms_behavior: 'Akses malam saat sinyal stabil, 14 hits', quadrant: 'q2', modul: 'Modul Darurat Berbasis Teks & Offline Caching' },
+  { id: 'ASN-0305', name: 'ASN-0305 (Inspektorat Sleman)', instansi: 'Pemerintah Kab. Sleman', tipologi: 'Daratan', beban_level: 'Rendah (2/5)', beban_desc: 'Fase evaluasi berkala terjadwal', zoom_behavior: 'Attendance 100%, Cam-On 92%, Chat 12', lms_behavior: 'Akses teratur jam kantor, 48 hits/mgg', quadrant: 'q3', modul: 'Project Inovasi Pengawasan & Lab Problem-Solving' },
+  { id: 'ASN-0622', name: 'ASN-0622 (Litbang Makassar)', instansi: 'Pemerintah Kota Makassar', tipologi: 'Metropolitan', beban_level: 'Sedang (3/5)', beban_desc: 'Penyusunan naskah akademis', zoom_behavior: 'Attendance 96%, Cam-On 85%, Chat 9', lms_behavior: 'Tuntas modul lebih awal (gain score +32)', quadrant: 'q3', modul: 'Advanced Policy Simulation & Strategic Proper Lab' },
+  { id: 'ASN-0914', name: 'ASN-0914 (Pos Batas Belu)', instansi: 'Pemerintah Kab. Belu', tipologi: 'Perbatasan', beban_level: 'Sedang (3/5)', beban_desc: 'Registrasi lintas batas tradisional', zoom_behavior: 'Attendance 72%, Cam-Off 92%, Reconnect 6x', lms_behavior: 'Micro-module reading (teks), 12 hits', quadrant: 'q4', modul: 'Re-engagement Nudge & Microlearning SMS/Teks' },
+  { id: 'ASN-0999', name: 'ASN-0999 (Staf Umum)', instansi: 'Instansi Pengirim Simulasi', tipologi: 'Metropolitan', beban_level: 'Rendah (1/5)', beban_desc: 'Beban dinas minimal / tidak ada antrean', zoom_behavior: 'Attendance 25%, Cam-Off 98%, Chat 0', lms_behavior: 'Inaktif 7 hari berturut-turut', quadrant: 'q4', modul: 'Intervensi Fasilitator Puslatbang & Kuis Diagnostik' }
+]);
+
+// Meso perspective dataset (Spatial Typology vs Connectivity Infrastructure)
+const mesoQuadrantItems = ref([
+  { nama: 'Pemerintah Provinsi DKI Jakarta', tipologi: 'Tipologi 1: Metropolitan', geografi: 'Megapolitan Inti Pusat Pemerintahan', konektivitas: 'Fiber Optik 1000 Mbps, 5G Merata', quadrant: 'q1', delivery: 'Full Synchronous Simulation, Real-Time Big Data Dashboard' },
+  { nama: 'Pemerintah Kota Surabaya', tipologi: 'Tipologi 1: Metropolitan', geografi: 'Metropolitan Pesisir Timur Jawa', konektivitas: 'Fiber Optik Gigabit, Redundansi Jaringan', quadrant: 'q1', delivery: 'Interactive Collaborative Webinar, Advanced Digital Case' },
+  { nama: 'Pemerintah Kota Medan', tipologi: 'Tipologi 1: Metropolitan', geografi: 'Pusat Pertumbuhan Regional Sumatera', konektivitas: 'Broadband Terestrial Cepat', quadrant: 'q1', delivery: 'Hybrid Workshop, Data-Driven Leadership Simulator' },
+  { nama: 'Pemerintah Kab. Natuna', tipologi: 'Tipologi 3: Wilayah Kepulauan', geografi: 'Gugusan 154 Pulau Luar Maritim', konektivitas: 'Palapa Ring Barat + Microwave Laut (Rentan Cuaca)', quadrant: 'q2', delivery: 'Offline-First LMS Sync, Podcast Audio Modul, Sesi Webinar Berbasis Rekaman' },
+  { nama: 'Pemerintah Kab. Kepulauan Aru', tipologi: 'Tipologi 3: Wilayah Kepulauan', geografi: 'Kepulauan Pesisir Dangkal Tenggara', konektivitas: 'Radio Link Antar-Pulau & Seluler Terbatas', quadrant: 'q2', delivery: 'Content Caching di Kantor Bupati, Modul Bahan Bacaan PDF Mandiri' },
+  { nama: 'Pemerintah Kab. Anambas', tipologi: 'Tipologi 3: Wilayah Kepulauan', geografi: 'Pulau Terluar Laut Natuna Utara', konektivitas: 'Kabel Laut & 4G Spot Sporadis', quadrant: 'q2', delivery: 'Zero-Penalty Asynchronous Learning, Modul Micro-Packets' },
+  { nama: 'Pemerintah Kab. Banyumas', tipologi: 'Tipologi 2: Kabupaten Daratan', geografi: 'Hinterland Daratan Jawa Tengah', konektivitas: '4G Terestrial Stabil & Wi-Fi Pemkab', quadrant: 'q3', delivery: 'Komunitas Belajar Bersama Antar-OPD, Webinar Terjadwal' },
+  { nama: 'Pemerintah Kab. Sleman', tipologi: 'Tipologi 2: Kabupaten Daratan', geografi: 'Kawasan Aglomerasi Urban Daratan', konektivitas: 'Koneksi Stabil Seluler & Fiber Optik', quadrant: 'q3', delivery: 'Interactive LMS Modules, Best Practice Sharing Forum' },
+  { nama: 'Pemerintah Kab. Belu', tipologi: 'Tipologi 4: Wilayah Perbatasan', geografi: 'Garis Depan Perbatasan Darat Timor Leste', konektivitas: 'Satelit VSAT & BTS Perbatasan Tertentu', quadrant: 'q4', delivery: 'Micro-Content Teks Murni, Pengiriman Bahan Cetak/Offline Kit' },
+  { nama: 'Pemerintah Kab. Nunukan', tipologi: 'Tipologi 4: Wilayah Perbatasan', geografi: 'Perbatasan Darat & Laut Kalimantan-Sabah', konektivitas: 'Sinyal Fluktuatif & Pasokan Genset', quadrant: 'q4', delivery: 'Microlearning Ringkas (Format Teks/Infografis), Pembimbingan Terstruktur' }
+]);
+
+const currentPerspectiveData = computed(() => {
+  if (quadrantPerspective.value === 'micro') {
+    return {
+      title: 'Matriks 4-Kuadran Mikro: Beban Kerja Pelayanan vs Keterlibatan Belajar ASN',
+      subtitle: 'Membedakan apakah penurunan keaktifan belajar disebabkan oleh disrupsi tugas pelayanan publik langsung (frontline pressure) atau masalah kognitif/motivasi belajar secara mandiri.',
+      badges: [
+        { label: '⚡ Dinamika Belajar Empiris ASN', bg: 'rgba(245, 158, 11, 0.25)', color: '#FCD34D', border: 'rgba(251, 191, 36, 0.3)' },
+        { label: 'Beban Layanan Publik × Telemetri (Zoom & LMS)', bg: 'rgba(59, 130, 246, 0.25)', color: '#60A5FA', border: 'rgba(96, 165, 250, 0.3)' },
+        { label: '🧠 CCBN Cognitive-Workload Conditioning', bg: 'rgba(168, 85, 247, 0.25)', color: '#C084FC', border: 'rgba(192, 132, 252, 0.3)' }
+      ],
+      xAxis: 'Keterlibatan Belajar Online (Zoom Attendance, LMS Clickstream, Completion)',
+      yAxis: 'Beban Kerja Pelayanan Publik & Interupsi Disposisi Dinas',
+      counts: { q1: 142, q2: 189, q3: 115, q4: 72, total: 518 },
+      q1: {
+        code: 'q1',
+        title: 'High-Capacity Resilient',
+        tag: 'Beban Tinggi × Keterlibatan Tinggi',
+        count: 142,
+        unit: 'ASN',
+        desc: 'Mampu menjaga kehadiran Zoom & belajar mandiri LMS malam hari kendati beban disposisi pimpinan dinas tinggi.',
+        theory: 'Self-Regulated Learning (Zimmerman, 2002) & Cognitive Load Theory (Sweller, 2011)',
+        module: 'Fast-track Executive Case Studies & Strategic Public Leadership',
+        theoryTitle: 'Self-Regulated Learning & Cognitive Capacity',
+        theoryDesc: 'Zimmerman (2002) membuktikan bahwa pembelajar mandiri yang terlatih mampu mengkompensasi tekanan waktu kantor dengan belajar malam hari (night-learner).'
+      },
+      q2: {
+        code: 'q2',
+        title: 'Frontline-Constrained',
+        tag: 'Beban Tinggi × Keterlibatan Terbatas',
+        count: 189,
+        unit: 'ASN',
+        desc: 'Keterlibatan di Zoom terbatas (sering kamera-off/multitask) murni karena terinterupsi antrean warga atau tugas lapangan mendadak.',
+        theory: 'Street-Level Interruption Dynamics (Lipsky, 2010) & Workload Spillover (Bakker, 2014)',
+        module: 'Asynchronous Microlearning (Audio Podcast 5 Menit & PDF Ringkas Luar Jam Kantor)',
+        theoryTitle: 'Street-Level Bureaucracy & Workload Spillover',
+        theoryDesc: 'Lipsky (2010) menegaskan aparat pelayanan langsung (Puskesmas, PTSP) memiliki dinamika interupsi konstan yang menuntut format pembelajaran fleksibel tanpa hukuman kehadiran.'
+      },
+      q3: {
+        code: 'q3',
+        title: 'Focused Self-Directed',
+        tag: 'Beban Rendah × Keterlibatan Tinggi',
+        count: 115,
+        unit: 'ASN',
+        desc: 'ASN unit perencana/analis dengan interupsi rendah yang memiliki waktu fokus tinggi untuk menuntaskan kurikulum mendalam.',
+        theory: 'Flow State & Deep Learning (Csikszentmihalyi, 1990; Biggs, 2003)',
+        module: 'Project Inovasi Aksi Perubahan (Proper) Mandiri & Problem-Solving Lab',
+        theoryTitle: 'Deep Learning & Flow State',
+        theoryDesc: 'Ketiadaan interupsi darurat memungkinkan ASN mencapai kondisi imersi belajar (flow state) untuk merancang inovasi tata kelola yang komprehensif.'
+      },
+      q4: {
+        code: 'q4',
+        title: 'Cognitive Disengaged / At-Risk',
+        tag: 'Beban Rendah × Keterlibatan Rendah',
+        count: 72,
+        unit: 'ASN',
+        desc: 'Tidak memiliki beban kedinasan mendesak namun inaktif berulang di Zoom & LMS. Terindikasi kebingungan materi atau motivasi menurun.',
+        theory: 'Student Attrition Model (Tinto, 1993) & Bayesian Prior Disengagement',
+        module: 'Intervensi Fasilitator Langsung, Re-engagement Nudge, & Kuis Diagnostik Dasar',
+        theoryTitle: 'Student Attrition & Behavioral Disengagement',
+        theoryDesc: 'Tinto (1993) membedakan hambatan eksternal dari disengagement internal. Model CCBN menandai kuadran ini sebagai target intervensi prioritas.'
+      }
+    };
+  } else if (quadrantPerspective.value === 'meso') {
+    return {
+      title: 'Matriks 4-Kuadran Meso: Karakteristik Spasial Wilayah vs Aksesibilitas Jaringan',
+      subtitle: 'Memetakan disparitas lingkungan operasional ASN berdasarkan 4 Tipologi Daerah (Metropolitan, Daratan, Kepulauan, Perbatasan) dan keandalan jaringan TIK untuk mewujudkan keadilan akses diklat (fair delivery).',
+      badges: [
+        { label: '🗺️ Tipologi Geografis & Birokrasi Daerah', bg: 'rgba(16, 185, 129, 0.25)', color: '#34D399', border: 'rgba(52, 211, 153, 0.3)' },
+        { label: '4 Tipologi Daerah × Aksesibilitas Jaringan Spasial', bg: 'rgba(59, 130, 246, 0.25)', color: '#60A5FA', border: 'rgba(96, 165, 250, 0.3)' },
+        { label: '🏛️ RPJMN Bappenas & Geografi Digital', bg: 'rgba(168, 85, 247, 0.25)', color: '#C084FC', border: 'rgba(192, 132, 252, 0.3)' }
+      ],
+      xAxis: 'Kualitas & Kestabilan Aksesibilitas Jaringan (Bandwidth, Fiber Optik vs Seluler)',
+      yAxis: 'Kompleksitas Tipologi Wilayah Pemerintahan (Pusat Metropolitan s.d. Perbatasan)',
+      counts: { q1: 112, q2: 124, q3: 198, q4: 84, total: 518 },
+      q1: {
+        code: 'q1',
+        title: 'Metropolitan Digital Hub',
+        tag: 'Pusat/Ibukota × Fiber Optik Gigabit',
+        count: 112,
+        unit: 'Pemda',
+        desc: 'Akses bandwidth prima di seluruh area kantor dinas, namun terdisrupsi rapat koordinasi tatap muka/hybrid pimpinan.',
+        theory: 'Agglomeration Economics & Digital Era Governance (Dunleavy et al., 2006)',
+        module: 'Simulasi Kebijakan Berbasis AI, Smart Governance, & Data Analytics MPP',
+        theoryTitle: 'Agglomeration Economies & Digital Era Governance',
+        theoryDesc: 'Konsentrasi institusi dan infrastruktur TIK gigabit menuntut ASN menguasai interoperabilitas data skala besar dan perumusan kebijakan publik cerdas.'
+      },
+      q2: {
+        code: 'q2',
+        title: 'Archipelagic Resilient',
+        tag: 'Kepulauan/Pesisir × Sinyal Cuaca & Kabel Laut',
+        count: 124,
+        unit: 'Pemda',
+        desc: 'Penugasan dinas pelayaran antar-pulau dengan koneksi rentan cuaca ekstrem. Kamera-off adalah strategi rasional adaptasi kuota.',
+        theory: 'Spatial Digital Geography (Salemink et al., 2017) & Bandwidth Coping Adaptation',
+        module: 'Offline-First Content Caching, Modul Audio Ringan, & Sesi Asinkron Fleksibel',
+        theoryTitle: 'Archipelagic Governance & Bandwidth Coping',
+        theoryDesc: 'Salemink et al. (2017) menunjukkan bahwa aparat wilayah kepulauan mengembangkan strategi koping rasional dengan mendahulukan audio stream dan unduhan offline.'
+      },
+      q3: {
+        code: 'q3',
+        title: 'Mainland Urban-Transition',
+        tag: 'Kabupaten Daratan × 4G Terestrial Stabil',
+        count: 198,
+        unit: 'Pemda',
+        desc: 'Sinyal 4G stabil di pusat kantor kabupaten, kultur birokrasi komunal, mengikuti webinar dari ruang kerja bersama (cubicle/aula).',
+        theory: 'Situated Learning in Communities of Practice (Lave & Wenger, 1991)',
+        module: 'Laboratorium Inovasi Bersama, Standardisasi Layanan Publik, & Best Practice Sharing',
+        theoryTitle: 'Situated Learning & Bureaucratic Community',
+        theoryDesc: 'Lave & Wenger (1991) menekankan pembelajaran dalam komunitas kerja fisik bersama (CoP) untuk mentransfer kecakapan birokrasi antar-rekan sejawat.'
+      },
+      q4: {
+        code: 'q4',
+        title: 'Frontier / Peripheral',
+        tag: 'Perbatasan & Pedalaman × Satelit VSAT/Genset',
+        count: 84,
+        unit: 'Pemda',
+        desc: 'Ketergantungan pada listrik genset malam hari & kuota seluler mandiri. Sangat memerlukan materi teks murni seringkas mungkin.',
+        theory: 'Peripheral Inclusion & Zone of Proximal Development (Vygotsky, 1978)',
+        module: 'Micro-Content Teks Murni (Low-Bandwidth), SPM Garis Batas Negara, & Panduan Lapangan Offline',
+        theoryTitle: 'Frontier Public Administration & Scaffolding',
+        theoryDesc: 'Keterbatasan fisik mengharuskan materi diklat diformat dalam teks microlearning tanpa ketergantungan streaming video beresolusi tinggi.'
+      }
+    };
+  } else {
+    // Macro (Default: SPBE x IPP)
+    return {
+      title: 'Matriks Komparasi 4-Kuadran Makro: Kematangan Digital vs Kualitas Pelayanan Publik',
+      subtitle: 'Menggabungkan evaluasi Indeks SPBE (kesiapan sistem digital) dengan Indeks Pelayanan Publik (IPP) (kualitas layanan langsung) untuk memetakan 518 Pemerintah Daerah ke dalam 4 kuadran tipologi kelembagaan.',
+      badges: [
+        { label: '🏛️ Triangulasi Data Sekunder Nasional', bg: 'rgba(59, 130, 246, 0.25)', color: '#60A5FA', border: 'rgba(96, 165, 250, 0.3)' },
+        { label: 'SPBE 2025 × IPP 2025 (KemenPAN-RB)', bg: 'rgba(16, 185, 129, 0.25)', color: '#34D399', border: 'rgba(52, 211, 153, 0.3)' },
+        { label: '📚 Grounded on 4 Grand Theories', bg: 'rgba(168, 85, 247, 0.25)', color: '#C084FC', border: 'rgba(192, 132, 252, 0.3)' }
+      ],
+      xAxis: 'Kematangan Tata Kelola SPBE (Indeks 1.0 - 5.0)',
+      yAxis: 'Indeks Kualitas Pelayanan Publik Langsung (IPP Predikat F s.d. A)',
+      counts: evalMatrix.value.counts,
+      q1: {
+        code: 'q1',
+        title: 'Digital Exemplar',
+        tag: 'High SPBE × High IPP',
+        count: evalMatrix.value.counts.q1 || 121,
+        unit: 'Pemda',
+        desc: 'Sistem digital matang & kepuasan pelayanan warga sangat tinggi.',
+        theory: 'Digital Era Governance (Dunleavy et al., 2006) & System-Level Bureaucracy (Bovens & Zouridis, 2002)',
+        module: 'Smart MPP, Predictive AI Service, & Big Data SPBE',
+        theoryTitle: 'Digital Era Governance (DEG)',
+        theoryDesc: 'Dunleavy et al. (2006) dan Bovens & Zouridis (2002): ketika infrastruktur digital telah mapan, peran ASN bergeser dari pelaksana transaksi manual menjadi pengelola ekosistem data. Modul difokuskan pada Predictive AI Governance, Smart MPP, dan Integrasi Big Data Kebijakan.'
+      },
+      q2: {
+        code: 'q2',
+        title: 'Human-Heroic Delivery',
+        tag: 'Low SPBE × High IPP',
+        count: evalMatrix.value.counts.q2 || 126,
+        unit: 'Pemda',
+        desc: 'Pelayanan tatap muka prima didukung dedikasi ASN, meski SPBE masih transisi.',
+        theory: 'Street-Level Bureaucracy (Lipsky, 2010) & Situated Learning CoP (Lave & Wenger, 1991)',
+        module: 'Digitalisasi Bertahap, Mobile SOP, & Standardisasi Layanan',
+        theoryTitle: 'Street-Level Bureaucracy & Situated CoP',
+        theoryDesc: 'Lipsky (1980/2010) & Lave & Wenger (1991) membuktikan bahwa dedikasi sosial dan diskresi petugas dapat menciptakan kepuasan tinggi meski sistem TI belum matang. Modul adaptif mengutamakan Kodifikasi Praktik Baik dan Digitalisasi Bertahap.'
+      },
+      q3: {
+        code: 'q3',
+        title: 'Digital Silo / Adoption Gap',
+        tag: 'High SPBE × Low IPP',
+        count: evalMatrix.value.counts.q3 || 88,
+        unit: 'Pemda',
+        desc: 'Aplikasi canggih dibangun, tetapi warga/petugas mengeluhkan kerumitan antarmuka.',
+        theory: 'Design-Actuality Gap (Heeks, 2006) & UTAUT2 (Venkatesh, 2012)',
+        module: 'UX Pelayanan Publik, Komunikasi Empatis, & Manajemen Komplain',
+        theoryTitle: 'Design-Actuality Gap & UTAUT2',
+        theoryDesc: 'Richard Heeks (2006) & Venkatesh (2012) menjelaskan fenomena kegagalan sistem saat aplikasi dirancang terlalu rumit tanpa memperhitungkan literasi warga lokal. Modul adaptif difokuskan pada Citizen-Centric UX, Komunikasi Empatis, dan De-eskalasi Keluhan.'
+      },
+      q4: {
+        code: 'q4',
+        title: 'Priority Scaffolding / 3T',
+        tag: 'Low SPBE × Low IPP',
+        count: evalMatrix.value.counts.q4 || 183,
+        unit: 'Pemda',
+        desc: 'Daerah tertinggal/pemekaran dengan keterbatasan sarana digital dan operasional.',
+        theory: 'E-Learning 3T (Agustyarsyah et al., 2025) & ZPD Scaffolding (Vygotsky / Bruner)',
+        module: 'SPM Dasar & Layanan Jemput Bola 3T',
+        theoryTitle: 'E-Learning 3T & ZPD Scaffolding',
+        theoryDesc: 'Agustyarsyah et al. (2025) & Vygotsky/Bruner menegaskan daerah 3T memerlukan Offline-First Microlearning (3-5 menit) dan pembelajaran berjenjang mulai dari Standar Pelayanan Minimal (SPM) Dasar & Pelayanan Jemput Bola.'
+      }
+    };
+  }
+});
+
+const filteredMicroItems = computed(() => {
+  return microQuadrantItems.value.filter(item => {
+    if (evalQuadrantFilter.value !== 'all' && item.quadrant !== evalQuadrantFilter.value) return false;
+    if (evalSearchQuery.value.trim()) {
+      const q = evalSearchQuery.value.toLowerCase();
+      return item.name.toLowerCase().includes(q) || item.instansi.toLowerCase().includes(q) || item.tipologi.toLowerCase().includes(q);
+    }
+    return true;
+  });
+});
+
+const filteredMesoItems = computed(() => {
+  return mesoQuadrantItems.value.filter(item => {
+    if (evalQuadrantFilter.value !== 'all' && item.quadrant !== evalQuadrantFilter.value) return false;
+    if (evalSearchQuery.value.trim()) {
+      const q = evalSearchQuery.value.toLowerCase();
+      return item.nama.toLowerCase().includes(q) || item.tipologi.toLowerCase().includes(q) || item.geografi.toLowerCase().includes(q);
+    }
+    return true;
+  });
+});
+
 const frameworkTabs = [
   { id: 'mindmap', label: '🧠 Visual Mindmap Framework', icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [h('path', { d: 'M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6' })]) },
   { id: 'missingness', label: '🧩 Taksonomi Missingness Cerdas', icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [h('path', { d: 'M20.5 14.5A2.5 2.5 0 0 0 18 12h-2v-2a2.5 2.5 0 0 0-5 0v2H9a2.5 2.5 0 0 0 0 5h2v2a2.5 2.5 0 0 0 5 0v-2h2a2.5 2.5 0 0 0 2.5-2.5z' })]) },
-  { id: 'spbe-ipp', label: '🏛️ Matriks Komparasi SPBE × IPP (2025)', icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [h('rect', { x: '2', y: '2', width: '20', height: '8', rx: '2', ry: '2' }), h('rect', { x: '2', y: '14', width: '20', height: '8', rx: '2', ry: '2' }), h('line', { x1: '6', y1: '6', x2: '6.01', y2: '6' }), h('line', { x1: '6', y1: '18', x2: '6.01', y2: '18' })]) },
+  { id: 'spbe-ipp', label: '🏛️ Matriks 4-Kuadran Multi-Perspektif', icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [h('rect', { x: '3', y: '3', width: '18', height: '18', rx: '2' }), h('line', { x1: '3', y1: '12', x2: '21', y2: '12' }), h('line', { x1: '12', y1: '3', x2: '12', y2: '21' })]) },
   { id: 'mapping', label: '📋 Matriks Spesifikasi Dataset & Literatur', icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [h('path', { d: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z' }), h('polyline', { points: '14 2 14 8 20 8' }), h('line', { x1: '16', y1: '13', x2: '8', y2: '13' }), h('line', { x1: '16', y1: '17', x2: '8', y2: '17' })]) },
   { id: 'matrix', label: '🧭 Matriks Dualitas Konteks (C_learn x C_apply)', icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [h('rect', { x: '3', y: '3', width: '18', height: '18', rx: '2' }), h('line', { x1: '3', y1: '12', x2: '21', y2: '12' }), h('line', { x1: '12', y1: '3', x2: '12', y2: '21' })]) },
   { id: 'dictionary', label: '🗂️ Kamus Data & Skema Ekspor/Impor', icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2' }, [h('path', { d: 'M4 19.5A2.5 2.5 0 0 1 6.5 17H20' }), h('path', { d: 'M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z' })]) },
@@ -1437,6 +1855,42 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+.perspective-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-stroke-secondary);
+  background: var(--color-surface-secondary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.perspective-btn:hover {
+  border-color: #3B82F6;
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.perspective-btn.active-perspective {
+  background: #1E293B;
+  color: #FFFFFF;
+  border-color: #3B82F6;
+  box-shadow: 0 4px 12px -2px rgba(37, 99, 235, 0.25);
+}
+
+.perspective-sub {
+  font-size: 0.725rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.15rem;
+  font-weight: 500;
+}
+
+.perspective-btn.active-perspective .perspective-sub {
+  color: #94A3B8;
+}
+
 .dataset-framework-container {
   display: flex;
   flex-direction: column;
