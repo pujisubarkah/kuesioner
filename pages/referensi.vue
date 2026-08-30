@@ -71,13 +71,8 @@
             :class="{ active: activeCategory?.id === cat.id }"
             @click="selectCategory(cat)"
           >
-            <svg v-if="cat.id === 'adaptive-learning'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-            <svg v-else-if="cat.id === 'konteks-spasial'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-            <svg v-else-if="cat.id === 'learning-analytics'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-            <svg v-else-if="cat.id === 'multimodal-vision'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-            <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-            
-            <span class="subtab-title">{{ cat.name }}</span>
+            <span class="category-icon">{{ getCategoryIcon(cat.name) }}</span>
+            <span class="subtab-title">{{ getCategoryTitle(cat) }}</span>
             <span class="subtab-count">{{ cat.files.length }}</span>
           </button>
         </div>
@@ -86,10 +81,18 @@
         <div v-if="activeCategory" class="card" style="margin-bottom: 1.5rem; padding: 1.25rem 1.5rem; background: var(--color-surface); border: 1px solid var(--color-stroke);">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
             <div>
-              <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 0.25rem;">
-                📁 Kategori: {{ activeCategory.name }}
-              </h3>
-              <p style="font-size: 0.875rem; color: var(--color-text-secondary); margin: 0;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+                <span class="badge" style="background: rgba(59, 130, 246, 0.15); color: #2563EB; font-weight: 800; font-size: 0.75rem; border: 1px solid rgba(59, 130, 246, 0.25);">
+                  {{ getCategoryBadge(activeCategory.name) }}
+                </span>
+                <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--color-text-primary); margin: 0;">
+                  {{ getCategoryIcon(activeCategory.name) }} {{ getCategoryTitle(activeCategory) }}
+                </h3>
+              </div>
+              <div style="font-size: 0.75rem; color: var(--color-text-secondary); margin-bottom: 0.35rem; font-family: monospace;">
+                📁 Folder GDrive: <strong>{{ activeCategory.name }}</strong>
+              </div>
+              <p style="font-size: 0.875rem; color: var(--color-text-secondary); margin: 0; max-width: 750px; line-height: 1.5;">
                 {{ activeCategory.description }}
               </p>
             </div>
@@ -283,6 +286,40 @@ function selectCategory(cat: ReferensiFolder) {
 
 function selectPdf(pdf: ReferensiPdf) {
   selectedPdf.value = pdf;
+}
+
+function getCategoryBadge(name: string): string {
+  const n = (name || '').toLowerCase();
+  if (n.includes('00_') || n.includes('faudantion') || n.includes('foundation')) return '00';
+  if (n.includes('01_') || n.includes('rq1')) return 'RQ1';
+  if (n.includes('02_') || n.includes('rq2')) return 'RQ2';
+  if (n.includes('03_') || n.includes('rq3')) return 'RQ3';
+  if (n.includes('04_') || n.includes('rq4')) return 'RQ4';
+  if (n.includes('05_') || n.includes('rq5')) return 'RQ5';
+  return 'REF';
+}
+
+function getCategoryIcon(name: string): string {
+  const n = (name || '').toLowerCase();
+  if (n.includes('00_') || n.includes('faudantion') || n.includes('foundation')) return '🏛️';
+  if (n.includes('01_') || n.includes('rq1')) return '🧠';
+  if (n.includes('02_') || n.includes('rq2')) return '📡';
+  if (n.includes('03_') || n.includes('rq3')) return '📊';
+  if (n.includes('04_') || n.includes('rq4')) return '📹';
+  if (n.includes('05_') || n.includes('rq5')) return '⚖️';
+  return '📁';
+}
+
+function getCategoryTitle(cat: ReferensiFolder): string {
+  if (cat.displayName) return cat.displayName;
+  const n = (cat.name || '').toLowerCase();
+  if (n.includes('00_') || n.includes('faudantion') || n.includes('foundation')) return '00. Foundation & Theory';
+  if (n.includes('01_') || n.includes('rq1')) return 'RQ1: Behavioral Traces & Gating';
+  if (n.includes('02_') || n.includes('rq2')) return 'RQ2: Infra Confounding';
+  if (n.includes('03_') || n.includes('rq3')) return 'RQ3: Missingness Cluster';
+  if (n.includes('04_') || n.includes('rq4')) return 'RQ4: Visual Observability';
+  if (n.includes('05_') || n.includes('rq5')) return 'RQ5: Fair XAI & Acceptance';
+  return cat.name;
 }
 
 async function handleRefresh() {

@@ -39,7 +39,9 @@ export default defineEventHandler(async (event) => {
       const folderQueryUrl = `https://www.googleapis.com/drive/v3/files?q='${parentFolderId}'+in+parents+and+mimeType='application/vnd.google-apps.folder'+and+trashed=false&key=${apiKey}&fields=files(id,name,description)&pageSize=100`;
       const folderRes = await $fetch<{ files: { id: string; name: string; description?: string }[] }>(folderQueryUrl);
       
-      const subfolders = folderRes.files || [];
+      const subfolders = (folderRes.files || []).sort((a, b) => 
+        a.name.localeCompare(b.name, undefined, { numeric: true })
+      );
 
       for (const folder of subfolders) {
         // Fetch files inside subfolder
@@ -56,10 +58,31 @@ export default defineEventHandler(async (event) => {
             directDriveUrl: `https://drive.google.com/file/d/${f.id}/view`
           }));
 
+        // Provide descriptive context if folder is empty or generic
+        let description = folder.description || '';
+        if (!description) {
+          const n = folder.name.toLowerCase();
+          if (n.includes('00_') || n.includes('faudantion') || n.includes('foundation')) {
+            description = 'Landasan teori utama: Teori Difusi Inovasi, Educational Data Mining, dan Grand Theory Pembelajaran Adaptif ASN.';
+          } else if (n.includes('01_') || n.includes('rq1')) {
+            description = 'RQ1: Analisis jejak perilaku belajar sinkron (Zoom) dan asinkron (LMS Moodle) yang termoderasi tipologi wilayah penugasan.';
+          } else if (n.includes('02_') || n.includes('rq2')) {
+            description = 'RQ2: Membedah efek pengacau (confounding) antara kendala infrastruktur/sinyal 3T vs motivasi belajar sebenarnya.';
+          } else if (n.includes('03_') || n.includes('rq3')) {
+            description = 'RQ3: Penanganan data hilang (missing data), ketidakhadiran kamera, dan analisis jeda inaktivitas per kluster daerah.';
+          } else if (n.includes('04_') || n.includes('rq4')) {
+            description = 'RQ4: Telemetri observabilitas visual webcam, kamera on/off ratio, mikro-atensi, dan multimodal interaction.';
+          } else if (n.includes('05_') || n.includes('rq5')) {
+            description = 'RQ5: Penerimaan aparatur birokrasi terhadap evaluasi berbasis AI berkeadilan (CCBN), transparansi, dan dampak IPP.';
+          } else {
+            description = `Folder referensi riset ${folder.name}`;
+          }
+        }
+
         resultCategories.push({
           id: folder.id,
           name: folder.name,
-          description: folder.description || `Folder referensi ${folder.name}`,
+          description,
           driveFolderId: folder.id,
           driveFolderUrl: `https://drive.google.com/drive/folders/${folder.id}`,
           files: driveFiles
