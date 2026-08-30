@@ -80,6 +80,19 @@
 
             <button
               type="button"
+              @click="activeMainTab = 'literature_map'"
+              :class="`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                activeMainTab === 'literature_map'
+                  ? 'bg-slate-900 text-white shadow-xs'
+                  : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+              }`"
+            >
+              <span>🕸️</span>
+              <span>3. Peta Literatur & Lanskap Teori (Network & Gap)</span>
+            </button>
+
+            <button
+              type="button"
               @click="activeMainTab = 'literature_repo'"
               :class="`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
                 activeMainTab === 'literature_repo'
@@ -88,7 +101,7 @@
               }`"
             >
               <span>📚</span>
-              <span>3. Literatur Acuan & Gap Riset ({{ papers.length }} Paper)</span>
+              <span>4. Repositori Literatur Acuan ({{ papers.length }} Paper)</span>
             </button>
 
             <button
@@ -101,7 +114,7 @@
               }`"
             >
               <span>🌐</span>
-              <span>4. Benchmark Datasets ({{ benchmarkDatasets.length }})</span>
+              <span>5. Benchmark Datasets ({{ benchmarkDatasets.length }})</span>
             </button>
           </div>
         </div>
@@ -797,7 +810,14 @@
         </div>
 
         <!-- ========================================================================= -->
-        <!-- TAB 3: REPOSITORI LITERATUR & PETA GAP PENELITIAN (271 PAPERS)           -->
+        <!-- TAB 3: PETA LITERATUR & LANSKAP TEORETIS (NETWORK & GAP)                  -->
+        <!-- ========================================================================= -->
+        <div v-else-if="activeMainTab === 'literature_map'">
+          <LiteratureNetworkMap :papers="papers" @select-paper="openPaperDetail" />
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- TAB 4: REPOSITORI LITERATUR ACUAN (271 PAPERS)                           -->
         <!-- ========================================================================= -->
         <div v-else-if="activeMainTab === 'literature_repo'" class="space-y-5">
           
@@ -1100,6 +1120,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue'
 import Navbar from '~/components/Navbar.vue'
+import LiteratureNetworkMap from '~/components/LiteratureNetworkMap.vue'
 
 // Inject Tailwind Play CDN safely with preflight disabled
 useHead({
@@ -1117,7 +1138,7 @@ useHead({
 })
 
 // Tab Navigation State
-const activeMainTab = ref<'architecture' | 'typology_spec' | 'literature_repo' | 'benchmarks'>('architecture')
+const activeMainTab = ref<'architecture' | 'typology_spec' | 'literature_map' | 'literature_repo' | 'benchmarks'>('architecture')
 
 // Flowchart Inspector Step & Modal State
 const selectedFlowStep = ref<string>('context')
