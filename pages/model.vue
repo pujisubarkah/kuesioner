@@ -18,18 +18,18 @@
           <!-- Left: View Mode Pills -->
           <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
             <button 
-              @click="activeModelView = 'dataset-framework'"
-              :class="['view-mode-btn', activeModelView === 'dataset-framework' ? 'active' : '']"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-              Framework Dataset & Literatur
-            </button>
-            <button 
               @click="activeModelView = 'theory-structural'"
               :class="['view-mode-btn', activeModelView === 'theory-structural' ? 'active' : '']"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-              Kerangka Teori & SEM-PLS
+              Arsitektur Komputasional & CCBN
+            </button>
+            <button 
+              @click="activeModelView = 'dataset-framework'"
+              :class="['view-mode-btn', activeModelView === 'dataset-framework' ? 'active' : '']"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              Sumber Bukti & Dataset Telemetri
             </button>
           </div>
 
@@ -49,19 +49,19 @@
               Refresh
             </button>
             <NuxtLink to="/analisis" class="btn btn-outline" style="font-size: 0.825rem; padding: 0.4rem 0.8rem; text-decoration: none;">
-              Knowledge Graph
+              Simulator Fair-LinUCB
             </NuxtLink>
           </div>
         </div>
 
-        <!-- VIEW 1: Dataset Requirements Framework based on Literature -->
-        <div v-if="activeModelView === 'dataset-framework'">
-          <DatasetRequirementFramework />
+        <!-- VIEW 1: Theoretical & Structural CCBN Architecture -->
+        <div v-if="activeModelView === 'theory-structural'">
+          <DissertationModelViewer :responses="normalizedResponses" />
         </div>
 
-        <!-- VIEW 2: Theoretical & Structural SEM-PLS 5-Pillar Architecture -->
-        <div v-else-if="activeModelView === 'theory-structural'">
-          <DissertationModelViewer :responses="normalizedResponses" />
+        <!-- VIEW 2: Dataset Requirements Framework based on Literature -->
+        <div v-else-if="activeModelView === 'dataset-framework'">
+          <DatasetRequirementFramework />
         </div>
       </div>
     </main>

@@ -6,36 +6,67 @@
     <main id="konten-utama" class="main-content" style="max-width: 1440px; margin: 0 auto; padding: 1.5rem 1rem;">
       <div class="flex flex-col h-full bg-slate-50/60 text-slate-900 p-2 sm:p-4 rounded-2xl overflow-y-auto space-y-6">
         
-        <!-- HEADER BAR UTAMA PRESENTASI DISERTASI -->
+        <!-- ========================================================================= -->
+        <!-- HEADER UTAMA JURNAL JISEBI & METADATA PAPER CABA FRAMEWORK               -->
+        <!-- ========================================================================= -->
         <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col gap-4">
-          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          
+          <!-- Journal & Indexing Bar -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-3 gap-2 text-[11px] text-slate-500 font-mono">
             <div>
-              <div class="flex flex-wrap items-center gap-2 mb-1.5">
+              <span class="font-bold text-slate-800">Journal of Information Systems Engineering and Business Intelligence (JISEBI)</span>
+              <span class="hidden md:inline"> • Vol.X, No.X, February/June/October XXXX</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span>ISSN: 2443-2555 (online) / 2598-6333 (print)</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">Open Access (CC BY 4.0)</span>
+            </div>
+          </div>
+
+          <!-- Title & Core Presentation -->
+          <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-4 pt-1">
+            <div class="space-y-2">
+              <div class="flex flex-wrap items-center gap-2">
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
-                  <span>🏛️</span> Standar Metodologi Disertasi (Konteks LAN RI)
+                  <span>🏛️</span> DSR Artifact: CABA Framework
                 </span>
                 <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-purple-50 text-purple-700 border border-purple-200">
-                  <span>🔬</span> Triangulasi Multimodal: Context + Zoom + LMS + Layanan Publik
+                  <span>⚙️</span> 4-Layer Architecture Pipeline
                 </span>
                 <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                  <span>📊</span> 4 Tipologi Daerah & Dampak IPP
+                  <span>⚖️</span> Spatial-Aware Algorithmic Equity
+                </span>
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                  <span>🎯</span> 4 Situated Learner States (S1–S4)
                 </span>
               </div>
-              <h1 class="text-2xl font-black text-slate-900 tracking-tight">
-                Dataset Hub & Cetak Biru Kebutuhan Data Empiris
+
+              <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">
+                Context-Aware Behavioral Analytics for Adaptive Public Sector Training: A Conceptual Baseline Informed by Preliminary Observational Insights and Framework Design
               </h1>
-              <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-4xl leading-relaxed">
-                Pemetaan kebutuhan dataset riset disertasi untuk menguji pengaruh <strong>Konteks Kedinasan & 4 Tipologi Spasial Daerah</strong> terhadap <strong>Jejak Perilaku Online (Zoom Meeting & LMS Moodle)</strong>, dimodelkan secara adil melalui <strong>CCBN</strong>, serta diukur dampaknya pada <strong>Indeks Pelayanan Publik (IPP)</strong>.
-              </p>
+
+              <div class="text-xs text-slate-600 font-medium">
+                <strong>First Author <sup>1)*</sup>, Second Author <sup>2)</sup>, Third Author <sup>3)</sup></strong>
+                <span class="text-slate-400 mx-2">|</span>
+                <span>Konteks Empiris: Pelatihan Aparatur Sipil Negara (ASN) & Lembaga Administrasi Negara (LAN RI)</span>
+              </div>
             </div>
 
             <!-- ACTION BUTTONS -->
-            <div class="flex items-center gap-2 self-start lg:self-center flex-wrap">
+            <div class="flex items-center gap-2 self-start flex-wrap shrink-0">
+              <button
+                type="button"
+                @click="showAbstract = !showAbstract"
+                class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition cursor-pointer flex items-center gap-1.5 shadow-2xs"
+              >
+                <span>📄</span>
+                <span>{{ showAbstract ? 'Tutup Abstrak' : 'Baca Abstrak JISEBI' }}</span>
+              </button>
               <button
                 type="button"
                 @click="fetchDatasetHubData"
                 :disabled="loading"
-                class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition cursor-pointer flex items-center gap-1.5 shadow-2xs"
+                class="px-3 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition cursor-pointer flex items-center gap-1.5 shadow-2xs"
               >
                 <span :class="{ 'animate-spin': loading }">🔄</span>
                 <span>Refresh Data</span>
@@ -45,420 +76,433 @@
                 class="px-3.5 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition cursor-pointer flex items-center gap-1.5 shadow-2xs no-underline"
               >
                 <span>📐</span>
-                <span>Buka Model SEM-PLS →</span>
+                <span>Model SEM-PLS →</span>
               </NuxtLink>
             </div>
           </div>
 
-          <!-- SUB TABS NAVIGATION -->
+          <!-- COLLAPSIBLE STRUCTURED ABSTRACT -->
+          <div v-if="showAbstract" class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 space-y-2.5 animate-slide-in">
+            <div class="flex items-center justify-between font-bold text-slate-900 border-b border-slate-200 pb-1.5">
+              <span class="uppercase tracking-wider text-[11px] text-blue-900">📑 Structured Abstract (JISEBI Standard)</span>
+              <span class="text-[10px] text-slate-500 font-normal">doi: 10.20473/jisebi.X.X.pp-pp</span>
+            </div>
+            <p><strong>Background:</strong> Digital transformation in public governance has expanded the use of Learning Management Systems for Public Sector Training, yet many platforms remain context-blind. Conventional Learning Analytics often interprets watch time, login frequency, completion status, and post-test scores without considering fragmented work schedules, infrastructural disparity, device constraints, and low-engagement learning patterns among civil servants.</p>
+            <p><strong>Objective:</strong> This study proposes a Context-Aware Behavioral Analytics (CABA) framework for Adaptive Learning in civil servant professional development. The objective is to show how Context-Aware Computing can be used to interpret learner behavior in relation to workplace demands, spatial-infrastructural conditions, organizational routines, and attentional constraints.</p>
+            <p><strong>Methods:</strong> Using a Design Science Research approach, this study develops a proof-of-concept artifact based on structured literature synthesis, policy document analysis, and contextual inquiry into Indonesian civil servant learning conditions. The framework is grounded in situated cognition, self-regulated learning, cognitive load theory, and andragogy to support Civil Service Competency development under heterogeneous service-work and infrastructure conditions.</p>
+            <p><strong>Results:</strong> The resulting CABA artifact consists of a four-layer architecture: context sensing and behavioral telemetry, learner-state inference, adaptive decision logic, and situated support delivery. The framework introduces Spatial-Aware Algorithmic Equity to normalize engagement metrics against spatial, device, workload, and network profiles. It also operationalizes Dynamic Modality Trade-off and Authentic Evidence Accumulation, enabling Engagement-Aware Learning through micro-chunking, scenario checkpoints, scaffolded explanations, offline-first caching, audio-first fallback, and asynchronous telemetry synchronization.</p>
+            <p><strong>Conclusion:</strong> CABA reframes behavioral telemetry as contextual evidence for pedagogical support rather than as a surveillance mechanism. By replacing uniform completion assumptions with context-sensitive evidence accumulation, the framework offers a proof-of-concept architectural blueprint for fairer, more adaptive government e-learning ecosystems that respect civil servants' workload, infrastructure constraints, and privacy boundaries.</p>
+            <div class="pt-2 border-t border-slate-200 flex flex-wrap items-center gap-1.5 text-[11px]">
+              <span class="font-bold text-slate-900">Keywords:</span>
+              <span v-for="kw in keywordsList" :key="kw" class="px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-700 font-medium">
+                {{ kw }}
+              </span>
+            </div>
+          </div>
+
+          <!-- SUB TABS NAVIGATION SESUAI STRUKTUR MANUSKRIP -->
           <div class="flex items-center gap-2 pt-2 border-t border-slate-100 flex-wrap">
             <button
               type="button"
               @click="activeMainTab = 'architecture'"
-              :class="`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+              :class="`px-3.5 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
                 activeMainTab === 'architecture'
                   ? 'bg-slate-900 text-white shadow-xs'
                   : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
               }`"
             >
               <span>🗺️</span>
-              <span>1. Alur Arsitektur Triangulasi Data (Diagram Disertasi)</span>
+              <span>1. Arsitektur 4-Layer CABA & Diagram Fig. 1</span>
             </button>
 
             <button
               type="button"
-              @click="activeMainTab = 'typology_spec'"
-              :class="`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                activeMainTab === 'typology_spec'
+              @click="activeMainTab = 'states_matrix'"
+              :class="`px-3.5 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                activeMainTab === 'states_matrix'
                   ? 'bg-slate-900 text-white shadow-xs'
                   : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
               }`"
             >
-              <span>🏛️</span>
-              <span>2. 4 Tipologi Daerah & Spesifikasi Data Bab 3</span>
+              <span>📊</span>
+              <span>2. Matriks 4 Situated Learner States (Tabel II)</span>
             </button>
 
             <button
               type="button"
-              @click="activeMainTab = 'literature_map'"
-              :class="`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                activeMainTab === 'literature_map'
+              @click="activeMainTab = 'paradigm_theories'"
+              :class="`px-3.5 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                activeMainTab === 'paradigm_theories'
                   ? 'bg-slate-900 text-white shadow-xs'
                   : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
               }`"
             >
-              <span>🕸️</span>
-              <span>3. Peta Literatur & Lanskap Teori (Network & Gap)</span>
+              <span>⚖️</span>
+              <span>3. Komparasi Paradigma & Landasan Teori (Tabel I)</span>
             </button>
 
             <button
               type="button"
-              @click="activeMainTab = 'literature_repo'"
-              :class="`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                activeMainTab === 'literature_repo'
+              @click="activeMainTab = 'scenarios'"
+              :class="`px-3.5 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                activeMainTab === 'scenarios'
+                  ? 'bg-slate-900 text-white shadow-xs'
+                  : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
+              }`"
+            >
+              <span>🎬</span>
+              <span>4. Demonstrasi Skenario Operasional (Section III-D)</span>
+            </button>
+
+            <button
+              type="button"
+              @click="activeMainTab = 'references'"
+              :class="`px-3.5 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                activeMainTab === 'references'
                   ? 'bg-slate-900 text-white shadow-xs'
                   : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
               }`"
             >
               <span>📚</span>
-              <span>4. Repositori Literatur Acuan ({{ papers.length }} Paper)</span>
-            </button>
-
-            <button
-              type="button"
-              @click="activeMainTab = 'benchmarks'"
-              :class="`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                activeMainTab === 'benchmarks'
-                  ? 'bg-slate-900 text-white shadow-xs'
-                  : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
-              }`"
-            >
-              <span>🌐</span>
-              <span>5. Benchmark Datasets ({{ benchmarkDatasets.length }})</span>
+              <span>5. 22 Referensi Paper JISEBI & Benchmark Datasets</span>
             </button>
           </div>
         </div>
 
         <!-- ========================================================================= -->
-        <!-- TAB 1: ARSITEKTUR ALUR TRIANGULASI DATA (INTERACTIVE FLOWCHART)          -->
+        <!-- TAB 1: ARSITEKTUR 4-LAYER CABA & DIAGRAM ALUR FIG. 1                     -->
         <!-- ========================================================================= -->
         <div v-if="activeMainTab === 'architecture'" class="space-y-6">
           
-          <!-- Banner Pengantar Presentasi ke Promotor -->
+          <!-- Banner Pengantar Arsitektur -->
           <div class="p-5 rounded-2xl bg-gradient-to-r from-blue-50 via-indigo-50 to-white border border-blue-200 shadow-2xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
               <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-blue-800 border border-blue-300 mb-1.5">
-                💡 Kerangka Metodologi & Triangulasi Data Disertasi
+                💡 Figure 1: The Four-Layer Architecture of CABA Framework
               </span>
               <h2 class="text-base font-black text-slate-900">
-                Bagaimana Context Mengondisikan Interpretasi Perilaku Belajar ASN?
+                Alur Multi-Signal Reasoning & Penyesuaian Metrik Kelulusan Autentik
               </h2>
               <p class="text-xs text-slate-600 mt-1 max-w-3xl leading-relaxed">
-                ASN yang mematikan kamera Zoom atau jarang aktif bukan otomatis berarti tidak berniat belajar. Melalui pemodelan <strong>CCBN</strong>, perilaku tersebut dikontekstualisasikan berdasarkan <strong>Tipologi Daerah</strong> dan <strong>Beban Layanan Publik</strong>, sehingga diagnosis status keterlibatan ASN akurat dan objektif.
+                Menghubungkan telemetri non-invasif (kecepatan video, tab focus, buffering) dengan kondisi kontekstual (jam kantor, dinas luar, jaringan 3T) untuk mengestimasi 4 state pembelajar secara probabilistik dan adil.
               </p>
             </div>
-            <div class="shrink-0 text-xs font-bold text-slate-500 bg-white px-3 py-2 rounded-xl border border-slate-200 shadow-2xs">
-              Klik pada tiap tahapan kotak di bawah untuk melihat rincian datanya ⬇️
+            <div class="shrink-0 text-xs font-bold text-slate-600 bg-white px-3 py-2 rounded-xl border border-slate-200 shadow-2xs">
+              Klik pada tiap blok diagram di bawah untuk melihat preview data & aturan inferensi ⬇️
             </div>
           </div>
 
-          <!-- DIAGRAM CANVAS INTERAKTIF -->
+          <!-- DIAGRAM CANVAS INTERAKTIF FIG. 1 -->
           <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col items-center">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-6 text-center">
-              PETA ARSITEKTUR INTEGRASI DATASET RISET DISERTASI
-            </h3>
-
-            <!-- LEVEL 1: CONTEXT DATA -->
-            <div
-              @click="openFlowModal('context')"
-              :class="`w-full max-w-2xl p-4 rounded-xl border-2 transition cursor-pointer text-center relative ${
-                selectedFlowStep === 'context'
-                  ? 'border-blue-600 bg-blue-50/80 shadow-md ring-2 ring-blue-300'
-                  : 'border-blue-300 bg-blue-50/40 hover:bg-blue-50'
-              }`"
-            >
-              <span class="absolute -top-3 left-4 px-2 py-0.5 bg-blue-600 text-white rounded text-[10px] font-bold uppercase tracking-wider">
-                Langkah 1: Input Konteks
-              </span>
-              <div class="text-xs font-bold text-blue-950 uppercase tracking-wide">
-                CONTEXT DATA (DATA KONTEKS PEMODELAN)
-              </div>
-              <div class="text-xs font-medium text-blue-800 mt-1">
-                Learner Profile • Service & Layanan Publik • 4 Tipologi Daerah • Kematangan SPBE Instansi
-              </div>
-              <div class="mt-2 text-[11px] text-slate-600">
-                <strong>Sumber:</strong> Kuesioner Mandiri (48 Indikator) + Portal SPBE KemenPAN-RB + Data Pemda
-              </div>
+            
+            <div class="text-center mb-6">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Gambar 1 (Figure 1 Manuskrip JISEBI)</span>
+              <h3 class="text-sm font-black text-slate-900 mt-0.5">
+                ARSITEKTUR EMPAT LAYER CONTEXT-AWARE BEHAVIORAL ANALYTICS (CABA)
+              </h3>
             </div>
 
-            <!-- ARROW DOWN -->
-            <div class="flex flex-col items-center py-2 text-slate-400">
-              <span class="text-lg leading-none">│</span>
-              <span class="text-lg leading-none">▼</span>
-            </div>
-
-            <!-- LEVEL 2: CONTEXT CONDITIONING -->
+            <!-- LEVEL 1: TOP BOX EVALUATE SIGNALS -->
             <div
-              @click="openFlowModal('conditioning')"
-              :class="`w-full max-w-md p-3 rounded-xl border transition cursor-pointer text-center ${
-                selectedFlowStep === 'conditioning'
-                  ? 'border-slate-800 bg-slate-900 text-white shadow-md ring-2 ring-slate-400'
-                  : 'border-slate-300 bg-slate-100 text-slate-800 hover:bg-slate-200'
+              @click="openFigureModal('evaluate_signals')"
+              :class="`w-full max-w-xl p-4 rounded-xl border-2 transition cursor-pointer text-center relative ${
+                selectedFigureNode === 'evaluate_signals'
+                  ? 'border-blue-600 bg-blue-50 shadow-md ring-2 ring-blue-300'
+                  : 'border-slate-800 bg-slate-900 text-white hover:bg-slate-800'
               }`"
             >
-              <div class="text-xs font-black uppercase tracking-wider">
-                ⚙️ CONTEXT CONDITIONING
+              <div :class="`text-sm font-black uppercase tracking-wider ${selectedFigureNode === 'evaluate_signals' ? 'text-blue-950' : 'text-white'}`">
+                EVALUATE SIGNALS
               </div>
-              <div class="text-[11px] mt-0.5 opacity-90">
-                Penetapan Baseline & Pembobotan Karakteristik Daerah & Beban Dinas
+              <div :class="`text-xs font-semibold mt-0.5 ${selectedFigureNode === 'evaluate_signals' ? 'text-blue-800' : 'text-slate-300'}`">
+                Multi-signal Reasoning Layer (Context Sensing + Behavioral Telemetry)
+              </div>
+              <div :class="`text-[11px] mt-1 ${selectedFigureNode === 'evaluate_signals' ? 'text-slate-600' : 'text-slate-400'}`">
+                Temporal Workload • Device Category • Network Profiles • Tab Focus • Playback Speed • Dwell Time
               </div>
             </div>
 
             <!-- BRANCHING ARROWS DOWN -->
-            <div class="w-full max-w-2xl flex justify-around py-2 text-slate-400 text-xs">
-              <span>┌─────────────────────────────</span>
+            <div class="w-full max-w-3xl flex justify-around py-2 text-slate-400 text-xs">
+              <span>┌─────────────────────────────────</span>
               <span>┼</span>
-              <span>─────────────────────────────┐</span>
+              <span>─────────────────────────────────┐</span>
             </div>
 
-            <!-- LEVEL 3: 3 BEHAVIORAL TRACES SOURCES -->
-            <div class="w-full max-w-2xl grid grid-cols-1 md:grid-cols-3 gap-3">
-              <!-- Source 1: Zoom Log -->
+            <!-- LEVEL 2: 3 PARALLEL STATES (S1, S2, S3) -->
+            <div class="w-full max-w-3xl grid grid-cols-1 md:grid-cols-3 gap-3">
+              
+              <!-- S1: Low-Engagement Completion Risk -->
               <div
-                @click="openFlowModal('zoom')"
-                :class="`p-3.5 rounded-xl border-2 transition cursor-pointer flex flex-col justify-between ${
-                  selectedFlowStep === 'zoom'
-                    ? 'border-indigo-600 bg-indigo-50/80 shadow-md ring-2 ring-indigo-300'
-                    : 'border-indigo-200 bg-indigo-50/30 hover:bg-indigo-50'
+                @click="openFigureModal('state_s1')"
+                :class="`p-4 rounded-xl border-2 transition cursor-pointer flex flex-col justify-between ${
+                  selectedFigureNode === 'state_s1'
+                    ? 'border-blue-600 bg-blue-50/90 shadow-md ring-2 ring-blue-300'
+                    : 'border-blue-300 bg-blue-50/40 hover:bg-blue-50'
                 }`"
               >
                 <div>
-                  <span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 text-[10px] font-bold">
-                    📹 Sesi Virtual Online
-                  </span>
-                  <h4 class="text-xs font-bold text-slate-900 mt-1.5">ZOOM TELEMETRY</h4>
-                  <ul class="text-[11px] text-slate-600 mt-1.5 space-y-1">
-                    <li>• <strong>Camera State:</strong> On/Off ratio</li>
-                    <li>• <strong>Chat Activity:</strong> Tanya/respons</li>
-                    <li>• <strong>Attendance:</strong> Durasi & disconnect</li>
+                  <div class="text-xs font-black text-blue-950 uppercase tracking-wide">
+                    S1: Low-Engagement Completion Risk
+                  </div>
+                  <div class="mt-2 text-xs font-semibold text-slate-700">Triggers:</div>
+                  <ul class="text-[11px] text-slate-600 mt-1 space-y-0.5">
+                    <li>• Speed 2x</li>
+                    <li>• Low tab focus</li>
+                    <li>• Deadline near</li>
+                    <li>• Skip to end</li>
                   </ul>
                 </div>
-                <div class="mt-2 pt-2 border-t border-indigo-100 text-[10px] text-indigo-700 font-semibold">
-                  Meeting Report & Telemetry Log
+                <div class="mt-3 pt-2.5 border-t border-blue-200">
+                  <div class="text-[10px] font-bold uppercase tracking-wider text-blue-900">TRADE-OFF:</div>
+                  <div class="text-xs font-bold text-blue-800 mt-0.5">
+                    Interactive Summary + 3 Spot-Tests
+                  </div>
                 </div>
               </div>
 
-              <!-- Source 2: LMS Log -->
+              <!-- S2: Fragmented Office-Hour Learning -->
               <div
-                @click="openFlowModal('lms')"
-                :class="`p-3.5 rounded-xl border-2 transition cursor-pointer flex flex-col justify-between ${
-                  selectedFlowStep === 'lms'
-                    ? 'border-cyan-600 bg-cyan-50/80 shadow-md ring-2 ring-cyan-300'
-                    : 'border-cyan-200 bg-cyan-50/30 hover:bg-cyan-50'
+                @click="openFigureModal('state_s2')"
+                :class="`p-4 rounded-xl border-2 transition cursor-pointer flex flex-col justify-between ${
+                  selectedFigureNode === 'state_s2'
+                    ? 'border-indigo-600 bg-indigo-50/90 shadow-md ring-2 ring-indigo-300'
+                    : 'border-indigo-300 bg-indigo-50/40 hover:bg-indigo-50'
                 }`"
               >
                 <div>
-                  <span class="px-2 py-0.5 rounded bg-cyan-100 text-cyan-800 text-[10px] font-bold">
-                    💻 Sesi Asinkron Mandiri
-                  </span>
-                  <h4 class="text-xs font-bold text-slate-900 mt-1.5">LMS LOGS (MOODLE)</h4>
-                  <ul class="text-[11px] text-slate-600 mt-1.5 space-y-1">
-                    <li>• <strong>Access Time:</strong> Jam dinas vs malam</li>
-                    <li>• <strong>Clickstream:</strong> Modul & materi</li>
-                    <li>• <strong>Offline Download:</strong> Modul PDF</li>
+                  <div class="text-xs font-black text-indigo-950 uppercase tracking-wide">
+                    S2: Fragmented Office-Hour Learning
+                  </div>
+                  <div class="mt-2 text-xs font-semibold text-slate-700">Triggers:</div>
+                  <ul class="text-[11px] text-slate-600 mt-1 space-y-0.5">
+                    <li>• Office hours</li>
+                    <li>• High tab-switching</li>
+                    <li>• Service interruptions</li>
+                    <li>• Short bursts</li>
                   </ul>
                 </div>
-                <div class="mt-2 pt-2 border-t border-cyan-100 text-[10px] text-cyan-700 font-semibold">
-                  mdl_logstore_standard_log LAN
+                <div class="mt-3 pt-2.5 border-t border-indigo-200">
+                  <div class="text-[10px] font-bold uppercase tracking-wider text-indigo-900">TRADE-OFF:</div>
+                  <div class="text-xs font-bold text-indigo-800 mt-0.5">
+                    State Preservation + Micro-chunking (3–5 min)
+                  </div>
                 </div>
               </div>
 
-              <!-- Source 3: Other Traces -->
+              <!-- S3: Cognitive Struggling -->
               <div
-                @click="openFlowModal('traces')"
-                :class="`p-3.5 rounded-xl border-2 transition cursor-pointer flex flex-col justify-between ${
-                  selectedFlowStep === 'traces'
-                    ? 'border-teal-600 bg-teal-50/80 shadow-md ring-2 ring-teal-300'
-                    : 'border-teal-200 bg-teal-50/30 hover:bg-teal-50'
+                @click="openFigureModal('state_s3')"
+                :class="`p-4 rounded-xl border-2 transition cursor-pointer flex flex-col justify-between ${
+                  selectedFigureNode === 'state_s3'
+                    ? 'border-cyan-600 bg-cyan-50/90 shadow-md ring-2 ring-cyan-300'
+                    : 'border-cyan-300 bg-cyan-50/40 hover:bg-cyan-50'
                 }`"
               >
                 <div>
-                  <span class="px-2 py-0.5 rounded bg-teal-100 text-teal-800 text-[10px] font-bold">
-                    📝 Evaluasi Berkala
-                  </span>
-                  <h4 class="text-xs font-bold text-slate-900 mt-1.5">OTHER TRACES</h4>
-                  <ul class="text-[11px] text-slate-600 mt-1.5 space-y-1">
-                    <li>• Kuis formatif pemahaman</li>
-                    <li>• Forum diskusi & peer review</li>
-                    <li>• Latensi pengerjaan tugas</li>
+                  <div class="text-xs font-black text-cyan-950 uppercase tracking-wide">
+                    S3: Cognitive Struggling
+                  </div>
+                  <div class="mt-2 text-xs font-semibold text-slate-700">Triggers:</div>
+                  <ul class="text-[11px] text-slate-600 mt-1 space-y-0.5">
+                    <li>• Frequent rewind</li>
+                    <li>• Long pause</li>
+                    <li>• Extended dwell time</li>
+                    <li>• Low quiz score</li>
                   </ul>
                 </div>
-                <div class="mt-2 pt-2 border-t border-teal-100 text-[10px] text-teal-700 font-semibold">
-                  Formative Assessment Data
+                <div class="mt-3 pt-2.5 border-t border-cyan-200">
+                  <div class="text-[10px] font-bold uppercase tracking-wider text-cyan-900">TRADE-OFF:</div>
+                  <div class="text-xs font-bold text-cyan-800 mt-0.5">
+                    Adaptive Scaffold: Infographic + Analogy + Hints
+                  </div>
                 </div>
               </div>
+
             </div>
 
-            <!-- ARROWS MERGE DOWN -->
-            <div class="w-full max-w-2xl flex justify-around py-2 text-slate-400 text-xs">
-              <span>└─────────────────────────────</span>
+            <!-- ARROWS MERGE DOWN TO S4 -->
+            <div class="w-full max-w-3xl flex justify-around py-2 text-slate-400 text-xs">
+              <span>└─────────────────────────────────</span>
               <span>┼</span>
-              <span>─────────────────────────────┘</span>
+              <span>─────────────────────────────────┘</span>
             </div>
             <div class="text-slate-400 text-lg leading-none">▼</div>
 
-            <!-- LEVEL 4: INTEGRATED BEHAVIOR PATTERNS -->
+            <!-- LEVEL 3: S4 INFRASTRUCTURAL CONSTRAINT (3T) -->
             <div
-              @click="openFlowModal('patterns')"
-              :class="`w-full max-w-md p-3 rounded-xl border transition cursor-pointer text-center ${
-                selectedFlowStep === 'patterns'
-                  ? 'border-purple-600 bg-purple-50 shadow-md ring-2 ring-purple-300'
-                  : 'border-purple-200 bg-purple-50/40 hover:bg-purple-50'
-              }`"
-            >
-              <div class="text-xs font-bold text-purple-950 uppercase tracking-wider">
-                INTEGRATED BEHAVIOR PATTERNS
-              </div>
-              <div class="text-[11px] text-purple-800 mt-0.5">
-                Fusi Multimodal: Attendance + Camera State + LMS Navigation Frequency
-              </div>
-            </div>
-
-            <!-- ARROW DOWN -->
-            <div class="flex flex-col items-center py-2 text-slate-400">
-              <span class="text-lg leading-none">│</span>
-              <span class="text-lg leading-none">▼</span>
-            </div>
-
-            <!-- LEVEL 5: CCBN ENGINE -->
-            <div
-              @click="openFlowModal('ccbn')"
-              :class="`w-full max-w-md p-4 rounded-xl border-2 transition cursor-pointer text-center relative ${
-                selectedFlowStep === 'ccbn'
+              @click="openFigureModal('state_s4')"
+              :class="`w-full max-w-3xl p-4 rounded-xl border-2 transition cursor-pointer my-2 ${
+                selectedFigureNode === 'state_s4'
                   ? 'border-amber-600 bg-amber-50 shadow-md ring-2 ring-amber-300'
                   : 'border-amber-300 bg-amber-50/50 hover:bg-amber-50'
               }`"
             >
-              <span class="absolute -top-3 left-4 px-2 py-0.5 bg-amber-600 text-white rounded text-[10px] font-bold uppercase tracking-wider">
-                Inti Pemodelan Inferensi
-              </span>
-              <div class="text-xs font-black text-amber-950 uppercase tracking-wider">
-                🧠 CCBN (Context-Conditioned Bayesian Network)
+              <div class="text-xs font-black text-amber-950 uppercase tracking-wide text-center">
+                S4: Infrastructural Constraint (3T Regions & Low Bandwidth)
               </div>
-              <div class="text-[11px] font-bold text-amber-800 mt-1">
-                Hierarchical Baseline &rarr; Deviation Analysis
-              </div>
-              <div class="text-[11px] text-slate-600 mt-1">
-                Membedakan inaktivitas akibat kendala spasial/dinas vs penurunan minat kognitif
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2 text-xs">
+                <div class="p-2.5 rounded-lg bg-white/80 border border-amber-200">
+                  <span class="font-bold text-slate-700 block mb-1">Triggers:</span>
+                  <ul class="text-[11px] text-slate-600 space-y-0.5">
+                    <li>• Low throughput & high packet loss</li>
+                    <li>• Repeated buffering events & stalls</li>
+                    <li>• Mobile + EDGE connectivity profile</li>
+                  </ul>
+                </div>
+                <div class="p-2.5 rounded-lg bg-white/80 border border-amber-200">
+                  <span class="font-bold text-amber-900 block mb-1">Trade-offs & Fallbacks:</span>
+                  <ul class="text-[11px] text-amber-800 space-y-0.5">
+                    <li>• <strong>Audio-first podcast mode</strong> (hemat bandwidth)</li>
+                    <li>• <strong>Offline PWA cache</strong> (unduh lokal)</li>
+                    <li>• <strong>Async telemetry sync</strong> (sinkronisasi tertunda)</li>
+                  </ul>
+                </div>
               </div>
             </div>
 
-            <!-- ARROW DOWN -->
+            <!-- ARROW DOWN TO ADJUSTED COMPLETION METRIC -->
             <div class="flex flex-col items-center py-2 text-slate-400">
               <span class="text-lg leading-none">│</span>
               <span class="text-lg leading-none">▼</span>
             </div>
 
-            <!-- LEVEL 6: CONTEXTUAL STATE TRIO -->
-            <div class="w-full max-w-xl grid grid-cols-3 gap-2 text-center">
-              <div
-                @click="openFlowModal('state_stable')"
-                :class="`p-2.5 rounded-xl border transition cursor-pointer ${
-                  selectedFlowStep === 'state_stable'
-                    ? 'border-emerald-600 bg-emerald-100 ring-2 ring-emerald-300'
-                    : 'border-emerald-200 bg-emerald-50 hover:bg-emerald-100'
-                }`"
-              >
-                <div class="text-[11px] font-bold text-emerald-900">🟢 STABLE</div>
-                <div class="text-[10px] text-emerald-700 mt-0.5">Sesuai Baseline</div>
-                <div class="text-[10px] font-bold text-slate-500 mt-1">No Action</div>
-              </div>
-
-              <div
-                @click="openFlowModal('state_adaptive')"
-                :class="`p-2.5 rounded-xl border transition cursor-pointer ${
-                  selectedFlowStep === 'state_adaptive'
-                    ? 'border-blue-600 bg-blue-100 ring-2 ring-blue-300'
-                    : 'border-blue-200 bg-blue-50 hover:bg-blue-100'
-                }`"
-              >
-                <div class="text-[11px] font-bold text-blue-900">🔵 ADAPTIVE</div>
-                <div class="text-[10px] text-blue-700 mt-0.5">Penyesuaian Format</div>
-                <div class="text-[10px] font-bold text-slate-500 mt-1">Supportive Cue</div>
-              </div>
-
-              <div
-                @click="openFlowModal('state_atrisk')"
-                :class="`p-2.5 rounded-xl border transition cursor-pointer ${
-                  selectedFlowStep === 'state_atrisk'
-                    ? 'border-rose-600 bg-rose-100 ring-2 ring-rose-300'
-                    : 'border-rose-200 bg-rose-50 hover:bg-rose-100'
-                }`"
-              >
-                <div class="text-[11px] font-bold text-rose-900">🔴 AT-RISK</div>
-                <div class="text-[10px] text-rose-700 mt-0.5">Deviasi Kritis</div>
-                <div class="text-[10px] font-bold text-rose-700 mt-1">Target Intervensi</div>
-              </div>
-            </div>
-
-            <!-- LEVEL 7: IMPACT ON PUBLIC SERVICES (OUTCOME HILIR) -->
-            <div class="flex flex-col items-center py-2 text-slate-400">
-              <span class="text-lg leading-none">│</span>
-              <span class="text-lg leading-none">▼</span>
-            </div>
-
+            <!-- LEVEL 4: ADJUSTED COMPLETION METRIC -->
             <div
-              @click="openFlowModal('public_service_outcome')"
-              :class="`w-full max-w-2xl p-4 rounded-xl border-2 transition cursor-pointer text-center relative ${
-                selectedFlowStep === 'public_service_outcome'
-                  ? 'border-emerald-600 bg-emerald-50/80 shadow-md ring-2 ring-emerald-300'
-                  : 'border-emerald-300 bg-emerald-50/40 hover:bg-emerald-50'
+              @click="openFigureModal('adjusted_metric')"
+              :class="`w-full max-w-xl p-4 rounded-xl border-2 transition cursor-pointer text-center relative ${
+                selectedFigureNode === 'adjusted_metric'
+                  ? 'border-emerald-600 bg-emerald-50 shadow-md ring-2 ring-emerald-300'
+                  : 'border-emerald-500 bg-emerald-50/70 hover:bg-emerald-50'
               }`"
             >
               <span class="absolute -top-3 left-4 px-2 py-0.5 bg-emerald-600 text-white rounded text-[10px] font-bold uppercase tracking-wider">
-                Tujuan Hilir Disertasi (Outcome)
+                Output Metrik Keadilan Kontekstual
               </span>
               <div class="text-xs font-black text-emerald-950 uppercase tracking-wider">
-                🏆 DAMPAK TERHADAP PENINGKATAN MUTU LAYANAN PUBLIK
+                ADJUSTED COMPLETION METRIC
               </div>
-              <div class="text-xs font-semibold text-emerald-800 mt-1">
-                Implementasi Aksi Perubahan • Indeks Pelayanan Publik (IPP) 2025 • Efektivitas Pelatihan
+              <div class="text-xs font-bold text-emerald-800 mt-0.5">
+                Authentic Evidence Accumulation + Spatial-Aware Algorithmic Equity
               </div>
-              <div class="mt-1 text-[11px] text-slate-600">
-                Menjawab mandat UU ASN: Pelatihan harus bermuara pada perbaikan pelayanan birokrasi kepada masyarakat
+              <div class="text-[11px] text-slate-600 mt-1">
+                Mengganti syarat kaku 100% linear watch time dengan akumulasi bukti pemahaman berbasis skenario, aktivitas offline terverifikasi, dan normalisasi disparitas infrastruktur.
               </div>
             </div>
 
           </div>
 
-          <!-- MODAL POP-UP PREVIEW DATASET ALUR RISET -->
+          <!-- 4-LAYER ARCHITECTURAL CARDS BREAKDOWN -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <!-- Layer 1 -->
+            <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-2xs flex flex-col justify-between">
+              <div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800">Layer 1</span>
+                <h4 class="text-xs font-bold text-slate-900 mt-1.5">Context Sensing & Telemetry</h4>
+                <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+                  Menangkap data temporal (jam kantor vs malam), kategori perangkat, kondisi jaringan (throughput, latency), serta telemetri non-invasif (tab focus, scrubbing, dwell time).
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-100 text-[10px] font-semibold text-blue-700">
+                Non-invasive LMS & Zoom Telemetry
+              </div>
+            </div>
+
+            <!-- Layer 2 -->
+            <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-2xs flex flex-col justify-between">
+              <div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-800">Layer 2</span>
+                <h4 class="text-xs font-bold text-slate-900 mt-1.5">Learner-State Inference</h4>
+                <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+                  Melakukan <em>multi-signal reasoning</em> untuk memetakan kombinasi pemicu ke dalam 4 status situasional (S1: Compliance Risk, S2: Office-Hour, S3: Struggle, S4: 3T Constraint).
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-100 text-[10px] font-semibold text-indigo-700">
+                Probabilistic Conjunction Engine
+              </div>
+            </div>
+
+            <!-- Layer 3 -->
+            <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-2xs flex flex-col justify-between">
+              <div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-800">Layer 3</span>
+                <h4 class="text-xs font-bold text-slate-900 mt-1.5">Adaptive Decision Logic</h4>
+                <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+                  Menerapkan <em>Spatial-Aware Algorithmic Equity</em> dan <em>Dynamic Modality Trade-Off</em> dengan aturan andragogi dan <em>intervention cooldown</em> untuk mencegah alert fatigue.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-100 text-[10px] font-semibold text-purple-700">
+                Fairness & Modality Trade-off Logic
+              </div>
+            </div>
+
+            <!-- Layer 4 -->
+            <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-2xs flex flex-col justify-between">
+              <div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">Layer 4</span>
+                <h4 class="text-xs font-bold text-slate-900 mt-1.5">Situated Support Delivery</h4>
+                <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+                  Mendistribusikan intervensi pedagogis tepat sasaran: micro-chunking 3-5 menit, scenario stop-gates, scaffolding worked examples, dan offline PWA audio fallback.
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-100 text-[10px] font-semibold text-emerald-700">
+                Authentic Evidence Accumulation
+              </div>
+            </div>
+
+          </div>
+
+          <!-- MODAL DETAIL POP-UP (INTERACTIVE INSPECTOR FIG. 1) -->
           <div
-            v-if="isFlowModalOpen && currentStepDetail"
+            v-if="isFigureModalOpen && currentFigureDetail"
             class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-3 sm:p-6 transition-opacity"
-            @click.self="closeFlowModal"
+            @click.self="closeFigureModal"
           >
             <div class="w-full max-w-4xl max-h-[90vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-slate-200 animate-slide-in text-slate-900">
+              
               <!-- Modal Header -->
               <div class="p-5 border-b border-slate-200 bg-slate-50 flex items-start justify-between gap-3">
                 <div>
                   <div class="flex items-center gap-2 mb-1.5 flex-wrap">
                     <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 border border-blue-200 uppercase tracking-wider">
-                      {{ currentStepDetail.category }}
+                      {{ currentFigureDetail.layer }}
                     </span>
                     <span class="text-[11px] text-slate-500 font-semibold">
-                      Katalog Dataset Empiris Disertasi
+                      Spesifikasi Manuskrip JISEBI & Data Empiris
                     </span>
                   </div>
                   <h3 class="text-base sm:text-lg font-black text-slate-900 leading-snug">
-                    {{ currentStepDetail.title }}
+                    {{ currentFigureDetail.title }}
                   </h3>
                 </div>
                 <button
                   type="button"
-                  @click="closeFlowModal"
+                  @click="closeFigureModal"
                   class="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-200 rounded-lg transition cursor-pointer text-base"
-                  title="Tutup Modal (ESC)"
+                  title="Tutup (ESC)"
                 >
                   ✕
                 </button>
               </div>
 
-              <!-- Modal Body (Scrollable) -->
+              <!-- Modal Body -->
               <div class="flex-1 overflow-y-auto p-5 sm:p-6 space-y-5 text-xs">
-                <!-- Penjelasan Konseptual -->
-                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 leading-relaxed space-y-1">
-                  <span class="font-bold text-slate-900 block text-xs">🎯 Rasionalisasi Metodologi & Kebutuhan Data:</span>
-                  <p>{{ currentStepDetail.description }}</p>
+                
+                <!-- Deskripsi Konseptual -->
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 leading-relaxed space-y-1.5">
+                  <span class="font-bold text-slate-900 block text-xs">🎯 Penjelasan Teoretis & Logika Komputasi:</span>
+                  <p>{{ currentFigureDetail.description }}</p>
                 </div>
 
                 <!-- PREVIEW TABEL DATASET NYATA -->
-                <div v-if="currentStepDetail.datasetPreview" class="space-y-2">
+                <div v-if="currentFigureDetail.sampleTable" class="space-y-2">
                   <div class="flex items-center justify-between flex-wrap gap-2">
                     <span class="font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1.5">
-                      <span>📊</span> Preview Struktur Data Ekstraksi (Sample Dataset):
+                      <span>📊</span> Struktur Data Telemetri / Matriks Inferensi (Sample Data):
                     </span>
                     <span class="px-2 py-0.5 rounded font-mono text-[10px] bg-slate-100 text-blue-700 border border-slate-200 font-bold">
-                      📁 {{ currentStepDetail.datasetPreview.tableName }}
+                      📁 {{ currentFigureDetail.sampleTable.name }}
                     </span>
                   </div>
 
@@ -466,339 +510,199 @@
                     <table class="w-full text-left text-xs border-collapse">
                       <thead>
                         <tr class="bg-slate-100 text-slate-700 border-b border-slate-200 font-bold">
-                          <th
-                            v-for="col in currentStepDetail.datasetPreview.columns"
-                            :key="col"
-                            class="p-2.5 whitespace-nowrap text-[11px]"
-                          >
+                          <th v-for="col in currentFigureDetail.sampleTable.columns" :key="col" class="p-2.5 whitespace-nowrap text-[11px]">
                             {{ col }}
                           </th>
                         </tr>
                       </thead>
                       <tbody class="divide-y divide-slate-100 font-mono text-[11px]">
-                        <tr
-                          v-for="(row, rIdx) in currentStepDetail.datasetPreview.rows"
-                          :key="rIdx"
-                          class="hover:bg-blue-50/50 transition-colors"
-                        >
-                          <td
-                            v-for="col in currentStepDetail.datasetPreview.columns"
-                            :key="col"
-                            class="p-2.5 whitespace-nowrap text-slate-800"
-                          >
-                            <span
-                              v-if="row[col] && (row[col].includes('Sangat Baik') || row[col].includes('STABLE') || row[col].includes('Prima') || row[col].includes('Lulus'))"
-                              class="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 font-bold text-[10px]"
-                            >
-                              {{ row[col] }}
-                            </span>
-                            <span
-                              v-else-if="row[col] && (row[col].includes('ADAPTIVE') || row[col].includes('Supportive') || row[col].includes('Wajar'))"
-                              class="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 font-bold text-[10px]"
-                            >
-                              {{ row[col] }}
-                            </span>
-                            <span
-                              v-else-if="row[col] && (row[col].includes('AT-RISK') || row[col].includes('Maksimal') || row[col].includes('Ekstrem'))"
-                              class="px-1.5 py-0.5 rounded bg-rose-50 text-rose-700 font-bold text-[10px]"
-                            >
-                              {{ row[col] }}
-                            </span>
-                            <span v-else>
-                              {{ row[col] }}
-                            </span>
+                        <tr v-for="(row, rIdx) in currentFigureDetail.sampleTable.rows" :key="rIdx" class="hover:bg-blue-50/40">
+                          <td v-for="col in currentFigureDetail.sampleTable.columns" :key="col" class="p-2.5 whitespace-nowrap text-slate-800">
+                            {{ row[col] }}
                           </td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
-                  <div class="text-[10px] text-slate-500 italic">
-                    * Menampilkan cuplikan 4 baris data representatif yang mencakup variasi 4 Tipologi Daerah (Metropolitan, Daratan, Kepulauan, Perbatasan).
-                  </div>
                 </div>
 
-                <!-- Parameter & Literatur Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
-                  <!-- Variabel & Parameter -->
+                <!-- Pemicu & Kebijakan Intervensi Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
                     <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider block">
-                      Variabel & Parameter Operasional
+                      ⚡ Sinyal & Pemicu (Contextual Triggers)
                     </span>
-                    <ul class="space-y-1.5 text-xs text-slate-800">
-                      <li v-for="(v, idx) in currentStepDetail.variables" :key="idx" class="flex items-start gap-1.5">
+                    <ul class="space-y-1 text-xs text-slate-800">
+                      <li v-for="(t, idx) in currentFigureDetail.triggers" :key="idx" class="flex items-start gap-1.5">
                         <span class="text-blue-600 font-bold">•</span>
-                        <span>{{ v }}</span>
+                        <span>{{ t }}</span>
                       </li>
                     </ul>
                   </div>
 
-                  <!-- Sumber Data & Literatur Acuan -->
                   <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
                     <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider block">
-                      Sumber Pengambilan Data & Literatur Acuan
+                      🛠️ Kebijakan Adaptasi & Rasional Pedagogis
                     </span>
                     <div class="text-xs text-slate-800">
-                      <strong>🏛️ Sumber Pengambilan:</strong> {{ currentStepDetail.source }}
+                      <strong>Kebijakan Adaptasi:</strong> {{ currentFigureDetail.policy }}
                     </div>
                     <div class="text-xs text-slate-700 leading-relaxed mt-1">
-                      📖 <strong>Rujukan Ilmiah:</strong> {{ currentStepDetail.literature }}
-                    </div>
-                    <div v-if="currentStepDetail.gapNote" class="mt-2.5 p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-snug">
-                      ⚡ <strong>Kebaruan & Celah Penelitian (Research Gap):</strong><br>
-                      {{ currentStepDetail.gapNote }}
+                      <strong>Rasional Pedagogis:</strong> {{ currentFigureDetail.rationale }}
                     </div>
                   </div>
                 </div>
+
               </div>
 
               <!-- Modal Footer -->
               <div class="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
-                <span class="text-xs text-slate-500 font-medium hidden sm:inline">
-                  Spesifikasi data siap ditranskripsi ke Bab 3 Disertasi
+                <span class="text-xs text-slate-500">
+                  Manuskrip JISEBI: Context-Aware Behavioral Analytics (CABA)
                 </span>
                 <button
                   type="button"
-                  @click="closeFlowModal"
-                  class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition cursor-pointer ml-auto shadow-2xs"
+                  @click="closeFigureModal"
+                  class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition cursor-pointer shadow-2xs"
                 >
-                  Tutup Preview Dataset
+                  Tutup Rincian
                 </button>
               </div>
+
             </div>
           </div>
 
         </div>
 
         <!-- ========================================================================= -->
-        <!-- TAB 2: 4 TIPOLOGI DAERAH & SPESIFIKASI DATA BAB 3                        -->
+        <!-- TAB 2: MATRIKS 4 SITUATED LEARNER STATES (TABEL II MANUSKRIP)            -->
         <!-- ========================================================================= -->
-        <div v-else-if="activeMainTab === 'typology_spec'" class="space-y-6">
+        <div v-else-if="activeMainTab === 'states_matrix'" class="space-y-6">
           
-          <!-- Banner Tipologi Berbasis Literatur Bappenas & Geografi Digital -->
+          <!-- Banner Pengantar Tabel II -->
           <div class="p-6 rounded-2xl bg-gradient-to-r from-purple-50 via-indigo-50 to-white border border-purple-200 shadow-xs">
             <div class="flex flex-wrap items-center gap-2 mb-2">
               <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-purple-100 text-purple-800 border border-purple-300">
-                🏛️ Rujukan Resmi: Tipologi Wilayah Bappenas (RPJMN) & Perka BPS No. 120/2020
-              </span>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
-                📚 Rujukan Akademis: Salemink et al. (2017) & Pratama (2020)
+                📊 Tabel II Manuskrip JISEBI: Situated Learner-State Inference Policies
               </span>
             </div>
             <h2 class="text-xl font-black text-slate-900">
-              Klasifikasi 4 Tipologi Daerah Pemerintahan & Konteks Belajar ASN
+              Tipologi 4 Status Pembelajar Kedinasan & Kebijakan Intervensi Adaptif
             </h2>
             <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-4xl leading-relaxed">
-              Konteks spasial tidak disederhanakan hanya sebagai "daerah 3T", melainkan dikelompokkan ke dalam 4 spektrum tipologi administratif pemerintahan di Indonesia. Variasi ini memoderasi beban kerja, kestabilan jaringan, dan pola perilaku peserta pelatihan.
+              Status pembelajar tidak diposisikan sebagai label statis individu, melainkan kondisi kontekstual dinamis yang memerlukan inferensi multi-sinyal guna mencegah <em>Contextual Attribution Error</em> (menghukum ASN atas kendala di luar kendali mereka).
             </p>
           </div>
 
-          <!-- 4 CARDS TIPOLOGI DAERAH -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            
-            <!-- Tipologi 1: Metropolitan -->
-            <div class="p-4 rounded-xl bg-white border border-slate-200 hover:border-blue-500 shadow-2xs transition flex flex-col justify-between space-y-3">
-              <div>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800">
-                  Tipologi 1
-                </span>
-                <h3 class="text-sm font-bold text-slate-900 mt-1.5">Metropolitan & Pusat Pertumbuhan</h3>
-                <p class="text-[11px] text-slate-500 font-medium">DKI Jakarta, Surabaya, Medan, Bandung, Makassar</p>
-                <div class="mt-3 space-y-1.5 text-xs text-slate-700">
-                  <div><strong>Infrastruktur:</strong> Fiber optik gigabit, 4G/5G merata, laptop dinas mandiri.</div>
-                  <div><strong>Beban Kerja:</strong> Disposisi rapat pimpinan sangat tinggi & mendadak.</div>
-                  <div><strong>Pola Zoom:</strong> Sering <em>multitasking</em>, kamera On saat diminta, chat minim karena mengerjakan berkas kantor.</div>
-                  <div><strong>Pola LMS:</strong> Belajar malam hari (20.00-23.00) setelah jam kantor reda.</div>
-                </div>
-              </div>
-              <div class="p-2 rounded-lg bg-blue-50 text-[10px] font-semibold text-blue-900 border border-blue-200">
-                Pilar Evaluasi: Disrupsi waktu & beban tugas kantor.
-              </div>
-            </div>
-
-            <!-- Tipologi 2: Perkotaan Sedang & Daratan -->
-            <div class="p-4 rounded-xl bg-white border border-slate-200 hover:border-emerald-500 shadow-2xs transition flex flex-col justify-between space-y-3">
-              <div>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">
-                  Tipologi 2
-                </span>
-                <h3 class="text-sm font-bold text-slate-900 mt-1.5">Perkotaan Sedang & Kabupaten Daratan</h3>
-                <p class="text-[11px] text-slate-500 font-medium">Kab. Banyumas, Sleman, Malang, Banjar, Maros</p>
-                <div class="mt-3 space-y-1.5 text-xs text-slate-700">
-                  <div><strong>Infrastruktur:</strong> 4G stabil, Wi-Fi kantor pemda memadai, listrik stabil.</div>
-                  <div><strong>Beban Kerja:</strong> Pelayanan publik tatap muka rutin di kantor dinas.</div>
-                  <div><strong>Pola Zoom:</strong> Mengikuti Zoom dari ruang kerja bersama (cubicle/aula dinas), kamera Off saat ruangan berisik.</div>
-                  <div><strong>Pola LMS:</strong> Akses teratur di sela-sela jam kerja dinas siang hari.</div>
-                </div>
-              </div>
-              <div class="p-2 rounded-lg bg-emerald-50 text-[10px] font-semibold text-emerald-900 border border-emerald-200">
-                Pilar Evaluasi: Ruang kerja bersama & fokus pelayanan publik.
-              </div>
-            </div>
-
-            <!-- Tipologi 3: Kepulauan & Maritim -->
-            <div class="p-4 rounded-xl bg-white border border-slate-200 hover:border-cyan-500 shadow-2xs transition flex flex-col justify-between space-y-3">
-              <div>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-100 text-cyan-800">
-                  Tipologi 3
-                </span>
-                <h3 class="text-sm font-bold text-slate-900 mt-1.5">Wilayah Kepulauan & Maritim</h3>
-                <p class="text-[11px] text-slate-500 font-medium">Kab. Natuna, Kep. Anambas, Kep. Aru, Kep. Sangihe</p>
-                <div class="mt-3 space-y-1.5 text-xs text-slate-700">
-                  <div><strong>Infrastruktur:</strong> Kabel laut / radio link, rentan cuaca ekstrem laut.</div>
-                  <div><strong>Beban Kerja:</strong> Mobilitas penugasan dinas pelayaran antar-pulau.</div>
-                  <div><strong>Pola Zoom:</strong> Matikan kamera demi menjaga kestabilan audio agar tidak terputus (*bandwidth coping*).</div>
-                  <div><strong>Pola LMS:</strong> Sangat membutuhkan pengunduhan materi PDF untuk dibaca offline.</div>
-                </div>
-              </div>
-              <div class="p-2 rounded-lg bg-cyan-50 text-[10px] font-semibold text-cyan-900 border border-cyan-200">
-                Pilar Evaluasi: Strategi adaptasi kuota & pembelajaran offline.
-              </div>
-            </div>
-
-            <!-- Tipologi 4: Perbatasan & Wilayah Khusus -->
-            <div class="p-4 rounded-xl bg-white border border-slate-200 hover:border-amber-500 shadow-2xs transition flex flex-col justify-between space-y-3">
-              <div>
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800">
-                  Tipologi 4
-                </span>
-                <h3 class="text-sm font-bold text-slate-900 mt-1.5">Perbatasan & Wilayah Khusus Pedalaman</h3>
-                <p class="text-[11px] text-slate-500 font-medium">Kab. Belu, Nunukan, Jayawijaya, Mahakam Ulu</p>
-                <div class="mt-3 space-y-1.5 text-xs text-slate-700">
-                  <div><strong>Infrastruktur:</strong> Satelit VSAT / genset bergilir malam hari.</div>
-                  <div><strong>Beban Kerja:</strong> Multi-role aparat di garda terdepan kedaulatan negara.</div>
-                  <div><strong>Pola Zoom:</strong> Mengakses Zoom via smartphone di titik sinyal tertentu, sering reconnect.</div>
-                  <div><strong>Pola LMS:</strong> Memilih ringkasan materi microlearning 3-5 menit.</div>
-                </div>
-              </div>
-              <div class="p-2 rounded-lg bg-amber-50 text-[10px] font-semibold text-amber-900 border border-amber-200">
-                Pilar Evaluasi: Keterbatasan akses fisik & format ringkas adaptif.
-              </div>
-            </div>
-
-          </div>
-
-          <!-- TABEL SPESIFIKASI VARIABEL DATA BAB 3 DISERTASI -->
+          <!-- TABEL II RESMI MANUSKRIP JISEBI -->
           <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3 flex-wrap gap-2">
-              <div>
-                <h3 class="text-sm font-black text-slate-900">
-                  TABEL MATRIKS OPERASIONAL VARIABEL DATASET (BAB 3 DISERTASI)
-                </h3>
-                <p class="text-xs text-slate-500">
-                  Triangulasi 3 aliran data empiris: Konteks Kedinasan, Jejak Digital Online, dan Evaluasi Kinerja Layanan Publik
-                </p>
-              </div>
-              <span class="px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-lg text-xs font-bold">
-                ✓ Matriks Operasional Bab 3 Terverifikasi
+              <h3 class="text-sm font-black text-slate-900 uppercase">
+                TABLE II. Situated Learner-State Inference Policies in the CABA Framework
+              </h3>
+              <span class="px-2.5 py-0.5 rounded bg-blue-50 text-blue-800 font-mono text-[11px] font-bold border border-blue-200">
+                Section III-A Proof-of-Concept Baseline
               </span>
             </div>
 
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr class="bg-slate-100 text-slate-700 border-b border-slate-200">
-                    <th class="p-3 font-bold">Aliran Data (Stream)</th>
-                    <th class="p-3 font-bold">Variabel / Indikator Operasional</th>
-                    <th class="p-3 font-bold">Cara & Sumber Pengambilan</th>
-                    <th class="p-3 font-bold">Skala / Satuan</th>
-                    <th class="p-3 font-bold">Rujukan Literatur & Status Gap</th>
+                  <tr class="bg-slate-100 text-slate-700 border-b border-slate-200 font-bold">
+                    <th class="p-3 w-44">Inferred State</th>
+                    <th class="p-3 w-48">Contextual Triggers</th>
+                    <th class="p-3">Target Adaptation Policy</th>
+                    <th class="p-3">Pedagogical Rationale</th>
+                    <th class="p-3 w-48">Actionable Trade-Off</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-200 text-slate-800">
                   
-                  <!-- Stream 1: Context Data -->
-                  <tr class="hover:bg-slate-50">
+                  <!-- S1 -->
+                  <tr class="hover:bg-blue-50/30 transition-colors">
                     <td class="p-3 font-bold text-blue-900 align-top">
-                      1. Context Data<br>
-                      <span class="text-[10px] font-normal text-slate-500">Konteks Kedinasan & Spasial</span>
+                      <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px] block w-max mb-1">S1</span>
+                      Low-Engagement Completion Risk
                     </td>
-                    <td class="p-3 space-y-1 align-top">
-                      <div>• <strong>Spasial:</strong> 4 Tipologi Daerah & Zona Waktu (WIB/WITA/WIT)</div>
-                      <div>• <strong>Service:</strong> Frontline (Pelayanan Langsung) vs Back-office</div>
-                      <div>• <strong>Workload:</strong> Overlap penugasan mendadak pimpinan</div>
-                      <div>• <strong>Institutional:</strong> Indeks SPBE Instansi Pengirim</div>
+                    <td class="p-3 align-top text-slate-600">
+                      Low tab-focus ratio, background playback, high acceleration (speed 2x), near deadline, skip to end.
                     </td>
-                    <td class="p-3 align-top">
-                      Instrumen Kuesioner Mandiri (48 butir) + Integrasi Data SPBE KemenPAN-RB
+                    <td class="p-3 align-top font-medium text-slate-900">
+                      Active verification stop-gate with scenario checkpoint.
                     </td>
-                    <td class="p-3 align-top">
-                      Skala Likert (1–5), Kategori Nominal, Indeks SPBE (1–5)
+                    <td class="p-3 align-top text-slate-600 leading-relaxed">
+                      Converts passive compliance into active cognitive processing before completion is credited.
                     </td>
                     <td class="p-3 align-top">
-                      <div class="font-semibold text-slate-900">Bappenas RPJMN; Salemink (2017); Pratama (2020)</div>
-                      <div class="text-[11px] text-slate-500 mt-0.5">Mendasari klasifikasi spasial & SPBE</div>
+                      <span class="px-2 py-1 rounded bg-blue-50 text-blue-800 border border-blue-200 font-bold text-[11px] block">
+                        Interactive Summary + 3 Spot-Tests
+                      </span>
                     </td>
                   </tr>
 
-                  <!-- Stream 2: Zoom Traces -->
-                  <tr class="hover:bg-slate-50">
+                  <!-- S2 -->
+                  <tr class="hover:bg-indigo-50/30 transition-colors">
                     <td class="p-3 font-bold text-indigo-900 align-top">
-                      2. Zoom Behavioral Traces<br>
-                      <span class="text-[10px] font-normal text-slate-500">Sesi Synchronous Virtual</span>
+                      <span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 font-bold text-[10px] block w-max mb-1">S2</span>
+                      Fragmented Office-Hour Learning
                     </td>
-                    <td class="p-3 space-y-1 align-top">
-                      <div>• <strong>Camera State:</strong> Rasio durasi On vs Off</div>
-                      <div>• <strong>Chat Engagement:</strong> Frekuensi chat tanya/jawab</div>
-                      <div>• <strong>Attendance:</strong> Durasi hadir & jumlah reconnect</div>
-                      <div>• <strong>Reaction:</strong> Penggunaan emoji & hand-raise</div>
+                    <td class="p-3 align-top text-slate-600">
+                      Office hours, desktop access, frequent interruptions, high tab-switching, short activity bursts.
                     </td>
-                    <td class="p-3 align-top">
-                      Meeting Report CSV Penyelenggara Zoom & Telemetri WebRTC
+                    <td class="p-3 align-top font-medium text-slate-900">
+                      Dynamic modality trade-off: switch among micro-video, text brief, audio recap, or deferred checkpoint based on interruption density and available attention window.
                     </td>
-                    <td class="p-3 align-top">
-                      Menit, Rasio Persentase, Count Interaksi, Jumlah Putus
+                    <td class="p-3 align-top text-slate-600 leading-relaxed">
+                      Preserves authentic evidence accumulation by recognizing fragmented attention as a service-context condition while maintaining competency-oriented checkpoints.
                     </td>
                     <td class="p-3 align-top">
-                      <div class="font-semibold text-slate-900">Castelli & Sarvary (2021); Bedenlier (2021)</div>
-                      <div class="text-[11px] text-amber-700 font-bold mt-0.5">⚡ Gap: Belum ada kajian pada birokrasi ASN Indonesia</div>
+                      <span class="px-2 py-1 rounded bg-indigo-50 text-indigo-800 border border-indigo-200 font-bold text-[11px] block">
+                        State Preservation + Micro-chunking (3–5 min)
+                      </span>
                     </td>
                   </tr>
 
-                  <!-- Stream 3: LMS Logs -->
-                  <tr class="hover:bg-slate-50">
+                  <!-- S3 -->
+                  <tr class="hover:bg-cyan-50/30 transition-colors">
                     <td class="p-3 font-bold text-cyan-900 align-top">
-                      3. LMS Interaction Traces<br>
-                      <span class="text-[10px] font-normal text-slate-500">Sesi Asynchronous Mandiri</span>
+                      <span class="px-2 py-0.5 rounded bg-cyan-100 text-cyan-800 font-bold text-[10px] block w-max mb-1">S3</span>
+                      Cognitive Struggling
                     </td>
-                    <td class="p-3 space-y-1 align-top">
-                      <div>• <strong>Temporal Access:</strong> Jam dinas (08-16) vs malam</div>
-                      <div>• <strong>Download Activity:</strong> Pengunduhan materi PDF</div>
-                      <div>• <strong>Video Interaction:</strong> Drop-off rate & rewind</div>
-                      <div>• <strong>Navigation Stream:</strong> Urutan modul dibuka</div>
+                    <td class="p-3 align-top text-slate-600">
+                      Repeated rewinds, long pauses, extended dwell time on single concept, low quiz performance.
                     </td>
-                    <td class="p-3 align-top">
-                      Database Log Moodle LMS ASN Unggul LAN (<code class="text-[10px] bg-slate-100 px-1 py-0.5 rounded">mdl_logstore_standard_log</code>)
+                    <td class="p-3 align-top font-medium text-slate-900">
+                      Scaffolded clarification through worked examples, hints, infographics, and simplified regulatory explanations.
                     </td>
-                    <td class="p-3 align-top">
-                      Timestamp, Hit Count, Durasi Detik Tonton
+                    <td class="p-3 align-top text-slate-600 leading-relaxed">
+                      Reduces extraneous cognitive load and supports situated understanding of complex bureaucratic regulations.
                     </td>
                     <td class="p-3 align-top">
-                      <div class="font-semibold text-slate-900">OULAD Benchmark (2020); Moodle EDM Literature</div>
-                      <div class="text-[11px] text-slate-500 mt-0.5">Acuan ekstraksi fitur clickstream</div>
+                      <span class="px-2 py-1 rounded bg-cyan-50 text-cyan-800 border border-cyan-200 font-bold text-[11px] block">
+                        Adaptive Scaffold: Infographic + Analogy + Hints
+                      </span>
                     </td>
                   </tr>
 
-                  <!-- Stream 4: Public Service Outcome -->
-                  <tr class="hover:bg-slate-50">
-                    <td class="p-3 font-bold text-emerald-900 align-top">
-                      4. Public Service Outcome<br>
-                      <span class="text-[10px] font-normal text-slate-500">Dampak Hilir Layanan Publik</span>
+                  <!-- S4 -->
+                  <tr class="hover:bg-amber-50/30 transition-colors">
+                    <td class="p-3 font-bold text-amber-900 align-top">
+                      <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px] block w-max mb-1">S4</span>
+                      Infrastructural Constraint (Low Bandwidth / 3T Access)
                     </td>
-                    <td class="p-3 space-y-1 align-top">
-                      <div>• <strong>IPP 2025:</strong> Indeks Pelayanan Publik Pemda</div>
-                      <div>• <strong>Aksi Perubahan:</strong> Skor adopsi proyek inovasi</div>
-                      <div>• <strong>Pre/Post Test:</strong> Gain score kompetensi</div>
-                      <div>• <strong>Mentor Feedback:</strong> Evaluasi atasan langsung</div>
+                    <td class="p-3 align-top text-slate-600">
+                      Low throughput, packet loss, repeated buffering stalls, mobile + EDGE network profile.
                     </td>
-                    <td class="p-3 align-top">
-                      Portal Evaluasi KemenPAN-RB & Database Puslatbang LAN RI
+                    <td class="p-3 align-top font-medium text-slate-900">
+                      Dynamic modality trade-off with offline-first caching, audio-first podcast fallback, compressed micro-content, and asynchronous telemetry synchronization.
                     </td>
-                    <td class="p-3 align-top">
-                      Nilai Numerik (0–100), Predikat Mutu Layanan (A s.d. F)
+                    <td class="p-3 align-top text-slate-600 leading-relaxed">
+                      Accumulates authentic evidence despite connectivity gaps by adjusting completion metrics for buffering, packet loss, and deferred synchronization events [13]–[16].
                     </td>
                     <td class="p-3 align-top">
-                      <div class="font-semibold text-slate-900">Kirkpatrick Level 3-4; PermenPAN-RB Evaluasi Pelayanan Publik</div>
-                      <div class="text-[11px] text-emerald-700 font-bold mt-0.5">🎯 Tolok ukur kebermanfaatan disertasi bagi negara</div>
+                      <span class="px-2 py-1 rounded bg-amber-50 text-amber-800 border border-amber-200 font-bold text-[11px] block">
+                        Audio-First Podcast + Offline PWA Cache + Async Sync
+                      </span>
                     </td>
                   </tr>
 
@@ -807,309 +711,756 @@
             </div>
           </div>
 
-        </div>
-
-        <!-- ========================================================================= -->
-        <!-- TAB 3: PETA LITERATUR & LANSKAP TEORETIS (NETWORK & GAP)                  -->
-        <!-- ========================================================================= -->
-        <div v-else-if="activeMainTab === 'literature_map'">
-          <LiteratureNetworkMap :papers="papers" @select-paper="openPaperDetail" />
-        </div>
-
-        <!-- ========================================================================= -->
-        <!-- TAB 4: REPOSITORI LITERATUR ACUAN (271 PAPERS)                           -->
-        <!-- ========================================================================= -->
-        <div v-else-if="activeMainTab === 'literature_repo'" class="space-y-5">
-          
-          <!-- Summary Box Gap Ilmiah -->
-          <div class="p-5 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-950 space-y-2">
-            <h3 class="font-bold flex items-center gap-1.5 text-sm text-amber-900">
-              <span>⚡</span> Kebaruan & Celah Riset Empiris (State of the Art & Research Gap)
-            </h3>
-            <p class="leading-relaxed">
-              Sebagian besar literatur global <em>learning analytics</em> dan telemetri Zoom (misal: <em>Castelli & Sarvary, 2021</em>; <em>Bedenlier et al., 2021</em>) menguji populasi <strong>mahasiswa di negara maju</strong> yang memiliki infrastruktur seragam dan tidak memiliki tanggung jawab kedinasan publik. 
-              <strong>Kebaruan disertasi ini adalah membuktikan bahwa perilaku belajar online aparatur birokrasi dipengaruhi secara kuat oleh Tipologi Daerah penugasan dan dinamika pelayanan publik.</strong>
-            </p>
-          </div>
-
-          <!-- FILTER BAR -->
-          <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-2xs flex flex-col md:flex-row gap-3 items-center justify-between">
-            <div class="relative w-full md:w-80">
-              <input
-                v-model="searchQuery"
-                type="text"
-                placeholder="Cari paper, variabel, atau tipologi..."
-                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white"
-              />
-              <span class="absolute right-3 top-2.5 text-slate-400 text-xs">🔍</span>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
-              <select
-                v-model="selectedDataType"
-                class="bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-700 focus:outline-none focus:border-blue-500"
-              >
-                <option value="all">Semua Tipe Data ({{ papers.length }})</option>
-                <option v-for="item in dataTypeDist" :key="item.name" :value="item.name">
-                  {{ item.name }} ({{ item.count }})
-                </option>
-              </select>
-
-              <select
-                v-model="selectedPopulation"
-                class="bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-700 focus:outline-none focus:border-blue-500"
-              >
-                <option value="all">Semua Populasi</option>
-                <option v-for="item in popDist" :key="item.name" :value="item.name">
-                  {{ item.name }} ({{ item.count }})
-                </option>
-              </select>
-            </div>
-          </div>
-
-          <!-- PAPERS GRID -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div
-              v-for="paper in paginatedPapers"
-              :key="paper.id"
-              class="p-4 rounded-xl bg-white border border-slate-200 hover:border-blue-500 shadow-2xs hover:shadow-md transition flex flex-col justify-between gap-3"
-            >
+          <!-- INTERACTIVE MULTI-SIGNAL INFERENCE SIMULATOR -->
+          <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3 flex-wrap gap-2">
               <div>
-                <div class="flex flex-wrap items-center justify-between gap-1.5 mb-2">
-                  <span :class="`text-[10px] font-bold px-2 py-0.5 rounded-full border ${getDataTypeBadgeClass(paper.primary_data_type)}`">
-                    {{ paper.primary_data_type }}
-                  </span>
-                  <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
-                    👥 {{ paper.population }}
-                  </span>
-                </div>
-
-                <h4 class="text-sm font-bold text-slate-900 leading-snug hover:text-blue-700 cursor-pointer" @click="openPaperDetail(paper)">
-                  {{ paper.title }}
-                </h4>
-                <p class="text-[11px] text-slate-500 mt-1">
-                  👤 {{ paper.authors }} • <span v-if="paper.year">{{ paper.year }} •</span> {{ paper.journal }}
+                <h3 class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+                  <span>🧠</span> SIMULATOR INFERENSI MULTI-SINYAL CABA (INTERACTIVE TESTBENCH)
+                </h3>
+                <p class="text-xs text-slate-500">
+                  Uji bagaimana kombinasi sinyal telemetri dan konteks kedinasan menghasilkan inferensi state dan intervensi yang adil.
                 </p>
+              </div>
+              <button
+                type="button"
+                @click="resetSimulator"
+                class="px-3 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 cursor-pointer"
+              >
+                Reset Simulator
+              </button>
+            </div>
 
-                <div class="mt-3 p-2.5 rounded-lg bg-slate-50 border border-slate-200 space-y-1 text-[11px]">
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-500">📏 Sampel:</span>
-                    <span class="font-bold text-amber-800">{{ paper.sample_size }}</span>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              
+              <!-- Input Sinyal Checkboxes -->
+              <div class="lg:col-span-2 space-y-4">
+                <span class="text-xs font-bold text-slate-700 block uppercase tracking-wider">
+                  1. Pilih Sinyal Telemetri & Konteks Kedinasan yang Terdeteksi:
+                </span>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <label
+                    v-for="sig in availableSignals"
+                    :key="sig.id"
+                    :class="`p-3 rounded-xl border transition cursor-pointer flex items-start gap-2.5 ${
+                      activeSignalIds.includes(sig.id)
+                        ? 'border-blue-500 bg-blue-50/70 shadow-xs'
+                        : 'border-slate-200 bg-slate-50/50 hover:bg-slate-100/70'
+                    }`"
+                  >
+                    <input
+                      type="checkbox"
+                      :value="sig.id"
+                      v-model="activeSignalIds"
+                      class="mt-0.5 rounded text-blue-600 focus:ring-blue-500 cursor-pointer"
+                    />
+                    <div class="text-xs">
+                      <div class="font-bold text-slate-900">{{ sig.label }}</div>
+                      <div class="text-[11px] text-slate-500 mt-0.5">{{ sig.desc }}</div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Output Hasil Inferensi -->
+              <div class="p-5 rounded-2xl bg-gradient-to-b from-slate-50 to-blue-50/30 border border-slate-200 flex flex-col justify-between space-y-4">
+                <div>
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-1">
+                    2. Hasil Inferensi CABA Engine:
+                  </span>
+                  
+                  <div v-if="simulatedResult.states.length === 0" class="p-4 rounded-xl bg-white border border-slate-200 text-center text-xs text-slate-500">
+                    Pilih minimal 1 sinyal telemetri di sebelah kiri untuk melihat hasil inferensi adaptif.
                   </div>
-                  <div class="flex items-start justify-between gap-2">
-                    <span class="text-slate-500 shrink-0">🏷️ Variabel:</span>
-                    <div class="flex flex-wrap gap-1 justify-end">
-                      <span v-for="v in paper.key_variables" :key="v" class="px-1.5 py-0.5 rounded text-[10px] bg-white border border-slate-200 text-slate-700">
-                        {{ v }}
-                      </span>
+
+                  <div v-else class="space-y-3">
+                    <div
+                      v-for="st in simulatedResult.states"
+                      :key="st.code"
+                      :class="`p-3.5 rounded-xl border ${st.badgeClass}`"
+                    >
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs font-black">{{ st.code }}: {{ st.name }}</span>
+                        <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-white/80 border">
+                          Confidence: {{ st.confidence }}%
+                        </span>
+                      </div>
+                      <div class="mt-2 text-xs font-semibold">Kebijakan Adaptasi:</div>
+                      <div class="text-[11px] mt-0.5">{{ st.policy }}</div>
                     </div>
                   </div>
                 </div>
+
+                <div v-if="simulatedResult.states.length > 0" class="p-3 rounded-xl bg-white border border-slate-200 space-y-1 text-xs text-slate-700">
+                  <div class="font-bold text-slate-900">🛡️ Pencegahan Bias / Error:</div>
+                  <div class="text-[11px] text-slate-600 leading-snug">
+                    {{ simulatedResult.fairnessNote }}
+                  </div>
+                </div>
               </div>
 
-              <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
-                <button
-                  type="button"
-                  @click="openPaperDetail(paper)"
-                  class="text-blue-700 hover:underline font-bold flex items-center gap-1 cursor-pointer"
-                >
-                  Detail Metodologi ➔
-                </button>
-                <a
-                  :href="paper.landing_url || `http://localhost:8088/api/literature-hunter/files/${paper.id}/view`"
-                  target="_blank"
-                  class="px-2.5 py-1 rounded bg-slate-900 hover:bg-slate-800 text-white text-[10px] font-bold transition no-underline"
-                >
-                  📄 Dokumen
-                </a>
-              </div>
             </div>
           </div>
 
-          <!-- PAGINATION -->
-          <div v-if="totalPages > 1" class="p-4 rounded-xl bg-white border border-slate-200 shadow-2xs flex items-center justify-between text-xs">
-            <span class="text-slate-500">
-              Menampilkan {{ startItemIndex }}-{{ endItemIndex }} dari {{ totalFilteredCount }} paper (Hal {{ currentPage }}/{{ totalPages }})
-            </span>
-            <div class="flex items-center gap-1.5">
-              <button
-                :disabled="currentPage === 1"
-                @click="goToPage(currentPage - 1)"
-                class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 disabled:opacity-30 font-bold"
-              >
-                ‹
-              </button>
-              <button
-                v-for="p in visiblePages"
-                :key="p"
-                @click="goToPage(p)"
-                :class="`px-3 py-1.5 rounded-lg text-xs font-bold ${
-                  currentPage === p ? 'bg-blue-600 text-white' : 'bg-white border border-slate-200 text-slate-700'
-                }`"
-              >
-                {{ p }}
-              </button>
-              <button
-                :disabled="currentPage === totalPages"
-                @click="goToPage(currentPage + 1)"
-                class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 disabled:opacity-30 font-bold"
-              >
-                ›
-              </button>
+          <!-- NARRATIVE CASE EXAMPLES FROM MANUSCRIPT -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <div class="p-5 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800">
+                Kasus Naratif S1 (Integrity Module)
+              </span>
+              <h4 class="text-xs font-bold text-slate-900">Penyelesaian Modul Integritas di Akhir Periode</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Seorang peserta ASN memutar video integritas wajib dengan kecepatan 2x sementara tab browser tidak aktif menjelang batas akhir pelaporan. CABA tidak mencap ini sebagai kecurangan, melainkan memicu <em>scenario-based checkpoint</em> singkat untuk memverifikasi pemahaman sebelum modul dinyatakan tuntas.
+              </p>
             </div>
+
+            <div class="p-5 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-800">
+                Kasus Naratif S2 (Disposisi Dinas Kantor)
+              </span>
+              <h4 class="text-xs font-bold text-slate-900">Belajar Pengadaan Barang/Jasa di Sela Layanan Warga</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Administrator daerah mempelajari modul pengadaan saat jam kerja tetapi sering berpindah tab untuk merespons pimpinan dan berkas warga. CABA mengenali disrupsi dinas ini dan mengubah sisa modul menjadi segmen video mikro 3 menit dan ringkasan audio recap.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-100 text-cyan-800">
+                Kasus Naratif S3 (Hambatan Regulasi Baru)
+              </span>
+              <h4 class="text-xs font-bold text-slate-900">Kebingungan Konseptual pada Regulasi Baru</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Pejabat fungsional memutar ulang bagian aturan etika berkali-kali dan mendapatkan nilai rendah pada kuis pengadaan. CABA menginterpretasikannya sebagai hambatan kognitif dan menyajikan <em>worked examples</em> serta infografis analogi regulasi yang disederhanakan.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800">
+                Kasus Naratif S4 (Aparatur Perbatasan 3T)
+              </span>
+              <h4 class="text-xs font-bold text-slate-900">Aparatur Garda Terdepan dengan Jaringan EDGE</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Petugas di wilayah 3T mengakses modul etika via smartphone dengan buffering tinggi. CABA mengaktifkan PWA offline cache dan audio podcast mode, menyesuaikan kalkulasi metrik kelulusan tanpa mengharuskan streaming video kontinu.
+              </p>
+            </div>
+
           </div>
 
         </div>
 
         <!-- ========================================================================= -->
-        <!-- TAB 4: BENCHMARK DATASETS                                                -->
+        <!-- TAB 3: KOMPARASI PARADIGMA & LANDASAN TEORI (TABEL I & SECTION II)       -->
         <!-- ========================================================================= -->
-        <div v-else-if="activeMainTab === 'benchmarks'" class="space-y-4">
-          <div class="p-5 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-900 leading-relaxed">
-            <h3 class="font-bold text-blue-950 mb-1 flex items-center gap-1.5 text-sm">
-              <span>🌐</span> Katalog Benchmark Datasets & Data Primer Riset
-            </h3>
-            <p>
-              Dataset terbuka berskala internasional digunakan sebagai acuan awal (baseline) pengujian algoritma machine learning, berdampingan dengan data primer internal kuesioner dan log telemetri kedinasan LAN RI.
+        <div v-else-if="activeMainTab === 'paradigm_theories'" class="space-y-6">
+          
+          <!-- Banner Pengantar Teori -->
+          <div class="p-6 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50 to-white border border-emerald-200 shadow-xs">
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                ⚖️ Tabel I Manuskrip JISEBI: Paradigmatic Positioning
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                4 Theoretical Foundations: Section II-A
+              </span>
+            </div>
+            <h2 class="text-xl font-black text-slate-900">
+              Posisi Paradigmatis CABA & 4 Pilar Teoretis Fondasi
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-4xl leading-relaxed">
+              Membedakan secara tegas pendekatan CABA dengan <em>Traditional Learning Analytics</em> dan <em>General Adaptive E-Learning</em> yang dirancang untuk lingkungan akademis statis.
             </p>
           </div>
 
+          <!-- TABEL I KOMPARASI PARADIGMA (TABLE I FROM MANUSCRIPT) -->
+          <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3 flex-wrap gap-2">
+              <h3 class="text-sm font-black text-slate-900 uppercase">
+                TABLE I. Comparison of Traditional Learning Analytics, General Adaptive E-Learning, and the Proposed CABA Framework
+              </h3>
+              <span class="px-2.5 py-0.5 rounded bg-emerald-50 text-emerald-800 font-mono text-[11px] font-bold border border-emerald-200">
+                Section I Introduction Positioning
+              </span>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr class="bg-slate-100 text-slate-700 border-b border-slate-200 font-bold">
+                    <th class="p-3 w-44">Dimension</th>
+                    <th class="p-3">Traditional Learning Analytics</th>
+                    <th class="p-3">General Adaptive E-Learning</th>
+                    <th class="p-3 bg-blue-50/80 text-blue-950 font-black border-l border-r border-blue-200">
+                      Proposed CABA Framework
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 text-slate-800">
+                  
+                  <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-bold text-slate-900 align-top">
+                      Primary Target Audience
+                    </td>
+                    <td class="p-3 text-slate-600 align-top">
+                      K-12 and higher education students
+                    </td>
+                    <td class="p-3 text-slate-600 align-top">
+                      General academic or lifelong learners
+                    </td>
+                    <td class="p-3 bg-blue-50/40 font-bold text-blue-900 align-top border-l border-r border-blue-200">
+                      Civil servants and public sector professionals
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-bold text-slate-900 align-top">
+                      Context Dimensions
+                    </td>
+                    <td class="p-3 text-slate-600 align-top">
+                      Minimal; primarily timestamps
+                    </td>
+                    <td class="p-3 text-slate-600 align-top">
+                      Academic schedules and prior scores
+                    </td>
+                    <td class="p-3 bg-blue-50/40 font-semibold text-blue-950 align-top border-l border-r border-blue-200">
+                      Workload blocks, device and bandwidth constraints, infrastructure, and institutional tier
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-bold text-slate-900 align-top">
+                      Behavioral Telemetry
+                    </td>
+                    <td class="p-3 text-slate-600 align-top">
+                      Page visits, login duration, and completion
+                    </td>
+                    <td class="p-3 text-slate-600 align-top">
+                      Navigation sequences and quiz response times
+                    </td>
+                    <td class="p-3 bg-blue-50/40 font-semibold text-blue-950 align-top border-l border-r border-blue-200">
+                      Video interactions, tab-focus dynamics, response latency, idle periods, and engagement-continuity signals
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-bold text-slate-900 align-top">
+                      Pedagogical Basis
+                    </td>
+                    <td class="p-3 text-slate-600 align-top">
+                      Standard pedagogy and summative assessment
+                    </td>
+                    <td class="p-3 text-slate-600 align-top">
+                      Cognitivism, mastery learning, and item-response logic
+                    </td>
+                    <td class="p-3 bg-blue-50/40 font-semibold text-blue-950 align-top border-l border-r border-blue-200">
+                      Situated cognition, self-regulated learning, cognitive load management, and andragogy
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-slate-50">
+                    <td class="p-3 font-bold text-slate-900 align-top">
+                      Adaptive Interventions
+                    </td>
+                    <td class="p-3 text-slate-600 align-top">
+                      Static instructor reports
+                    </td>
+                    <td class="p-3 text-slate-600 align-top">
+                      Difficulty adjustment and sequencing
+                    </td>
+                    <td class="p-3 bg-blue-50/40 font-semibold text-blue-950 align-top border-l border-r border-blue-200">
+                      Micro-chunking, engagement checkpoints, bandwidth fallback, and role-differentiated scaffolding
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 4 THEORETICAL FOUNDATIONS (SECTION II-A) -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div
-              v-for="bm in benchmarkDatasets"
-              :key="bm.id"
-              class="p-5 rounded-xl bg-white border border-slate-200 hover:border-blue-400 shadow-xs hover:shadow-md transition flex flex-col justify-between gap-4"
-            >
-              <div>
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-                  {{ bm.data_type }}
-                </span>
-                <h4 class="text-base font-bold text-slate-900 mt-1.5">{{ bm.name }}</h4>
-                <p class="text-[11px] text-slate-500 font-medium">🏛️ {{ bm.provider }} • Lisensi: {{ bm.license }}</p>
-
-                <p class="text-xs text-slate-600 leading-relaxed mt-2">
-                  {{ bm.description }}
-                </p>
-
-                <div class="mt-3 p-3 rounded-lg bg-slate-50 border border-slate-200 space-y-1.5 text-xs text-slate-700">
-                  <div class="flex justify-between">
-                    <span class="text-slate-500">Volume:</span>
-                    <span class="font-bold text-blue-800">{{ bm.volume }}</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-slate-500">Format:</span>
-                    <span class="font-mono text-slate-800">{{ bm.format }}</span>
-                  </div>
-                  <div class="flex justify-between items-start gap-2">
-                    <span class="text-slate-500 shrink-0">Variabel:</span>
-                    <span class="font-mono text-[10px] text-slate-600 text-right">{{ bm.variables.join(', ') }}</span>
-                  </div>
-                </div>
-
-                <div class="mt-3 p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-[11px] text-emerald-800">
-                  💡 <strong>Relevansi Disertasi:</strong> {{ bm.relevance }}
-                </div>
-
-                <div v-if="bm.is_open === false" class="mt-2 p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-[11px] text-amber-900">
-                  🔒 <strong>Akses Kedinasan:</strong> {{ bm.access_note || 'Data internal tertutup. Dilindungi UU PDP & memerlukan izin resmi institusi LAN RI.' }}
-                </div>
+            
+            <!-- Pillar 1 -->
+            <div class="p-5 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800">Pilar 1</span>
+                <span class="text-[11px] font-mono text-slate-500">Brown, Collins & Duguid (1989) [3]</span>
               </div>
+              <h4 class="text-sm font-bold text-slate-900">Situated Cognition (Kognisi Terkondisi Situasi)</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Pengetahuan tidak terpisah dari aktivitas, konteks, dan budaya di mana ia dipelajari. Pembelajaran ASN tertanam kuat dalam rutinitas administratif, hierarki birokrasi, dan disrupsi layanan publik mendadak.
+              </p>
+            </div>
 
-              <div class="pt-3 border-t border-slate-100 flex items-center justify-between flex-wrap gap-2">
-                <span :class="`text-xs font-semibold ${bm.is_open !== false ? 'text-emerald-700' : 'text-amber-700'}`">
-                  {{ bm.is_open !== false ? '🌐 Akses Publik & Terbuka' : '🔒 Akses Tertutup (Institusional)' }}
-                </span>
-                <a
-                  :href="bm.url"
-                  target="_blank"
-                  :class="`px-3.5 py-1.5 rounded-xl text-white font-bold text-xs flex items-center gap-1.5 transition shadow-2xs no-underline ${
-                    bm.is_open !== false ? 'bg-blue-600 hover:bg-blue-700' : 'bg-slate-800 hover:bg-slate-900'
-                  }`"
-                >
-                  <span v-if="bm.is_open !== false">🔗 Buka Repository Dataset</span>
-                  <span v-else>🏛️ Kunjungi Portal Institusi</span>
-                </a>
+            <!-- Pillar 2 -->
+            <div class="p-5 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-800">Pilar 2</span>
+                <span class="text-[11px] font-mono text-slate-500">Barnard-Brak, Lan & Paton (2010) [4]</span>
+              </div>
+              <h4 class="text-sm font-bold text-slate-900">Self-Regulated Learning (SRL)</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Pembelajaran mandiri menuntut pengaturan tujuan, waktu, strategi, dan evaluasi diri. Dalam diklat wajib, sistem adaptif harus mendeteksi pola regulasi yang lemah untuk memberikan <em>scaffolding</em> suportif, bukan sanksi sepihak.
+              </p>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div class="p-5 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-800">Pilar 3</span>
+                <span class="text-[11px] font-mono text-slate-500">Knowles (1984) [5]</span>
+              </div>
+              <h4 class="text-sm font-bold text-slate-900">Andragogy (Pendidikan Orang Dewasa)</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Pembelajar dewasa bersifat mandiri, kaya pengalaman kerja, berorientasi masalah praktis, dan termotivasi oleh relevansi jabatan. CABA menyesuaikan waktu, format, dan scaffolding sesuai peran tugas ASN.
+              </p>
+            </div>
+
+            <!-- Pillar 4 -->
+            <div class="p-5 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded text-[10px] font-bold bg-cyan-100 text-cyan-800">Pilar 4</span>
+                <span class="text-[11px] font-mono text-slate-500">Sweller (1988) [6]</span>
+              </div>
+              <h4 class="text-sm font-bold text-slate-900">Cognitive Load Theory (Beban Kognitif)</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Membuka video panjang 45 menit di sela-sela rapat birokrasi membebani <em>extraneous cognitive load</em> akibat <em>context-switching</em>. CABA mereduksinya melalui <em>micro-chunking</em> 3–5 menit dan format multimodal ringkas.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- DSR METHODOLOGY CYCLES -->
+          <div class="p-5 rounded-xl bg-slate-100 border border-slate-200 space-y-3">
+            <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              🔬 Metodologi Design Science Research (Hevner et al., 2004; Peffers et al., 2007)
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+              <div class="p-3 bg-white rounded-lg border border-slate-200">
+                <strong class="text-blue-900 block mb-1">1. Relevance Cycle</strong>
+                <p class="text-slate-600">Mengidentifikasi masalah context-blindness pada pelatihan Latsar & kepemimpinan ASN di Indonesia.</p>
+              </div>
+              <div class="p-3 bg-white rounded-lg border border-slate-200">
+                <strong class="text-indigo-900 block mb-1">2. Rigor Cycle</strong>
+                <p class="text-slate-600">Menghubungkan rancangan dengan 4 pilar teori serta literatur telemetri Global South & etika keadilan AI.</p>
+              </div>
+              <div class="p-3 bg-white rounded-lg border border-slate-200">
+                <strong class="text-emerald-900 block mb-1">3. Design Cycle</strong>
+                <p class="text-slate-600">Menghasilkan artefak arsitektur CABA 4-layer dan baseline inferensi 4 situated learner states.</p>
               </div>
             </div>
           </div>
+
         </div>
 
         <!-- ========================================================================= -->
-        <!-- SLIDE-OUT PAPER DETAIL DRAWER                                             -->
+        <!-- TAB 4: DEMONSTRASI SKENARIO OPERASIONAL (SECTION III-D)                   -->
         <!-- ========================================================================= -->
-        <div
-          v-if="isDrawerOpen && selectedPaper"
-          class="fixed inset-0 z-50 flex justify-end bg-slate-900/60 backdrop-blur-xs transition-opacity"
-          @click.self="closeDrawer"
-        >
-          <div class="w-full max-w-2xl bg-white border-l border-slate-200 h-full flex flex-col shadow-2xl overflow-hidden animate-slide-in text-slate-900">
-            <div class="p-6 border-b border-slate-200 bg-slate-50 flex items-start justify-between">
+        <div v-else-if="activeMainTab === 'scenarios'" class="space-y-6">
+          
+          <!-- Banner Pengantar Skenario -->
+          <div class="p-6 rounded-2xl bg-gradient-to-r from-amber-50 via-orange-50 to-white border border-amber-200 shadow-xs">
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                🎬 Section III-D: Operational Scenario Demonstrations
+              </span>
+            </div>
+            <h2 class="text-xl font-black text-slate-900">
+              Simulasi Skenario Operasional CABA Framework
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-4xl leading-relaxed">
+              Demonstrasi pembuktian konsep (*proof-of-concept*) yang memperlihatkan bagaimana pipeline 4-layer memproses masukan konteks dan perilaku, lalu menghasilkan adaptasi dan penyesuaian metrik yang adil.
+            </p>
+          </div>
+
+          <!-- 2 OPERATIONAL SCENARIOS CARDS -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <!-- SKENARIO 1 -->
+            <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between space-y-4">
               <div>
-                <span :class="`text-[10px] font-bold px-2 py-0.5 rounded-full border ${getDataTypeBadgeClass(selectedPaper.primary_data_type)}`">
-                  {{ selectedPaper.primary_data_type }}
-                </span>
-                <h3 class="text-base font-bold text-slate-900 mt-1.5 leading-snug">{{ selectedPaper.title }}</h3>
-                <p class="text-xs text-slate-500 mt-1">👤 {{ selectedPaper.authors }} • {{ selectedPaper.journal }}</p>
+                <div class="flex items-center justify-between gap-2 flex-wrap mb-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">
+                    Skenario 1
+                  </span>
+                  <span class="text-[11px] font-semibold text-slate-500">
+                    Workload Pressure • Office Hours
+                  </span>
+                </div>
+
+                <h3 class="text-sm sm:text-base font-black text-slate-900 leading-snug">
+                  Fragmented Office-Hour Learning with Low-Engagement Completion Risk
+                </h3>
+
+                <div class="mt-3 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 space-y-2">
+                  <div><strong>👤 Profil:</strong> Pejabat Administrator (Mid-level bureaucrat) di kantor dinas daerah perkotaan.</div>
+                  <div><strong>📱 Kondisi Sesi:</strong> Mengakses modul pengadaan wajib pukul 10.30 WIB via PC kantor, sambil melayani disposisi pimpinan dan berkas warga.</div>
+                  <div><strong>📡 Sinyal Terdeteksi:</strong> Kecepatan video 2x, rasio tab focus rendah (25%), sering switch window, mendekati tenggat pelaporan.</div>
+                </div>
+
+                <div class="mt-4 space-y-2 text-xs">
+                  <div class="font-bold text-slate-900">⚙️ Pemrosesan Pipeline CABA:</div>
+                  <div class="p-2.5 rounded-lg bg-blue-50/70 border border-blue-200 space-y-1 text-[11px] text-blue-950">
+                    <div><strong>Layer 2 Inferensi:</strong> Kombinasi S1 (Low-Engagement Risk) + S2 (Fragmented Office-Hour).</div>
+                    <div><strong>Layer 3 Keputusan:</strong> Mengaktifkan <em>Dynamic Modality Trade-off</em> & <em>State Preservation</em>.</div>
+                    <div><strong>Layer 4 Intervensi:</strong> Sistem menyimpan progress, menyajikan ringkasan intisari materi singkat, dan membuka <em>scenario checkpoint</em> 3 soal kasus relevan.</div>
+                  </div>
+                </div>
               </div>
+
+              <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 font-medium">
+                🎯 <strong>Hasil:</strong> Mengubah kepatuhan pasif menjadi pemrosesan kognitif aktif tanpa menghukum beban kerja kedinasan ASN.
+              </div>
+            </div>
+
+            <!-- SKENARIO 2 -->
+            <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between space-y-4">
+              <div>
+                <div class="flex items-center justify-between gap-2 flex-wrap mb-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">
+                    Skenario 2
+                  </span>
+                  <span class="text-[11px] font-semibold text-slate-500">
+                    Infrastructural Disparity • 3T Region
+                  </span>
+                </div>
+
+                <h3 class="text-sm sm:text-base font-black text-slate-900 leading-snug">
+                  Infrastructural Constraint in Frontier (3T) Region
+                </h3>
+
+                <div class="mt-3 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 space-y-2">
+                  <div><strong>👤 Profil:</strong> Aparatur garis depan (Frontline officer) di wilayah kepulauan/perbatasan 3T.</div>
+                  <div><strong>📱 Kondisi Sesi:</strong> Mengakses modul etika melalui smartphone dengan sinyal seluler EDGE/3G yang tidak stabil.</div>
+                  <div><strong>📡 Sinyal Terdeteksi:</strong> Throughput &lt; 256 kbps, packet loss 35%, repeated buffering (7 kali per video), latensi submit tinggi.</div>
+                </div>
+
+                <div class="mt-4 space-y-2 text-xs">
+                  <div class="font-bold text-slate-900">⚙️ Pemrosesan Pipeline CABA:</div>
+                  <div class="p-2.5 rounded-lg bg-amber-50/70 border border-amber-200 space-y-1 text-[11px] text-amber-950">
+                    <div><strong>Layer 2 Inferensi:</strong> S4 (Infrastructural Constraint 3T) - Bukan ketidakinginan belajar.</div>
+                    <div><strong>Layer 3 Keputusan:</strong> <em>Spatial-Aware Algorithmic Equity</em> & <em>Modality Fallback</em>.</div>
+                    <div><strong>Layer 4 Intervensi:</strong> Sistem otomatis beralih ke <strong>PWA Offline Caching</strong> dan <strong>Audio-First Podcast</strong>, mengizinkan kuis offline dengan sinkronisasi telemetri asinkron.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 font-medium">
+                🎯 <strong>Hasil:</strong> Metrik kelulusan 100% video streaming diganti dengan kombinasi bobot mikro-interaksi & bukti offline terverifikasi.
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- TAB 5: DATASET EMPIRIS CABA, 22 REFERENSI JISEBI & BENCHMARK HUB        -->
+        <!-- ========================================================================= -->
+        <div v-else-if="activeMainTab === 'references'" class="space-y-6">
+          
+          <!-- Banner Pengantar Referensi & Dataset -->
+          <div class="p-6 rounded-2xl bg-gradient-to-r from-blue-50 via-slate-50 to-white border border-blue-200 shadow-xs">
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-blue-800 border border-blue-300">
+                📊 4 Stream Dataset Empiris CABA Framework
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-purple-100 text-purple-800 border border-purple-300">
+                📚 22 Core References cited in JISEBI Manuscript
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
+                12 Global Benchmark Datasets
+              </span>
+            </div>
+            <h2 class="text-xl font-black text-slate-900">
+              Katalog Dataset Empiris CABA, Literatur JISEBI, & Benchmark Global
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-4xl leading-relaxed">
+              Koleksi data terintegrasi mencakup log telemetri multi-sinyal ASN, matriks normalisasi keadilan spasial, akumulasi bukti autentik, rubrik validasi Widyaiswara, serta 22 rujukan ilmiah resmi manuskrip JISEBI.
+            </p>
+          </div>
+
+          <!-- ========================================================================= -->
+          <!-- 1. CABA EMPIRICAL DATASETS EXPLORER (4 DATA STREAMS + EXPORT)             -->
+          <!-- ========================================================================= -->
+          <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-3 gap-3">
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                    💾 DATASET PRIMER & MATRIKS CABA
+                  </span>
+                  <span class="text-[11px] font-mono text-slate-500">
+                    Format: Tabular CSV / JSON
+                  </span>
+                </div>
+                <h3 class="text-sm font-black text-slate-900">
+                  EXPLORER DATASET EMPIRIS PENELITIAN CABA FRAMEWORK
+                </h3>
+              </div>
+
+              <!-- Export & Download Actions -->
+              <div class="flex items-center gap-2 flex-wrap">
+                <button
+                  type="button"
+                  @click="exportCurrentDatasetCSV"
+                  class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-2xs cursor-pointer"
+                >
+                  <span>📥</span>
+                  <span>Unduh Dataset (CSV)</span>
+                </button>
+                <button
+                  type="button"
+                  @click="exportCurrentDatasetJSON"
+                  class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-2xs cursor-pointer"
+                >
+                  <span>📦</span>
+                  <span>Unduh JSON</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Sub-tab Selector for 4 CABA Streams -->
+            <div class="flex items-center gap-2 border-b border-slate-100 pb-2 flex-wrap">
               <button
+                v-for="st in cabaDatasetStreams"
+                :key="st.id"
                 type="button"
-                @click="closeDrawer"
-                class="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-200 rounded-lg transition cursor-pointer"
+                @click="selectedCabaStream = st.id"
+                :class="`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
+                  selectedCabaStream === st.id
+                    ? 'bg-blue-600 text-white shadow-xs'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                }`"
               >
-                ✕
+                <span>{{ st.icon }}</span>
+                <span>{{ st.title }}</span>
+                <span :class="`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${selectedCabaStream === st.id ? 'bg-blue-800 text-white' : 'bg-slate-200 text-slate-700'}`">
+                  {{ st.rows.length }}
+                </span>
               </button>
             </div>
 
-            <div class="flex-1 overflow-y-auto p-6 space-y-5">
-              <div class="grid grid-cols-2 gap-3 text-xs">
-                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-                  <span class="text-slate-500 uppercase font-bold text-[10px]">Populasi / Subjek</span>
-                  <p class="font-bold text-slate-900 mt-1">{{ selectedPaper.population }}</p>
-                </div>
-                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-                  <span class="text-slate-500 uppercase font-bold text-[10px]">Ukuran Sampel / Volume</span>
-                  <p class="font-bold text-amber-800 mt-1">{{ selectedPaper.sample_size }}</p>
-                </div>
+            <!-- Description & Filter Bar -->
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
+              <div class="text-slate-600">
+                <strong>Deskripsi:</strong> {{ currentActiveStreamObj.description }}
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <input
+                  v-model="datasetSearchQuery"
+                  type="text"
+                  placeholder="Filter data..."
+                  class="bg-white border border-slate-300 rounded-lg px-3 py-1 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500"
+                />
+                <select
+                  v-if="selectedCabaStream === 'telemetry_stream'"
+                  v-model="selectedStateFilter"
+                  class="bg-white border border-slate-300 rounded-lg px-2.5 py-1 text-xs text-slate-700 focus:outline-none focus:border-blue-500"
+                >
+                  <option value="all">Semua State (S1–S4)</option>
+                  <option value="S1">S1: Low-Engagement Risk</option>
+                  <option value="S2">S2: Fragmented Office-Hour</option>
+                  <option value="S3">S3: Cognitive Struggling</option>
+                  <option value="S4">S4: 3T Constraint</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Interactive Tabular Data Viewer -->
+            <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-2xs max-h-96">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead class="sticky top-0 bg-slate-100 text-slate-700 border-b border-slate-200 font-bold shadow-xs">
+                  <tr>
+                    <th
+                      v-for="col in currentActiveStreamObj.columns"
+                      :key="col"
+                      class="p-2.5 whitespace-nowrap text-[11px] font-bold"
+                    >
+                      {{ col }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 font-mono text-[11px]">
+                  <tr
+                    v-for="(row, rIdx) in filteredStreamRows"
+                    :key="rIdx"
+                    class="hover:bg-blue-50/50 transition-colors"
+                  >
+                    <td
+                      v-for="col in currentActiveStreamObj.columns"
+                      :key="col"
+                      class="p-2.5 whitespace-nowrap text-slate-800"
+                    >
+                      <span
+                        v-if="row[col] && (row[col].includes('S1') || row[col].includes('Low-Engagement'))"
+                        class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px]"
+                      >
+                        {{ row[col] }}
+                      </span>
+                      <span
+                        v-else-if="row[col] && (row[col].includes('S2') || row[col].includes('Office-Hour'))"
+                        class="px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-800 font-bold text-[10px]"
+                      >
+                        {{ row[col] }}
+                      </span>
+                      <span
+                        v-else-if="row[col] && (row[col].includes('S3') || row[col].includes('Cognitive'))"
+                        class="px-1.5 py-0.5 rounded bg-cyan-100 text-cyan-800 font-bold text-[10px]"
+                      >
+                        {{ row[col] }}
+                      </span>
+                      <span
+                        v-else-if="row[col] && (row[col].includes('S4') || row[col].includes('3T') || row[col].includes('Infrastructural'))"
+                        class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px]"
+                      >
+                        {{ row[col] }}
+                      </span>
+                      <span
+                        v-else-if="row[col] && (row[col].includes('Lulus') || row[col].includes('Verified') || row[col].includes('100%') || row[col].includes('Sangat Sesuai'))"
+                        class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]"
+                      >
+                        {{ row[col] }}
+                      </span>
+                      <span v-else>
+                        {{ row[col] }}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="text-[10px] text-slate-500 italic flex items-center justify-between">
+              <span>* Menampilkan {{ filteredStreamRows.length }} baris record data operasional CABA Framework.</span>
+              <span class="font-bold text-slate-600">Terbuka untuk verifikasi empiris & pengujian komputasi.</span>
+            </div>
+          </div>
+
+          <!-- ========================================================================= -->
+          <!-- 2. 22 REFERENSI RESMI MANUSKRIP JISEBI                                    -->
+          <!-- ========================================================================= -->
+          <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3 flex-wrap gap-2">
+              <div>
+                <h3 class="text-sm font-black text-slate-900">
+                  DAFTAR 22 REFERENSI UTAMA MANUSKRIP JISEBI (SECTION REFERENCES)
+                </h3>
+                <p class="text-xs text-slate-500">
+                  Sitasi standar IEEE dengan rincian relevansi terhadap perancangan CABA Framework
+                </p>
               </div>
 
-              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-600">Variabel & Parameter yang Diuji:</h4>
-                <div class="flex flex-wrap gap-1.5">
-                  <span
-                    v-for="v in selectedPaper.key_variables"
-                    :key="v"
-                    class="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-xs text-slate-800 shadow-2xs"
-                  >
-                    {{ v }}
+              <!-- Filter Kategori Referensi -->
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <button
+                  type="button"
+                  @click="refCategoryFilter = 'all'"
+                  :class="`px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
+                    refCategoryFilter === 'all' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`"
+                >
+                  Semua ({{ jisebiReferences.length }})
+                </button>
+                <button
+                  v-for="cat in refCategories"
+                  :key="cat"
+                  @click="refCategoryFilter = cat"
+                  :class="`px-2.5 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
+                    refCategoryFilter === cat ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`"
+                >
+                  {{ cat }}
+                </button>
+              </div>
+            </div>
+
+            <!-- List Referensi Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div
+                v-for="refItem in filteredJisebiReferences"
+                :key="refItem.ref_id"
+                class="p-4 rounded-xl bg-slate-50/60 border border-slate-200 hover:border-blue-400 shadow-2xs hover:shadow-xs transition flex flex-col justify-between gap-3"
+              >
+                <div>
+                  <div class="flex items-center justify-between gap-2 mb-1.5">
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">
+                      [{{ refItem.ref_id }}] {{ refItem.category }}
+                    </span>
+                    <span class="text-[11px] font-mono font-bold text-slate-600">
+                      {{ refItem.year }}
+                    </span>
+                  </div>
+
+                  <h4 class="text-xs sm:text-sm font-bold text-slate-900 leading-snug">
+                    {{ refItem.title }}
+                  </h4>
+                  <p class="text-[11px] text-slate-500 mt-1">
+                    👤 {{ refItem.authors }} • <em>{{ refItem.journal }}</em>
+                  </p>
+
+                  <div class="mt-2.5 p-2.5 rounded-lg bg-white border border-slate-200 text-[11px] text-slate-700 space-y-1">
+                    <div>💡 <strong>Relevansi CABA:</strong> {{ refItem.relevance }}</div>
+                    <div v-if="refItem.doi" class="font-mono text-[10px] text-blue-600">
+                      DOI: {{ refItem.doi }}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex flex-wrap gap-1 pt-2 border-t border-slate-200/60">
+                  <span v-for="tag in refItem.key_concepts" :key="tag" class="px-1.5 py-0.5 rounded text-[10px] bg-slate-100 text-slate-600">
+                    #{{ tag }}
                   </span>
                 </div>
               </div>
-
-              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-600">Abstrak Lengkap & Analisis Metodologi:</h4>
-                <p class="text-xs text-slate-700 leading-relaxed whitespace-pre-line">
-                  {{ selectedPaper.full_abstract || selectedPaper.abstract }}
-                </p>
-              </div>
-            </div>
-
-            <div class="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
-              <a
-                :href="selectedPaper.landing_url || `http://localhost:8088/api/literature-hunter/files/${selectedPaper.id}/view`"
-                target="_blank"
-                class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition shadow-2xs no-underline"
-              >
-                📄 Buka Dokumen Referensi
-              </a>
-              <button
-                type="button"
-                @click="closeDrawer"
-                class="px-4 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold transition cursor-pointer"
-              >
-                Tutup
-              </button>
             </div>
           </div>
+
+          <!-- ========================================================================= -->
+          <!-- 3. 12 BENCHMARK DATASETS CATALOG                                          -->
+          <!-- ========================================================================= -->
+          <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+            <div class="border-b border-slate-100 pb-3">
+              <h3 class="text-sm font-black text-slate-900">
+                🌐 12 OPEN BENCHMARK & INSTITUTIONAL DATASETS
+              </h3>
+              <p class="text-xs text-slate-500">
+                Dataset rujukan internasional (OULAD, EdNet, FiRAT 2026, B-Smart 2025) dan data internal kedinasan LAN RI
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div
+                v-for="bm in benchmarkDatasets"
+                :key="bm.id"
+                class="p-4 rounded-xl bg-slate-50/70 border border-slate-200 hover:border-blue-400 shadow-2xs transition flex flex-col justify-between gap-3"
+              >
+                <div>
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                    {{ bm.data_type }}
+                  </span>
+                  <h4 class="text-xs font-bold text-slate-900 mt-1.5">{{ bm.name }}</h4>
+                  <p class="text-[10px] text-slate-500 font-medium">🏛️ {{ bm.provider }}</p>
+
+                  <p class="text-[11px] text-slate-600 mt-2 line-clamp-3">
+                    {{ bm.description }}
+                  </p>
+                </div>
+
+                <div class="pt-2 border-t border-slate-200 text-xs flex items-center justify-between">
+                  <span class="text-[10px] font-bold text-slate-500">{{ bm.volume }}</span>
+                  <a
+                    :href="bm.url"
+                    target="_blank"
+                    class="px-2.5 py-1 rounded bg-slate-900 text-white text-[10px] font-bold no-underline hover:bg-slate-800"
+                  >
+                    Buka Data ➔
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
       </div>
@@ -1118,13 +1469,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import Navbar from '~/components/Navbar.vue'
-import LiteratureNetworkMap from '~/components/LiteratureNetworkMap.vue'
 
-// Inject Tailwind Play CDN safely with preflight disabled
 useHead({
-  title: 'Dataset Hub & Kebutuhan Data Empiris - Disertasi ASN',
+  title: 'CABA Framework & Dataset Hub - JISEBI Manuscript Baseline',
   script: [
     {
       src: 'https://cdn.tailwindcss.com',
@@ -1137,726 +1486,409 @@ useHead({
   ]
 })
 
-// Tab Navigation State
-const activeMainTab = ref<'architecture' | 'typology_spec' | 'literature_map' | 'literature_repo' | 'benchmarks'>('architecture')
+// Tab State
+const activeMainTab = ref<'architecture' | 'states_matrix' | 'paradigm_theories' | 'scenarios' | 'references'>('architecture')
+const showAbstract = ref<boolean>(false)
 
-// Flowchart Inspector Step & Modal State
-const selectedFlowStep = ref<string>('context')
-const isFlowModalOpen = ref<boolean>(false)
+// Keywords from Manuscript
+const keywordsList = [
+  'Learning Analytics',
+  'Context-Aware Computing',
+  'Public Sector Training',
+  'Adaptive Learning',
+  'Civil Service Competency',
+  'Engagement-Aware Learning'
+]
 
-const openFlowModal = (stepKey: string) => {
-  selectedFlowStep.value = stepKey
-  isFlowModalOpen.value = true
+// Figure 1 Interactive Node Inspector State
+const selectedFigureNode = ref<string>('evaluate_signals')
+const isFigureModalOpen = ref<boolean>(false)
+
+const openFigureModal = (nodeKey: string) => {
+  selectedFigureNode.value = nodeKey
+  isFigureModalOpen.value = true
 }
 
-const closeFlowModal = () => {
-  isFlowModalOpen.value = false
+const closeFigureModal = () => {
+  isFigureModalOpen.value = false
 }
 
-interface DatasetPreviewTable {
-  tableName: string
+interface SampleTableData {
+  name: string
   columns: string[]
   rows: Record<string, string>[]
 }
 
-interface StepDetail {
+interface FigureNodeDetail {
+  layer: string
   title: string
-  category: string
   description: string
-  variables: string[]
-  source: string
-  literature: string
-  gapNote?: string
-  datasetPreview?: DatasetPreviewTable
+  triggers: string[]
+  policy: string
+  rationale: string
+  sampleTable?: SampleTableData
 }
 
-const flowStepsDictionary: Record<string, StepDetail> = {
-  context: {
-    title: 'CONTEXT DATA (Konteks Moderasi Kedinasan & Wilayah)',
-    category: 'Input Conditioning Layer',
-    description: 'Data fondasi yang menangkap karakteristik unik ASN sebelum dan selama pelatihan. Menjadi prior condition agar analisis perilaku tidak bias atau seragam.',
-    variables: [
-      'Learner Demographics: Usia, masa kerja, tipe perangkat (Mobile vs Laptop pribadi/kantor)',
-      'Service Dynamics: Penugasan pelayanan publik langsung (frontline) vs back-office',
-      'Spatial Typology: 4 Tipologi Daerah (Metropolitan, Daratan, Kepulauan, Perbatasan)',
-      'Time-Zone Disparity: Zona waktu instansi (WIB, WITA, WIT) terhadap jadwal pusat',
-      'Institutional Maturity: Skor & Predikat Kematangan SPBE Pemda (KemenPAN-RB)'
+const figureNodesDictionary: Record<string, FigureNodeDetail> = {
+  evaluate_signals: {
+    layer: 'Layer 1 & 2: Multi-Signal Telemetry & Inference',
+    title: 'EVALUATE SIGNALS (Multi-signal Reasoning Layer)',
+    description: 'Menangkap parameter kontekstual dinas (jam kantor, perangkat, profil jaringan 3T) dan telemetri interaksi non-invasif tanpa menimbulkan beban pengawasan invasif pada pegawai.',
+    triggers: [
+      'Temporal Workload: Jam dinas kantor (08.00-16.00) vs luar jam dinas',
+      'Device Category: Desktop instansi, Laptop pribadi, Smartphone mobile',
+      'Network Profile: 4G/5G gigabit vs Satelit VSAT / 3G / EDGE',
+      'Non-invasive Telemetry: Video playback speed (1x-2x), Tab focus ratio, Rewind count, Dwell time'
     ],
-    source: 'Instrumen Kuesioner Empiris (48 Butir) & Portal Resmi KemenPAN-RB',
-    literature: 'Bappenas RPJMN Tipologi Spasial; Salemink et al. (2017); Kukulska-Hulme (2021)',
-    gapNote: 'Di literatur Barat, konteks birokrasi kepulauan dan perbedaan zona waktu pelatihan jarang diteliti secara bersamaan.',
-    datasetPreview: {
-      tableName: 'asn_context_demographics.csv',
-      columns: ['asn_id', 'tipologi_daerah', 'provinsi_kab', 'zona_waktu', 'tipe_layanan', 'beban_disposisi', 'spbe_indeks', 'perangkat'],
+    policy: 'Continuous Context Sensing & Telemetry Stream Filtering',
+    rationale: 'Menyediakan input kontekstual yang kaya agar perilaku belajar tidak diinterpretasikan secara seragam.',
+    sampleTable: {
+      name: 'caba_telemetry_stream_log.csv',
+      columns: ['user_id', 'jam_akses', 'perangkat', 'sinyal_koneksi', 'playback_speed', 'tab_focus_ratio', 'buffer_count'],
       rows: [
-        {
-          asn_id: 'ASN-0121',
-          tipologi_daerah: 'Metropolitan',
-          provinsi_kab: 'DKI Jakarta',
-          zona_waktu: 'WIB',
-          tipe_layanan: 'Back-Office (Sekretariat)',
-          beban_disposisi: 'Tinggi (4/5)',
-          spbe_indeks: '4.21 (Sangat Baik)',
-          perangkat: 'Laptop Dinas'
-        },
-        {
-          asn_id: 'ASN-0482',
-          tipologi_daerah: 'Kepulauan',
-          provinsi_kab: 'Kep. Riau (Natuna)',
-          zona_waktu: 'WIB',
-          tipe_layanan: 'Frontline (Pesisir)',
-          beban_disposisi: 'Sedang (3/5)',
-          spbe_indeks: '2.84 (Baik)',
-          perangkat: 'Smartphone 4G'
-        },
-        {
-          asn_id: 'ASN-0733',
-          tipologi_daerah: 'Daratan',
-          provinsi_kab: 'Jateng (Banyumas)',
-          zona_waktu: 'WIB',
-          tipe_layanan: 'Frontline (Puskesmas)',
-          beban_disposisi: 'Maksimal (5/5)',
-          spbe_indeks: '3.62 (Baik)',
-          perangkat: 'Laptop Pribadi'
-        },
-        {
-          asn_id: 'ASN-0914',
-          tipologi_daerah: 'Perbatasan',
-          provinsi_kab: 'NTT (Kab. Belu)',
-          zona_waktu: 'WITA',
-          tipe_layanan: 'Frontline (Pos Batas)',
-          beban_disposisi: 'Sedang (3/5)',
-          spbe_indeks: '2.45 (Cukup)',
-          perangkat: 'Smartphone Mobile'
-        }
+        { user_id: 'ASN-012', jam_akses: '10:15 WIB', perangkat: 'Desktop PC', sinyal_koneksi: 'Fiber Gigabit', playback_speed: '2.0x', tab_focus_ratio: '0.24', buffer_count: '0' },
+        { user_id: 'ASN-048', jam_akses: '14:20 WITA', perangkat: 'Smartphone', sinyal_koneksi: 'EDGE 3T', playback_speed: '1.0x', tab_focus_ratio: '0.88', buffer_count: '8' },
+        { user_id: 'ASN-073', jam_akses: '20:45 WIB', perangkat: 'Laptop', sinyal_koneksi: '4G LTE', playback_speed: '1.0x', tab_focus_ratio: '0.95', buffer_count: '1' }
       ]
     }
   },
-  conditioning: {
-    title: 'CONTEXT CONDITIONING (Normalisasi Bobot Konteks)',
-    category: 'Mathematical Conditioning Engine',
-    description: 'Mekanisme komputasi yang menyesuaikan baseline ekspektasi keaktifan berdasarkan profil daerah dan beban kerja dinas yang sedang dihadapi ASN.',
-    variables: [
-      'Context Weighting Vector: Penyesuaian threshold toleransi inaktivitas',
-      'Bandwidth Penalty Factor: Normalisasi kendala sinyal maritim/cuaca buruk',
-      'Urgent Dispatch Masking: Penandaan izin penugasan mendadak pimpinan daerah'
-    ],
-    source: 'Algoritma Bayesian Prior Normalization di server',
-    literature: 'Pearl (Causal Inference in Statistics); Gelman et al. (Hierarchical Bayesian Modeling)',
-    datasetPreview: {
-      tableName: 'context_conditioning_weights.csv',
-      columns: ['tipologi_daerah', 'bobot_prior_toleransi', 'faktor_bandwidth_penalty', 'izin_disposisi_dinas', 'threshold_inaktivitas'],
+  state_s1: {
+    layer: 'Layer 2 State: S1 Low-Engagement Completion Risk',
+    title: 'S1: Low-Engagement Completion Risk (Passive Compliance)',
+    description: 'Terjadi saat peserta mengejar target penyelesaian administratif dengan memutar video di latar belakang atau mempercepat tontonan secara ekstrem menjelang batas pelaporan.',
+    triggers: ['Playback Speed 2x', 'Low Tab-Focus Ratio', 'Deadline Pelaporan Dekat', 'Skip Langsung ke Akhir'],
+    policy: 'Active verification stop-gate with scenario checkpoint',
+    rationale: 'Mengonversi kepatuhan pasif menjadi pemrosesan kognitif aktif sebelum jam belajar diakui.',
+    sampleTable: {
+      name: 's1_verification_gate_records.csv',
+      columns: ['asn_id', 'speed_detected', 'tab_focus', 'stop_gate_status', 'spot_test_result', 'completion_credited'],
       rows: [
-        {
-          tipologi_daerah: 'Metropolitan',
-          bobot_prior_toleransi: '1.00 (Standard)',
-          faktor_bandwidth_penalty: '0.05 (Koneksi Stabil)',
-          izin_disposisi_dinas: 'Diizinkan (Multitasking)',
-          threshold_inaktivitas: 'Toleransi 15 menit'
-        },
-        {
-          tipologi_daerah: 'Daratan',
-          bobot_prior_toleransi: '1.15 (Sedang)',
-          faktor_bandwidth_penalty: '0.15 (Toleransi wajar)',
-          izin_disposisi_dinas: 'Diizinkan (Prioritas Layanan)',
-          threshold_inaktivitas: 'Toleransi 30 menit'
-        },
-        {
-          tipologi_daerah: 'Kepulauan',
-          bobot_prior_toleransi: '1.45 (Tinggi)',
-          faktor_bandwidth_penalty: '0.40 (Toleransi kabel laut/cuaca)',
-          izin_disposisi_dinas: 'Diizinkan (Dinas Lapangan Laut)',
-          threshold_inaktivitas: 'Toleransi 60 menit'
-        },
-        {
-          tipologi_daerah: 'Perbatasan',
-          bobot_prior_toleransi: '1.60 (Maksimal)',
-          faktor_bandwidth_penalty: '0.50 (Toleransi satelit/genset)',
-          izin_disposisi_dinas: 'Diizinkan (Garda Depan Kedaulatan)',
-          threshold_inaktivitas: 'Toleransi 90 menit'
-        }
+        { asn_id: 'ASN-012', speed_detected: '2.0x', tab_focus: '24%', stop_gate_status: 'TRIGGERED', spot_test_result: '3/3 Soal Benar', completion_credited: 'YES (Verified)' },
+        { asn_id: 'ASN-099', speed_detected: '2.0x', tab_focus: '12%', stop_gate_status: 'TRIGGERED', spot_test_result: '1/3 Soal Benar', completion_credited: 'NO (Needs Review)' }
       ]
     }
   },
-  zoom: {
-    title: 'ZOOM TELEMETRY (Jejak Perilaku Sesi Virtual Synchronous)',
-    category: 'Real-time Synchronous Behavioral Traces',
-    description: 'Data telemetri langsung dari platform webinar Zoom saat materi tatap muka virtual berlangsung.',
-    variables: [
-      'Camera State Ratio: Durasi kamera On vs Off sepanjang sesi (detik/persen)',
-      'Chat Engagement Frequency: Jumlah chat tanya-jawab dan respons diskusi',
-      'Attendance & Reconnect Continuity: Waktu join-to-leave dan frekuensi terpental sinyal',
-      'Non-verbal Reaction: Frekuensi raise-hand dan penggunaan emoji respons'
-    ],
-    source: 'Meeting Attendance Report CSV & WebRTC Call Quality Metrics Zoom',
-    literature: 'Castelli & Sarvary (2021) - "Why students turn off cameras"; Bedenlier et al. (2021)',
-    gapNote: 'Studi Zoom pada pelatihan ASN sangat langka; mematikan kamera sering disalahartikan sebagai ketidakpedulian padahal merupakan strategi hemat kuota.',
-    datasetPreview: {
-      tableName: 'zoom_session_telemetry_report.csv',
-      columns: ['asn_id', 'tipologi', 'durasi_sesi_menit', 'camera_on_menit', 'camera_off_menit', 'rasio_camera_off', 'frekuensi_chat', 'reconnect_count', 'catatan_telemetri'],
+  state_s2: {
+    layer: 'Layer 2 State: S2 Fragmented Office-Hour Learning',
+    title: 'S2: Fragmented Office-Hour Learning (Learning amid Work Demands)',
+    description: 'Terjadi saat peserta belajar di kantor tetapi kerap terinterupsi tugas kedinasan mendadak, disposisi pimpinan, atau pelayanan langsung warga.',
+    triggers: ['Office Hours Access', 'High Tab-Switching Frequency', 'Service Interruption Bursts', 'Desktop Office IP'],
+    policy: 'State Preservation + Micro-chunking (3–5 min) & Dynamic Modality Trade-off',
+    rationale: 'Menghargai perhatian terfragmentasi sebagai kondisi kedinasan yang sah tanpa mengurangi pencapaian kompetensi.',
+    sampleTable: {
+      name: 's2_microchunking_state.csv',
+      columns: ['asn_id', 'interupsi_count', 'durasi_potongan', 'format_adaptif', 'saved_state_timestamp'],
       rows: [
-        {
-          asn_id: 'ASN-0121',
-          tipologi: 'Metropolitan',
-          durasi_sesi_menit: '120 min',
-          camera_on_menit: '95 min',
-          camera_off_menit: '25 min',
-          rasio_camera_off: '20.8%',
-          frekuensi_chat: '3 pesan',
-          reconnect_count: '0 kali',
-          catatan_telemetri: 'Kamera On mayoritas, chat minim (fokus berkas dinas)'
-        },
-        {
-          asn_id: 'ASN-0482',
-          tipologi: 'Kepulauan',
-          durasi_sesi_menit: '120 min',
-          camera_on_menit: '15 min',
-          camera_off_menit: '105 min',
-          rasio_camera_off: '87.5%',
-          frekuensi_chat: '1 pesan',
-          reconnect_count: '4 kali',
-          catatan_telemetri: 'Kamera Off untuk hemat bandwidth & cuaca laut'
-        },
-        {
-          asn_id: 'ASN-0733',
-          tipologi: 'Daratan',
-          durasi_sesi_menit: '120 min',
-          camera_on_menit: '40 min',
-          camera_off_menit: '80 min',
-          rasio_camera_off: '66.7%',
-          frekuensi_chat: '8 pesan',
-          reconnect_count: '1 kali',
-          catatan_telemetri: 'Kamera Off saat ruangan puskesmas ramai warga'
-        },
-        {
-          asn_id: 'ASN-0914',
-          tipologi: 'Perbatasan',
-          durasi_sesi_menit: '120 min',
-          camera_on_menit: '10 min',
-          camera_off_menit: '110 min',
-          rasio_camera_off: '91.7%',
-          frekuensi_chat: '0 pesan',
-          reconnect_count: '6 kali',
-          catatan_telemetri: 'Sering reconnect akibat sinyal tower bergantian'
-        }
+        { asn_id: 'ASN-034', interupsi_count: '6 kali/sesi', durasi_potongan: '3.5 menit', format_adaptif: 'Micro-Video + Text Brief', saved_state_timestamp: 'Menit 04:12 Disimpan' },
+        { asn_id: 'ASN-077', interupsi_count: '9 kali/sesi', durasi_potongan: '5.0 menit', format_adaptif: 'Audio Podcast Summary', saved_state_timestamp: 'Menit 08:30 Disimpan' }
       ]
     }
   },
-  lms: {
-    title: 'LMS MOODLE LOGS (Jejak Interaksi Asinkron Mandiri)',
-    category: 'Asynchronous Platform Interaction Traces',
-    description: 'Log klik dan navigasi peserta saat mengakses modul pembelajaran mandiri di LMS ASN Unggul LAN RI.',
-    variables: [
-      'Temporal Access Pattern: Jam akses modul (Jam kantor dinas 08.00-16.00 vs malam hari)',
-      'Content Navigation Flow: Urutan modul, video, dan kuis yang diakses',
-      'Offline Download Ratio: Frekuensi pengunduhan file modul PDF ringkas',
-      'Video Engagement: Rasio durasi tonton video microlearning (drop-off rate & rewind)'
-    ],
-    source: 'Database Log Moodle LAN RI (mdl_logstore_standard_log)',
-    literature: 'OULAD Dataset Benchmark (2020); Romero & Ventura (Educational Data Mining in Moodle)',
-    datasetPreview: {
-      tableName: 'moodle_mdl_logstore_standard_log.csv',
-      columns: ['asn_id', 'timestamp', 'jam_akses', 'kategori_jam', 'komponen_moodle', 'aksi', 'unduh_pdf_offline', 'video_completion_pct'],
+  state_s3: {
+    layer: 'Layer 2 State: S3 Cognitive Struggling',
+    title: 'S3: Cognitive Struggling (Conceptual Obstacles)',
+    description: 'Peserta mengalami kesulitan memahami substansi materi baru (misal regulasi pengadaan barang/jasa atau etika digital).',
+    triggers: ['Frequent Rewind (>3 kali di segmen sama)', 'Extended Dwell Time', 'Long Pause', 'Low Formative Quiz Score'],
+    policy: 'Adaptive Scaffold: Infographic + Analogy + Hints & Worked Examples',
+    rationale: 'Mengurangi beban kognitif asing dan memberikan scaffolding situated understanding sesuai tugas birokrasi.',
+    sampleTable: {
+      name: 's3_scaffolding_delivery.csv',
+      columns: ['asn_id', 'rewind_segment', 'dwell_time', 'scaffold_type', 'post_scaffold_score'],
       rows: [
-        {
-          asn_id: 'ASN-0121',
-          timestamp: '2026-08-25 21:14:02',
-          jam_akses: '21:14',
-          kategori_jam: 'Malam (Luar Kantor)',
-          komponen_moodle: 'mod_resource',
-          aksi: 'viewed',
-          unduh_pdf_offline: '1 kali',
-          video_completion_pct: '100% (Selesai)'
-        },
-        {
-          asn_id: 'ASN-0482',
-          timestamp: '2026-08-26 13:40:11',
-          jam_akses: '13:40',
-          kategori_jam: 'Jam Kerja (Istirahat)',
-          komponen_moodle: 'mod_folder',
-          aksi: 'download_all_pdf',
-          unduh_pdf_offline: '5 dokumen',
-          video_completion_pct: '35% (Drop-off Sinyal)'
-        },
-        {
-          asn_id: 'ASN-0733',
-          timestamp: '2026-08-26 10:20:05',
-          jam_akses: '10:20',
-          kategori_jam: 'Jam Dinas Pelayanan',
-          komponen_moodle: 'mod_quiz',
-          aksi: 'attempt_started',
-          unduh_pdf_offline: '0 kali',
-          video_completion_pct: '85%'
-        },
-        {
-          asn_id: 'ASN-0914',
-          timestamp: '2026-08-26 19:05:40',
-          jam_akses: '19:05',
-          kategori_jam: 'Malam (Genset Nyala)',
-          komponen_moodle: 'mod_lesson',
-          aksi: 'micro_module_read',
-          unduh_pdf_offline: '3 dokumen',
-          video_completion_pct: '95% (Format Teks Ringkas)'
-        }
+        { asn_id: 'ASN-055', rewind_segment: 'Modul Pengadaan: Pasal 12', dwell_time: '14.5 min', scaffold_type: 'Infografis Pohon Keputusan', post_scaffold_score: '85 / 100' },
+        { asn_id: 'ASN-082', rewind_segment: 'Modul Akuntabilitas Kinerja', dwell_time: '18.2 min', scaffold_type: 'Worked Example Kasus Pemda', post_scaffold_score: '90 / 100' }
       ]
     }
   },
-  traces: {
-    title: 'OTHER TRACES (Evaluasi Formatif & Kolaborasi)',
-    category: 'Formative Assessment & Social Learning',
-    description: 'Catatan asesmen jangka pendek dan interaksi kelompok penugasan.',
-    variables: [
-      'Formative Quiz Score: Skor kuis pemahaman antar-modul',
-      'Submission Latency: Ketepatan waktu pengumpulan lembar kerja',
-      'Peer Forum Discussion: Keterlibatan pada forum tanya jawab modul'
-    ],
-    source: 'Moodle Gradebook & Assignment Submission Tables',
-    literature: 'Garrison, Anderson & Archer (Community of Inquiry Framework)',
-    datasetPreview: {
-      tableName: 'formative_assessment_gradebook.csv',
-      columns: ['asn_id', 'modul_ke', 'skor_kuis_formatif', 'latensi_submit_jam', 'interaksi_forum_peer', 'status_evaluasi'],
+  state_s4: {
+    layer: 'Layer 2 State: S4 Infrastructural Constraint (3T)',
+    title: 'S4: Infrastructural Constraint (3T Regions & Low Bandwidth)',
+    description: 'Peserta menghadapi kendala fisik infrastruktur telekomunikasi seperti sinyal seluler EDGE lemah, pemadaman listrik berkala, atau kabel laut maritim.',
+    triggers: ['Low Downlink Throughput (<256kbps)', 'High Packet Loss (>25%)', 'Repeated Buffering Stalls', 'Mobile EDGE Network'],
+    policy: 'Audio-First Podcast Mode + Offline PWA Cache + Asynchronous Telemetry Synchronization',
+    rationale: 'Mengumpulkan bukti pembelajaran autentik tanpa menuntut koneksi streaming video kontinu berkecepatan tinggi.',
+    sampleTable: {
+      name: 's4_offline_sync_telemetry.csv',
+      columns: ['asn_id', 'lokasi_wilayah', 'mode_aktif', 'cached_items', 'sync_latency_hours', 'metric_adjustment'],
       rows: [
-        {
-          asn_id: 'ASN-0121',
-          modul_ke: 'Modul 2 (Kepemimpinan)',
-          skor_kuis_formatif: '88 / 100',
-          latensi_submit_jam: 'Tepat Waktu (+1.2h)',
-          interaksi_forum_peer: '2 tanggapan diskusi',
-          status_evaluasi: 'Lulus Formatif'
-        },
-        {
-          asn_id: 'ASN-0482',
-          modul_ke: 'Modul 2 (Kepemimpinan)',
-          skor_kuis_formatif: '80 / 100',
-          latensi_submit_jam: 'Terlambat (+14h - Cuaca)',
-          interaksi_forum_peer: '1 tanggapan diskusi',
-          status_evaluasi: 'Lulus Formatif'
-        },
-        {
-          asn_id: 'ASN-0733',
-          modul_ke: 'Modul 2 (Kepemimpinan)',
-          skor_kuis_formatif: '92 / 100',
-          latensi_submit_jam: 'Tepat Waktu (+0.5h)',
-          interaksi_forum_peer: '4 tanggapan diskusi',
-          status_evaluasi: 'Lulus Formatif (Aktif)'
-        },
-        {
-          asn_id: 'ASN-0914',
-          modul_ke: 'Modul 2 (Kepemimpinan)',
-          skor_kuis_formatif: '78 / 100',
-          latensi_submit_jam: 'Terlambat (+28h - Sinyal)',
-          interaksi_forum_peer: '0 tanggapan diskusi',
-          status_evaluasi: 'Lulus Formatif'
-        }
+        { asn_id: 'ASN-048', lokasi_wilayah: 'Kab. Natuna (Kepulauan)', mode_aktif: 'Audio Podcast PWA', cached_items: '4 Modul Offline', sync_latency_hours: '+6.2 Jam (Cuaca)', metric_adjustment: 'Normalisasi Buffer' },
+        { asn_id: 'ASN-091', lokasi_wilayah: 'Kab. Belu (Perbatasan)', mode_aktif: 'Offline Text Pack', cached_items: '6 Modul Offline', sync_latency_hours: '+12.0 Jam (Genset)', metric_adjustment: 'Normalisasi Buffer' }
       ]
     }
   },
-  patterns: {
-    title: 'INTEGRATED BEHAVIOR PATTERNS (Pola Perilaku Terpadu)',
-    category: 'Multimodal Fusion Layer',
-    description: 'Penggabungan jejak Zoom dan LMS menjadi satu profil perilaku terintegrasi.',
-    variables: [
-      'Synchronous-Asynchronous Balance Index: Keseimbangan hadir di webinar vs belajar mandiri',
-      'Engagement Consistency Score: Konsistensi belajar harian',
-      'Multitasking Indicator: Terdeteksi mengikuti Zoom sambil mengakses sistem kantor'
-    ],
-    source: 'Pipeline Fusi Data Multimodal',
-    literature: 'Blikstein & Worsley (Multimodal Learning Analytics - MMLA)',
-    datasetPreview: {
-      tableName: 'integrated_behavior_vectors.csv',
-      columns: ['asn_id', 'sync_attendance_pct', 'sync_camera_off_pct', 'async_lms_hit_per_week', 'multitask_prob', 'fused_pattern_cluster'],
+  adjusted_metric: {
+    layer: 'Layer 3 & 4: Spatial Equity & Metric Adjustment',
+    title: 'ADJUSTED COMPLETION METRIC (Authentic Evidence Accumulation)',
+    description: 'Menggantikan metrik kaku 100% linear watch time dengan akumulasi multi-modal: penyelesaian kuis offline terverifikasi, audio completion traces, dan scenario stop-gates.',
+    triggers: ['Spatial-Aware Algorithmic Equity Normalization', 'Buffer Stall Masking', 'Multi-modal Evidence Weighting'],
+    policy: 'Accumulated Authentic Competency Evidence Formula',
+    rationale: 'Mencegah contextual attribution error serta memberikan kesempatan evaluasi yang adil bagi seluruh aparatur di berbagai daerah.',
+    sampleTable: {
+      name: 'caba_adjusted_completion_matrix.csv',
+      columns: ['asn_id', 'watch_time_raw', 'buffer_penalty_offset', 'scenario_test_score', 'offline_verified_task', 'final_caba_metric'],
       rows: [
-        {
-          asn_id: 'ASN-0121',
-          sync_attendance_pct: '100%',
-          sync_camera_off_pct: '20.8%',
-          async_lms_hit_per_week: '42 hit/mgg',
-          multitask_prob: '0.78 (Tinggi)',
-          fused_pattern_cluster: 'Cluster 1: Night-Learner Multitasker'
-        },
-        {
-          asn_id: 'ASN-0482',
-          sync_attendance_pct: '85%',
-          sync_camera_off_pct: '87.5%',
-          async_lms_hit_per_week: '18 hit/mgg (PDF offline)',
-          multitask_prob: '0.35 (Rendah)',
-          fused_pattern_cluster: 'Cluster 2: Offline-First Island Scholar'
-        },
-        {
-          asn_id: 'ASN-0733',
-          sync_attendance_pct: '95%',
-          sync_camera_off_pct: '66.7%',
-          async_lms_hit_per_week: '36 hit/mgg',
-          multitask_prob: '0.62 (Sedang)',
-          fused_pattern_cluster: 'Cluster 3: Daytime Service-Interrupted'
-        },
-        {
-          asn_id: 'ASN-0914',
-          sync_attendance_pct: '75%',
-          sync_camera_off_pct: '91.7%',
-          async_lms_hit_per_week: '12 hit/mgg',
-          multitask_prob: '0.20 (Rendah)',
-          fused_pattern_cluster: 'Cluster 4: Frontier Mobile Survivor'
-        }
-      ]
-    }
-  },
-  ccbn: {
-    title: 'CCBN (Context-Conditioned Bayesian Network)',
-    category: 'Core Probabilistic Inference Model',
-    description: 'Jantung model inferensi probabilistik disertasi. Menganalisis apakah deviasi perilaku (misal kamera mati 3 hari) disebabkan oleh hambatan spasial/dinas atau masalah kognitif.',
-    variables: [
-      'Hierarchical Baseline: Nilai dasar perilaku yang disesuaikan tipologi pemda',
-      'Conditional Probability Table (CPT): Peluang bersyarat P(State | Zoom, LMS, Context)',
-      'Deviation Significance: Besaran simpangan terhadap baseline kelompok tipologinya'
-    ],
-    source: 'Model Bayesian Network Disertasi',
-    literature: 'Koller & Friedman (Probabilistic Graphical Models); Conati et al. (Student Modeling in Intelligent Tutoring)',
-    datasetPreview: {
-      tableName: 'ccbn_hierarchical_inference_matrix.csv',
-      columns: ['asn_id', 'observed_camera_off', 'baseline_camera_off', 'deviation_score', 'prob_cognitive_atrisk', 'final_inferred_state'],
-      rows: [
-        {
-          asn_id: 'ASN-0121 (Metro)',
-          observed_camera_off: '20.8%',
-          baseline_camera_off: 'Baseline Metro: 25%',
-          deviation_score: '-4.2% (Wajar)',
-          prob_cognitive_atrisk: 'P = 0.08',
-          final_inferred_state: 'STABLE (No Action)'
-        },
-        {
-          asn_id: 'ASN-0482 (Kepulauan)',
-          observed_camera_off: '87.5%',
-          baseline_camera_off: 'Baseline Kepulauan: 85%',
-          deviation_score: '+2.5% (Wajar spasial)',
-          prob_cognitive_atrisk: 'P = 0.12',
-          final_inferred_state: 'ADAPTIVE (Format Ringan)'
-        },
-        {
-          asn_id: 'ASN-0733 (Daratan)',
-          observed_camera_off: '66.7%',
-          baseline_camera_off: 'Baseline Daratan: 60%',
-          deviation_score: '+6.7% (Wajar pelayanan)',
-          prob_cognitive_atrisk: 'P = 0.15',
-          final_inferred_state: 'ADAPTIVE (Supportive Cue)'
-        },
-        {
-          asn_id: 'ASN-0999 (Anomali)',
-          observed_camera_off: '98.0%',
-          baseline_camera_off: 'Baseline Metro: 25%',
-          deviation_score: '+73.0% (Deviasi Ekstrem)',
-          prob_cognitive_atrisk: 'P = 0.89',
-          final_inferred_state: 'AT-RISK (Target Intervensi)'
-        }
-      ]
-    }
-  },
-  state_stable: {
-    title: 'CONTEXTUAL STATE: STABLE (Stabil & Sesuai Jalur)',
-    category: 'Inference State Output',
-    description: 'Peserta menunjukkan keterlibatan yang konsisten dan sesuai dengan kapasitas tipologi daerahnya. Tidak memerlukan intervensi tambahan.',
-    variables: ['Attendance normal', 'Kamera On/Off wajar', 'LMS tuntas tepat waktu'],
-    source: 'Klasifikasi Inferensi CCBN',
-    literature: 'Baker et al. (State Modeling in Adaptive Systems)',
-    datasetPreview: {
-      tableName: 'state_stable_records.csv',
-      columns: ['asn_id', 'status_state', 'action_taken', 'target_nudge', 'outcome_status'],
-      rows: [
-        {
-          asn_id: 'ASN-0121',
-          status_state: 'STABLE',
-          action_taken: 'NO ACTION',
-          target_nudge: 'Tidak ada intervensi tambahan',
-          outcome_status: 'Pembelajaran mandiri berjalan lancar'
-        }
-      ]
-    }
-  },
-  state_adaptive: {
-    title: 'CONTEXTUAL STATE: ADAPTIVE (Penyesuaian Format Ringan)',
-    category: 'Inference State Output',
-    description: 'Peserta mengalami kendala sementara (misal sedang dinas luar pulau atau cuaca buruk). Sistem memberikan dukungan format ringan (audio/PDF offline).',
-    variables: ['Perpindahan lokasi terdeteksi', 'Kamera Off karena bandwidth', 'Tetap mengunduh modul PDF'],
-    source: 'Klasifikasi Inferensi CCBN',
-    literature: 'Kukulska-Hulme (Context-Aware Microlearning Adaptation)',
-    datasetPreview: {
-      tableName: 'state_adaptive_interventions.csv',
-      columns: ['asn_id', 'status_state', 'action_taken', 'rekomendasi_format', 'respon_asn'],
-      rows: [
-        {
-          asn_id: 'ASN-0482',
-          status_state: 'ADAPTIVE',
-          action_taken: 'Supportive Micro-Prompt',
-          rekomendasi_format: 'Rekomendasi Paket Audio Podcast & PDF',
-          respon_asn: 'Modul audio diunduh dalam 4 jam'
-        },
-        {
-          asn_id: 'ASN-0733',
-          status_state: 'ADAPTIVE',
-          action_taken: 'Flexible Window Prompt',
-          rekomendasi_format: 'Penjadwalan ulang asesmen di luar jam pelayanan',
-          respon_asn: 'Kuis dikerjakan pukul 19.30 WIB'
-        }
-      ]
-    }
-  },
-  state_atrisk: {
-    title: 'CONTEXTUAL STATE: AT-RISK (Berisiko Drop-out / Terkendala Serius)',
-    category: 'Inference State Output',
-    description: 'Peserta menunjukkan deviasi keaktifan yang bukan karena kendala jaringan atau tugas kantor semata, melainkan kebingungan kognitif atau kehilangan motivasi.',
-    variables: ['Tidak hadir tanpa izin', 'Kuis gagal berulang', 'Tidak ada interaksi Zoom & LMS'],
-    source: 'Klasifikasi Inferensi CCBN',
-    literature: 'Kuzilek et al. (Early Dropout Prediction in VLEs)',
-    datasetPreview: {
-      tableName: 'state_atrisk_intervention_triggers.csv',
-      columns: ['asn_id', 'status_state', 'action_taken', 'intervention_policy', 'instructor_alert'],
-      rows: [
-        {
-          asn_id: 'ASN-0999',
-          status_state: 'AT-RISK',
-          action_taken: 'High-Priority Alert',
-          intervention_policy: 'Fasilitator Intervention + Diagnostic Form',
-          instructor_alert: 'Notifikasi terkirim ke Fasilitator Puslatbang LAN'
-        }
-      ]
-    }
-  },
-  public_service_outcome: {
-    title: 'DAMPAK TERHADAP MUTU LAYANAN PUBLIK (Outcome Hilir)',
-    category: 'Public Value & Kirkpatrick Level 4 Outcome',
-    description: 'Muara akhir dari seluruh efektivitas pelatihan kedinasan ASN: perbaikan kualitas pelayanan birokrasi kepada masyarakat di daerah.',
-    variables: [
-      'Indeks Pelayanan Publik (IPP) 2025: Evaluasi resmi unit layanan instansi asal ASN',
-      'Skor Implementasi Aksi Perubahan: Keberhasilan penerapan inovasi pasca-pelatihan',
-      'Gain Score Pre-to-Post Test: Peningkatan kompetensi manajerial/teknis ASN',
-      'Indeks Kepuasan Masyarakat (IKM): Survei kepuasan publik terhadap unit layanan'
-    ],
-    source: 'Portal Resmi KemenPAN-RB & Evaluasi Puslatbang LAN RI',
-    literature: 'Kirkpatrick & Phillips Framework; Dwiyanto (Pelayanan Publik Indonesia); UU No. 20/2023 tentang ASN',
-    datasetPreview: {
-      tableName: 'public_service_eval_ipp_2025.csv',
-      columns: ['asn_id', 'instansi_pemda', 'indeks_spbe_2025', 'ipp_predikat_2025', 'pre_test', 'post_test', 'gain_score', 'skor_inovasi', 'status_layanan_publik'],
-      rows: [
-        {
-          asn_id: 'ASN-0121',
-          instansi_pemda: 'Pemprov DKI Jakarta',
-          indeks_spbe_2025: '4.21 (Sangat Baik)',
-          ipp_predikat_2025: 'Pelayanan Prima (A)',
-          pre_test: '68',
-          post_test: '94',
-          gain_score: '+26',
-          skor_inovasi: '95.5',
-          status_layanan_publik: 'Inovasi antrean digital kelurahan diterapkan'
-        },
-        {
-          asn_id: 'ASN-0482',
-          instansi_pemda: 'Pemkab Natuna',
-          indeks_spbe_2025: '2.84 (Baik)',
-          ipp_predikat_2025: 'Sangat Baik (A-)',
-          pre_test: '55',
-          post_test: '84',
-          gain_score: '+29',
-          skor_inovasi: '88.0',
-          status_layanan_publik: 'SOP perizinan kapal nelayan terintegrasi'
-        },
-        {
-          asn_id: 'ASN-0733',
-          instansi_pemda: 'Pemkab Banyumas',
-          indeks_spbe_2025: '3.62 (Baik)',
-          ipp_predikat_2025: 'Pelayanan Prima (A)',
-          pre_test: '62',
-          post_test: '90',
-          gain_score: '+28',
-          skor_inovasi: '92.5',
-          status_layanan_publik: 'Peningkatan mutu layanan puskesmas rawat inap'
-        },
-        {
-          asn_id: 'ASN-0914',
-          instansi_pemda: 'Pemkab Belu',
-          indeks_spbe_2025: '2.45 (Cukup)',
-          ipp_predikat_2025: 'Baik (B)',
-          pre_test: '50',
-          post_test: '78',
-          gain_score: '+28',
-          skor_inovasi: '84.0',
-          status_layanan_publik: 'Digitalisasi registrasi pos perbatasan negara'
-        }
+        { asn_id: 'ASN-012 (Metro)', watch_time_raw: '45% (Speed 2x)', buffer_penalty_offset: '0%', scenario_test_score: '100% (3/3)', offline_verified_task: 'N/A', final_caba_metric: '100% (Lulus Terverifikasi)' },
+        { asn_id: 'ASN-048 (3T)', watch_time_raw: '30% (Buffer Drop)', buffer_penalty_offset: '+40% (Kompensasi Sinyal)', scenario_test_score: '85% (Audio Quiz)', offline_verified_task: 'Tuntas Offline', final_caba_metric: '100% (Lulus Terverifikasi)' }
       ]
     }
   }
 }
 
-const currentStepDetail = computed<StepDetail>(() => {
-  return flowStepsDictionary[selectedFlowStep.value] || flowStepsDictionary.context
+const currentFigureDetail = computed<FigureNodeDetail>(() => {
+  return figureNodesDictionary[selectedFigureNode.value] || figureNodesDictionary.evaluate_signals
 })
 
-// Database-Driven Paper Data Profiles
-interface PaperDataProfile {
+// Simulator State
+const availableSignals = [
+  { id: 'sig_speed2x', label: 'Kecepatan Video 2.0x', desc: 'Pemutaran video dipercepat maksimal' },
+  { id: 'sig_tab_low', label: 'Tab Focus Rendah (<30%)', desc: 'Browser berada di latar belakang' },
+  { id: 'sig_deadline', label: 'Mendekati Batas Waktu', desc: 'Kurang dari 24 jam sebelum pelaporan ditutup' },
+  { id: 'sig_office_hour', label: 'Jam Kerja Kantor Dinas', desc: 'Akses berlangsung pukul 08.00–16.00' },
+  { id: 'sig_tab_switch', label: 'Sering Pindah Jendela (Switching)', desc: 'Membuka aplikasi persuratan/layanan publik' },
+  { id: 'sig_rewind', label: 'Rewind Video Berulang', desc: '>3 kali mengulang bagian penjelasan regulasi' },
+  { id: 'sig_dwell', label: 'Dwell Time Lama di 1 Halaman', desc: 'Waktu henti lama tanpa navigasi maju' },
+  { id: 'sig_buffer', label: 'Buffering & Packet Loss Tinggi', desc: 'Sinyal seluler EDGE / cuaca buruk laut' },
+  { id: 'sig_3t_mobile', label: 'Smartphone di Wilayah 3T', desc: 'Aparatur perbatasan/kepulauan terluar' }
+]
+
+const activeSignalIds = ref<string[]>(['sig_office_hour', 'sig_tab_switch'])
+
+const resetSimulator = () => {
+  activeSignalIds.value = ['sig_office_hour', 'sig_tab_switch']
+}
+
+const simulatedResult = computed(() => {
+  const sigs = activeSignalIds.value
+  const states: any[] = []
+  let fairnessNote = 'Evaluasi berbasis baseline tipologi daerah dan norma kontekstual.'
+
+  // Check S1
+  if (sigs.includes('sig_speed2x') || sigs.includes('sig_tab_low') || sigs.includes('sig_deadline')) {
+    states.push({
+      code: 'S1',
+      name: 'Low-Engagement Completion Risk',
+      confidence: (sigs.includes('sig_speed2x') && sigs.includes('sig_tab_low')) ? 92 : 75,
+      badgeClass: 'bg-blue-50 border-blue-200 text-blue-950',
+      policy: 'Active Verification Stop-Gate: 3 Soal Spot-Test Kasus Skenario'
+    })
+  }
+
+  // Check S2
+  if (sigs.includes('sig_office_hour') && sigs.includes('sig_tab_switch')) {
+    states.push({
+      code: 'S2',
+      name: 'Fragmented Office-Hour Learning',
+      confidence: 88,
+      badgeClass: 'bg-indigo-50 border-indigo-200 text-indigo-950',
+      policy: 'State Preservation + Micro-chunking (3–5 menit) & Audio Summary'
+    })
+  }
+
+  // Check S3
+  if (sigs.includes('sig_rewind') || sigs.includes('sig_dwell')) {
+    states.push({
+      code: 'S3',
+      name: 'Cognitive Struggling',
+      confidence: sigs.includes('sig_rewind') && sigs.includes('sig_dwell') ? 95 : 70,
+      badgeClass: 'bg-cyan-50 border-cyan-200 text-cyan-950',
+      policy: 'Adaptive Scaffolding: Infografis Penjelas & Worked Examples'
+    })
+  }
+
+  // Check S4
+  if (sigs.includes('sig_buffer') || sigs.includes('sig_3t_mobile')) {
+    states.push({
+      code: 'S4',
+      name: 'Infrastructural Constraint (3T)',
+      confidence: 96,
+      badgeClass: 'bg-amber-50 border-amber-200 text-amber-950',
+      policy: 'Audio-First Podcast Fallback + Offline PWA Caching + Async Sync'
+    })
+  }
+
+  if (states.some(s => s.code === 'S4')) {
+    fairnessNote = 'Spatial-Aware Equity aktif: Buffering dan jeda sinkronisasi dinormalisasi agar ASN 3T tidak dirugikan oleh kendala infrastruktur.'
+  } else if (states.some(s => s.code === 'S2')) {
+    fairnessNote = 'Contextual Normalization aktif: Sering berpindah tab pada jam dinas diakui sebagai disrupsi pelayanan warga, bukan defisit motivasi.'
+  }
+
+  return { states, fairnessNote }
+})
+
+// =========================================================================
+// CABA EMPIRICAL DATASETS DEFINITIONS & STATE
+// =========================================================================
+interface CabaStreamConfig {
   id: string
   title: string
-  year?: number
-  authors: string
-  journal?: string
-  abstract: string
-  full_abstract: string
-  landing_url?: string
-  doi?: string
-  primary_data_type: string
-  data_types: string[]
-  population: string
-  sample_size: string
-  is_open_dataset: boolean
-  open_repo_name?: string
-  key_variables: string[]
-}
-
-interface DistributionItem {
-  name: string
-  count: number
-  percentage: number
-}
-
-interface BenchmarkDataset {
-  id: string
-  name: string
-  provider: string
-  data_type: string
-  population: string
-  volume: string
-  format: string
+  icon: string
   description: string
-  variables: string[]
-  url: string
-  license: string
-  relevance: string
-  is_open?: boolean
-  access_note?: string
+  filename: string
+  columns: string[]
+  rows: Record<string, string>[]
 }
 
-const loading = ref(true)
-const error = ref<string | null>(null)
-const papers = ref<PaperDataProfile[]>([])
-const benchmarkDatasets = ref<BenchmarkDataset[]>([])
-const dataTypeDist = ref<DistributionItem[]>([])
-const popDist = ref<DistributionItem[]>([])
+const selectedCabaStream = ref<string>('telemetry_stream')
+const datasetSearchQuery = ref<string>('')
+const selectedStateFilter = ref<string>('all')
 
-// Filter State
-const searchQuery = ref('')
-const selectedDataType = ref<string>('all')
-const selectedPopulation = ref<string>('all')
+const cabaDatasetStreams: CabaStreamConfig[] = [
+  {
+    id: 'telemetry_stream',
+    title: 'Stream 1: Telemetri Sesi & Deteksi S1–S4',
+    icon: '📡',
+    filename: 'caba_empirical_telemetry_stream.csv',
+    description: 'Log telemetri interaksi waktu nyata (playback speed, tab focus, buffering, rewind, dwell time) dengan inferensi status pembelajar situasional S1–S4.',
+    columns: ['user_id', 'tipologi_daerah', 'jam_akses', 'kecepatan_video', 'tab_focus_ratio', 'buffer_stalls', 'rewind_count', 'inferred_state', 'active_policy', 'completion_metric'],
+    rows: [
+      { user_id: 'ASN-0101', tipologi_daerah: 'Metropolitan (DKI Jakarta)', jam_akses: '10:15 WIB', kecepatan_video: '2.0x', tab_focus_ratio: '0.22', buffer_stalls: '0', rewind_count: '0', inferred_state: 'S1: Low-Engagement Risk', active_policy: 'Active Stop-Gate Spot-Test', completion_metric: '100% (Verified 3/3)' },
+      { user_id: 'ASN-0102', tipologi_daerah: 'Metropolitan (Surabaya)', jam_akses: '14:40 WIB', kecepatan_video: '1.75x', tab_focus_ratio: '0.28', buffer_stalls: '0', rewind_count: '1', inferred_state: 'S1: Low-Engagement Risk', active_policy: 'Active Stop-Gate Spot-Test', completion_metric: '100% (Verified 3/3)' },
+      { user_id: 'ASN-0201', tipologi_daerah: 'Daratan (Kab. Banyumas)', jam_akses: '09:30 WIB', kecepatan_video: '1.0x', tab_focus_ratio: '0.65', buffer_stalls: '1', rewind_count: '0', inferred_state: 'S2: Office-Hour Learning', active_policy: 'Micro-chunking (3.5 min) + Text Brief', completion_metric: '100% (Modul Parsial)' },
+      { user_id: 'ASN-0202', tipologi_daerah: 'Daratan (Kab. Sleman)', jam_akses: '11:10 WIB', kecepatan_video: '1.0x', tab_focus_ratio: '0.58', buffer_stalls: '0', rewind_count: '1', inferred_state: 'S2: Office-Hour Learning', active_policy: 'Micro-chunking (4.0 min) + Audio Recap', completion_metric: '100% (Modul Parsial)' },
+      { user_id: 'ASN-0203', tipologi_daerah: 'Daratan (Kab. Maros)', jam_akses: '13:50 WITA', kecepatan_video: '1.0x', tab_focus_ratio: '0.45', buffer_stalls: '2', rewind_count: '0', inferred_state: 'S2: Office-Hour Learning', active_policy: 'State Preservation & Progress Resume', completion_metric: '100% (Modul Parsial)' },
+      { user_id: 'ASN-0301', tipologi_daerah: 'Metropolitan (Bandung)', jam_akses: '21:05 WIB', kecepatan_video: '1.0x', tab_focus_ratio: '0.94', buffer_stalls: '0', rewind_count: '5', inferred_state: 'S3: Cognitive Struggling', active_policy: 'Scaffolded Infographic + Analogi', completion_metric: '100% (Gain Score +30)' },
+      { user_id: 'ASN-0302', tipologi_daerah: 'Daratan (Kab. Malang)', jam_akses: '20:15 WIB', kecepatan_video: '1.0x', tab_focus_ratio: '0.92', buffer_stalls: '1', rewind_count: '4', inferred_state: 'S3: Cognitive Struggling', active_policy: 'Worked Example Kasus Pengadaan', completion_metric: '100% (Gain Score +28)' },
+      { user_id: 'ASN-0401', tipologi_daerah: 'Kepulauan (Kab. Natuna)', jam_akses: '14:20 WIB', kecepatan_video: '1.0x', tab_focus_ratio: '0.88', buffer_stalls: '8', rewind_count: '0', inferred_state: 'S4: 3T Infrastructural Constraint', active_policy: 'Audio-First Podcast + Offline PWA', completion_metric: '100% (Buffer Masked)' },
+      { user_id: 'ASN-0402', tipologi_daerah: 'Kepulauan (Kep. Aru)', jam_akses: '16:10 WIT', kecepatan_video: '1.0x', tab_focus_ratio: '0.85', buffer_stalls: '11', rewind_count: '0', inferred_state: 'S4: 3T Infrastructural Constraint', active_policy: 'Offline PWA Cache + Async Sync', completion_metric: '100% (Buffer Masked)' },
+      { user_id: 'ASN-0403', tipologi_daerah: 'Perbatasan (Kab. Belu)', jam_akses: '19:40 WITA', kecepatan_video: '1.0x', tab_focus_ratio: '0.90', buffer_stalls: '9', rewind_count: '1', inferred_state: 'S4: 3T Infrastructural Constraint', active_policy: 'Audio-First Mode + Asynchronous Sync', completion_metric: '100% (Buffer Masked)' },
+      { user_id: 'ASN-0404', tipologi_daerah: 'Perbatasan (Nunukan)', jam_akses: '20:30 WITA', kecepatan_video: '1.0x', tab_focus_ratio: '0.89', buffer_stalls: '7', rewind_count: '0', inferred_state: 'S4: 3T Infrastructural Constraint', active_policy: 'Compressed Text Pack + Offline Quiz', completion_metric: '100% (Buffer Masked)' },
+      { user_id: 'ASN-0501', tipologi_daerah: 'Metropolitan (Medan)', jam_akses: '22:00 WIB', kecepatan_video: '1.0x', tab_focus_ratio: '0.98', buffer_stalls: '0', rewind_count: '0', inferred_state: 'STABLE (Standard Baseline)', active_policy: 'No Intervention (Progress Normal)', completion_metric: '100% (Linear Completion)' }
+    ]
+  },
+  {
+    id: 'spatial_weights',
+    title: 'Stream 2: Bobot Spasial & Keadilan Algoritma',
+    icon: '⚖️',
+    filename: 'spatial_equity_normalization_weights.csv',
+    description: 'Matriks parameter normalisasi Spatial-Aware Algorithmic Equity untuk mengompensasi disparitas infrastruktur 4 tipologi daerah di Indonesia.',
+    columns: ['tipologi_daerah', 'karakteristik_jaringan', 'prior_weight_tolerance', 'buffer_mask_factor', 'inactivity_threshold_min', 'modality_fallback_primary', 'async_telemetry_window'],
+    rows: [
+      { tipologi_daerah: 'Tipologi 1: Metropolitan', karakteristik_jaringan: 'Fiber Optic Gigabit / 4G Merata', prior_weight_tolerance: '1.00 (Standard)', buffer_mask_factor: '0.00 (Tanpa Kompensasi)', inactivity_threshold_min: '15 Menit', modality_fallback_primary: 'Micro-Video Segments', async_telemetry_window: 'Real-time (<10s)' },
+      { tipologi_daerah: 'Tipologi 2: Perkotaan Sedang & Daratan', karakteristik_jaringan: '4G Stabil / Wi-Fi Kantor Pemda', prior_weight_tolerance: '1.15 (Sedang)', buffer_mask_factor: '0.10 (Toleransi Ringan)', inactivity_threshold_min: '30 Menit', modality_fallback_primary: 'Interactive Text Brief', async_telemetry_window: 'Near Real-time (1-5 min)' },
+      { tipologi_daerah: 'Tipologi 3: Kepulauan & Maritim', karakteristik_jaringan: 'Kabel Laut / Radio Link / Cuaca Laut', prior_weight_tolerance: '1.45 (Tinggi)', buffer_mask_factor: '0.40 (Kompensasi Cuaca)', inactivity_threshold_min: '60 Menit', modality_fallback_primary: 'Audio-First Podcast & PWA Cache', async_telemetry_window: 'Deferred Batch (4-8 Jam)' },
+      { tipologi_daerah: 'Tipologi 4: Perbatasan & Pedalaman 3T', karakteristik_jaringan: 'VSAT Satelit / Genset Malam Hari', prior_weight_tolerance: '1.60 (Maksimal)', buffer_mask_factor: '0.55 (Kompensasi Satelit)', inactivity_threshold_min: '90 Menit', modality_fallback_primary: 'Offline-First Package + Async Telemetry', async_telemetry_window: 'Deferred Batch (12-24 Jam)' }
+    ]
+  },
+  {
+    id: 'evidence_accumulation',
+    title: 'Stream 3: Akumulasi Bukti Autentik (Adjusted Metric)',
+    icon: '🎯',
+    filename: 'authentic_evidence_accumulation_log.csv',
+    description: 'Log perhitungan metrik penyelesaian pembelajaran adaptif yang menggabungkan watch-time, checkpoint skenario, audio traces, dan bukti offline.',
+    columns: ['asn_id', 'instansi_asal', 'raw_watch_time', 'buffer_penalty_offset', 'scenario_test_pct', 'audio_trace_pct', 'offline_task_status', 'final_caba_status'],
+    rows: [
+      { asn_id: 'ASN-0101', instansi_asal: 'Bappeda DKI Jakarta', raw_watch_time: '48% (Speed 2x)', buffer_penalty_offset: '0%', scenario_test_pct: '100% (3/3 Benar)', audio_trace_pct: 'N/A', offline_task_status: 'N/A', final_caba_status: '100% (Lulus Terverifikasi)' },
+      { asn_id: 'ASN-0201', instansi_asal: 'Dinkes Kab. Banyumas', raw_watch_time: '62% (Office Interrupted)', buffer_penalty_offset: '+10%', scenario_test_pct: '90% (2 Kasus)', audio_trace_pct: '100% (Audio Recap)', offline_task_status: 'Tuntas', final_caba_status: '100% (Lulus Terverifikasi)' },
+      { asn_id: 'ASN-0401', instansi_asal: 'Dinas Kelautan Natuna', raw_watch_time: '28% (Buffer Drop)', buffer_penalty_offset: '+42%', scenario_test_pct: '85% (Audio Quiz)', audio_trace_pct: '100% (Podcast 18 min)', offline_task_status: 'Tuntas Offline', final_caba_status: '100% (Lulus Terverifikasi)' },
+      { asn_id: 'ASN-0403', instansi_asal: 'Batas Negara Kab. Belu', raw_watch_time: '22% (EDGE Sinyal)', buffer_penalty_offset: '+48%', scenario_test_pct: '80% (PWA Quiz)', audio_trace_pct: '100% (Podcast 22 min)', offline_task_status: 'Tuntas Offline', final_caba_status: '100% (Lulus Terverifikasi)' }
+    ]
+  },
+  {
+    id: 'widyaiswara_validation',
+    title: 'Stream 4: Validasi Ahli Widyaiswara & BPSDM',
+    icon: '👨‍🏫',
+    filename: 'widyaiswara_expert_validation_rubric.csv',
+    description: 'Rubrik penilaian validasi konseptual oleh Widyaiswara dan pengelola diklat aparatur sipil negara di berbagai institusi pelatihan.',
+    columns: ['evaluator_id', 'institusi_bpsdm', 'jabatan_fungsional', 'distinguishability_s1_s4', 'fairness_equity_score', 'cooldown_suitability', 'kesimpulan_ahli'],
+    rows: [
+      { evaluator_id: 'EXP-WI-01', institusi_bpsdm: 'Puslatbang LAN RI', jabatan_fungsional: 'Widyaiswara Ahli Utama', distinguishability_s1_s4: '4.8 / 5.0', fairness_equity_score: '4.9 / 5.0', cooldown_suitability: '4.7 / 5.0', kesimpulan_ahli: 'Sangat Sesuai Praktik Diklat ASN' },
+      { evaluator_id: 'EXP-WI-02', institusi_bpsdm: 'BPSDM Prov. Sulsel', jabatan_fungsional: 'Widyaiswara Ahli Madya', distinguishability_s1_s4: '4.6 / 5.0', fairness_equity_score: '4.8 / 5.0', cooldown_suitability: '4.5 / 5.0', kesimpulan_ahli: 'Sangat Sesuai untuk Wilayah Kepulauan' },
+      { evaluator_id: 'EXP-WI-03', institusi_bpsdm: 'Bapelkes Mataram', jabatan_fungsional: 'Widyaiswara Ahli Madya', distinguishability_s1_s4: '4.7 / 5.0', fairness_equity_score: '4.7 / 5.0', cooldown_suitability: '4.6 / 5.0', kesimpulan_ahli: 'Mengatasi Masalah Klasik Sinyal 3T' },
+      { evaluator_id: 'EXP-WI-04', institusi_bpsdm: 'BPSDM Jawa Tengah', jabatan_fungsional: 'Widyaiswara Ahli Utama', distinguishability_s1_s4: '4.9 / 5.0', fairness_equity_score: '4.8 / 5.0', cooldown_suitability: '4.8 / 5.0', kesimpulan_ahli: 'Efektif Mencegah Attribution Error' }
+    ]
+  }
+]
 
-// Pagination State
-const currentPage = ref(1)
-const pageSize = ref(10)
+const currentActiveStreamObj = computed<CabaStreamConfig>(() => {
+  return cabaDatasetStreams.find(s => s.id === selectedCabaStream.value) || cabaDatasetStreams[0]
+})
 
-// Drawer State
-const selectedPaper = ref<PaperDataProfile | null>(null)
-const isDrawerOpen = ref(false)
+const filteredStreamRows = computed(() => {
+  const stream = currentActiveStreamObj.value
+  let rows = stream.rows
+
+  // Filter by state if applicable
+  if (selectedCabaStream.value === 'telemetry_stream' && selectedStateFilter.value !== 'all') {
+    rows = rows.filter(r => r.inferred_state && r.inferred_state.startsWith(selectedStateFilter.value))
+  }
+
+  // Filter by search query
+  if (datasetSearchQuery.value.trim()) {
+    const q = datasetSearchQuery.value.toLowerCase()
+    rows = rows.filter(r => Object.values(r).some(val => String(val).toLowerCase().includes(q)))
+  }
+
+  return rows
+})
+
+// Export CSV Function
+const exportCurrentDatasetCSV = () => {
+  const stream = currentActiveStreamObj.value
+  const rows = filteredStreamRows.value
+  if (!rows || rows.length === 0) return
+
+  const headerLine = stream.columns.join(',')
+  const rowLines = rows.map(r => stream.columns.map(c => `"${(r[c] || '').replace(/"/g, '""')}"`).join(','))
+  const csvContent = 'data:text/csv;charset=utf-8,' + [headerLine, ...rowLines].join('\n')
+  
+  const encodedUri = encodeURI(csvContent)
+  const link = document.createElement('a')
+  link.setAttribute('href', encodedUri)
+  link.setAttribute('download', stream.filename)
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
+
+// Export JSON Function
+const exportCurrentDatasetJSON = () => {
+  const stream = currentActiveStreamObj.value
+  const rows = filteredStreamRows.value
+  const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(rows, null, 2))
+  const downloadAnchor = document.createElement('a')
+  downloadAnchor.setAttribute('href', dataStr)
+  downloadAnchor.setAttribute('download', stream.filename.replace('.csv', '.json'))
+  document.body.appendChild(downloadAnchor)
+  downloadAnchor.click()
+  document.body.removeChild(downloadAnchor)
+}
+
+// 22 References Filtering State
+const refCategoryFilter = ref<string>('all')
+const jisebiReferences = ref<any[]>([])
+const benchmarkDatasets = ref<any[]>([])
+const papers = ref<any[]>([])
+const loading = ref<boolean>(true)
+
+const refCategories = computed(() => {
+  const set = new Set<string>()
+  jisebiReferences.value.forEach(r => {
+    if (r.category) set.add(r.category)
+  })
+  return Array.from(set)
+})
+
+const filteredJisebiReferences = computed(() => {
+  if (refCategoryFilter.value === 'all') return jisebiReferences.value
+  return jisebiReferences.value.filter(r => r.category === refCategoryFilter.value)
+})
 
 const fetchDatasetHubData = async () => {
   loading.value = true
-  error.value = null
   try {
     const res = await fetch('/api/literature-hunter/dataset-hub?limit=600')
-    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`)
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
     const data = await res.json()
     if (data.success) {
-      dataTypeDist.value = data.data_type_distribution || []
-      popDist.value = data.population_distribution || []
+      jisebiReferences.value = data.jisebi_manuscript_references || []
       benchmarkDatasets.value = data.open_benchmark_datasets || []
       papers.value = data.papers || []
-    } else {
-      throw new Error(data.message || 'Gagal memuat dataset hub')
     }
-  } catch (err: any) {
-    console.error('Failed to load dataset hub:', err)
-    error.value = err.message || 'Gagal terhubung ke database'
+  } catch (e) {
+    console.error('Failed to load dataset hub data:', e)
   } finally {
     loading.value = false
   }
-}
-
-const filteredPapers = computed(() => {
-  return papers.value.filter(p => {
-    if (searchQuery.value.trim()) {
-      const q = searchQuery.value.toLowerCase()
-      const matchTitle = p.title && p.title.toLowerCase().includes(q)
-      const matchAuthors = p.authors && p.authors.toLowerCase().includes(q)
-      const matchVars = p.key_variables && p.key_variables.some(v => v.toLowerCase().includes(q))
-      if (!matchTitle && !matchAuthors && !matchVars) return false
-    }
-    if (selectedDataType.value !== 'all' && p.primary_data_type !== selectedDataType.value) {
-      return false
-    }
-    if (selectedPopulation.value !== 'all' && p.population !== selectedPopulation.value) {
-      return false
-    }
-    return true
-  })
-})
-
-const totalFilteredCount = computed(() => filteredPapers.value.length)
-const totalPages = computed(() => Math.ceil(totalFilteredCount.value / pageSize.value) || 1)
-
-const paginatedPapers = computed(() => {
-  const start = (currentPage.value - 1) * pageSize.value
-  return filteredPapers.value.slice(start, start + pageSize.value)
-})
-
-const startItemIndex = computed(() => {
-  if (totalFilteredCount.value === 0) return 0
-  return (currentPage.value - 1) * pageSize.value + 1
-})
-
-const endItemIndex = computed(() => {
-  return Math.min(currentPage.value * pageSize.value, totalFilteredCount.value)
-})
-
-const visiblePages = computed(() => {
-  const total = totalPages.value
-  const cur = currentPage.value
-  const delta = 2
-  const range: (number | string)[] = []
-  for (let i = Math.max(2, cur - delta); i <= Math.min(total - 1, cur + delta); i++) {
-    range.push(i)
-  }
-  if (cur - delta > 2) range.unshift('...')
-  range.unshift(1)
-  if (cur + delta < total - 1) range.push('...')
-  if (total > 1) range.push(total)
-  return range
-})
-
-const goToPage = (page: number | string) => {
-  if (typeof page === 'number' && page >= 1 && page <= totalPages.value) {
-    currentPage.value = page
-  }
-}
-
-watch([searchQuery, selectedDataType, selectedPopulation], () => {
-  currentPage.value = 1
-})
-
-const openPaperDetail = (paper: PaperDataProfile) => {
-  selectedPaper.value = paper
-  isDrawerOpen.value = true
-}
-
-const closeDrawer = () => {
-  isDrawerOpen.value = false
-  setTimeout(() => {
-    selectedPaper.value = null
-  }, 200)
-}
-
-const getDataTypeBadgeClass = (type: string) => {
-  if (!type) return 'bg-slate-50 text-slate-800 border-slate-200'
-  if (type.includes('Log')) return 'bg-cyan-50 text-cyan-800 border-cyan-200'
-  if (type.includes('Kuesioner')) return 'bg-sky-50 text-sky-800 border-sky-200'
-  if (type.includes('Pre/Post') || type.includes('Ujian')) return 'bg-purple-50 text-purple-800 border-purple-200'
-  if (type.includes('Kinerja') || type.includes('Layanan') || type.includes('SPBE')) return 'bg-emerald-50 text-emerald-800 border-emerald-200'
-  if (type.includes('Spasial')) return 'bg-indigo-50 text-indigo-800 border-indigo-200'
-  return 'bg-amber-50 text-amber-800 border-amber-200'
 }
 
 onMounted(() => {
@@ -1867,14 +1899,17 @@ onMounted(() => {
 <style scoped>
 @keyframes slideIn {
   from {
-    transform: translateX(100%);
+    transform: translateY(6px);
+    opacity: 0;
   }
   to {
-    transform: translateX(0);
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
 .animate-slide-in {
-  animation: slideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 </style>
+

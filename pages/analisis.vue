@@ -1,1362 +1,778 @@
 <template>
-  <div class="analisis-page-wrapper">
+  <div class="app-container">
     <!-- Top Header Navigation -->
     <Navbar />
 
-    <main id="konten-utama" class="analisis-main-content">
-      <!-- Main Knowledge Graph Card -->
-      <div class="kg-card">
-        
-        <!-- Top Header Bar -->
-        <div class="kg-header-bar">
-          <div class="kg-header-left">
-            <div class="kg-header-icon">
-              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-              </svg>
+    <main id="konten-utama" class="main-content">
+      <!-- Top Title & Stats Banner -->
+      <div class="card header-banner" style="margin-bottom: 1.5rem; padding: 1.75rem 2rem; background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFFFFF; border: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.25rem;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
+              <span class="badge" style="background: rgba(59, 130, 246, 0.25); color: #60A5FA; border: 1px solid rgba(96, 165, 250, 0.3);">
+                ⚡ Algorithmic Mediation Demonstration Testbed
+              </span>
+              <span class="badge" style="background: rgba(168, 85, 247, 0.25); color: #C084FC; border: 1px solid rgba(192, 132, 252, 0.3);">
+                🎯 Model: Fair-LinUCB & CCBN Dynamic Reward
+              </span>
             </div>
-            <div>
-              <div class="kg-title-row">
-                <h2 class="kg-title">Knowledge Graph: Triangulasi Suara Lapangan & Literatur</h2>
-                <span class="kg-badge blue">
-                  {{ graphData?.totalResponses || 0 }} Respon Kuesioner
-                </span>
-                <span class="kg-badge purple">
-                  2.103 Korpus Paper & 271 Gaps
-                </span>
-              </div>
-              <p class="kg-subtitle">
-                Peta sintesis hubungan antara realita empiris suara lapangan ASN (Q14-Q32) dan tinjauan literatur global model disertasi.
-              </p>
-            </div>
+            <h2 style="font-size: 1.5rem; font-weight: 800; color: #F8FAFC; margin-bottom: 0.35rem; letter-spacing: -0.02em;">
+              Simulator Algoritma Mediasi & Optimisasi Berkeadilan
+            </h2>
+            <p style="font-size: 0.9rem; color: #94A3B8; margin: 0; max-width: 850px; line-height: 1.5;">
+              Demonstrator komputasional: Menguji bagaimana algoritma <strong>Fair-LinUCB</strong> menyeimbangkan trade-off antara capaian kompetensi dan beban kendala ASN (analogi <em>YouTube Adaptive Bitrate</em>) dengan normalisasi counterfactual \(\mathbb{E}[B \mid \text{Context}]\) dan residual \(\Delta B\).
+            </p>
           </div>
 
-          <!-- View Switcher & Controls -->
-          <div class="kg-header-right">
-            <div class="view-switcher-pill">
-              <button 
-                @click="activeView = 'graph'"
-                :class="['switch-btn', activeView === 'graph' ? 'active' : '']"
-              >
-                <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
-                </svg>
-                Force Graph
-              </button>
-              <button 
-                @click="activeView = 'timeline'"
-                :class="['switch-btn', activeView === 'timeline' ? 'active' : '']"
-              >
-                <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
-                </svg>
-                Disparitas Wilayah
-              </button>
+          <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+            <div class="stat-pill">
+              <span style="font-size: 1.25rem; font-weight: 800; color: #4ADE80;">{{ liveRewardScore.toFixed(2) }}</span>
+              <span style="font-size: 0.725rem; color: #94A3B8; font-weight: 600; text-transform: uppercase;">Dynamic Reward \(r_t\)</span>
             </div>
-
-            <button 
-              v-if="activeView === 'graph'"
-              @click="resetGraphZoom" 
-              title="Reset Zoom & Posisi"
-              class="btn-icon-control"
-            >
-              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- Filter & Search Sub-bar (Only in Graph View) -->
-        <div v-if="activeView === 'graph'" class="kg-filter-bar">
-          <!-- Category Pills -->
-          <div class="category-pills-row">
-            <span class="filter-label">Filter Pilar/Kategori:</span>
-            <button 
-              v-for="cat in (graphData?.categories ? ['ALL', ...graphData.categories.map((c: any) => c.name)] : ['ALL'])"
-              :key="cat"
-              @click="selectedCategory = cat"
-              :class="['cat-pill-btn', selectedCategory === cat ? 'active' : '']"
-            >
-              {{ cat }}
-            </button>
-          </div>
-
-          <!-- Search & Threshold -->
-          <div class="search-controls-row">
-            <div class="search-input-wrapper">
-              <svg class="search-icon" width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-              </svg>
-              <input 
-                v-model="searchQuery"
-                type="text" 
-                placeholder="Cari tema / topik riset..." 
-                class="search-text-input"
-              />
-            </div>
-
-            <div class="threshold-wrapper">
-              <span class="threshold-label">Min Ko-okurensi:</span>
-              <select v-model.number="minCooccurrence" class="threshold-select">
-                <option :value="1">Semua Relasi (≥1)</option>
-                <option :value="2">Relasi Sedang (≥2)</option>
-                <option :value="3">Relasi Kuat (≥3)</option>
-              </select>
+            <div class="stat-pill">
+              <span style="font-size: 1.25rem; font-weight: 800" :style="{ color: deltaBColor }">{{ liveDeltaB.toFixed(2) }}</span>
+              <span style="font-size: 0.725rem; color: #94A3B8; font-weight: 600; text-transform: uppercase;">Residual \(\Delta B\)</span>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Main Canvas / Chart Area -->
-        <div class="kg-canvas-container">
-          <!-- Loading State -->
-          <div v-if="isLoading" class="kg-loading-overlay">
-            <div class="kg-spinner"></div>
-            <p class="kg-loading-text">Membangun graf triangulasi suara lapangan & literatur...</p>
+      <!-- MAIN SIMULATOR INTERFACE -->
+      <div class="simulator-grid">
+        <!-- LEFT COLUMN: Input Constraints (Keterbatasan Akses & Konteks) -->
+        <div class="sim-card card">
+          <div class="card-header-row">
+            <h4 class="sim-section-title">🎛️ Input Kendala Akses & Konteks ASN</h4>
+            <span class="step-tag">Vektor \(x_t \in \mathcal{C}(t)\)</span>
           </div>
 
-          <!-- Graph View Canvas -->
-          <div 
-            v-show="activeView === 'graph'" 
-            ref="graphChartRef" 
-            class="echarts-dom-container"
-          ></div>
-
-          <!-- Timeline View Canvas -->
-          <div 
-            v-show="activeView === 'timeline'" 
-            ref="timelineChartRef" 
-            class="echarts-dom-container timeline-padding"
-          ></div>
-
-          <!-- Floating Graph Quick Hint -->
-          <div v-if="activeView === 'graph' && !isLoading" class="kg-floating-hint">
-            <span class="hint-dot"></span>
-            <span>💡 Drag simpul untuk eksplorasi • Scroll zoom • Klik simpul untuk melihat Suara Lapangan & Paper Literatur Terkait</span>
-          </div>
-
-          <!-- Right Slide-over Inspector Drawer for Selected Node / Link -->
-          <div v-if="isDrawerOpen" class="kg-drawer">
-            <!-- Drawer Header -->
-            <div class="drawer-header">
-              <div class="drawer-header-left">
-                <div class="drawer-dot" :style="{ backgroundColor: graphData?.categories[selectedNode?.category]?.itemStyle?.color || '#3B82F6' }"></div>
-                <span class="drawer-category-title">
-                  {{ selectedNode ? (graphData?.categories[selectedNode.category]?.name || 'Pilar Disertasi') : 'Triangulasi Hubungan Relasi' }}
-                </span>
-              </div>
-              <button @click="isDrawerOpen = false" class="drawer-close-btn">
-                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
+          <!-- Presets -->
+          <div class="preset-group">
+            <span class="preset-label">Skenario Lapangan Cepat:</span>
+            <div class="preset-buttons">
+              <button @click="applyPreset('3T_mobile')" class="preset-btn" :class="{ active: currentPreset === '3T_mobile' }">
+                🏝️ Daerah 3T (Ponsel, Sinyal Drop)
+              </button>
+              <button @click="applyPreset('office_rush')" class="preset-btn" :class="{ active: currentPreset === 'office_rush' }">
+                🏢 Jam Kantor Sibuk (Desktop, SPPD)
+              </button>
+              <button @click="applyPreset('night_study')" class="preset-btn" :class="{ active: currentPreset === 'night_study' }">
+                🌙 Belajar Malam (Mandiri, Lancar)
               </button>
             </div>
+          </div>
 
-            <!-- Drawer Content -->
-            <div class="drawer-body">
-              <!-- Node Details -->
-              <div v-if="selectedNode">
-                <h3 class="drawer-node-name">{{ selectedNode.name }}</h3>
-                <div class="stats-pills-row">
-                  <span class="stat-pill-item green">👥 {{ selectedNode.respondentCount || selectedNode.suaraLapangan?.length || 0 }} Respon ASN</span>
-                  <span class="stat-pill-item blue">📚 {{ selectedNode.paperCount || selectedNode.papers?.length || 0 }} Paper Literatur</span>
-                </div>
+          <!-- Parameter 1: Bandwidth & Throughput -->
+          <div class="control-item">
+            <div class="control-label-row">
+              <label>Throughput Jaringan (\(\beta_{bw}\)):</label>
+              <span class="val-badge">{{ bandwidthKbps }} kbps ({{ bandwidthQuality }})</span>
+            </div>
+            <input type="range" min="50" max="10000" step="50" v-model.number="bandwidthKbps" class="slider" />
+            <div class="range-marks">
+              <span>50 kbps (3T Satelit)</span>
+              <span>1000 kbps (3G)</span>
+              <span>10.000 kbps (Fiber)</span>
+            </div>
+          </div>
 
-                <!-- 3 Navigation Tabs for Node Inspector -->
-                <div class="drawer-nav-tabs">
-                  <button 
-                    :class="['d-tab-btn', drawerActiveTab === 'lapangan' ? 'active' : '']"
-                    @click="drawerActiveTab = 'lapangan'"
-                  >
-                    📢 Suara Lapangan
-                  </button>
-                  <button 
-                    :class="['d-tab-btn', drawerActiveTab === 'literatur' ? 'active' : '']"
-                    @click="drawerActiveTab = 'literatur'"
-                  >
-                    📚 Tinjauan Literatur
-                  </button>
-                  <button 
-                    :class="['d-tab-btn', drawerActiveTab === 'gap' ? 'active' : '']"
-                    @click="drawerActiveTab = 'gap'"
-                  >
-                    🔬 Gap & Solusi Disertasi
-                  </button>
-                </div>
+          <!-- Parameter 2: Latency & Stall Ratio -->
+          <div class="control-item">
+            <div class="control-label-row">
+              <label>Latensi & Stall Ratio (\(\beta_{lat}\)):</label>
+              <span class="val-badge">{{ latencyMs }} ms / Buffer {{ stallRatio }}%</span>
+            </div>
+            <input type="range" min="20" max="1200" step="20" v-model.number="latencyMs" class="slider" />
+          </div>
 
-                <!-- TAB 1: SUARA LAPANGAN -->
-                <div v-if="drawerActiveTab === 'lapangan'" class="drawer-tab-pane">
-                  <div class="section-lead-note">
-                    Kutipan langsung dari 5 Pertanyaan Emas (Gold Questions Q14-Q32) responden ASN:
-                  </div>
+          <!-- Parameter 3: Device Form Factor -->
+          <div class="control-item">
+            <div class="control-label-row">
+              <label>Perangkat (\(\delta_{dev}\)):</label>
+              <span class="val-badge">{{ deviceName }} (Bobot: {{ devicePenalty }})</span>
+            </div>
+            <div class="segmented-control">
+              <button :class="{ active: deviceType === 'smartphone' }" @click="deviceType = 'smartphone'">📱 Smartphone (1.0)</button>
+              <button :class="{ active: deviceType === 'tablet' }" @click="deviceType = 'tablet'">📲 Tablet (0.6)</button>
+              <button :class="{ active: deviceType === 'desktop' }" @click="deviceType = 'desktop'">💻 Desktop (0.2)</button>
+            </div>
+          </div>
 
-                  <div v-if="!selectedNode.suaraLapangan || selectedNode.suaraLapangan.length === 0" class="empty-box-note">
-                    Belum ada narasi langsung untuk simpul ini pada filter saat ini.
-                  </div>
+          <!-- Parameter 4: Workload & Task Interruption -->
+          <div class="control-item">
+            <div class="control-label-row">
+              <label>Beban Pelayanan & Interupsi Dinas (\(T_{work}\)):</label>
+              <span class="val-badge text-red">{{ workloadLevel }}/5 ({{ workloadDesc }})</span>
+            </div>
+            <input type="range" min="1" max="5" step="1" v-model.number="workloadLevel" class="slider" />
+          </div>
 
-                  <div v-else class="papers-list-stack">
-                    <div 
-                      v-for="(ans, aIdx) in selectedNode.suaraLapangan" 
-                      :key="aIdx"
-                      class="paper-item-card quote-card"
-                    >
-                      <div class="quote-header-tag">
-                        <span class="q-badge">{{ ans.question }}</span>
-                        <span class="asn-id">{{ ans.id }}</span>
-                      </div>
-                      <p class="quote-real-text">"{{ ans.text }}"</p>
-                      <div class="paper-meta-row">
-                        <span>📍 {{ ans.province }} ({{ ans.regency || ans.areaType }})</span>
-                        <span class="instansi-text">{{ ans.institutionType }}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- TAB 2: LITERATURE REVIEW -->
-                <div v-if="drawerActiveTab === 'literatur'" class="drawer-tab-pane">
-                  <div class="section-lead-note">
-                    Rujukan paper internasional & nasional yang melandasi konsep ini:
-                  </div>
-
-                  <div v-if="!selectedNode.papers || selectedNode.papers.length === 0" class="empty-box-note">
-                    Belum ada paper rujukan terindeks untuk topik ini.
-                  </div>
-
-                  <div v-else class="papers-list-stack">
-                    <div 
-                      v-for="paper in selectedNode.papers" 
-                      :key="paper.title"
-                      class="paper-item-card"
-                    >
-                      <h5 class="paper-title-text">{{ paper.title }}</h5>
-                      <div class="paper-meta-row">
-                        <span>{{ paper.year || 'N/A' }} • {{ Array.isArray(paper.authors) ? paper.authors.join(', ') : paper.authors }}</span>
-                        <a 
-                          v-if="paper.doi" 
-                          :href="`https://doi.org/${paper.doi}`" 
-                          target="_blank"
-                          class="doi-link"
-                        >
-                          DOI ↗
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- TAB 3: RESEARCH GAP & NOVELTY -->
-                <div v-if="drawerActiveTab === 'gap'" class="drawer-tab-pane">
-                  <div class="gap-novelty-box">
-                    <div class="gap-header-badge">
-                      <span>🔬 Tipe Gap: {{ selectedNode.researchGap?.gapType || 'Contextual & Methodological Gap' }}</span>
-                    </div>
-
-                    <div class="gap-section">
-                      <h5 class="gap-subheading text-red">⚠️ Kelemahan Sistem/Model Saat Ini:</h5>
-                      <p class="gap-desc-text">{{ selectedNode.researchGap?.problem || 'Model pembelajaran konvensional belum mengakomodasi dinamika kedinasan dan spasial ASN.' }}</p>
-                    </div>
-
-                    <div class="gap-section" style="border-top: 1px solid #334155; padding-top: 0.75rem;">
-                      <h5 class="gap-subheading text-green">💡 Kontribusi Kebaruan (Novelty) Disertasi Anda:</h5>
-                      <p class="gap-desc-text">{{ selectedNode.researchGap?.solution || 'Menggunakan Multimodal Fusion Engine yang dimoderasi Konteks Spasial untuk rekomendasi micro-learning adaptif.' }}</p>
-                    </div>
-                  </div>
-                </div>
+          <!-- Parameter 5: Sinyal Telemetri Perilaku Aktual -->
+          <div class="telemetry-input-box">
+            <h5 style="font-size: 0.825rem; font-weight: 700; color: #0F172A; margin-bottom: 0.5rem;">
+              📡 Sinyal Bukti Telemetri Aktual Responden (\(B_{tele}\)):
+            </h5>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div>
+                <label style="font-size: 0.75rem; color: #64748B;">Tab-Focus Ratio (\(\tau_{focus}\)):</label>
+                <input type="range" min="0.05" max="1.0" step="0.05" v-model.number="observedFocus" class="slider" />
+                <span style="font-size: 0.75rem; font-weight: 700; color: #1E293B;">{{ (observedFocus * 100).toFixed(0) }}% aktif</span>
               </div>
-
-              <!-- Link Details (Bridge the Gap) -->
-              <div v-else-if="selectedLink">
-                <h3 class="drawer-node-name" style="font-size: 1.05rem;">
-                  {{ selectedLink.source }} ↔ {{ selectedLink.target }}
-                </h3>
-                <p class="drawer-subtext">
-                  Ko-okurensi simultan dialami oleh <b>{{ selectedLink.value }}</b> responden ASN yang sama.
-                </p>
-
-                <!-- Triangulation Card for Edge -->
-                <div class="triangulation-edge-box">
-                  <div class="tri-section">
-                    <span class="tri-badge gold">📢 Realita Empiris Lapangan:</span>
-                    <p class="tri-text">{{ selectedLink.gapBridge?.empiricalFact || `Responden mengalami kendala "${selectedLink.source}" bersamaan dengan "${selectedLink.target}".` }}</p>
-                  </div>
-
-                  <div class="tri-section">
-                    <span class="tri-badge blue">📚 Keterbatasan Teori Saat Ini:</span>
-                    <p class="tri-text">{{ selectedLink.gapBridge?.theoreticalLimitation || 'Literatur sebelumnya memisahkan analisis infrastruktur dengan analisis kognitif beban tugas.' }}</p>
-                  </div>
-
-                  <div class="tri-section">
-                    <span class="tri-badge purple">🌉 Solusi Jembatan Model Disertasi:</span>
-                    <p class="tri-text">{{ selectedLink.gapBridge?.dissertationNovelty || 'Arsitektur Multimodal Fusion memadukan sinyal spasial sebagai variabel moderator untuk personalisasi konten adaptif.' }}</p>
-                  </div>
-                </div>
+              <div>
+                <label style="font-size: 0.75rem; color: #64748B;">Partial Retention (\(R_{partial}\)):</label>
+                <input type="range" min="0.1" max="1.0" step="0.05" v-model.number="observedRetention" class="slider" />
+                <span style="font-size: 0.75rem; font-weight: 700; color: #1E293B;">{{ (observedRetention * 100).toFixed(0) }}% segmen inti</span>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- RIGHT COLUMN: Algorithmic Mediation Output & Comparison -->
+        <div class="sim-card card">
+          <div class="card-header-row">
+            <h4 class="sim-section-title">🧠 Kalkulasi Komputasi CCBN & Fair-LinUCB</h4>
+            <span class="step-tag purple">Output Mediasi Real-Time</span>
+          </div>
+
+          <!-- Step 1: CCBN Counterfactual Normalization -->
+          <div class="calc-box border-purple">
+            <div class="calc-header">
+              <span class="calc-step-num">STEP 1: CCBN NORMALISASI</span>
+              <span class="formula-inline">\(\Delta B = B_{obs} - \mathbb{E}[B \mid C]\)</span>
+            </div>
+            <div class="ccbn-metrics-grid">
+              <div class="metric-item">
+                <span class="metric-title">Ekspektasi Konteks \(\mathbb{E}[\tau_{focus} \mid C]\):</span>
+                <span class="metric-val">{{ (expectedFocus * 100).toFixed(0) }}%</span>
+                <span class="metric-note">Dihitung dari beban kerja & sinyal</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-title">Perilaku Teramati \(B_{obs}\):</span>
+                <span class="metric-val">{{ (observedFocus * 100).toFixed(0) }}%</span>
+                <span class="metric-note">Fokus tab aktual</span>
+              </div>
+              <div class="metric-item highlight">
+                <span class="metric-title">Sinyal Residual \(\Delta B\):</span>
+                <span class="metric-val" :style="{ color: deltaBColor }">{{ liveDeltaB.toFixed(2) }}</span>
+                <span class="metric-note"><strong>{{ deltaBInterpretation }}</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Algorithmic Action Selection (YouTube Bitrate Analogy) -->
+          <div class="calc-box border-green" style="margin-top: 1rem;">
+            <div class="calc-header">
+              <span class="calc-step-num">STEP 2: FAIR-LINUCB ACTION SELECTION</span>
+              <span class="formula-inline">\(A^* = \arg\max_{a} r_t(a)\)</span>
+            </div>
+            
+            <div class="recommended-action-card">
+              <div class="action-badge-row">
+                <span class="action-badge-tag">{{ selectedAction.tag }}</span>
+                <span class="action-badge-score">Reward \(r_t = {{ liveRewardScore.toFixed(2) }}\)</span>
+              </div>
+              <h4 class="action-title">{{ selectedAction.name }}</h4>
+              <p class="action-desc">{{ selectedAction.desc }}</p>
+              
+              <div class="action-specs-grid">
+                <div class="spec-item">
+                  <span class="spec-k">Resolusi Kognitif:</span>
+                  <span class="spec-v">{{ selectedAction.cognitiveResolution }}</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-k">Modalitas:</span>
+                  <span class="spec-v">{{ selectedAction.modality }}</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-k">Biaya Bandwidth:</span>
+                  <span class="spec-v">{{ selectedAction.bandwidthCost }}</span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-k">Disrupsi Waktu Kerja:</span>
+                  <span class="spec-v">{{ selectedAction.workloadFriction }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Policy Comparison (Static vs Adaptive) -->
+          <div style="margin-top: 1rem;">
+            <h5 style="font-size: 0.85rem; font-weight: 700; color: #1E293B; margin-bottom: 0.5rem;">
+              ⚖️ Perbandingan Perlakuan Antar Kebijakan Algoritmik:
+            </h5>
+            <div class="policy-compare-table">
+              <div class="policy-row header">
+                <span>Kebijakan Sistem</span>
+                <span>Keputusan Sistem</span>
+                <span>Status Keadilan (Fairness)</span>
+              </div>
+              <div class="policy-row danger">
+                <span class="p-name">1. LMS Konvensional (Punitive)</span>
+                <span class="p-act">{{ punitivePolicyDecision }}</span>
+                <span class="p-fair text-red">❌ Unfair Penalty (Context Blind)</span>
+              </div>
+              <div class="policy-row warning">
+                <span class="p-name">2. Static Rule-Based</span>
+                <span class="p-act">{{ staticRuleDecision }}</span>
+                <span class="p-fair text-amber">⚠️ Drop / Kaku (Rigid Threshold)</span>
+              </div>
+              <div class="policy-row success">
+                <span class="p-name">3. Fair-LinUCB (Disertasi)</span>
+                <span class="p-act">{{ selectedAction.name }}</span>
+                <span class="p-fair text-green">✅ Pareto Optimal & Zero Unfair Penalty</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, watch, nextTick } from 'vue';
-import * as echarts from 'echarts';
+import { ref, computed } from 'vue';
 import Navbar from '~/components/Navbar.vue';
 
-const emit = defineEmits(['ask-topic', 'select-paper', 'bridge-gap']);
+// Simulator State
+const currentPreset = ref<string>('3T_mobile');
+const bandwidthKbps = ref<number>(120);
+const latencyMs = ref<number>(450);
+const deviceType = ref<'smartphone' | 'tablet' | 'desktop'>('smartphone');
+const workloadLevel = ref<number>(4);
+const observedFocus = ref<number>(0.35);
+const observedRetention = ref<number>(0.70);
 
-const activeView = ref<'graph' | 'timeline'>('graph');
-const isLoading = ref(true);
-const graphData = ref<any>(null);
-const timelineData = ref<any>(null);
-const selectedCategory = ref('ALL');
-const searchQuery = ref('');
-const minCooccurrence = ref(1);
-
-// Drawer state & active inner tab
-const selectedNode = ref<any>(null);
-const selectedLink = ref<any>(null);
-const isDrawerOpen = ref(false);
-const drawerActiveTab = ref<'lapangan' | 'literatur' | 'gap'>('lapangan');
-
-const graphChartRef = ref<HTMLElement | null>(null);
-const timelineChartRef = ref<HTMLElement | null>(null);
-let graphChartInstance: any = null;
-let timelineChartInstance: any = null;
-
-const fetchAnalyticsData = async () => {
-  isLoading.value = true;
-  try {
-    const [graphRes, timelineRes] = await Promise.all([
-      fetch(`/api/literature-hunter/analytics/knowledge-graph?min_cooccurrence=${minCooccurrence.value}&max_nodes=45`),
-      fetch(`/api/literature-hunter/analytics/topic-timeline`)
-    ]);
-
-    if (graphRes.ok) {
-      graphData.value = await graphRes.json();
-    }
-    if (timelineRes.ok) {
-      timelineData.value = await timelineRes.json();
-    }
-  } catch (err) {
-    console.error('Failed to load analytics data from local Nuxt endpoint:', err);
-  } finally {
-    isLoading.value = false;
-    await nextTick();
-    renderCurrentView();
+function applyPreset(preset: string) {
+  currentPreset.value = preset;
+  if (preset === '3T_mobile') {
+    bandwidthKbps.value = 110;
+    latencyMs.value = 520;
+    deviceType.value = 'smartphone';
+    workloadLevel.value = 3;
+    observedFocus.value = 0.40;
+    observedRetention.value = 0.65;
+  } else if (preset === 'office_rush') {
+    bandwidthKbps.value = 2500;
+    latencyMs.value = 45;
+    deviceType.value = 'desktop';
+    workloadLevel.value = 5;
+    observedFocus.value = 0.25;
+    observedRetention.value = 0.60;
+  } else if (preset === 'night_study') {
+    bandwidthKbps.value = 5000;
+    latencyMs.value = 30;
+    deviceType.value = 'desktop';
+    workloadLevel.value = 1;
+    observedFocus.value = 0.90;
+    observedRetention.value = 0.95;
   }
-};
+}
 
-const renderCurrentView = () => {
-  if (activeView.value === 'graph') {
-    renderGraphChart();
-  } else {
-    renderTimelineChart();
+// Computed Descriptions
+const bandwidthQuality = computed(() => {
+  if (bandwidthKbps.value < 200) return 'Sangat Terbatas (3T)';
+  if (bandwidthKbps.value < 1000) return 'Sedang (3G/4G Low)';
+  return 'Tinggi / Stabil';
+});
+
+const stallRatio = computed(() => {
+  if (bandwidthKbps.value < 150) return Math.min(Math.round((150 / bandwidthKbps.value) * 35), 85);
+  if (bandwidthKbps.value < 500) return 15;
+  return 2;
+});
+
+const deviceName = computed(() => {
+  if (deviceType.value === 'smartphone') return 'Smartphone (Layar Kecil)';
+  if (deviceType.value === 'tablet') return 'Tablet';
+  return 'Desktop / Laptop Workstation';
+});
+
+const devicePenalty = computed(() => {
+  if (deviceType.value === 'smartphone') return 1.0;
+  if (deviceType.value === 'tablet') return 0.6;
+  return 0.2;
+});
+
+const workloadDesc = computed(() => {
+  if (workloadLevel.value >= 4) return 'Tinggi (Tugas Dinamis / SPPD / Pelayanan)';
+  if (workloadLevel.value === 3) return 'Sedang (Tugas Rutin Kantor)';
+  return 'Rendah / Waktu Belajar Didedikasikan';
+});
+
+// CCBN Calculations
+const expectedFocus = computed(() => {
+  // Baseline expectation formula E[tau_focus | Context]
+  let base = 0.90;
+  // Workload deduction
+  base -= (workloadLevel.value / 5) * 0.45;
+  // Bandwidth frustration deduction
+  if (bandwidthKbps.value < 250) base -= 0.15;
+  // Device penalty deduction
+  if (deviceType.value === 'smartphone') base -= 0.10;
+  return Math.max(Math.min(base, 0.95), 0.20);
+});
+
+const liveDeltaB = computed(() => {
+  // Residual = B_obs - E[B | Context]
+  return observedFocus.value - expectedFocus.value;
+});
+
+const deltaBColor = computed(() => {
+  if (liveDeltaB.value >= -0.05) return '#10B981'; // Green (Safe/Wajar)
+  if (liveDeltaB.value >= -0.20) return '#F59E0B'; // Amber (Mild Residual)
+  return '#EF4444'; // Red (Significant Ghost Learning)
+});
+
+const deltaBInterpretation = computed(() => {
+  if (liveDeltaB.value >= -0.05) {
+    return 'Wajar (Perilaku sesuai kendala situasi lingkungan, tidak ada hukuman)';
+  } else if (liveDeltaB.value >= -0.20) {
+    return 'Friksi Ringan (Disarankan Dynamic Micro-Chunking)';
   }
-};
+  return 'Penyimpangan Signifikan (Terindikasi Ghost Learning otentik)';
+});
 
-const renderGraphChart = () => {
-  if (!graphChartRef.value || !graphData.value) return;
-
-  if (!graphChartInstance) {
-    graphChartInstance = echarts.init(graphChartRef.value);
-    graphChartInstance.on('click', (params: any) => {
-      if (params.dataType === 'node') {
-        selectedLink.value = null;
-        selectedNode.value = params.data;
-        drawerActiveTab.value = 'lapangan';
-        isDrawerOpen.value = true;
-      } else if (params.dataType === 'edge') {
-        selectedNode.value = null;
-        selectedLink.value = params.data;
-        isDrawerOpen.value = true;
-      }
-    });
+// Fair-LinUCB Decision & Dynamic Reward
+const selectedAction = computed(() => {
+  // If bandwidth severely constrained -> Adaptive Modality Fallback
+  if (bandwidthKbps.value < 200 || stallRatio.value > 30) {
+    return {
+      tag: 'AKSI ADAPTIF 1: BANDWIDTH FALLBACK',
+      name: 'Modality Fallback: Text-First & Audio Checklist Ringkas',
+      desc: 'Mengalihkan stream video berat ke modul teks terstruktur berukuran <100KB dengan audio podcast kompresi rendah dan pre-cached quiz.',
+      cognitiveResolution: 'Format Esensial (Hemat Bandwidth)',
+      modality: 'Teks Ringkas + Infografis + Audio',
+      bandwidthCost: '< 1 MB (Sangat Rendah)',
+      workloadFriction: 'Dapat dibaca offline'
+    };
   }
 
-  // Filter nodes based on selectedCategory & searchQuery
-  let filteredNodes = (graphData.value.nodes || []).map((n: any) => ({ ...n }));
-  if (selectedCategory.value !== 'ALL') {
-    const catIdx = graphData.value.categories.findIndex(
-      (c: any) => c.name.toLowerCase() === selectedCategory.value.toLowerCase()
-    );
-    if (catIdx !== -1) {
-      filteredNodes = filteredNodes.filter((n: any) => n.category === catIdx);
-    }
-  }
-  if (searchQuery.value.trim()) {
-    const q = searchQuery.value.toLowerCase().trim();
-    filteredNodes = filteredNodes.filter((n: any) => n.name.toLowerCase().includes(q));
+  // If high workload during office hours -> Dynamic Micro-Chunking
+  if (workloadLevel.value >= 4) {
+    return {
+      tag: 'AKSI ADAPTIF 2: WORKLOAD MICRO-CHUNKING',
+      name: 'Dynamic Micro-Chunking: 3-Minute Case Scaffolding',
+      desc: 'Memecah modul panjang 45 menit menjadi skenario interaktif 3 menit. Titik jeda tersimpan otomatis saat tab berpindah tanpa penalti.',
+      cognitiveResolution: 'Bite-sized Micro Learning',
+      modality: 'Studi Kasus 1 Soal + Infografis Inti',
+      bandwidthCost: 'Sedang (5 MB)',
+      workloadFriction: 'Nol (Adaptif terhadap interupsi kantor)'
+    };
   }
 
-  const validNodeIds = new Set(filteredNodes.map((n: any) => n.id));
-  const filteredLinks = (graphData.value.links || []).filter(
-    (l: any) => validNodeIds.has(l.source) && validNodeIds.has(l.target)
-  );
+  // If ghost learning detected (Delta B << 0) -> Active Verification Stop-Gate
+  if (liveDeltaB.value < -0.20) {
+    return {
+      tag: 'AKSI ADAPTIF 3: ACTIVE VERIFICATION',
+      name: 'Active Verification Stop-Gate: 1-Question Checkpoint',
+      desc: 'Menjeda video latar belakang secara halus dan menampilkan 1 pertanyaan skenario kontekstual untuk mengubah kepatuhan pasif menjadi atensi kognitif aktif.',
+      cognitiveResolution: 'Verifikasi Atensi Aktif',
+      modality: 'Interactive Scenario Checkpoint',
+      bandwidthCost: 'Rendah',
+      workloadFriction: 'Ringan (1 Pertanyaan Interaktif)'
+    };
+  }
 
-  const option = {
-    backgroundColor: 'transparent',
-    tooltip: {
-      trigger: 'item',
-      formatter: (params: any) => {
-        if (params.dataType === 'node') {
-          const d = params.data;
-          const catName = graphData.value.categories[d.category]?.name || 'Pilar';
-          return `
-            <div style="padding: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; color: #1E293B; background: #FFFFFF; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-              <div style="font-weight: 800; font-size: 13px; color: #0F172A;">${d.name}</div>
-              <div style="color: #2563EB; font-weight: 700; margin: 4px 0;">Kategori: ${catName}</div>
-              <div style="color: #475569;">👥 <b>${d.respondentCount || d.paperCount || 0}</b> respon ASN • 📚 <b>${d.papers?.length || 0}</b> paper terhubung</div>
-              <div style="font-size: 11px; color: #94A3B8; margin-top: 4px; font-style: italic;">Klik untuk melihat Triangulasi Suara Lapangan & Literatur</div>
-            </div>
-          `;
-        } else if (params.dataType === 'edge') {
-          return `
-            <div style="padding: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; color: #1E293B; background: #FFFFFF; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-              <div style="font-weight: 800; color: #0F172A;">${params.data.source} ↔ ${params.data.target}</div>
-              <div style="color: #059669; font-weight: 700; margin-top: 4px;">Ko-okurensi: Muncul pada <b>${params.data.value}</b> ASN yang sama</div>
-              <div style="font-size: 11px; color: #94A3B8; margin-top: 4px; font-style: italic;">Klik untuk melihat Bridge the Gap & Solusi Disertasi</div>
-            </div>
-          `;
-        }
-      }
-    },
-    legend: {
-      data: (graphData.value.categories || []).map((c: any) => c.name),
-      orient: 'horizontal',
-      top: 10,
-      textStyle: {
-        color: '#94A3B8',
-        fontSize: 12
-      }
-    },
-    animationDuration: 1500,
-    animationEasingUpdate: 'quinticInOut',
-    series: [
-      {
-        type: 'graph',
-        layout: 'force',
-        data: filteredNodes,
-        links: filteredLinks,
-        categories: graphData.value.categories,
-        roam: true,
-        label: {
-          show: true,
-          position: 'right',
-          formatter: '{b}',
-          fontSize: 11,
-          color: '#CBD5E1'
-        },
-        labelLayout: {
-          hideOverlap: true
-        },
-        scaleLimit: {
-          min: 0.4,
-          max: 3.5
-        },
-        lineStyle: {
-          color: 'source',
-          curveness: 0.2
-        },
-        emphasis: {
-          focus: 'adjacency',
-          lineStyle: {
-            width: 5
-          }
-        },
-        force: {
-          repulsion: 380,
-          gravity: 0.12,
-          edgeLength: [60, 220],
-          friction: 0.6
-        }
-      }
-    ]
+  // Default optimal learning
+  return {
+    tag: 'AKSI ADAPTIF 4: STANDARD INTERACTIVE',
+    name: 'Standard Interactive Multimedia & Case Discussion',
+    desc: 'Menyajikan materi video interaktif penuh dengan simulasi komprehensif karena kondisi jaringan dan ketersediaan waktu sangat mendukung.',
+    cognitiveResolution: 'Penuh (Standard Resolution)',
+    modality: 'Video HD + Simulasi Interaktif',
+    bandwidthCost: 'Tinggi (> 50 MB)',
+    workloadFriction: 'Memerlukan fokus penuh'
   };
-
-  graphChartInstance.setOption(option, true);
-};
-
-const renderTimelineChart = () => {
-  if (!timelineChartRef.value || !timelineData.value) return;
-
-  if (!timelineChartInstance) {
-    timelineChartInstance = echarts.init(timelineChartRef.value);
-  }
-
-  const option = {
-    backgroundColor: 'transparent',
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'cross',
-        label: { backgroundColor: '#6a7985' }
-      }
-    },
-    legend: {
-      data: timelineData.value.topics,
-      textStyle: { color: '#94A3B8' },
-      top: 10
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '5%',
-      top: '18%',
-      containLabel: true
-    },
-    xAxis: {
-      type: 'category',
-      boundaryGap: false,
-      data: timelineData.value.years,
-      axisLine: { lineStyle: { color: '#475569' } },
-      axisLabel: { color: '#94A3B8' }
-    },
-    yAxis: {
-      type: 'value',
-      name: 'Frekuensi Respon Suara Lapangan',
-      nameTextStyle: { color: '#94A3B8' },
-      splitLine: { lineStyle: { color: '#334155' } },
-      axisLabel: { color: '#94A3B8' }
-    },
-    series: (timelineData.value.series || []).map((s: any, idx: number) => {
-      const colors = ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6', '#EC4899', '#06B6D4', '#E11D48', '#84CC16'];
-      const color = colors[idx % colors.length];
-      return {
-        ...s,
-        itemStyle: { color: color },
-        areaStyle: {
-          opacity: 0.15,
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: color },
-            { offset: 1, color: 'transparent' }
-          ])
-        }
-      };
-    })
-  };
-
-  timelineChartInstance.setOption(option, true);
-};
-
-const handleResize = () => {
-  if (graphChartInstance) graphChartInstance.resize();
-  if (timelineChartInstance) timelineChartInstance.resize();
-};
-
-const resetGraphZoom = () => {
-  if (graphChartInstance) {
-    graphChartInstance.dispatchAction({
-      type: 'restore'
-    });
-  }
-};
-
-watch(activeView, async (newVal) => {
-  await nextTick();
-  if (newVal === 'graph') {
-    if (graphChartInstance) graphChartInstance.resize();
-    else renderGraphChart();
-  } else {
-    if (timelineChartInstance) timelineChartInstance.resize();
-    else renderTimelineChart();
-  }
 });
 
-watch([selectedCategory, searchQuery, minCooccurrence], () => {
-  if (activeView.value === 'graph') {
-    renderGraphChart();
-  }
+const liveRewardScore = computed(() => {
+  // Multi-objective reward r_t = CompGain - lambda_1 * WorkCost - lambda_2 * InfraCost + gamma * FairPenalty
+  let gain = observedRetention.value * 1.2;
+  let workPenalty = (workloadLevel.value / 5) * 0.3;
+  let infraPenalty = (1000 / Math.max(bandwidthKbps.value, 100)) * 0.15;
+  let fairnessBonus = liveDeltaB.value >= -0.05 ? 0.35 : -0.25;
+
+  return Math.max(gain - workPenalty - infraPenalty + fairnessBonus, 0.1);
 });
 
-onMounted(() => {
-  fetchAnalyticsData();
-  window.addEventListener('resize', handleResize);
+// Comparison Decisions
+const punitivePolicyDecision = computed(() => {
+  if (observedFocus.value < 0.5) return 'Gagal / Diberi Penalti Nilai karena Tab Tidak Fokus';
+  if (stallRatio.value > 25) return 'Session Timeout / Tugas Dianggap Terlambat';
+  return 'Lulus Bersyarat';
 });
 
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', handleResize);
-  if (graphChartInstance) graphChartInstance.dispose();
-  if (timelineChartInstance) timelineChartInstance.dispose();
+const staticRuleDecision = computed(() => {
+  if (workloadLevel.value >= 4) return 'Dropout / Modul Terhenti di Tengah';
+  if (bandwidthKbps.value < 200) return 'Video Error / Layar Hitam Buffering';
+  return 'Modul Tetap Berjalan Kaku';
 });
 </script>
 
 <style scoped>
-.analisis-page-wrapper {
-  background-color: #0F172A;
-  min-height: 100vh;
-  color: #F8FAFC;
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+.header-banner {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
 }
 
-.analisis-main-content {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem;
-}
-
-.kg-card {
-  background-color: #0F172A;
-  border: 1px solid #1E293B;
-  border-radius: 16px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
+.stat-pill {
   display: flex;
   flex-direction: column;
-  min-height: 720px;
-  position: relative;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Header */
-.kg-header-bar {
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid #1E293B;
-  background-color: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(8px);
+.simulator-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 960px) {
+  .simulator-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sim-card {
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-stroke-secondary);
+  background: #FFFFFF;
+}
+
+.card-header-row {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-}
-
-.kg-header-left {
-  display: flex;
   align-items: center;
-  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #E2E8F0;
 }
 
-.kg-header-icon {
-  padding: 0.65rem;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  color: #818CF8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.kg-title-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.kg-title {
-  font-size: 1.15rem;
+.sim-section-title {
+  font-size: 1.1rem;
   font-weight: 800;
-  color: #F8FAFC;
+  color: #0F172A;
   margin: 0;
 }
 
-.kg-badge {
-  font-size: 0.725rem;
-  font-weight: 600;
-  padding: 0.2rem 0.6rem;
+.step-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #2563EB;
+  background: #EFF6FF;
+  padding: 0.25rem 0.6rem;
   border-radius: 999px;
+  border: 1px solid #BFDBFE;
 }
 
-.kg-badge.blue {
-  background: rgba(59, 130, 246, 0.12);
-  color: #60A5FA;
-  border: 1px solid rgba(59, 130, 246, 0.25);
+.step-tag.purple {
+  color: #8B5CF6;
+  background: #F3E8FF;
+  border-color: #DDD6FE;
 }
 
-.kg-badge.purple {
-  background: rgba(168, 85, 247, 0.12);
-  color: #C084FC;
-  border: 1px solid rgba(168, 85, 247, 0.25);
+.preset-group {
+  margin-bottom: 1.25rem;
 }
 
-.kg-subtitle {
-  font-size: 0.775rem;
-  color: #94A3B8;
-  margin: 0.2rem 0 0 0;
-}
-
-.kg-header-right {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.view-switcher-pill {
-  background: rgba(30, 41, 59, 0.9);
-  padding: 0.25rem;
-  border-radius: 12px;
-  border: 1px solid rgba(51, 65, 85, 0.8);
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.switch-btn {
-  padding: 0.4rem 0.75rem;
-  border-radius: 8px;
+.preset-label {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #94A3B8;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  transition: all 0.2s;
-}
-
-.switch-btn:hover {
-  color: #F1F5F9;
-}
-
-.switch-btn.active {
-  background: #4F46E5;
-  color: #FFFFFF;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-.btn-icon-control {
-  padding: 0.5rem;
-  border-radius: 12px;
-  background: #1E293B;
-  color: #CBD5E1;
-  border: 1px solid #334155;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-.btn-icon-control:hover {
-  background: #334155;
-  color: #FFFFFF;
-}
-
-/* Filter Sub-bar */
-.kg-filter-bar {
-  padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid rgba(30, 41, 59, 0.8);
-  background: rgba(15, 23, 42, 0.6);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  font-size: 0.75rem;
-}
-
-.category-pills-row {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  overflow-x: auto;
-}
-
-.filter-label {
-  color: #94A3B8;
-  font-weight: 600;
-  margin-right: 0.25rem;
-}
-
-.cat-pill-btn {
-  padding: 0.3rem 0.65rem;
-  border-radius: 8px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border: 1px solid #334155;
-  background: rgba(30, 41, 59, 0.6);
-  color: #94A3B8;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.cat-pill-btn:hover {
-  color: #F1F5F9;
-  border-color: #475569;
-}
-
-.cat-pill-btn.active {
-  background: rgba(99, 102, 241, 0.2);
-  color: #A5B4FC;
-  border-color: rgba(99, 102, 241, 0.5);
-}
-
-.search-controls-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.search-input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.search-icon {
-  position: absolute;
-  left: 0.6rem;
-  color: #94A3B8;
-  pointer-events: none;
-}
-
-.search-text-input {
-  background: #1E293B;
-  border: 1px solid #334155;
-  border-radius: 8px;
-  padding: 0.35rem 0.65rem 0.35rem 1.85rem;
-  color: #E2E8F0;
-  font-size: 0.75rem;
-  width: 170px;
-  outline: none;
-}
-
-.search-text-input:focus {
-  border-color: #6366F1;
-}
-
-.threshold-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: #94A3B8;
-}
-
-.threshold-select {
-  background: #1E293B;
-  border: 1px solid #334155;
-  border-radius: 8px;
-  padding: 0.35rem 0.6rem;
-  color: #E2E8F0;
-  font-size: 0.75rem;
-  outline: none;
-}
-
-/* Canvas Area */
-.kg-canvas-container {
-  flex: 1;
-  min-height: 600px;
-  height: 620px;
-  position: relative;
-  background: #0B1120;
-}
-
-.echarts-dom-container {
-  width: 100%;
-  height: 100%;
-  min-height: 600px;
-}
-
-.timeline-padding {
-  padding: 1rem;
-}
-
-.kg-loading-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: rgba(15, 23, 42, 0.85);
-  z-index: 20;
-}
-
-.kg-spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid rgba(99, 102, 241, 0.2);
-  border-top-color: #6366F1;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-.kg-loading-text {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #94A3B8;
-  margin-top: 0.75rem;
-}
-
-.kg-floating-hint {
-  position: absolute;
-  bottom: 1rem;
-  left: 1rem;
-  background: rgba(15, 23, 42, 0.85);
-  border: 1px solid #1E293B;
-  backdrop-filter: blur(6px);
-  padding: 0.5rem 0.85rem;
-  border-radius: 12px;
-  font-size: 0.725rem;
-  color: #94A3B8;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  pointer-events: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.hint-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #34D399;
-}
-
-/* Drawer */
-.kg-drawer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  max-width: 470px;
-  background: rgba(15, 23, 42, 0.97);
-  backdrop-filter: blur(12px);
-  border-left: 1px solid #1E293B;
-  box-shadow: -10px 0 25px -5px rgba(0, 0, 0, 0.6);
-  z-index: 30;
-  display: flex;
-  flex-direction: column;
-}
-
-.drawer-header {
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid #1E293B;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(30, 41, 59, 0.4);
-}
-
-.drawer-header-left {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.drawer-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-
-.drawer-category-title {
-  font-size: 0.725rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  color: #94A3B8;
-  text-transform: uppercase;
-}
-
-.drawer-close-btn {
-  background: transparent;
-  border: none;
-  color: #94A3B8;
-  cursor: pointer;
-  padding: 0.3rem;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s;
-}
-
-.drawer-close-btn:hover {
-  background: #334155;
-  color: #FFFFFF;
-}
-
-.drawer-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 1.25rem;
-  font-size: 0.75rem;
-  color: #CBD5E1;
-}
-
-.drawer-node-name {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: #F8FAFC;
-  margin-bottom: 0.35rem;
-}
-
-.stats-pills-row {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.stat-pill-item {
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 0.2rem 0.55rem;
-  border-radius: 6px;
-}
-
-.stat-pill-item.green {
-  background: rgba(16, 185, 129, 0.15);
-  color: #34D399;
-  border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-.stat-pill-item.blue {
-  background: rgba(59, 130, 246, 0.15);
-  color: #60A5FA;
-  border: 1px solid rgba(59, 130, 246, 0.3);
-}
-
-/* 3 Navigation Tabs in Drawer */
-.drawer-nav-tabs {
-  display: flex;
-  gap: 0.3rem;
-  border-bottom: 1px solid #334155;
-  padding-bottom: 0.4rem;
-  margin-bottom: 1rem;
-}
-
-.d-tab-btn {
-  flex: 1;
-  padding: 0.4rem 0.2rem;
-  font-size: 0.7rem;
-  font-weight: 700;
-  border: none;
-  background: transparent;
-  color: #94A3B8;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: all 0.2s;
-  text-align: center;
-}
-
-.d-tab-btn:hover {
-  color: #F1F5F9;
-  background: rgba(51, 65, 85, 0.4);
-}
-
-.d-tab-btn.active {
-  background: #334155;
-  color: #FFFFFF;
-}
-
-.drawer-tab-pane {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.section-lead-note {
-  font-size: 0.725rem;
-  color: #94A3B8;
-  font-weight: 500;
-}
-
-.empty-box-note {
-  padding: 1.5rem;
-  text-align: center;
   color: #64748B;
-  background: rgba(30, 41, 59, 0.3);
-  border-radius: 8px;
-}
-
-.drawer-subtext {
-  font-size: 0.75rem;
-  color: #94A3B8;
-  margin-bottom: 0.85rem;
-}
-
-.btn-action-primary {
-  width: 100%;
-  padding: 0.65rem 0.85rem;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #4F46E5 0%, #2563EB 100%);
-  color: #FFFFFF;
-  font-weight: 700;
-  font-size: 0.75rem;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-  transition: all 0.2s;
-}
-
-.btn-action-primary:hover {
-  background: linear-gradient(135deg, #4338CA 0%, #1D4ED8 100%);
-}
-
-.btn-action-purple {
-  width: 100%;
-  padding: 0.65rem 0.85rem;
-  border-radius: 10px;
-  background: #9333EA;
-  color: #FFFFFF;
-  font-weight: 700;
-  font-size: 0.75rem;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: all 0.2s;
-}
-
-.btn-action-purple:hover {
-  background: #7E22CE;
-}
-
-.papers-list-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-}
-
-.paper-item-card {
-  padding: 0.85rem;
-  background: rgba(30, 41, 59, 0.5);
-  border: 1px solid rgba(51, 65, 85, 0.7);
-  border-radius: 10px;
-  transition: all 0.2s;
-}
-
-.paper-item-card:hover {
-  background: rgba(30, 41, 59, 0.85);
-  border-color: #60A5FA;
-}
-
-.paper-title-text {
-  font-size: 0.775rem;
-  font-weight: 700;
-  color: #E2E8F0;
-  line-height: 1.4;
+  display: block;
   margin-bottom: 0.4rem;
 }
 
-.quote-header-tag {
+.preset-buttons {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.preset-btn {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid #CBD5E1;
+  background: #F8FAFC;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.preset-btn:hover {
+  background: #E2E8F0;
+}
+
+.preset-btn.active {
+  background: #1E293B;
+  color: #FFFFFF;
+  border-color: #1E293B;
+}
+
+.control-item {
+  margin-bottom: 1.15rem;
+}
+
+.control-label-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: #1E293B;
   margin-bottom: 0.35rem;
 }
 
-.q-badge {
-  font-size: 0.65rem;
+.val-badge {
+  font-size: 0.75rem;
+  font-family: monospace;
   font-weight: 700;
-  color: #FCD34D;
-  background: rgba(217, 119, 6, 0.2);
+  color: #2563EB;
+  background: #EFF6FF;
   padding: 0.15rem 0.45rem;
   border-radius: 4px;
 }
 
-.asn-id {
-  font-size: 0.65rem;
-  font-family: monospace;
-  color: #94A3B8;
+.val-badge.text-red {
+  color: #DC2626;
+  background: #FEF2F2;
 }
 
-.quote-real-text {
-  font-size: 0.8rem;
-  font-style: italic;
-  color: #FEF08A;
-  line-height: 1.5;
-  margin: 0 0 0.5rem 0;
-}
-
-.paper-meta-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.675rem;
-  color: #94A3B8;
-  border-top: 1px dashed rgba(51, 65, 85, 0.6);
-  padding-top: 0.35rem;
-}
-
-.instansi-text {
-  color: #CBD5E1;
-}
-
-.doi-link {
-  color: #818CF8;
-  text-decoration: underline;
-  font-family: monospace;
-}
-
-/* Gap & Novelty Box */
-.gap-novelty-box {
-  background: rgba(30, 41, 59, 0.6);
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
-.gap-header-badge {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #C084FC;
-  background: rgba(168, 85, 247, 0.15);
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-  display: inline-block;
-}
-
-.gap-subheading {
-  font-size: 0.75rem;
-  font-weight: 800;
-  margin-bottom: 0.3rem;
-}
-
-.text-red { color: #F87171; }
-.text-green { color: #4ADE80; }
-
-.gap-desc-text {
-  font-size: 0.75rem;
-  color: #E2E8F0;
-  line-height: 1.5;
-  margin: 0;
-}
-
-/* Triangulation Edge Box */
-.triangulation-edge-box {
-  background: rgba(30, 41, 59, 0.6);
-  border: 1px solid #334155;
-  border-radius: 10px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.tri-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.tri-badge {
-  font-size: 0.675rem;
-  font-weight: 700;
-  padding: 0.15rem 0.4rem;
-  border-radius: 4px;
-  display: inline-block;
-  width: fit-content;
-}
-
-.tri-badge.gold {
-  background: rgba(245, 158, 11, 0.2);
-  color: #FCD34D;
-}
-
-.tri-badge.blue {
-  background: rgba(59, 130, 246, 0.2);
-  color: #93C5FD;
-}
-
-.tri-badge.purple {
-  background: rgba(168, 85, 247, 0.2);
-  color: #D8B4FE;
-}
-
-.tri-text {
-  font-size: 0.75rem;
-  color: #CBD5E1;
-  line-height: 1.45;
-  margin: 0;
-}
-
-/* Modal */
-.ai-modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(4px);
-  padding: 1rem;
-}
-
-.ai-modal-box {
-  background: #0F172A;
-  border: 1px solid #334155;
-  border-radius: 16px;
-  padding: 1.5rem;
-  max-width: 540px;
+.slider {
   width: 100%;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-  color: #E2E8F0;
-}
-
-.ai-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.ai-modal-header-left {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 800;
-  color: #818CF8;
-  font-size: 0.9rem;
-}
-
-.ai-modal-close-btn {
-  background: transparent;
-  border: none;
-  color: #94A3B8;
-  font-size: 1rem;
+  accent-color: #2563EB;
   cursor: pointer;
 }
 
-.ai-modal-prompt-text {
-  font-size: 0.85rem;
+.range-marks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  color: #94A3B8;
+  margin-top: 0.2rem;
+}
+
+.segmented-control {
+  display: flex;
+  gap: 0.35rem;
+  background: #F1F5F9;
+  padding: 0.25rem;
+  border-radius: var(--radius-md);
+}
+
+.segmented-control button {
+  flex: 1;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.4rem;
+  border: none;
+  background: transparent;
+  color: #475569;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.segmented-control button.active {
+  background: #FFFFFF;
+  color: #0F172A;
   font-weight: 700;
-  color: #F8FAFC;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.telemetry-input-box {
+  background: #F8FAFC;
+  padding: 0.85rem;
+  border-radius: var(--radius-md);
+  border: 1px solid #E2E8F0;
+  margin-top: 1rem;
+}
+
+.calc-box {
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+}
+
+.calc-box.border-purple {
+  border-left: 4px solid #8B5CF6;
+}
+
+.calc-box.border-green {
+  border-left: 4px solid #10B981;
+}
+
+.calc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.65rem;
+}
+
+.calc-step-num {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #64748B;
+  letter-spacing: 0.05em;
+}
+
+.formula-inline {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: #2563EB;
+  font-weight: 700;
+}
+
+.ccbn-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.metric-item {
+  background: #FFFFFF;
+  padding: 0.65rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid #E2E8F0;
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-item.highlight {
+  border-color: #CBD5E1;
+  background: #F1F5F9;
+}
+
+.metric-title {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #64748B;
+  margin-bottom: 0.2rem;
+}
+
+.metric-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.2;
+}
+
+.metric-note {
+  font-size: 0.65rem;
+  color: #94A3B8;
+  margin-top: 0.2rem;
+}
+
+.recommended-action-card {
+  background: #FFFFFF;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid #E2E8F0;
+}
+
+.action-badge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+.action-badge-tag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #047857;
+  background: #D1FAE5;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.action-badge-score {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #10B981;
+  font-family: monospace;
+}
+
+.action-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0.25rem 0 0.35rem 0;
+}
+
+.action-desc {
+  font-size: 0.8rem;
+  color: #475569;
+  line-height: 1.45;
   margin-bottom: 0.75rem;
 }
 
-.ai-modal-body {
-  padding: 1rem;
-  background: rgba(30, 41, 59, 0.8);
-  border-radius: 10px;
-  border: 1px solid #334155;
-  font-size: 0.775rem;
-  line-height: 1.6;
-  color: #CBD5E1;
+.action-specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  background: #F8FAFC;
+  padding: 0.65rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid #E2E8F0;
 }
 
-.ai-modal-footer {
-  margin-top: 1rem;
+.spec-item {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
 }
 
-.btn-modal-close {
-  padding: 0.5rem 1rem;
-  background: #4F46E5;
-  color: #FFFFFF;
-  border-radius: 8px;
+.spec-k {
+  font-size: 0.65rem;
+  color: #64748B;
+  font-weight: 600;
+}
+
+.spec-v {
   font-size: 0.75rem;
   font-weight: 700;
-  border: none;
-  cursor: pointer;
+  color: #1E293B;
 }
+
+.policy-compare-table {
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  font-size: 0.775rem;
+}
+
+.policy-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1.5fr 1.3fr;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #E2E8F0;
+  align-items: center;
+}
+
+.policy-row:last-child {
+  border-bottom: none;
+}
+
+.policy-row.header {
+  background: #F1F5F9;
+  font-weight: 700;
+  color: #334155;
+}
+
+.policy-row.danger { background: #FEF2F2; }
+.policy-row.warning { background: #FFFBEB; }
+.policy-row.success { background: #F0FDF4; font-weight: 600; }
+
+.p-name { font-weight: 700; color: #0F172A; }
+.p-act { color: #334155; }
+.p-fair { font-weight: 700; }
 </style>

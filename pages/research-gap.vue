@@ -10,17 +10,17 @@
           <div>
             <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
               <span class="badge" style="background: rgba(147, 51, 234, 0.25); color: #C084FC; border: 1px solid rgba(192, 132, 252, 0.3);">
-                🔬 Pemetaan Celah Penelitian (Research Gap)
+                🔬 Pemetaan Celah Riset Komputasional
               </span>
               <span class="badge" style="background: rgba(34, 197, 94, 0.25); color: #4ADE80; border: 1px solid rgba(74, 222, 128, 0.3);">
-                🎯 Disertasi: Behavioral Learning - Service Dynamics Fusion Multimodal
+                🎯 Kontribusi: CCBN Normalization & Fair-LinUCB Adaptive Engine
               </span>
             </div>
             <h2 style="font-size: 1.5rem; font-weight: 800; color: #F8FAFC; margin-bottom: 0.35rem; letter-spacing: -0.02em;">
-              Model Personalisasi Pelatihan ASN Dimoderasi Konteks Spasial
+              Celah Penelitian Algoritma Pembelajaran Adaptif Berkeadilan (Fairness-Aware)
             </h2>
             <p style="font-size: 0.9rem; color: #94A3B8; margin: 0; max-width: 850px; line-height: 1.5;">
-              Repository 271 celah penelitian (*research gaps*) yang telah dikelompokkan ke dalam 5 Pilar Variabel Utama Penelitian Perilaku Pembelajaran Online ASN.
+              Pemetaan 271 celah riset yang diselaraskan dengan 3 pilar komputasi: <strong>(1) Sumber Bukti Otentik & Retensi Parsial</strong>, <strong>(2) Definisi Contextual Fairness & Residual \(\Delta B\)</strong>, dan <strong>(3) Optimisasi Dynamic Reward Multi-Armed Bandit</strong>.
             </p>
           </div>
 
