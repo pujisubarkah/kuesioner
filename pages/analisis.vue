@@ -4,36 +4,316 @@
     <Navbar />
 
     <main id="konten-utama" class="main-content">
-      <!-- Top Title & Stats Banner -->
-      <div class="card header-banner" style="margin-bottom: 1.5rem; padding: 1.75rem 2rem; background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFFFFF; border: none;">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.25rem;">
+      <!-- TOP TITLE & STATUS BANNER -->
+      <div class="card header-banner">
+        <div class="header-flex-row">
           <div>
-            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
-              <span class="badge" style="background: rgba(59, 130, 246, 0.25); color: #60A5FA; border: 1px solid rgba(96, 165, 250, 0.3);">
-                ⚡ Algorithmic Mediation Demonstration Testbed
-              </span>
-              <span class="badge" style="background: rgba(168, 85, 247, 0.25); color: #C084FC; border: 1px solid rgba(192, 132, 252, 0.3);">
-                🎯 Model: Fair-LinUCB & CCBN Dynamic Reward
-              </span>
+            <div class="header-badge-row">
+              <span class="badge badge-blue">⚡ Baseline: LinUCB (Li et al., 2010)</span>
+              <span class="badge badge-amber">⚖️ Target Riset: Regional Disparity Aware</span>
+              <span class="badge badge-yellow">🟡 Status: Under Development</span>
             </div>
-            <h2 style="font-size: 1.5rem; font-weight: 800; color: #F8FAFC; margin-bottom: 0.35rem; letter-spacing: -0.02em;">
-              Simulator Algoritma Mediasi & Optimisasi Berkeadilan
+            <h2 class="header-title">
+              Evolusi Algoritma: Dari Baseline LinUCB Menuju Candidate Disparity-Aware LinUCB
             </h2>
-            <p style="font-size: 0.9rem; color: #94A3B8; margin: 0; max-width: 850px; line-height: 1.5;">
-              Demonstrator komputasional: Menguji bagaimana algoritma <strong>Fair-LinUCB</strong> menyeimbangkan trade-off antara capaian kompetensi dan beban kendala ASN (analogi <em>YouTube Adaptive Bitrate</em>) dengan normalisasi counterfactual E[B | Context] dan residual <strong>ΔB</strong>.
+            <p class="header-desc">
+              Studi komputasional komparatif: Menguji bagaimana penambahan penalti disparitas regional (<code class="formula-code">λ_t · D_{a,t}</code>) pada algoritma <strong>LinUCB</strong> menyeimbangkan trade-off antara efektivitas pembelajaran agregat (<em>expected reward</em>) dan keadilan luaran (<em>equity</em>) antara ASN wilayah 3T vs Perkotaan (Urban).
             </p>
           </div>
 
-          <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+          <div class="header-stats-group">
             <div class="stat-pill">
-              <span style="font-size: 1.25rem; font-weight: 800; color: #4ADE80;">{{ liveRewardScore.toFixed(2) }}</span>
-              <span style="font-size: 0.725rem; color: #94A3B8; font-weight: 600; text-transform: uppercase;">Dynamic Reward r_t</span>
+              <span class="stat-value text-green">{{ liveRewardScore.toFixed(2) }}</span>
+              <span class="stat-label">Live Candidate Score</span>
             </div>
             <div class="stat-pill">
-              <span style="font-size: 1.25rem; font-weight: 800" :style="{ color: deltaBColor }">{{ liveDeltaB.toFixed(2) }}</span>
-              <span style="font-size: 0.725rem; color: #94A3B8; font-weight: 600; text-transform: uppercase;">Residual ΔB</span>
+              <span class="stat-value" :style="{ color: deltaBColor }">{{ liveDeltaB.toFixed(2) }}</span>
+              <span class="stat-label">Residual ΔB</span>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- TAHAP 1 & 2: BASELINE & RESEARCH PROBLEM                                 -->
+      <!-- ========================================================================= -->
+      <div class="theory-framework-grid">
+        <!-- 1. Baseline: LinUCB -->
+        <div class="card theory-card border-blue">
+          <div class="card-tag-row">
+            <span class="stage-tag blue">TAHAP 1: BASELINE ALGORITHM</span>
+            <span class="ref-pill">Li et al., 2010 (ACM WWW)</span>
+          </div>
+          <h3 class="theory-card-title">1. Baseline Algorithm — LinUCB</h3>
+          <p class="theory-card-p">
+            LinUCB digunakan sebagai <em>baseline algorithm</em> karena terbukti tangguh memilih intervensi adaptif berdasarkan vektor konteks fitur (<code class="formula-code">x_t</code>) dan menyeimbangkan <em>exploitation–exploration trade-off</em> melalui bound UCB:
+          </p>
+          
+          <div class="formula-display-box formula-blue">
+            <div class="formula-math">
+              A_t^* = \arg\max_a \left[ x_t^T \hat{\theta}_a + \alpha \sqrt{x_t^T A_a^{-1} x_t} \right]
+            </div>
+            <div class="formula-subnote">
+              <span>x_t^T θ̂_a : Estimasi Reward</span>
+              <span>•</span>
+              <span>α √(x_t^T A_a⁻¹ x_t) : Bonus Eksplorasi Ketidakpastian</span>
+            </div>
+          </div>
+          <p class="theory-card-note">
+            💡 <strong>Kekuatan Baseline:</strong> Mampu mempersonalisasi rekomendasi konten/modalitas secara dinamis pada data kontinu.
+          </p>
+        </div>
+
+        <!-- 2. Research Problem: Belum Disparity-Aware -->
+        <div class="card theory-card border-red">
+          <div class="card-tag-row">
+            <span class="stage-tag red">TAHAP 2: RESEARCH PROBLEM</span>
+            <span class="ref-pill">Celah Metodologis</span>
+          </div>
+          <h3 class="theory-card-title">2. Problem: LinUCB Belum Disparity-Aware</h3>
+          <p class="theory-card-p">
+            <strong>Masalah Mendasar:</strong> LinUCB mengoptimalkan <em>expected reward</em> berdasarkan konteks individu, <strong>tetapi belum secara eksplisit memperhitungkan disparitas outcome antar kelompok/konteks wilayah</strong> (3T vs Non-3T).
+          </p>
+
+          <!-- Visual Diagram of Disparity -->
+          <div class="disparity-flow-box">
+            <div class="flow-item">
+              <span class="flow-node">LinUCB Standar</span>
+            </div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-item">
+              <span class="flow-node high">High Overall Reward (0.71)</span>
+            </div>
+            <div class="flow-arrow">➔</div>
+            <div class="flow-item gap">
+              <div class="split-outcome">
+                <span class="badge-3t">🏝️ 3T: Outcome Rendah (0.42)</span>
+                <span class="badge-urban">🏢 Urban: Outcome Tinggi (0.71)</span>
+              </div>
+              <span class="gap-result">⚠️ Regional Disparity Gap: D = 0.29</span>
+            </div>
+          </div>
+          <p class="theory-card-note text-red">
+            ⚠️ <strong>Dampak:</strong> ASN 3T tertinggal secara akumulatif karena algoritma standar lebih sering mengeksploitasi format berat yang hanya optimal untuk wilayah urban.
+          </p>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- TAHAP 3: ALGORITHM DEVELOPMENT ROADMAP                                    -->
+      <!-- ========================================================================= -->
+      <div class="card roadmap-card">
+        <div class="roadmap-header">
+          <div>
+            <div class="badge-tag-line">
+              <span class="badge badge-purple">🛣️ Kerangka Pengembangan Bertahap</span>
+              <span class="badge badge-yellow">🟡 Status: Under Development</span>
+            </div>
+            <h3 class="roadmap-title">3. Algorithm Development Roadmap</h3>
+            <p class="roadmap-desc">
+              Peta jalan iteratif evolusi formulasi matematika dari standard bandit hingga adaptive disparity mitigation:
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-steps-grid">
+          <div class="step-card done">
+            <div class="step-badge">STEP 0</div>
+            <h4 class="step-title">Standard LinUCB</h4>
+            <p class="step-p">Baseline Li et al. (2010) dengan fitur kontekstual standar.</p>
+            <span class="step-status">✅ Baseline Selesai</span>
+          </div>
+
+          <div class="step-card done">
+            <div class="step-badge">STEP 1</div>
+            <h4 class="step-title">Context-Aware LinUCB</h4>
+            <p class="step-p">Pemodelan vektor kendala spasial, bandwidth (β_bw), latensi (β_lat), & beban dinas (T_work).</p>
+            <span class="step-status">✅ Fitur Dipetakan</span>
+          </div>
+
+          <div class="step-card done">
+            <div class="step-badge">STEP 2</div>
+            <h4 class="step-title">Disparity Measurement</h4>
+            <p class="step-p">Pengukuran gap luaran antar wilayah: D_{a,t} = |μ̂_{a,3T} - μ̂_{a,Urban}|.</p>
+            <span class="step-status">✅ Metrik Terdefinisi</span>
+          </div>
+
+          <div class="step-card in-progress">
+            <div class="step-badge">STEP 3</div>
+            <h4 class="step-title">Disparity-Aware Decision</h4>
+            <p class="step-p">Penetapan fungsi skor keputusan berbobot disparitas Score_{a,t}.</p>
+            <span class="step-status yellow">🟡 Under Development</span>
+          </div>
+
+          <div class="step-card prototype">
+            <div class="step-badge">STEP 4</div>
+            <h4 class="step-title">Adaptive LinUCB Controller</h4>
+            <p class="step-p">Kontroler adaptif parameter penalti λ_t berbasis kestabilan konvergensi.</p>
+            <span class="step-status yellow">🟡 Under Development</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- TAHAP 4: FORMULA KANDIDAT DISERTASI                                       -->
+      <!-- ========================================================================= -->
+      <div class="card candidate-formula-card">
+        <div class="candidate-header">
+          <div>
+            <span class="badge badge-amber">📐 Formulasi Matematika Kandidat</span>
+            <h3 class="candidate-title">4. Candidate Disparity-Aware Formulation</h3>
+          </div>
+          <span class="candidate-note-pill">Candidate Formulation (Subject to Theoretical Validation)</span>
+        </div>
+
+        <div class="formula-candidate-box">
+          <div class="math-row">
+            <div class="math-chunk">
+              <span class="term">Score_{a,t} =</span>
+            </div>
+            <div class="math-chunk chunk-reward">
+              <span class="term">x_t^T \hat{\theta}_a</span>
+              <span class="sub-label">Expected Reward (Individual Context)</span>
+            </div>
+            <span class="op">+</span>
+            <div class="math-chunk chunk-explore">
+              <span class="term">\alpha \sqrt{x_t^T A_a^{-1} x_t}</span>
+              <span class="sub-label">Exploration Bonus (Uncertainty)</span>
+            </div>
+            <span class="op">-</span>
+            <div class="math-chunk chunk-disparity">
+              <span class="term">\lambda_t D_{a,t}</span>
+              <span class="sub-label">Regional Disparity Penalty</span>
+            </div>
+          </div>
+
+          <div class="decision-rule-row">
+            <div class="math-rule">
+              a_t^* = \arg\max_a Score_{a,t}
+            </div>
+            <div class="math-disparity-def">
+              \text{dengan } D_{a,t} = |\hat{\mu}_{a,3T} - \hat{\mu}_{a,\text{Urban}}|
+            </div>
+          </div>
+        </div>
+
+        <div class="candidate-disclaimer">
+          <span class="disc-icon">⚠️</span>
+          <p class="disc-text">
+            <strong>Catatan Ilmiah:</strong> <em>Candidate formulation — subject to theoretical validation and comparison with existing fair contextual bandit approaches. Formulasi ini dirancang untuk mengontrol gap disparitas D tanpa mendegradasi performa agregat secara berlebihan.</em>
+          </p>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- TAHAP 5: SIMULATOR EKSPERIMEN VISUAL & EVALUASI TRADE-OFF                -->
+      <!-- ========================================================================= -->
+      <div class="section-title-row" style="margin-top: 2rem; margin-bottom: 1rem;">
+        <div>
+          <h3 style="font-size: 1.3rem; font-weight: 800; color: #0F172A; margin: 0;">
+            5. Simulator Interaktif & Evaluasi Trade-off (Effectiveness vs Equity)
+          </h3>
+          <p style="font-size: 0.85rem; color: #64748B; margin: 0.2rem 0 0 0;">
+            Uji sensitivitas model terhadap kendala lapangan aktual dan periksa dampak mitigasi kesenjangan antar skenario kebijakan.
+          </p>
+        </div>
+      </div>
+
+      <!-- Comparison Summary Cards (Scenario A vs Scenario B) -->
+      <div class="scenarios-comparison-grid">
+        <!-- Scenario A Card -->
+        <div class="card scenario-box border-slate">
+          <div class="scenario-top">
+            <span class="scenario-tag slate">SKENARIO A</span>
+            <span class="scenario-type">Standard LinUCB</span>
+          </div>
+          <div class="scenario-stats">
+            <div class="s-stat">
+              <span class="s-val text-slate">0.71</span>
+              <span class="s-lbl">Overall Reward</span>
+            </div>
+            <div class="s-stat">
+              <span class="s-val text-red">0.42</span>
+              <span class="s-lbl">3T Outcome</span>
+            </div>
+            <div class="s-stat">
+              <span class="s-val text-green">0.71</span>
+              <span class="s-lbl">Urban Outcome</span>
+            </div>
+          </div>
+          <div class="scenario-gap-bar bg-red-light">
+            <span>Disparity Gap: <strong>D = 0.29</strong> (Tinggi / Kesenjangan Lebar)</span>
+          </div>
+        </div>
+
+        <!-- Scenario B Card -->
+        <div class="card scenario-box border-emerald">
+          <div class="scenario-top">
+            <span class="scenario-tag emerald">SKENARIO B (KANDIDAT)</span>
+            <span class="scenario-type">Candidate Disparity-Aware LinUCB</span>
+          </div>
+          <div class="scenario-stats">
+            <div class="s-stat">
+              <span class="s-val text-emerald">0.68</span>
+              <span class="s-lbl">Overall Reward</span>
+            </div>
+            <div class="s-stat">
+              <span class="s-val text-emerald">0.61</span>
+              <span class="s-lbl">3T Outcome (Terangkat)</span>
+            </div>
+            <div class="s-stat">
+              <span class="s-val text-emerald">0.68</span>
+              <span class="s-lbl">Urban Outcome</span>
+            </div>
+          </div>
+          <div class="scenario-gap-bar bg-green-light">
+            <span>Disparity Gap: <strong>D = 0.07</strong> (Menyempit Signifikan -75%)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trade-off Table -->
+      <div class="card" style="margin-bottom: 1.5rem; padding: 1.25rem 1.5rem; background: #FFFFFF; border: 1px solid #E2E8F0;">
+        <h4 style="font-size: 0.95rem; font-weight: 800; color: #0F172A; margin: 0 0 0.85rem 0;">
+          📊 Tabel Evaluasi Trade-off: Efektivitas Agregat vs Keadilan Regional (Equity)
+        </h4>
+        <div class="tradeoff-table-wrapper">
+          <table class="tradeoff-table">
+            <thead>
+              <tr>
+                <th>Metrik Evaluasi</th>
+                <th>Scenario A (Standard LinUCB)</th>
+                <th>Scenario B (Candidate Disparity-Aware)</th>
+                <th>Delta / Dampak Perlakuan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Overall Reward</strong> (Efektivitas Agregat)</td>
+                <td><span class="badge-tbl">0.71</span></td>
+                <td><span class="badge-tbl">0.68</span></td>
+                <td class="text-amber"><strong>-0.03</strong> (Trade-off efisiensi minimal)</td>
+              </tr>
+              <tr>
+                <td><strong>3T Region Outcome</strong> (Kelompok Rentan)</td>
+                <td><span class="badge-tbl text-red">0.42 (Tertinggal)</span></td>
+                <td><span class="badge-tbl text-green">0.61 (Meningkat)</span></td>
+                <td class="text-green"><strong>+0.19</strong> (Perbaikan keadilan luaran)</td>
+              </tr>
+              <tr>
+                <td><strong>Urban Region Outcome</strong> (Perkotaan)</td>
+                <td><span class="badge-tbl">0.71</span></td>
+                <td><span class="badge-tbl">0.68</span></td>
+                <td class="text-slate">-0.03</td>
+              </tr>
+              <tr class="highlight-row">
+                <td><strong>Disparity Gap D = |μ̂_{3T} - μ̂_{Urban}|</strong></td>
+                <td><span class="badge-tbl bg-red-pill">0.29 (Kesenjangan Lebar)</span></td>
+                <td><span class="badge-tbl bg-green-pill">0.07 (Kesenjangan Rata)</span></td>
+                <td class="text-emerald"><strong>-0.22 (Reduksi Kesenjangan ~75%)</strong></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -162,14 +442,14 @@
           <!-- Step 2: Algorithmic Action Selection (YouTube Bitrate Analogy) -->
           <div class="calc-box border-green" style="margin-top: 1rem;">
             <div class="calc-header">
-              <span class="calc-step-num">STEP 2: FAIR-LINUCB ACTION SELECTION</span>
-              <span class="formula-inline">A* = argmax_a r_t(a)</span>
+              <span class="calc-step-num">CANDIDATE DISPARITY-AWARE ACTION SELECTION</span>
+              <span class="formula-inline">a* = argmax_a Score_{a,t}</span>
             </div>
             
             <div class="recommended-action-card">
               <div class="action-badge-row">
                 <span class="action-badge-tag">{{ selectedAction.tag }}</span>
-                <span class="action-badge-score">Reward r_t = {{ liveRewardScore.toFixed(2) }}</span>
+                <span class="action-badge-score">Score = {{ liveRewardScore.toFixed(2) }}</span>
               </div>
               <h4 class="action-title">{{ selectedAction.name }}</h4>
               <p class="action-desc">{{ selectedAction.desc }}</p>
@@ -204,7 +484,7 @@
               <div class="policy-row header">
                 <span>Kebijakan Sistem</span>
                 <span>Keputusan Sistem</span>
-                <span>Status Keadilan (Fairness)</span>
+                <span>Status Evaluasi Keadilan</span>
               </div>
               <div class="policy-row danger">
                 <span class="p-name">1. LMS Konvensional (Punitive)</span>
@@ -217,9 +497,9 @@
                 <span class="p-fair text-amber">⚠️ Drop / Kaku (Rigid Threshold)</span>
               </div>
               <div class="policy-row success">
-                <span class="p-name">3. Fair-LinUCB (Disertasi)</span>
+                <span class="p-name">3. Candidate Disparity-Aware LinUCB</span>
                 <span class="p-act">{{ selectedAction.name }}</span>
-                <span class="p-fair text-green">✅ Pareto Optimal & Zero Unfair Penalty</span>
+                <span class="p-fair text-green">✅ Evaluating Effectiveness–Equity Trade-off</span>
               </div>
             </div>
           </div>
@@ -779,4 +1059,575 @@ const staticRuleDecision = computed(() => {
 .p-name { font-weight: 700; color: #0F172A; }
 .p-act { color: #334155; }
 .p-fair { font-weight: 700; }
+
+/* ========================================================================= */
+/* STYLES UNTUK 5 TAHAP EVOLUSI LINUCB & TRADE-OFF EVALUATION                */
+/* ========================================================================= */
+.header-flex-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.header-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badge-blue {
+  background: rgba(59, 130, 246, 0.25);
+  color: #60A5FA;
+  border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+.badge-amber {
+  background: rgba(245, 158, 11, 0.25);
+  color: #FBBF24;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.badge-yellow {
+  background: rgba(234, 179, 8, 0.25);
+  color: #FDE047;
+  border: 1px solid rgba(253, 224, 71, 0.3);
+}
+
+.badge-purple {
+  background: rgba(168, 85, 247, 0.25);
+  color: #C084FC;
+  border: 1px solid rgba(192, 132, 252, 0.3);
+}
+
+.header-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #F8FAFC;
+  margin: 0 0 0.35rem 0;
+  letter-spacing: -0.02em;
+}
+
+.header-desc {
+  font-size: 0.875rem;
+  color: #94A3B8;
+  margin: 0;
+  max-width: 850px;
+  line-height: 1.55;
+}
+
+.formula-code {
+  font-family: monospace;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  color: #FBBF24;
+}
+
+.header-stats-group {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.theory-framework-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .theory-framework-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.theory-card {
+  padding: 1.35rem 1.5rem;
+  background: #FFFFFF;
+  border-radius: var(--radius-lg, 12px);
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.theory-card.border-blue { border-left: 5px solid #3B82F6; }
+.theory-card.border-red { border-left: 5px solid #EF4444; }
+
+.card-tag-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.stage-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.stage-tag.blue { background: #EFF6FF; color: #1D4ED8; }
+.stage-tag.red { background: #FEF2F2; color: #DC2626; }
+
+.ref-pill {
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: #64748B;
+  background: #F8FAFC;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #E2E8F0;
+}
+
+.theory-card-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.4rem 0;
+}
+
+.theory-card-p {
+  font-size: 0.85rem;
+  color: #475569;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.formula-display-box {
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.formula-blue {
+  background: #EFF6FF;
+  border-color: #BFDBFE;
+}
+
+.formula-math {
+  font-family: monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1E3A8A;
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+
+.formula-subnote {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  color: #64748B;
+  font-weight: 600;
+  flex-wrap: wrap;
+}
+
+.theory-card-note {
+  font-size: 0.8rem;
+  color: #334155;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.disparity-flow-box {
+  background: #FFF1F2;
+  border: 1px solid #FECDD3;
+  border-radius: 8px;
+  padding: 0.85rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.flow-node {
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #FFFFFF;
+  padding: 0.3rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #FDA4AF;
+  color: #9F1239;
+}
+
+.flow-node.high {
+  color: #047857;
+  border-color: #A7F3D0;
+  background: #ECFDF5;
+}
+
+.flow-arrow {
+  color: #E11D48;
+  font-weight: 800;
+}
+
+.split-outcome {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.badge-3t {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #DC2626;
+  background: #FFFFFF;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.badge-urban {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #15803D;
+  background: #FFFFFF;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.gap-result {
+  font-size: 0.725rem;
+  font-weight: 800;
+  color: #9F1239;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.roadmap-card {
+  padding: 1.35rem 1.5rem;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-lg, 12px);
+  margin-bottom: 1.5rem;
+}
+
+.roadmap-header {
+  margin-bottom: 1.15rem;
+}
+
+.badge-tag-line {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.35rem;
+}
+
+.roadmap-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.25rem 0;
+}
+
+.roadmap-desc {
+  font-size: 0.85rem;
+  color: #64748B;
+  margin: 0;
+}
+
+.timeline-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.step-card {
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  background: #F8FAFC;
+  display: flex;
+  flex-direction: column;
+}
+
+.step-card.done {
+  border-color: #BFDBFE;
+  background: #F0F9FF;
+}
+
+.step-card.in-progress {
+  border-color: #FEF08A;
+  background: #FEFCE8;
+  border-width: 2px;
+}
+
+.step-card.prototype {
+  border-color: #E2E8F0;
+  background: #F8FAFC;
+}
+
+.step-badge {
+  font-size: 0.675rem;
+  font-weight: 800;
+  color: #64748B;
+  margin-bottom: 0.25rem;
+}
+
+.step-title {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.35rem 0;
+}
+
+.step-p {
+  font-size: 0.775rem;
+  color: #475569;
+  line-height: 1.45;
+  margin-bottom: 0.75rem;
+  flex: 1;
+}
+
+.step-status {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #0369A1;
+}
+
+.step-status.yellow {
+  color: #B45309;
+}
+
+.candidate-formula-card {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+  border: 2px solid #FCD34D;
+  border-radius: var(--radius-lg, 12px);
+  margin-bottom: 1.5rem;
+}
+
+.candidate-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.candidate-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #78350F;
+  margin: 0.25rem 0 0 0;
+}
+
+.candidate-note-pill {
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: #92400E;
+  background: #FDE68A;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid #F59E0B;
+}
+
+.formula-candidate-box {
+  background: #FFFFFF;
+  border: 1px solid #FDE68A;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 0.85rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.math-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  font-family: monospace;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 1rem;
+}
+
+.math-chunk {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.4rem 0.65rem;
+  border-radius: 6px;
+}
+
+.chunk-reward { background: #EFF6FF; border: 1px solid #BFDBFE; color: #1E3A8A; }
+.chunk-explore { background: #F3E8FF; border: 1px solid #DDD6FE; color: #6B21A8; }
+.chunk-disparity { background: #FEF2F2; border: 1px solid #FECDD3; color: #9F1239; }
+
+.sub-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  font-family: sans-serif;
+  color: #64748B;
+  margin-top: 0.25rem;
+}
+
+.op {
+  font-size: 1.2rem;
+  color: #64748B;
+}
+
+.decision-rule-row {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  border-top: 1px dashed #E2E8F0;
+  padding-top: 0.75rem;
+  font-family: monospace;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1E293B;
+}
+
+.candidate-disclaimer {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+}
+
+.disc-icon { font-size: 1rem; }
+.disc-text { font-size: 0.8rem; color: #78350F; margin: 0; line-height: 1.45; }
+
+.scenarios-comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 850px) {
+  .scenarios-comparison-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.scenario-box {
+  padding: 1.25rem;
+  background: #FFFFFF;
+  border-radius: var(--radius-lg, 12px);
+  border: 1px solid #E2E8F0;
+}
+
+.scenario-box.border-slate { border-left: 5px solid #64748B; }
+.scenario-box.border-emerald { border-left: 5px solid #10B981; }
+
+.scenario-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.85rem;
+}
+
+.scenario-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.scenario-tag.slate { background: #F1F5F9; color: #475569; }
+.scenario-tag.emerald { background: #D1FAE5; color: #047857; }
+
+.scenario-type {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.scenario-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.s-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #F8FAFC;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #E2E8F0;
+}
+
+.s-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.s-lbl {
+  font-size: 0.65rem;
+  color: #64748B;
+  font-weight: 600;
+  margin-top: 0.15rem;
+  text-align: center;
+}
+
+.scenario-gap-bar {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.775rem;
+  text-align: center;
+}
+
+.bg-red-light { background: #FEF2F2; color: #991B1B; border: 1px solid #F87171; }
+.bg-green-light { background: #ECFDF5; color: #065F46; border: 1px solid #34D399; }
+
+.tradeoff-table-wrapper {
+  overflow-x: auto;
+}
+
+.tradeoff-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.825rem;
+}
+
+.tradeoff-table th, .tradeoff-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.tradeoff-table th {
+  background: #F8FAFC;
+  font-weight: 700;
+  color: #334155;
+}
+
+.tradeoff-table .highlight-row {
+  background: #F0FDF4;
+  font-weight: 700;
+}
+
+.badge-tbl {
+  font-family: monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: #F1F5F9;
+  color: #0F172A;
+}
+
+.bg-red-pill { background: #FEE2E2; color: #DC2626; }
+.bg-green-pill { background: #D1FAE5; color: #059669; }
 </style>
