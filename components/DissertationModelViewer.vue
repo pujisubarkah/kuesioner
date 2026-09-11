@@ -10,7 +10,7 @@
         Arsitektur Komputasional: Contextual Counterfactual Behavioral Normalization (CCBN) & Algoritma Fair-LinUCB
       </h2>
       <p class="banner-desc">
-        Reposisi dari evaluasi deskriptif ke <strong>kontribusi algoritmik murni</strong>: Memodelkan mediasi cerdas antara kurikulum pembelajaran dan kendala kontekstual ASN melalui estimasi baseline ekspektasi \(\mathbb{E}[B \mid \text{Context}]\), sinyal residual kausal \(\Delta B\), dan optimisasi bandit adaptif berkeadilan.
+        Reposisi dari evaluasi deskriptif ke <strong>kontribusi algoritmik murni</strong>: Memodelkan mediasi cerdas antara kurikulum pembelajaran dan kendala kontekstual ASN melalui estimasi baseline ekspektasi E[B | Context], sinyal residual kausal <strong>ΔB</strong>, dan optimisasi bandit adaptif berkeadilan.
       </p>
     </div>
 
@@ -25,7 +25,7 @@
           <div class="core-num">PILAR 1: SUMBER BUKTI (EVIDENCE)</div>
           <h4 class="core-title">Sinyal Telemetri Otentik & Retensi Parsial</h4>
           <p class="core-desc">
-            Mengambil log klik, rasio fokus window (\(\tau_{focus}\)), akselerasi (\(\nu_{play}\)), skip-dynamics, dan <strong>TikTok-style Partial Retention (\(R_{partial}\))</strong>. Menolak asumsi video 100% linear; berfokus pada frame retensi kognitif esensial.
+            Mengambil log klik, rasio fokus window (τ_focus), akselerasi (ν_play), skip-dynamics, dan <strong>TikTok-style Partial Retention (R_partial)</strong>. Menolak asumsi video 100% linear; berfokus pada frame retensi kognitif esensial.
           </p>
           <div class="core-badge">Data: Clickstream, LMS Logs, Zoom Telemetry</div>
         </div>
@@ -33,11 +33,11 @@
         <!-- Pilar 2 -->
         <div class="core-pillar-box border-purple">
           <div class="core-num">PILAR 2: DEFINISI FAIRNESS & CCBN</div>
-          <h4 class="core-title">Normalisasi Kausal: \(\mathbb{E}[B \mid C]\) & \(\Delta B\)</h4>
+          <h4 class="core-title">Normalisasi Kausal: E[B | C] & ΔB</h4>
           <p class="core-desc">
-            Fairness didefinisikan secara kontekstual: Perilaku \(B\) dinilai terhadap ekspektasi wajar lingkungan \(\mathbb{E}[B \mid \text{Learner, Service, Spatial}]\). Sinyal residual \(\Delta B = B - \mathbb{E}[B \mid C]\) memisahkan hambatan situasi dari disengagement otentik.
+            Fairness didefinisikan secara kontekstual: Perilaku B dinilai terhadap ekspektasi wajar lingkungan E[B | Learner, Service, Spatial]. Sinyal residual ΔB = B - E[B | C] memisahkan hambatan situasi dari disengagement otentik.
           </p>
-          <div class="core-badge">Formula: \(\Delta B = B - \mathbb{E}[B \mid \text{Context}]\)</div>
+          <div class="core-badge">Formula: ΔB = B - E[B | Context]</div>
         </div>
 
         <!-- Pilar 3 -->
@@ -75,12 +75,12 @@
             <span class="index-val text-purple">{{ spatialConstraintIndex.toFixed(1) }}</span>
             <span class="index-scale">/ 100</span>
           </div>
-          <div class="index-name">Infrastructural & Bandwidth Stress (\(\beta_{bw}, \beta_{lat}\))</div>
+          <div class="index-name">Infrastructural & Bandwidth Stress (β_bw, β_lat)</div>
           <div class="index-progress-bg">
             <div class="index-progress-fill bg-purple" :style="{ width: `${spatialConstraintIndex}%` }"></div>
           </div>
           <p class="index-interpret">
-            Operasionalisasi: Throughput (\(\beta_{bw}\)), latensi packet-loss (\(\beta_{lat}\)), kuota seluler (\(T_{quota}\)), dan disparitas wilayah 3T/Pulau.
+            Operasionalisasi: Throughput (β_bw), latensi packet-loss (β_lat), kuota seluler (T_quota), dan disparitas wilayah 3T/Pulau.
           </p>
         </div>
 
@@ -94,12 +94,12 @@
             <span class="index-val text-red">{{ serviceDynamicsIndex.toFixed(1) }}</span>
             <span class="index-scale">/ 100</span>
           </div>
-          <div class="index-name">Workload & Task Interruption Index (\(T_{work}\))</div>
+          <div class="index-name">Workload & Task Interruption Index (T_work)</div>
           <div class="index-progress-bg">
             <div class="index-progress-fill bg-red" :style="{ width: `${serviceDynamicsIndex}%` }"></div>
           </div>
           <p class="index-interpret">
-            Operasionalisasi: Disrupsi tugas dinas mendadak (Q16), tumpang tindih waktu kerja aktif (\(t_{hour}\)), dan mobilitas tugas lapangan.
+            Operasionalisasi: Disrupsi tugas dinas mendadak (Q16), tumpang tindih waktu kerja aktif (t_hour), dan mobilitas tugas lapangan.
           </p>
         </div>
 
@@ -113,12 +113,12 @@
             <span class="index-val text-green">{{ behavioralFrictionIndex.toFixed(1) }}</span>
             <span class="index-scale">/ 100</span>
           </div>
-          <div class="index-name">Multitasking & Telemetry Friction (\(B_{tele}\))</div>
+          <div class="index-name">Multitasking & Telemetry Friction (B_tele)</div>
           <div class="index-progress-bg">
             <div class="index-progress-fill bg-green" :style="{ width: `${behavioralFrictionIndex}%` }"></div>
           </div>
           <p class="index-interpret">
-            Operasionalisasi: Rasio fokus tab (\(\tau_{focus}\)), video backgrounding, akselerasi (\(\nu_{play}\)), dan off-camera webinar (Q33).
+            Operasionalisasi: Rasio fokus tab (τ_focus), video backgrounding, akselerasi (ν_play), dan off-camera webinar (Q33).
           </p>
         </div>
 
@@ -132,7 +132,7 @@
             <span class="index-val text-amber">{{ multimodalDemandIndex.toFixed(1) }}</span>
             <span class="index-scale">/ 100</span>
           </div>
-          <div class="index-name">Device Form-Factor Penalty (\(\delta_{dev}\))</div>
+          <div class="index-name">Device Form-Factor Penalty (δ_dev)</div>
           <div class="index-progress-bg">
             <div class="index-progress-fill bg-amber" :style="{ width: `${multimodalDemandIndex}%` }"></div>
           </div>
@@ -179,9 +179,9 @@
           <h5 class="flow-title">1. Context Sensing & Behavioral Traces</h5>
           <div class="formula-badge">C(t) = ⟨ T_work, E_infra, O_gov, B_tele ⟩</div>
           <ul class="flow-features">
-            <li>Throughput \(\beta_{bw}\) & Latensi \(\beta_{lat}\)</li>
-            <li>Tab Focus \(\tau_{focus}\) & Scrubbing \(N_{scrub}\)</li>
-            <li>TikTok Partial Retention \(R_{partial}\)</li>
+            <li>Throughput β_bw & Latensi β_lat</li>
+            <li>Tab Focus τ_focus & Scrubbing N_scrub</li>
+            <li>TikTok Partial Retention R_partial</li>
           </ul>
         </div>
 
@@ -215,7 +215,7 @@
           <h5 class="flow-title">3. Fair-LinUCB Decision Engine</h5>
           <div class="formula-badge">A* = arg max_{a} [ θ̂_a^T x_t + α √(x_t^T A_a^{-1} x_t) ]</div>
           <ul class="flow-features">
-            <li>Dynamic Mid-Stream Reward \(r_t(a)\)</li>
+            <li>Dynamic Mid-Stream Reward r_t(a)</li>
             <li>Penyeimbang Trade-off Pareto</li>
             <li>Analogi Adaptive Bitrate YouTube</li>
           </ul>

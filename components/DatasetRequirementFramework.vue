@@ -966,7 +966,7 @@
       <div class="validation-grid">
         <!-- Formula Card -->
         <div class="val-card">
-          <h4 class="val-title">📐 Model Persamaan Explanatory Power ($R^2$ & $\Delta R^2$)</h4>
+          <h4 class="val-title">📐 Model Persamaan Explanatory Power (R² & ΔR²)</h4>
           <p class="val-sub">Pengujian signifikansi moderasi konteks spasial terhadap relevansi kompetensi layanan:</p>
           
           <div class="formula-box">
@@ -983,9 +983,9 @@
           <div class="criteria-list">
             <strong>Kriteria Penerimaan Explanatory Power:</strong>
             <ul>
-              <li><strong>Signifikansi Moderasi:</strong> Koefisien interaksi $\beta_4$ memiliki nilai $p < 0.05$.</li>
-              <li><strong>Peningkatan Varians ($\Delta R^2$):</strong> $\Delta R^2 \ge 0.05$ (Meningkat minimal 5% daya jelas).</li>
-              <li><strong>Effect Size ($f^2$):</strong> $f^2 = \frac{R^2_{\text{augmented}} - R^2_{\text{baseline}}}{1 - R^2_{\text{augmented}}} \ge 0.15$ (Kategori Medium/Large Effect).</li>
+              <li><strong>Signifikansi Moderasi:</strong> Koefisien interaksi β₄ memiliki nilai p &lt; 0.05.</li>
+              <li><strong>Peningkatan Varians (ΔR²):</strong> ΔR² ≥ 0.05 (Meningkat minimal 5% daya jelas).</li>
+              <li><strong>Effect Size (f²):</strong> f² = (R²_augmented - R²_baseline) / (1 - R²_augmented) ≥ 0.15 (Kategori Medium/Large Effect).</li>
             </ul>
           </div>
         </div>

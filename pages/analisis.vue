@@ -20,18 +20,18 @@
               Simulator Algoritma Mediasi & Optimisasi Berkeadilan
             </h2>
             <p style="font-size: 0.9rem; color: #94A3B8; margin: 0; max-width: 850px; line-height: 1.5;">
-              Demonstrator komputasional: Menguji bagaimana algoritma <strong>Fair-LinUCB</strong> menyeimbangkan trade-off antara capaian kompetensi dan beban kendala ASN (analogi <em>YouTube Adaptive Bitrate</em>) dengan normalisasi counterfactual \(\mathbb{E}[B \mid \text{Context}]\) dan residual \(\Delta B\).
+              Demonstrator komputasional: Menguji bagaimana algoritma <strong>Fair-LinUCB</strong> menyeimbangkan trade-off antara capaian kompetensi dan beban kendala ASN (analogi <em>YouTube Adaptive Bitrate</em>) dengan normalisasi counterfactual E[B | Context] dan residual <strong>ΔB</strong>.
             </p>
           </div>
 
           <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
             <div class="stat-pill">
               <span style="font-size: 1.25rem; font-weight: 800; color: #4ADE80;">{{ liveRewardScore.toFixed(2) }}</span>
-              <span style="font-size: 0.725rem; color: #94A3B8; font-weight: 600; text-transform: uppercase;">Dynamic Reward \(r_t\)</span>
+              <span style="font-size: 0.725rem; color: #94A3B8; font-weight: 600; text-transform: uppercase;">Dynamic Reward r_t</span>
             </div>
             <div class="stat-pill">
               <span style="font-size: 1.25rem; font-weight: 800" :style="{ color: deltaBColor }">{{ liveDeltaB.toFixed(2) }}</span>
-              <span style="font-size: 0.725rem; color: #94A3B8; font-weight: 600; text-transform: uppercase;">Residual \(\Delta B\)</span>
+              <span style="font-size: 0.725rem; color: #94A3B8; font-weight: 600; text-transform: uppercase;">Residual ΔB</span>
             </div>
           </div>
         </div>
@@ -43,7 +43,7 @@
         <div class="sim-card card">
           <div class="card-header-row">
             <h4 class="sim-section-title">🎛️ Input Kendala Akses & Konteks ASN</h4>
-            <span class="step-tag">Vektor \(x_t \in \mathcal{C}(t)\)</span>
+            <span class="step-tag">Vektor x_t ∈ C(t)</span>
           </div>
 
           <!-- Presets -->
@@ -65,7 +65,7 @@
           <!-- Parameter 1: Bandwidth & Throughput -->
           <div class="control-item">
             <div class="control-label-row">
-              <label>Throughput Jaringan (\(\beta_{bw}\)):</label>
+              <label>Throughput Jaringan (β_bw):</label>
               <span class="val-badge">{{ bandwidthKbps }} kbps ({{ bandwidthQuality }})</span>
             </div>
             <input type="range" min="50" max="10000" step="50" v-model.number="bandwidthKbps" class="slider" />
@@ -79,7 +79,7 @@
           <!-- Parameter 2: Latency & Stall Ratio -->
           <div class="control-item">
             <div class="control-label-row">
-              <label>Latensi & Stall Ratio (\(\beta_{lat}\)):</label>
+              <label>Latensi & Stall Ratio (β_lat):</label>
               <span class="val-badge">{{ latencyMs }} ms / Buffer {{ stallRatio }}%</span>
             </div>
             <input type="range" min="20" max="1200" step="20" v-model.number="latencyMs" class="slider" />
@@ -88,7 +88,7 @@
           <!-- Parameter 3: Device Form Factor -->
           <div class="control-item">
             <div class="control-label-row">
-              <label>Perangkat (\(\delta_{dev}\)):</label>
+              <label>Perangkat (δ_dev):</label>
               <span class="val-badge">{{ deviceName }} (Bobot: {{ devicePenalty }})</span>
             </div>
             <div class="segmented-control">
@@ -101,7 +101,7 @@
           <!-- Parameter 4: Workload & Task Interruption -->
           <div class="control-item">
             <div class="control-label-row">
-              <label>Beban Pelayanan & Interupsi Dinas (\(T_{work}\)):</label>
+              <label>Beban Pelayanan & Interupsi Dinas (T_work):</label>
               <span class="val-badge text-red">{{ workloadLevel }}/5 ({{ workloadDesc }})</span>
             </div>
             <input type="range" min="1" max="5" step="1" v-model.number="workloadLevel" class="slider" />
@@ -110,16 +110,16 @@
           <!-- Parameter 5: Sinyal Telemetri Perilaku Aktual -->
           <div class="telemetry-input-box">
             <h5 style="font-size: 0.825rem; font-weight: 700; color: #0F172A; margin-bottom: 0.5rem;">
-              📡 Sinyal Bukti Telemetri Aktual Responden (\(B_{tele}\)):
+              📡 Sinyal Bukti Telemetri Aktual Responden (B_tele):
             </h5>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
               <div>
-                <label style="font-size: 0.75rem; color: #64748B;">Tab-Focus Ratio (\(\tau_{focus}\)):</label>
+                <label style="font-size: 0.75rem; color: #64748B;">Tab-Focus Ratio (τ_focus):</label>
                 <input type="range" min="0.05" max="1.0" step="0.05" v-model.number="observedFocus" class="slider" />
                 <span style="font-size: 0.75rem; font-weight: 700; color: #1E293B;">{{ (observedFocus * 100).toFixed(0) }}% aktif</span>
               </div>
               <div>
-                <label style="font-size: 0.75rem; color: #64748B;">Partial Retention (\(R_{partial}\)):</label>
+                <label style="font-size: 0.75rem; color: #64748B;">Partial Retention (R_partial):</label>
                 <input type="range" min="0.1" max="1.0" step="0.05" v-model.number="observedRetention" class="slider" />
                 <span style="font-size: 0.75rem; font-weight: 700; color: #1E293B;">{{ (observedRetention * 100).toFixed(0) }}% segmen inti</span>
               </div>
@@ -138,21 +138,21 @@
           <div class="calc-box border-purple">
             <div class="calc-header">
               <span class="calc-step-num">STEP 1: CCBN NORMALISASI</span>
-              <span class="formula-inline">\(\Delta B = B_{obs} - \mathbb{E}[B \mid C]\)</span>
+              <span class="formula-inline">ΔB = B_obs - E[B | C]</span>
             </div>
             <div class="ccbn-metrics-grid">
               <div class="metric-item">
-                <span class="metric-title">Ekspektasi Konteks \(\mathbb{E}[\tau_{focus} \mid C]\):</span>
+                <span class="metric-title">Ekspektasi Konteks E[τ_focus | C]:</span>
                 <span class="metric-val">{{ (expectedFocus * 100).toFixed(0) }}%</span>
                 <span class="metric-note">Dihitung dari beban kerja & sinyal</span>
               </div>
               <div class="metric-item">
-                <span class="metric-title">Perilaku Teramati \(B_{obs}\):</span>
+                <span class="metric-title">Perilaku Teramati B_obs:</span>
                 <span class="metric-val">{{ (observedFocus * 100).toFixed(0) }}%</span>
                 <span class="metric-note">Fokus tab aktual</span>
               </div>
               <div class="metric-item highlight">
-                <span class="metric-title">Sinyal Residual \(\Delta B\):</span>
+                <span class="metric-title">Sinyal Residual ΔB:</span>
                 <span class="metric-val" :style="{ color: deltaBColor }">{{ liveDeltaB.toFixed(2) }}</span>
                 <span class="metric-note"><strong>{{ deltaBInterpretation }}</strong></span>
               </div>
@@ -163,13 +163,13 @@
           <div class="calc-box border-green" style="margin-top: 1rem;">
             <div class="calc-header">
               <span class="calc-step-num">STEP 2: FAIR-LINUCB ACTION SELECTION</span>
-              <span class="formula-inline">\(A^* = \arg\max_{a} r_t(a)\)</span>
+              <span class="formula-inline">A* = argmax_a r_t(a)</span>
             </div>
             
             <div class="recommended-action-card">
               <div class="action-badge-row">
                 <span class="action-badge-tag">{{ selectedAction.tag }}</span>
-                <span class="action-badge-score">Reward \(r_t = {{ liveRewardScore.toFixed(2) }}\)</span>
+                <span class="action-badge-score">Reward r_t = {{ liveRewardScore.toFixed(2) }}</span>
               </div>
               <h4 class="action-title">{{ selectedAction.name }}</h4>
               <p class="action-desc">{{ selectedAction.desc }}</p>
@@ -226,6 +226,9 @@
 
         </div>
       </div>
+
+      <!-- CCBN & Fair-LinUCB Theoretical Literature Matrix -->
+      <CcbnLiteratureGrounding />
     </main>
   </div>
 </template>
@@ -233,6 +236,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import Navbar from '~/components/Navbar.vue';
+import CcbnLiteratureGrounding from '~/components/CcbnLiteratureGrounding.vue';
 
 // Simulator State
 const currentPreset = ref<string>('3T_mobile');

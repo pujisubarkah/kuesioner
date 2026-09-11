@@ -20,7 +20,7 @@
               Celah Penelitian Algoritma Pembelajaran Adaptif Berkeadilan (Fairness-Aware)
             </h2>
             <p style="font-size: 0.9rem; color: #94A3B8; margin: 0; max-width: 850px; line-height: 1.5;">
-              Pemetaan 271 celah riset yang diselaraskan dengan 3 pilar komputasi: <strong>(1) Sumber Bukti Otentik & Retensi Parsial</strong>, <strong>(2) Definisi Contextual Fairness & Residual \(\Delta B\)</strong>, dan <strong>(3) Optimisasi Dynamic Reward Multi-Armed Bandit</strong>.
+              Pemetaan 271 celah riset yang diselaraskan dengan 3 pilar komputasi: <strong>(1) Sumber Bukti Otentik & Retensi Parsial</strong>, <strong>(2) Definisi Contextual Fairness & Residual ΔB</strong>, dan <strong>(3) Optimisasi Dynamic Reward Multi-Armed Bandit</strong>.
             </p>
           </div>
 
