@@ -110,3 +110,72 @@ export const spbeEvaluations = kuesionerSchema.table('spbe_evaluations', {
   tahun: integer('tahun').default(2025),
   createdAt: timestamp('created_at').defaultNow().notNull()
 });
+
+// Table: kuesioner.expert_validations (Uji Validitas Pakar Widyaiswara / Expert Judgment)
+export const expertValidations = kuesionerSchema.table('expert_validations', {
+  id: text('id').primaryKey(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+
+  // Identitas Pakar Widyaiswara
+  evaluatorName: text('evaluator_name'),
+  institution: text('institution').notNull(), // e.g., Puslatbang LAN RI, BPSDM Prov. Sulsel
+  functionalPosition: text('functional_position').notNull(), // Widyaiswara Ahli Utama/Madya/Muda/Pertama/PTP/Lainnya
+  experienceYears: text('experience_years'), // <3 thn, 3-7 thn, >7 thn
+  regionCoverage: text('region_coverage'), // Wilayah Barat, Tengah, Timur/3T
+
+  // Skor Penilaian (Skala 1 - 5)
+  // Dimensi 1: Relevansi Masalah Lapangan (A1 - A2)
+  scoreA1Problem3T: integer('score_a1_problem_3t').notNull(),
+  scoreA2WorkInterruption: integer('score_a2_work_interruption').notNull(),
+
+  // Dimensi 2: Keadilan Algoritmik & Etika Evaluasi (B1 - B2)
+  scoreB1SpatialEquity: integer('score_b1_spatial_equity').notNull(),
+  scoreB2NonPunitiveEthics: integer('score_b2_non_punitive_ethics').notNull(),
+
+  // Dimensi 3: Kesesuaian Pedagogis & Andragogi (C1 - C3)
+  scoreC1MicroChunking: integer('score_c1_micro_chunking').notNull(),
+  scoreC2TextAudioFallback: integer('score_c2_text_audio_fallback').notNull(),
+  scoreC3GracefulBookmark: integer('score_c3_graceful_bookmark').notNull(),
+
+  // Dimensi 4: Kelayakan Implementasi Kebijakan (D1 - D2)
+  scoreD1LmsAdoptionFeasibility: integer('score_d1_lms_adoption_feasibility').notNull(),
+  scoreD2OverallQualityImpact: integer('score_d2_overall_quality_impact').notNull(),
+
+  // Kualitatif & Rekomendasi
+  pedagogicalAdvice: text('pedagogical_advice'),
+  policyRecommendation: text('policy_recommendation'),
+  expertConclusion: text('expert_conclusion').notNull(), // Layak Tanpa Revisi / Layak dengan Catatan Minor / Perlu Penyesuaian
+
+  // Metadata tambahan
+  ipAddress: text('ip_address')
+});
+
+// Table: kuesioner.expert_interviews (Transkrip & Notulensi Wawancara Kualitatif Pakar / Qualitative Triangulation)
+export const expertInterviews = kuesionerSchema.table('expert_interviews', {
+  id: text('id').primaryKey(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+
+  // Metadata Wawancara
+  interviewDate: text('interview_date').notNull(),
+  intervieweeName: text('interviewee_name').notNull(),
+  institution: text('institution').notNull(),
+  functionalPosition: text('functional_position').notNull(),
+  interviewDuration: text('interview_duration'), // e.g. "30 Menit", "45 Menit"
+  interviewer: text('interviewer').default('Pujiatmo Subarkah'),
+  audioRecordingLink: text('audio_recording_link'),
+
+  // Catatan 4 Kluster Tematik Wawancara
+  topic1RealityFindings: text('topic1_reality_findings'), // Hambatan Sinyal 3T & Tugas Kedinasan
+  topic2FairnessFindings: text('topic2_fairness_findings'), // Pandangan Keadilan Evaluasi & Bebas Sanksi
+  topic3AndragogyFindings: text('topic3_andragogy_findings'), // Kesesuaian Micro-learning, Teks/Audio, Bookmark
+  topic4PolicyRecommendations: text('topic4_policy_recommendations'), // Strategi Implementasi LAN/BPSDM
+
+  // Kutipan Kunci / Gold Quotes (Verbatim untuk Bab IV Disertasi)
+  keyQuotesVerbatim: text('key_quotes_verbatim'),
+
+  // Kesimpulan Sikap Narasumber
+  overallVerdict: text('overall_verdict').notNull(), // e.g. "Mendukung Penuh Tanpa Syarat", "Mendukung dengan Catatan Regulasi", "Perlu Kajian Lanjutan"
+  ipAddress: text('ip_address')
+});
+
+

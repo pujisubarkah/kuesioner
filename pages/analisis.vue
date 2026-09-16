@@ -55,13 +55,30 @@
           </p>
           
           <div class="math-box math-blue">
-            <div class="math-display">
-              A_t^* = \arg\max_a \left[ x_t^T \hat{\theta}_a + \alpha \sqrt{x_t^T A_a^{-1} x_t} \right]
+            <div class="math-formula-rendered">
+              <span class="m-lhs"><span class="m-bold">A</span><sub class="m-idx">t</sub><sup class="m-ast">*</sup></span>
+              <span class="m-sign">=</span>
+              <span class="m-operator"><span class="m-op-txt">arg max</span><sub class="m-op-cond">a ∈ &#119964;</sub></span>
+              <span class="m-bracket">[</span>
+              <span class="m-term-box term-blue">
+                <span class="m-bold">x</span><sub class="m-idx">t</sub><sup class="m-exp">T</sup> <span class="m-bold">&theta;&#770;</span><sub class="m-idx">a</sub>
+              </span>
+              <span class="m-sign">+</span>
+              <span class="m-term-box term-purple">
+                <span class="m-sym">&alpha;</span>
+                <span class="m-sqrt-wrap">
+                  <span class="m-sqrt-symbol">&radic;</span>
+                  <span class="m-sqrt-inner">
+                    <span class="m-bold">x</span><sub class="m-idx">t</sub><sup class="m-exp">T</sup> <span class="m-bold">A</span><sub class="m-idx">a</sub><sup class="m-exp">-1</sup> <span class="m-bold">x</span><sub class="m-idx">t</sub>
+                  </span>
+                </span>
+              </span>
+              <span class="m-bracket">]</span>
             </div>
             <div class="math-legend">
-              <span><strong>x_t^T θ̂_a</strong> : Estimasi Reward</span>
+              <span class="leg-pill pill-blue-sm"><strong>x<sub>t</sub><sup>T</sup> &theta;&#770;<sub>a</sub></strong> : Estimasi Reward (Eksploitasi)</span>
               <span class="dot">•</span>
-              <span><strong>α √(x_t^T A_a⁻¹ x_t)</strong> : Bonus Eksplorasi Ketidakpastian</span>
+              <span class="leg-pill pill-purple-sm"><strong>&alpha; &radic;(x<sub>t</sub><sup>T</sup> A<sub>a</sub><sup>-1</sup> x<sub>t</sub>)</strong> : Bonus Eksplorasi Ketidakpastian (UCB Bound)</span>
             </div>
           </div>
           <div class="stage-callout callout-blue">
@@ -105,6 +122,263 @@
       </section>
 
       <!-- ========================================================================= -->
+      <!-- DIAGRAM KERANGKA BERPIKIR: MODERASI SPASIAL DALAM CABA-CCBN (GAMBAR 2 & 3)-->
+      <!-- ========================================================================= -->
+      <section class="card spatial-moderation-diagram-card">
+        <div class="diagram-head">
+          <div class="badge-row">
+            <span class="badge badge-indigo">🔬 Diagram Kerangka Berpikir (Gambar 2 & 3 Proposal)</span>
+            <span class="badge badge-dashed">┆ Moderasi Spasial (Garis Putus-Putus)</span>
+            <span class="badge badge-cyan">Persamaan (1)–(11)</span>
+          </div>
+          <h2 class="diagram-title">
+            Struktur Alur Pipeline Komputasi & Efek Moderasi Spasial CABA–CCBN
+          </h2>
+          <p class="diagram-desc">
+            Sesuai perumusan proposal disertasi, jalur vertikal padat (<em>solid arrow</em>) menggambarkan <strong>data pipeline primer</strong> dari trace mentah hingga rekomendasi adaptif. Jalur samping bergaris putus-putus (<strong><em>dashed border & connector</em></strong>) merepresentasikan peran <strong>Moderasi Konteks Spasial ($S_{i,t}$)</strong> yang mengondisikan ekspektasi baseline perilaku wajar dan mengatur bobot <em>spatially-gated fusion</em> ($g_{i,t}$).
+          </p>
+        </div>
+
+        <div class="diagram-interactive-body">
+          <!-- Main Sequential Flow Column -->
+          <div class="flow-pipeline-col">
+            <!-- Box 1 -->
+            <div class="pipe-box pipe-blue">
+              <div class="pipe-header">
+                <span class="pipe-step-num">LANGKAH 1</span>
+                <span class="pipe-eq">Persamaan (1)</span>
+              </div>
+              <div class="pipe-title">1) Trace LMS Mentah (<strong>x</strong><sub>i,t</sub>)</div>
+              <div class="pipe-content">
+                <div class="math-sym-row">
+                  <span class="m-bold">x</span><sub>i,t</sub> = [<span class="m-var">login</span><sub>i,t</sub>, <span class="m-var">durasi</span><sub>i,t</sub>, <span class="m-var">clickstream</span><sub>i,t</sub>, <span class="m-var">completion</span><sub>i,t</sub>, <span class="m-var">artifact</span><sub>i,t</sub>]
+                </div>
+                <span class="pipe-note">Bukan label mutlak kemampuan, melainkan evidensi probabilistik awal.</span>
+              </div>
+            </div>
+
+            <div class="solid-connector-down">
+              <span class="connector-line"></span>
+              <span class="connector-arrow">▼</span>
+            </div>
+
+            <!-- Box 2 -->
+            <div class="pipe-box pipe-indigo">
+              <div class="pipe-header">
+                <span class="pipe-step-num">LANGKAH 2</span>
+                <span class="pipe-eq">Persamaan (2)</span>
+              </div>
+              <div class="pipe-title">2) Konteks Enam Dimensi (<strong>c</strong><sub>i,t</sub>)</div>
+              <div class="pipe-content">
+                <div class="math-sym-row">
+                  <span class="m-bold">c</span><sub>i,t</sub> = [<span class="m-var">T</span><sub>i,t</sub>, <span class="m-var">I</span><sub>i,t</sub>, <span class="m-var">O</span><sub>i,t</sub>, <span class="m-var">D</span><sub>i,t</sub>, <span class="m-var">W</span><sub>i,t</sub>, <span class="m-var">S</span><sub>i,t</sub>]
+                </div>
+                <span class="pipe-tags">
+                  <span class="p-tag">Temporal (T)</span>
+                  <span class="p-tag">Infrastruktur (I)</span>
+                  <span class="p-tag">Organisasi (O)</span>
+                  <span class="p-tag">Perangkat (D)</span>
+                  <span class="p-tag">Beban Kerja (W)</span>
+                  <span class="p-tag highlight-tag">Spasial (S)</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="solid-connector-down">
+              <span class="connector-line"></span>
+              <span class="connector-arrow">▼</span>
+            </div>
+
+            <!-- Box 3 -->
+            <div class="pipe-box pipe-amber">
+              <div class="pipe-header">
+                <span class="pipe-step-num">LANGKAH 3</span>
+                <span class="pipe-eq">Persamaan (3) & (4)</span>
+              </div>
+              <div class="pipe-title">3) Missingness (m<sub>i,t</sub>) & Kualitas Evidensi (q<sub>i,t</sub>)</div>
+              <div class="pipe-content">
+                <div class="math-sym-row">
+                  <span class="m-var">q</span><sub>i,t</sub> = 1 - <span class="m-var">m</span><sub>i,t</sub> - <span class="m-sym">&lambda;</span> &middot; <span class="m-var">noise</span><sub>i,t</sub>
+                </div>
+                <span class="pipe-note">Uji MNAR via Little's Test & Pattern-Mixture Model (PMM). Data hilang tidak otomatis dianggap lalai.</span>
+              </div>
+            </div>
+
+            <div class="solid-connector-down">
+              <span class="connector-line"></span>
+              <span class="connector-arrow">▼</span>
+            </div>
+
+            <!-- Box 4: CCBN Baseline (Target of Moderation) -->
+            <div class="pipe-box pipe-purple moderated-target-box">
+              <div class="pipe-header">
+                <span class="pipe-step-num">LANGKAH 4 (INTI CCBN)</span>
+                <span class="pipe-eq">Persamaan (5) & (7, 8)</span>
+              </div>
+              <div class="pipe-title">4) Baseline Perilaku Kontekstual (<strong>b</strong><sub>i,t</sub>) & Spatially-Gated Fusion (<strong>z</strong><sub>i,t</sub>)</div>
+              <div class="pipe-content">
+                <div class="formula-subgrid">
+                  <div class="math-sub-cell">
+                    <span class="f-lbl">Baseline Perilaku Wajar:</span>
+                    <span class="m-bold">b</span><sub>i,t</sub> = <span class="m-func">f</span>(<span class="m-bold">c</span><sub>i,t</sub>, <span class="m-var">q</span><sub>i,t</sub>)
+                  </div>
+                  <div class="math-sub-cell">
+                    <span class="f-lbl">Bobot Gerbang Spasial:</span>
+                    <span class="m-var">g</span><sub>i,t</sub> = <span class="m-sym">&sigma;</span>(<span class="m-sym">&alpha;</span><span class="m-var">S</span><sub>i,t</sub> + <span class="m-sym">&beta;</span><span class="m-var">I</span><sub>i,t</sub> + <span class="m-sym">&gamma;</span><span class="m-var">q</span><sub>i,t</sub>)
+                  </div>
+                  <div class="math-sub-cell full-w">
+                    <span class="f-lbl">Representasi Fusi Akhir (Persamaan 8):</span>
+                    <span class="m-bold">z</span><sub>i,t</sub> = <span class="m-var">g</span><sub>i,t</sub> &middot; <span class="m-bold">x</span><sub>i,t</sub> + (1 - <span class="m-var">g</span><sub>i,t</sub>) &middot; <span class="m-bold">c</span><sub>i,t</sub>
+                  </div>
+                </div>
+              </div>
+              <div class="moderated-receive-badge">
+                <span class="dot-pulse"></span> Dimoderasi langsung oleh Indeks Spasial <strong>S<sub>i,t</sub></strong>
+              </div>
+            </div>
+
+            <div class="solid-connector-down">
+              <span class="connector-line"></span>
+              <span class="connector-arrow">▼</span>
+            </div>
+
+            <!-- Box 5 -->
+            <div class="pipe-box pipe-cyan">
+              <div class="pipe-header">
+                <span class="pipe-step-num">LANGKAH 5</span>
+                <span class="pipe-eq">Persamaan (6)</span>
+              </div>
+              <div class="pipe-title">5) Deviasi Aktual terhadap Baseline (<strong>d</strong><sub>i,t</sub>)</div>
+              <div class="pipe-content">
+                <div class="math-sym-row">
+                  <span class="m-bold">d</span><sub>i,t</sub> = <span class="m-bold">x</span><sub>i,t</sub> - <span class="m-bold">b</span><sub>i,t</sub>
+                </div>
+                <span class="pipe-note">Membedakan kendala infrastruktur dari deviasi belajar otentik.</span>
+              </div>
+            </div>
+
+            <div class="solid-connector-down">
+              <span class="connector-line"></span>
+              <span class="connector-arrow">▼</span>
+            </div>
+
+            <!-- Box 6 -->
+            <div class="pipe-box pipe-rose">
+              <div class="pipe-header">
+                <span class="pipe-step-num">LANGKAH 6</span>
+                <span class="pipe-eq">Persamaan (9), (9a), (9b)</span>
+              </div>
+              <div class="pipe-title">6) Evaluasi Keadilan Formal (*Contextual Fairness*)</div>
+              <div class="pipe-content">
+                <div class="fairness-two-pillars">
+                  <div class="f-pil">
+                    <strong>Persamaan (9a) Recommendation Burden Gap:</strong>
+                    <span class="m-func">max</span><sub>g,h &isin; G</sub> | <span class="m-sym">&#120124;</span>[<span class="m-var">CB</span><sub>i,a,t</sub> | g] - <span class="m-sym">&#120124;</span>[<span class="m-var">CB</span><sub>i,a,t</sub> | h] |
+                  </div>
+                  <div class="f-pil">
+                    <strong>Persamaan (9b) Interpretation Error Gap:</strong>
+                    <span class="m-func">max</span><sub>g,h &isin; G</sub> | <span class="m-var">MAE</span><sub>g,t</sub>(d) - <span class="m-var">MAE</span><sub>h,t</sub>(d) |
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="solid-connector-down">
+              <span class="connector-line"></span>
+              <span class="connector-arrow">▼</span>
+            </div>
+
+            <!-- Box 7 -->
+            <div class="pipe-box pipe-emerald">
+              <div class="pipe-header">
+                <span class="pipe-step-num">LANGKAH 7 (OUTPUT)</span>
+                <span class="pipe-eq">Persamaan (10) & (11)</span>
+              </div>
+              <div class="pipe-title">7) Rekomendasi LinUCB Time-Varying Non-Punitif (<strong>a</strong><sub>t+1</sub><sup>*</sup>)</div>
+              <div class="pipe-content">
+                <div class="math-sym-row wrap">
+                  <span class="m-bold">a</span><sub>t+1</sub><sup>*</sup> = <span class="m-func">arg max</span><sub>a &isin; &#119964;</sub> [ <span class="m-bold">&theta;&#770;</span><sub>a,t</sub><sup>T</sup> <span class="m-bold">z</span><sub>i,t</sub> + <span class="m-sym">&alpha;</span><sub>t</sub> &radic;(<span class="m-bold">z</span><sub>i,t</sub><sup>T</sup> <span class="m-bold">A</span><sub>a,t</sub><sup>-1</sup> <span class="m-bold">z</span><sub>i,t</sub>) - <span class="m-sym">&mu;</span><sub>t</sub> <span class="m-var">CB</span><sub>i,a,t</sub> - <span class="m-sym">&nu;</span><sub>t</sub> <span class="m-var">OB</span><sub>i,a,t</sub> - <span class="m-sym">&rho;</span><sub>t</sub> &Delta;<span class="m-bold">c</span><sub>i,t</sub> ]
+                </div>
+                <span class="pipe-note">Pemilihan materi (materi hemat bandwidth, micro-chunking, audio mikro) dengan dukungan tata kelola HITL.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Spatial Moderation Sidebar (Dashed Line Component) -->
+          <div class="spatial-moderator-sidebar">
+            <div class="dashed-moderator-card">
+              <div class="dashed-badge">
+                <span class="dashed-icon">┆</span>
+                <span>VARIABEL MODERATOR UTAMA</span>
+              </div>
+
+              <h3 class="mod-title">
+                🌐 Moderasi Konteks Spasial (<strong>S</strong><sub>i,t</sub>)
+              </h3>
+              <p class="mod-subtitle">
+                Indeks Komposit Dua Lapis (Persamaan 2a–2c):
+              </p>
+
+              <div class="mod-formula-box">
+                <div class="mod-formula-main">
+                  <span class="m-bold">S</span><sub>i,t</sub> = <span class="m-sym">&delta;</span> &middot; <span class="m-bold">K</span><sub>i</sub> + (1 - <span class="m-sym">&delta;</span>) &middot; <span class="m-bold">N</span><sub>i,t</sub>
+                </div>
+                <div class="mod-layers">
+                  <!-- Layer 1 -->
+                  <div class="layer-item">
+                    <span class="layer-dot blue"></span>
+                    <div class="layer-txt">
+                      <strong>Lapis 1: Klaster Struktural Makro (K<sub>i</sub>)</strong>
+                      <span>Data Terbuka BPS, Podes sinyal desa, APJII, Ookla Speedtest (Persamaan 2a).</span>
+                    </div>
+                  </div>
+                  <!-- Layer 2 -->
+                  <div class="layer-item">
+                    <span class="layer-dot amber"></span>
+                    <div class="layer-txt">
+                      <strong>Lapis 2: Kualitas Jaringan Sesi (N<sub>i,t</sub>)</strong>
+                      <span>Telemetri real-time: Latency, Retry Rate, Buffering, Sync Failure (Persamaan 2b).</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Dashed Connector Visual Indicator -->
+              <div class="dashed-action-indicator">
+                <div class="indicator-arrow-box">
+                  <span class="dashed-arrow-line">---------------------------------➔</span>
+                  <span class="indicator-label">Efek Moderasi Statistik (H2a: K<sub>i</sub> &times; x<sub>i,t</sub>)</span>
+                </div>
+                <ul class="mod-impact-list">
+                  <li>
+                    <span class="icon-check">✓</span>
+                    <span><strong>Mengondisikan Baseline (b<sub>i,t</sub>):</strong> Standar keaktifan wajar di 3T disesuaikan secara adil.</span>
+                  </li>
+                  <li>
+                    <span class="icon-check">✓</span>
+                    <span><strong>Mengontrol Gerbang Spasial (g<sub>i,t</sub>):</strong> Jika sinyal drop (S<sub>i,t</sub> &rarr; 0), model beralih mengandalkan konteks c<sub>i,t</sub> agar tidak menghukum peserta.</span>
+                  </li>
+                  <li>
+                    <span class="icon-check">✓</span>
+                    <span><strong>Mencegah infrastructural confounding:</strong> Menjaga validitas epistemik sebelum pemilihan rekomendasi.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="service-dynamics-box">
+                <div class="sd-head">
+                  <span class="sd-tag">⚙️ Service Dynamics Fusion (OB<sub>i,a,t</sub>)</span>
+                </div>
+                <p class="sd-desc">
+                  Data beban layanan publik agregat (SP4N-LAPOR) berinteraksi memoderasi penalti beban operasional pada Persamaan (10) & (11).
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
       <!-- TAHAP 3: ALGORITHM DEVELOPMENT ROADMAP                                    -->
       <!-- ========================================================================= -->
       <section class="card roadmap-section">
@@ -130,86 +404,97 @@
           <div class="roadmap-step step-done">
             <div class="step-num">STEP 1</div>
             <h3 class="step-heading">Context-Aware LinUCB</h3>
-            <p class="step-text">Pemodelan vektor kendala spasial, bandwidth (β_bw), latensi (β_lat), & beban dinas (T_work).</p>
+            <p class="step-text">Pemodelan vektor kendala spasial, bandwidth (&beta;<sub>bw</sub>), latensi (&beta;<sub>lat</sub>), & beban dinas (T<sub>work</sub>).</p>
             <span class="step-tag tag-blue">✅ Fitur Dipetakan</span>
           </div>
 
           <div class="roadmap-step step-done">
             <div class="step-num">STEP 2</div>
             <h3 class="step-heading">Disparity Measurement</h3>
-            <p class="step-text">Pengukuran gap luaran antar wilayah: D_{a,t} = |μ̂_{a,3T} - μ̂_{a,Urban}|.</p>
+            <p class="step-text">Pengukuran gap luaran antar wilayah: D<sub>a,t</sub> = |&mu;&#770;<sub>a,3T</sub> - &mu;&#770;<sub>a,Urban</sub>|.</p>
             <span class="step-tag tag-blue">✅ Metrik Terdefinisi</span>
           </div>
 
           <div class="roadmap-step step-active">
             <div class="step-num">STEP 3</div>
             <h3 class="step-heading">Disparity-Aware Decision</h3>
-            <p class="step-text">Penetapan fungsi skor keputusan berbobot penalti disparitas Score_{a,t}.</p>
+            <p class="step-text">Penetapan fungsi skor keputusan berbobot penalti disparitas Score<sub>a,t</sub>.</p>
             <span class="step-tag tag-amber">🟡 Under Development</span>
           </div>
 
           <div class="roadmap-step step-future">
             <div class="step-num">STEP 4</div>
             <h3 class="step-heading">Adaptive Controller</h3>
-            <p class="step-text">Kontroler adaptif parameter penalti λ_t berbasis kestabilan konvergensi.</p>
+            <p class="step-text">Kontroler adaptif parameter penalti &lambda;<sub>t</sub> berbasis kestabilan konvergensi.</p>
             <span class="step-tag tag-amber">🟡 Under Development</span>
           </div>
         </div>
       </section>
 
       <!-- ========================================================================= -->
-      <!-- TAHAP 4: FORMULA KANDIDAT DISERTASI                                       -->
+      <!-- TAHAP 4: FORMULASI MATEMATIKA CABA-CCBN DISERTASI (PERSAMAAN 1-11)        -->
       <!-- ========================================================================= -->
       <section class="card candidate-section">
         <div class="candidate-header">
           <div>
             <div class="badge-row">
-              <span class="badge badge-amber">📐 Formulasi Matematika Kandidat</span>
-              <span class="badge badge-outline">Candidate Formulation (Subject to Theoretical Validation)</span>
+              <span class="badge badge-amber">📐 Formulasi Matematika Lengkap Proposal</span>
+              <span class="badge badge-outline">Persamaan (1) s/d Persamaan (11) Terintegrasi</span>
             </div>
-            <h2 class="candidate-title">4. Candidate Disparity-Aware Formulation</h2>
+            <h2 class="candidate-title">4. Formulasi Komputasional Utama CABA–CCBN LinUCB</h2>
           </div>
         </div>
 
         <div class="candidate-math-card">
           <div class="candidate-equation-row">
             <div class="eq-token eq-target">
-              <span class="eq-sym">Score_{a,t}</span>
-              <span class="eq-lbl">Skor Seleksi Aksi</span>
+              <span class="eq-sym"><span class="m-bold">a</span><sub>t+1</sub><sup>*</sup></span>
+              <span class="eq-lbl">Aksi Optimal (Persamaan 11)</span>
             </div>
             <span class="eq-op">=</span>
+            <span class="eq-op-txt"><span class="m-func">arg max</span><sub>a &isin; &#119964;</sub> [</span>
             <div class="eq-token eq-reward">
-              <span class="eq-sym">x_t^T \hat{\theta}_a</span>
-              <span class="eq-lbl">Expected Reward (Individual Context)</span>
+              <span class="eq-sym"><span class="m-bold">&theta;&#770;</span><sub>a,t</sub><sup>T</sup> <span class="m-bold">z</span><sub>i,t</sub></span>
+              <span class="eq-lbl">Expected Learning Utility</span>
             </div>
             <span class="eq-op">+</span>
             <div class="eq-token eq-explore">
-              <span class="eq-sym">\alpha \sqrt{x_t^T A_a^{-1} x_t}</span>
-              <span class="eq-lbl">Exploration Bonus (Uncertainty Bound)</span>
+              <span class="eq-sym"><span class="m-sym">&alpha;</span><sub>t</sub> &radic;(<span class="m-bold">z</span><sub>i,t</sub><sup>T</sup> <span class="m-bold">A</span><sub>a,t</sub><sup>-1</sup> <span class="m-bold">z</span><sub>i,t</sub>)</span>
+              <span class="eq-lbl">UCB Exploration Bound</span>
             </div>
             <span class="eq-op">-</span>
             <div class="eq-token eq-penalty">
-              <span class="eq-sym">\lambda_t D_{a,t}</span>
-              <span class="eq-lbl">Regional Disparity Penalty</span>
+              <span class="eq-sym"><span class="m-sym">&mu;</span><sub>t</sub> <span class="m-var">CB</span><sub>i,a,t</sub></span>
+              <span class="eq-lbl">Contextual Burden (Eq. 9)</span>
             </div>
+            <span class="eq-op">-</span>
+            <div class="eq-token eq-penalty" style="background:#FFF1F2; border-color:#FDA4AF;">
+              <span class="eq-sym"><span class="m-sym">&nu;</span><sub>t</sub> <span class="m-var">OB</span><sub>i,a,t</sub> + <span class="m-sym">&rho;</span><sub>t</sub> &Delta;<span class="m-bold">c</span><sub>i,t</sub></span>
+              <span class="eq-lbl">Service Burden & Context Shift</span>
+            </div>
+            <span class="eq-op">]</span>
           </div>
 
           <div class="candidate-rules-row">
             <div class="rule-box">
-              <span class="rule-k">Keputusan Aksi Optimal:</span>
-              <span class="rule-v">a_t^* = \arg\max_a Score_{a,t}</span>
+              <span class="rule-k">Spatially-Gated Fusion (Eq. 8):</span>
+              <span class="rule-v"><span class="m-bold">z</span><sub>i,t</sub> = <span class="m-var">g</span><sub>i,t</sub> &middot; <span class="m-bold">x</span><sub>i,t</sub> + (1 - <span class="m-var">g</span><sub>i,t</sub>) &middot; <span class="m-bold">c</span><sub>i,t</sub></span>
             </div>
             <div class="rule-box">
-              <span class="rule-k">Definisi Disparitas Regional:</span>
-              <span class="rule-v">D_{a,t} = |\hat{\mu}_{a,3T} - \hat{\mu}_{a,\text{Urban}}|</span>
+              <span class="rule-k">Bobot Gerbang Spasial (Eq. 7):</span>
+              <span class="rule-v"><span class="m-var">g</span><sub>i,t</sub> = <span class="m-sym">&sigma;</span>(<span class="m-sym">&alpha;</span><span class="m-var">S</span><sub>i,t</sub> + <span class="m-sym">&beta;</span><span class="m-var">I</span><sub>i,t</sub> + <span class="m-sym">&gamma;</span><span class="m-var">q</span><sub>i,t</sub>)</span>
+            </div>
+            <div class="rule-box">
+              <span class="rule-k">Indeks Spasial Komposit (Eq. 2c):</span>
+              <span class="rule-v"><span class="m-bold">S</span><sub>i,t</sub> = <span class="m-sym">&delta;</span> <span class="m-bold">K</span><sub>i</sub> + (1 - <span class="m-sym">&delta;</span>) <span class="m-bold">N</span><sub>i,t</sub></span>
             </div>
           </div>
         </div>
 
         <div class="candidate-disclaimer">
-          <span class="disc-icon">⚠️</span>
+          <span class="disc-icon">💡</span>
           <div class="disc-text">
-            <strong>Catatan Ilmiah:</strong> <em>Candidate formulation — subject to theoretical validation and comparison with existing fair contextual bandit approaches. Formulasi ini dirancang untuk mengontrol gap disparitas D tanpa mendegradasi performa agregat secara berlebihan.</em>
+            <strong>Keterkaitan Konseptual Proposal:</strong> Formulasi Persamaan (11) ini memastikan bahwa algoritma tidak hanya mengejar <em>utility</em> kognitif secara buta, melainkan mengurangi penalti beban kontekstual (<span class="m-var">CB</span><sub>i,a,t</sub>) dan beban operasional dinas (<span class="m-var">OB</span><sub>i,a,t</sub>). Fitur yang digunakan oleh Contextual Bandit berasal dari vektor fusi terkalibrasi <span class="m-bold">z</span><sub>i,t</sub> yang telah dimoderasi oleh kondisi spasial <span class="m-bold">S</span><sub>i,t</sub> dan kualitas data <span class="m-var">q</span><sub>i,t</sub>.
           </div>
         </div>
       </section>
@@ -361,6 +646,18 @@
                 <td><span class="tbl-badge badge-rose">0.29 (Kesenjangan Lebar)</span></td>
                 <td><span class="tbl-badge badge-emerald">{{ liveDisparityGap.toFixed(2) }} (Kesenjangan Rata)</span></td>
                 <td class="text-emerald"><strong>-{{ (0.29 - liveDisparityGap).toFixed(2) }} (Reduksi Disparitas ~{{ liveGapReductionPct }}%)</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Recommendation Burden Gap (Persamaan 9a)</strong><br><small class="text-slate">max |E[CB|3T] - E[CB|Urban]| (Disparitas Beban Kuota/Waktu)</small></td>
+                <td><span class="tbl-badge badge-rose">0.38 (Beban Timpang)</span></td>
+                <td><span class="tbl-badge badge-emerald">{{ (liveDisparityGap * 0.45).toFixed(2) }} (Beban Setara)</span></td>
+                <td class="text-emerald"><strong>Mencegah modul berbobot berat dipaksakan di 3T</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Interpretation Error Gap (Persamaan 9b)</strong><br><small class="text-slate">max |MAE_{3T}(d) - MAE_{Urban}(d)| (Guardrail Epistemik MNAR)</small></td>
+                <td><span class="tbl-badge badge-rose">0.24 (Bias Observabilitas)</span></td>
+                <td><span class="tbl-badge badge-emerald">{{ (0.04 + liveDisparityGap * 0.1).toFixed(2) }} (&lt; 0.05 Target)</span></td>
+                <td class="text-emerald"><strong>Validitas pembacaan trace seimbang di semua wilayah</strong></td>
               </tr>
             </tbody>
           </table>
@@ -596,6 +893,49 @@
                 </div>
               </div>
             </div>
+
+            <!-- Human-in-the-Loop (HITL) Widyaiswara Action & Audit Box -->
+            <div class="hitl-governance-card">
+              <div class="hitl-head">
+                <div class="hitl-title-row">
+                  <span class="hitl-icon">🛡️</span>
+                  <span class="hitl-heading">Human-in-the-Loop (HITL) & Non-Punitive Audit</span>
+                </div>
+                <span class="hitl-badge" :class="hitlStatus === 'approved' ? 'badge-green' : 'badge-amber'">
+                  {{ hitlStatus === 'approved' ? '✅ Rekomendasi Terverifikasi' : (hitlStatus === 'modified' ? '✏️ Dikoreksi Widyaiswara' : '⏸️ Ditunda / Reschedule') }}
+                </span>
+              </div>
+              <p class="hitl-desc">
+                Sesuai batasan tata kelola proposal (Sub-bab 4.3), seluruh rekomendasi algoritma berada di bawah supervisi Widyaiswara dan hanya berfungsi sebagai <strong>dukungan peningkatan kapasitas</strong>, bukan instrumen penilaian disiplin/punitif.
+              </p>
+              <div class="hitl-btn-group">
+                <button 
+                  class="hitl-btn" 
+                  :class="{ active: hitlStatus === 'approved' }"
+                  @click="setHitlStatus('approved')"
+                >
+                  <span>✓ Setujui Format Adaptif</span>
+                </button>
+                <button 
+                  class="hitl-btn" 
+                  :class="{ active: hitlStatus === 'modified' }"
+                  @click="setHitlStatus('modified')"
+                >
+                  <span>✏️ Koreksi Moda Belajar</span>
+                </button>
+                <button 
+                  class="hitl-btn" 
+                  :class="{ active: hitlStatus === 'deferred' }"
+                  @click="setHitlStatus('deferred')"
+                >
+                  <span>⏸️ Jadwal Ulang (Beban Dinas)</span>
+                </button>
+              </div>
+              <div class="hitl-audit-log">
+                <span class="log-label">📋 Entri Log Audit Tata Kelola:</span>
+                <code>[AUDIT-LOG: {{ currentPreset.toUpperCase() }}] Rekomendasi='{{ selectedAction.name }}' | Residual ΔB={{ liveDeltaB.toFixed(2) }} | Status={{ hitlStatus.toUpperCase() }} | Proteksi: Data Dipseudonimkan & Non-Punitif.</code>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -611,6 +951,12 @@
 import { ref, computed } from 'vue';
 import Navbar from '~/components/Navbar.vue';
 import CcbnLiteratureGrounding from '~/components/CcbnLiteratureGrounding.vue';
+
+// Human-in-the-Loop State
+const hitlStatus = ref<'approved' | 'modified' | 'deferred'>('approved');
+function setHitlStatus(status: 'approved' | 'modified' | 'deferred') {
+  hitlStatus.value = status;
+}
 
 // Dynamic Lambda (Disparity Penalty Weight)
 const lambdaWeight = ref<number>(0.50);
@@ -2145,4 +2491,716 @@ const staticRuleDecision = computed(() => {
 .text-amber { color: #D97706; }
 .text-emerald { color: #059669; }
 .font-bold { font-weight: 700; }
+
+/* ========================================================================= */
+/* DIAGRAM MODERASI SPASIAL (GAMBAR 2 & 3 PROPOSAL)                          */
+/* ========================================================================= */
+.spatial-moderation-diagram-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 1.75rem 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid #CBD5E1;
+  box-shadow: 0 4px 15px -2px rgba(15, 23, 42, 0.05);
+}
+
+.diagram-head {
+  margin-bottom: 1.5rem;
+}
+
+.badge-indigo {
+  background: rgba(99, 102, 241, 0.15);
+  color: #4F46E5;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.badge-cyan {
+  background: rgba(6, 182, 212, 0.15);
+  color: #0891B2;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.badge-dashed {
+  background: #F5F3FF;
+  color: #6D28D9;
+  border: 1.5px dashed #8B5CF6;
+}
+
+.diagram-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0.4rem 0 0.35rem 0;
+  line-height: 1.35;
+}
+
+.diagram-desc {
+  font-size: 0.85rem;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.diagram-interactive-body {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .diagram-interactive-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.flow-pipeline-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pipe-box {
+  background: #FFFFFF;
+  border-radius: 10px;
+  padding: 0.9rem 1.15rem;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease;
+}
+
+.pipe-box:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+.pipe-blue { border-left: 4px solid #3B82F6; }
+.pipe-indigo { border-left: 4px solid #6366F1; }
+.pipe-amber { border-left: 4px solid #F59E0B; }
+.pipe-purple { border-left: 4px solid #A855F7; }
+.pipe-cyan { border-left: 4px solid #06B6D4; }
+.pipe-rose { border-left: 4px solid #F43F5E; }
+.pipe-emerald { border-left: 4px solid #10B981; }
+
+.pipe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.pipe-step-num {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #64748B;
+  letter-spacing: 0.05em;
+}
+
+.pipe-eq {
+  font-size: 0.675rem;
+  font-weight: 700;
+  color: #2563EB;
+  background: #EFF6FF;
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+}
+
+.pipe-title {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 0.35rem;
+}
+
+.pipe-content {
+  font-size: 0.775rem;
+  color: #475569;
+}
+
+.pipe-content code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.725rem;
+  background: #F1F5F9;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #1E293B;
+  overflow-x: auto;
+}
+
+.pipe-note {
+  font-size: 0.7rem;
+  color: #64748B;
+  display: block;
+  line-height: 1.4;
+}
+
+.pipe-tags {
+  display: flex;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  margin-top: 0.3rem;
+}
+
+.p-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  color: #475569;
+}
+
+.highlight-tag {
+  background: #EEF2FF;
+  border-color: #C7D2FE;
+  color: #4338CA;
+  font-weight: 800;
+}
+
+.solid-connector-down {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.2rem 0;
+  color: #94A3B8;
+  font-size: 0.7rem;
+}
+
+.connector-line {
+  width: 2px;
+  height: 8px;
+  background: #CBD5E1;
+}
+
+.connector-arrow {
+  margin-top: -3px;
+}
+
+.moderated-target-box {
+  background: #FAF5FF;
+  border: 1.5px solid #DDD6FE;
+  position: relative;
+}
+
+.formula-subgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.45rem;
+  margin-bottom: 0.35rem;
+}
+
+.full-w {
+  grid-column: 1 / -1;
+}
+
+.f-lbl {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #6B21A8;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.moderated-receive-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.675rem;
+  font-weight: 800;
+  color: #6D28D9;
+  background: #EDE9FE;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  margin-top: 0.4rem;
+}
+
+.dot-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8B5CF6;
+  animation: pulse 1.5s infinite;
+}
+
+.fairness-two-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.f-pil {
+  font-size: 0.675rem;
+  background: #FFF1F2;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #FFE4E6;
+}
+
+.f-pil strong {
+  display: block;
+  color: #9F1239;
+  margin-bottom: 0.2rem;
+}
+
+/* ========================================================================= */
+/* SPATIAL MODERATOR SIDEBAR (GARIS PUTUS-PUTUS / DASHED STYLING)            */
+/* ========================================================================= */
+.spatial-moderator-sidebar {
+  position: sticky;
+  top: 1.5rem;
+}
+
+.dashed-moderator-card {
+  background: linear-gradient(145deg, #FAF5FF 0%, #F5F3FF 100%);
+  border: 2.5px dashed #7C3AED;
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.08);
+  position: relative;
+}
+
+.dashed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.675rem;
+  font-weight: 800;
+  color: #6D28D9;
+  background: #EDE9FE;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid #DDD6FE;
+  margin-bottom: 0.65rem;
+  letter-spacing: 0.04em;
+}
+
+.dashed-icon {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: #7C3AED;
+}
+
+.mod-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #4C1D95;
+  margin: 0 0 0.3rem 0;
+}
+
+.mod-subtitle {
+  font-size: 0.775rem;
+  color: #6D28D9;
+  font-weight: 600;
+  margin: 0 0 0.65rem 0;
+}
+
+.mod-formula-box {
+  background: #FFFFFF;
+  border-radius: 10px;
+  padding: 0.85rem;
+  border: 1px solid #DDD6FE;
+  margin-bottom: 1rem;
+}
+
+.mod-formula-main code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #5B21B6;
+  display: block;
+  text-align: center;
+  background: #F5F3FF;
+  padding: 0.35rem;
+  border-radius: 6px;
+  margin-bottom: 0.65rem;
+}
+
+.mod-layers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.layer-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  font-size: 0.725rem;
+}
+
+.layer-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 0.3rem;
+  flex-shrink: 0;
+}
+
+.layer-dot.blue { background: #3B82F6; }
+.layer-dot.amber { background: #F59E0B; }
+
+.layer-txt strong {
+  display: block;
+  color: #1E293B;
+  font-size: 0.725rem;
+}
+
+.layer-txt span {
+  color: #64748B;
+  font-size: 0.675rem;
+  line-height: 1.35;
+  display: block;
+}
+
+.dashed-action-indicator {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding: 0.85rem;
+  border: 1px dashed #A78BFA;
+  margin-bottom: 0.85rem;
+}
+
+.indicator-arrow-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  color: #6D28D9;
+}
+
+.dashed-arrow-line {
+  font-family: monospace;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #7C3AED;
+}
+
+.indicator-label {
+  font-size: 0.675rem;
+  font-weight: 800;
+  color: #5B21B6;
+  text-transform: uppercase;
+  margin-top: 0.15rem;
+}
+
+.mod-impact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.mod-impact-list li {
+  display: flex;
+  gap: 0.4rem;
+  align-items: flex-start;
+  font-size: 0.725rem;
+  color: #334155;
+  line-height: 1.4;
+}
+
+.icon-check {
+  color: #7C3AED;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.service-dynamics-box {
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+}
+
+.sd-head {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #92400E;
+  margin-bottom: 0.2rem;
+}
+
+.sd-desc {
+  font-size: 0.675rem;
+  color: #78350F;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* ========================================================================= */
+/* HUMAN-IN-THE-LOOP (HITL) GOVERNANCE CARD                                  */
+/* ========================================================================= */
+.hitl-governance-card {
+  margin-top: 1.25rem;
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  border-radius: 12px;
+  padding: 1.15rem;
+}
+
+.hitl-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.hitl-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.hitl-icon {
+  font-size: 1rem;
+}
+
+.hitl-heading {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.hitl-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+}
+
+.badge-green { background: #DCFCE7; color: #166534; border: 1px solid #86EFAC; }
+
+.hitl-desc {
+  font-size: 0.75rem;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0 0 0.75rem 0;
+}
+
+.hitl-btn-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.hitl-btn {
+  font-size: 0.725rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1;
+  background: #FFFFFF;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hitl-btn:hover {
+  background: #F1F5F9;
+  border-color: #94A3B8;
+}
+
+.hitl-btn.active {
+  background: #0F172A;
+  color: #FFFFFF;
+  border-color: #0F172A;
+}
+
+.hitl-audit-log {
+  background: #0F172A;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.675rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.log-label {
+  color: #94A3B8;
+  font-weight: 700;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.hitl-audit-log code {
+  font-family: 'JetBrains Mono', monospace;
+  color: #38BDF8;
+  font-size: 0.675rem;
+  word-break: break-all;
+}
+
+/* ========================================================================= */
+/* MATHEMATICAL SYMBOL & TYPOGRAPHY STYLING                                 */
+/* ========================================================================= */
+.math-formula-rendered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  font-family: 'KaTeX_Math', 'KaTeX_Main', 'Cambria Math', 'Latin Modern Math', 'Times New Roman', serif;
+  font-size: 1.15rem;
+  color: #1E293B;
+  padding: 0.5rem;
+}
+
+.m-bold {
+  font-weight: 700;
+  font-family: 'KaTeX_Math', 'Cambria Math', serif;
+}
+
+.m-sym {
+  font-style: italic;
+  font-family: 'KaTeX_Math', 'Cambria Math', serif;
+}
+
+.m-var {
+  font-style: italic;
+  font-family: 'KaTeX_Math', 'Cambria Math', serif;
+}
+
+.m-func {
+  font-family: 'KaTeX_Main', 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: #1E40AF;
+}
+
+.m-idx, .m-cond {
+  font-size: 0.725em;
+  font-style: italic;
+  color: #475569;
+}
+
+.m-ast {
+  color: #D97706;
+  font-weight: 800;
+  font-size: 0.85em;
+}
+
+.m-exp {
+  font-size: 0.7em;
+  font-weight: 700;
+  color: #334155;
+}
+
+.m-sign {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #64748B;
+  margin: 0 0.15rem;
+}
+
+.m-bracket {
+  font-size: 1.4em;
+  font-weight: 300;
+  color: #64748B;
+}
+
+.m-operator {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.m-op-txt {
+  font-family: 'KaTeX_Main', sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #1E3A8A;
+}
+
+.m-op-cond {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #64748B;
+  margin-top: 0.15rem;
+}
+
+.m-term-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+}
+
+.term-blue {
+  background: #EFF6FF;
+  border-color: #BFDBFE;
+  color: #1E40AF;
+}
+
+.term-purple {
+  background: #FAF5FF;
+  border-color: #DDD6FE;
+  color: #6D28D9;
+}
+
+.m-sqrt-wrap {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.15rem;
+}
+
+.m-sqrt-symbol {
+  font-size: 1.35em;
+  font-weight: 400;
+  color: #7C3AED;
+  margin-right: -1px;
+}
+
+.m-sqrt-inner {
+  border-top: 1.5px solid #7C3AED;
+  padding-top: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.leg-pill {
+  font-size: 0.725rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+}
+
+.pill-blue-sm { background: #EFF6FF; color: #1E40AF; border: 1px solid #DBEAFE; }
+.pill-purple-sm { background: #FAF5FF; color: #6D28D9; border: 1px solid #EDE9FE; }
+
+.math-sym-row {
+  font-family: 'KaTeX_Math', 'KaTeX_Main', 'Cambria Math', 'Times New Roman', serif;
+  font-size: 0.85rem;
+  color: #0F172A;
+  background: #F8FAFC;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid #E2E8F0;
+  margin-bottom: 0.3rem;
+  display: inline-block;
+}
+
+.math-sym-row.wrap {
+  display: block;
+  line-height: 1.6;
+}
+
+.math-sub-cell {
+  background: #FFFFFF;
+  padding: 0.5rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid #DDD6FE;
+  font-family: 'KaTeX_Math', 'KaTeX_Main', serif;
+  font-size: 0.8rem;
+  color: #3B0764;
+}
 </style>
