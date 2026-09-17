@@ -8,21 +8,24 @@
       <section class="hero-banner">
         <div class="hero-content">
           <div class="hero-badge-row">
+            <span class="badge badge-emerald">🔬 Research Prototype</span>
             <span class="badge badge-blue">⚡ Baseline: LinUCB (Li et al., 2010)</span>
-            <span class="badge badge-amber">⚖️ Target Riset: Regional Disparity Aware</span>
-            <span class="badge badge-yellow">🟡 Status: Under Development</span>
+            <span class="badge badge-amber">⚖️ Target: Regional Disparity-Aware</span>
           </div>
           <h1 class="hero-title">
-            Evolusi Algoritma: Dari Baseline LinUCB Menuju Candidate Disparity-Aware LinUCB
+            Disparity-Aware Learning Adaptation Lab
           </h1>
+          <p class="hero-subtitle" style="font-weight: 700; color: #93C5FD; margin-bottom: 0.35rem;">
+            Context-Aware Adaptive Learning Algorithm for ASN Training
+          </p>
           <p class="hero-subtitle">
-            Studi komputasional komparatif: Menguji bagaimana penambahan penalti disparitas regional (<code class="formula-code">λ_t · D_{a,t}</code>) pada algoritma <strong>LinUCB</strong> menyeimbangkan trade-off antara efektivitas pembelajaran agregat (<em>expected reward</em>) dan keadilan luaran (<em>equity</em>) antara ASN wilayah 3T vs Perkotaan (Urban).
+            Computational prototype for investigating how contextual constraints and behavioral evidence can inform fair and adaptive learning interventions. Menguji trade-off antara efektivitas pembelajaran agregat (<em>expected reward</em>) dan keadilan luaran (<em>equity</em>) antara ASN wilayah 3T vs Perkotaan (Urban).
           </p>
         </div>
 
         <div class="hero-kpi-deck">
           <div class="kpi-card">
-            <span class="kpi-label">Live Candidate Score</span>
+            <span class="kpi-label">Candidate Score</span>
             <span class="kpi-val text-emerald">{{ liveRewardScore.toFixed(2) }}</span>
             <span class="kpi-sub">Score_{a,t} aktif</span>
           </div>
@@ -500,17 +503,17 @@
       </section>
 
       <!-- ========================================================================= -->
-      <!-- TAHAP 5: SIMULATOR EKSPERIMEN VISUAL & EVALUASI TRADE-OFF                -->
+      <!-- TAHAP 5: COMPUTATIONAL BLUEPRINT (12 COMPUTATIONAL MODULES A - L)       -->
       <!-- ========================================================================= -->
       <section class="section-title-wrap">
         <div class="title-col">
           <div class="badge-row">
-            <span class="badge badge-emerald">🧪 Integrated Algorithmic Laboratory</span>
-            <span class="badge badge-blue">CABA–CCBN Pipeline</span>
+            <span class="badge badge-emerald">🧪 Disparity-Aware Learning Adaptation Lab</span>
+            <span class="badge badge-blue">CABA–CCBN Architecture (Modules A–L)</span>
           </div>
-          <h2 class="main-sec-title">5. Simulator Interaktif & Evaluasi Trade-off (Effectiveness vs Equity)</h2>
+          <h2 class="main-sec-title">5. Laboratorium Komputasi Adaptasi Pembelajaran & Evaluasi Disparitas</h2>
           <p class="main-sec-desc">
-            Uji sensitivitas model terhadap penalti disparitas (λ_t), kendala lapangan aktual ASN, serta pemodelan <strong>Learning Sufficiency</strong> berbasis evidensi perilaku kontekstual.
+            Computational prototype for investigating how contextual constraints and behavioral evidence inform fair and adaptive learning interventions.
           </p>
         </div>
       </section>
@@ -521,8 +524,8 @@
           <div class="pipe-title-left">
             <span class="pipe-icon">🔄</span>
             <div>
-              <h3 class="pipeline-heading">End-to-End Computational Pipeline</h3>
-              <p class="pipeline-sub">Alur komputasi lengkap CABA–CCBN dari Konteks Lingkungan hingga Reward & Update Model</p>
+              <h3 class="pipeline-heading">End-to-End Computational Pipeline (Modules A → L)</h3>
+              <p class="pipeline-sub">Context → Behavioral Evidence → Contextual Expectation → Disparity → Learning Evidence → Fairness → Adaptive Decision → Reward → Model Update</p>
             </div>
           </div>
           <div class="pipe-actions">
@@ -545,10 +548,10 @@
             :class="{ active: simulationActiveStep === 1, done: simulationActiveStep > 1 }"
             @click="simulationActiveStep = 1"
           >
-            <div class="step-circle">1</div>
+            <div class="step-circle">A</div>
             <div class="step-label-box">
               <span class="step-name">CONTEXT</span>
-              <span class="step-detail">Bandwidth, Device, Workload</span>
+              <span class="step-detail">Vektor C_t</span>
             </div>
           </div>
           <div class="pipe-step-divider">➔</div>
@@ -558,10 +561,10 @@
             :class="{ active: simulationActiveStep === 2, done: simulationActiveStep > 2 }"
             @click="simulationActiveStep = 2"
           >
-            <div class="step-circle">2</div>
+            <div class="step-circle">B</div>
             <div class="step-label-box">
-              <span class="step-name">BEHAVIOR SIGNAL</span>
-              <span class="step-detail">Watch, Skip, Revisit, Focus</span>
+              <span class="step-name">BEHAVIOR EVIDENCE</span>
+              <span class="step-detail">Watch, Revisit, Focus</span>
             </div>
           </div>
           <div class="pipe-step-divider">➔</div>
@@ -571,10 +574,10 @@
             :class="{ active: simulationActiveStep === 3, done: simulationActiveStep > 3 }"
             @click="simulationActiveStep = 3"
           >
-            <div class="step-circle">3</div>
+            <div class="step-circle">C</div>
             <div class="step-label-box">
-              <span class="step-name">CONTEXTUAL EXPECTATION</span>
-              <span class="step-detail">E[B | C] Ekspektasi Wajar</span>
+              <span class="step-name">EXPECTATION</span>
+              <span class="step-detail">E[B | C] Wajar</span>
             </div>
           </div>
           <div class="pipe-step-divider">➔</div>
@@ -584,10 +587,10 @@
             :class="{ active: simulationActiveStep === 4, done: simulationActiveStep > 4 }"
             @click="simulationActiveStep = 4"
           >
-            <div class="step-circle">4</div>
+            <div class="step-circle">D</div>
             <div class="step-label-box">
-              <span class="step-name">DISPARITY / RESIDUAL</span>
-              <span class="step-detail">ΔB = B_obs - E[B|C]</span>
+              <span class="step-name">RESIDUAL (ΔB)</span>
+              <span class="step-detail">Deviasi Kontekstual</span>
             </div>
           </div>
           <div class="pipe-step-divider">➔</div>
@@ -597,10 +600,10 @@
             :class="{ active: simulationActiveStep === 5, done: simulationActiveStep > 5 }"
             @click="simulationActiveStep = 5"
           >
-            <div class="step-circle">5</div>
+            <div class="step-circle">E</div>
             <div class="step-label-box">
-              <span class="step-name">LEARNING SUFFICIENCY</span>
-              <span class="step-detail">LS_t Score & Evidence Timeline</span>
+              <span class="step-name">SUFFICIENCY ⭐</span>
+              <span class="step-detail">Evidence Timeline</span>
             </div>
           </div>
           <div class="pipe-step-divider">➔</div>
@@ -610,10 +613,10 @@
             :class="{ active: simulationActiveStep === 6, done: simulationActiveStep > 6 }"
             @click="simulationActiveStep = 6"
           >
-            <div class="step-circle">6</div>
+            <div class="step-circle">F</div>
             <div class="step-label-box">
-              <span class="step-name">FAIRNESS CHECK</span>
-              <span class="step-detail">Context-Adjusted Assessment</span>
+              <span class="step-name">FAIRNESS</span>
+              <span class="step-detail">D(a, C_t) ≤ ε</span>
             </div>
           </div>
           <div class="pipe-step-divider">➔</div>
@@ -623,10 +626,10 @@
             :class="{ active: simulationActiveStep === 7, done: simulationActiveStep > 7 }"
             @click="simulationActiveStep = 7"
           >
-            <div class="step-circle">7</div>
+            <div class="step-circle">G</div>
             <div class="step-label-box">
-              <span class="step-name">ADAPTIVE DECISION</span>
-              <span class="step-detail">a_t* Fallback / Scaffolding</span>
+              <span class="step-name">LINUCB ACTION</span>
+              <span class="step-detail">a_t* Optimal</span>
             </div>
           </div>
           <div class="pipe-step-divider">➔</div>
@@ -636,835 +639,675 @@
             :class="{ active: simulationActiveStep === 8, done: simulationActiveStep > 8 }"
             @click="simulationActiveStep = 8"
           >
-            <div class="step-circle">8</div>
+            <div class="step-circle">H</div>
             <div class="step-label-box">
-              <span class="step-name">REWARD</span>
-              <span class="step-detail">Outcome & Model Update</span>
+              <span class="step-name">REWARD & UPDATE</span>
+              <span class="step-detail">(C_t, a_t) → r_t → θ</span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- DYNAMIC LAMBDA CONTROLLER BAR -->
-      <section class="card lambda-controller-card">
-        <div class="lambda-grid">
-          <div class="lambda-control-side">
-            <div class="lambda-title-row">
-              <label for="lambda-range" class="lambda-label">
-                🎚️ Bobot Penalti Disparitas Regional (λ_t):
-              </label>
-              <span class="lambda-badge">λ_t = {{ lambdaWeight.toFixed(2) }}</span>
-            </div>
-            <input 
-              id="lambda-range"
-              type="range" 
-              min="0.0" 
-              max="1.0" 
-              step="0.05" 
-              v-model.number="lambdaWeight" 
-              class="slider lambda-slider" 
-            />
-            <div class="lambda-ticks">
-              <span>λ = 0.0 (Standard LinUCB / No Fairness)</span>
-              <span>λ = 0.50 (Balanced Trade-off)</span>
-              <span>λ = 1.0 (Strict Equity Maximization)</span>
-            </div>
-          </div>
-
-          <div class="lambda-impact-side">
-            <div class="impact-pill">
-              <span class="imp-k">3T Outcome Terangkat:</span>
-              <span class="imp-v text-emerald">{{ dynamic3TOutcome.toFixed(2) }} (+{{ (dynamic3TOutcome - 0.42).toFixed(2) }})</span>
-            </div>
-            <div class="impact-pill">
-              <span class="imp-k">Disparity Gap D:</span>
-              <span class="imp-v text-amber">{{ liveDisparityGap.toFixed(2) }} (-{{ liveGapReductionPct }}%)</span>
-            </div>
-            <div class="impact-pill">
-              <span class="imp-k">Efisiensi Agregat:</span>
-              <span class="imp-v text-slate">{{ dynamicOverallReward.toFixed(2) }} (Trade-off: -{{ (0.71 - dynamicOverallReward).toFixed(2) }})</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Scenario Comparison Deck (Scenario A vs Scenario B Live) -->
-      <div class="scenarios-grid">
-        <!-- Scenario A Card -->
-        <div class="card scenario-card border-slate">
-          <div class="sc-header">
-            <span class="sc-tag tag-slate">SKENARIO A</span>
-            <span class="sc-name">Standard LinUCB (λ = 0)</span>
-          </div>
-          <div class="sc-stats-row">
-            <div class="sc-stat">
-              <span class="sc-val text-slate">0.71</span>
-              <span class="sc-lbl">Overall Reward</span>
-            </div>
-            <div class="sc-stat">
-              <span class="sc-val text-rose">0.42</span>
-              <span class="sc-lbl">3T Outcome</span>
-            </div>
-            <div class="sc-stat">
-              <span class="sc-val text-emerald">0.71</span>
-              <span class="sc-lbl">Urban Outcome</span>
-            </div>
-          </div>
-          <div class="sc-bar-alert bar-rose">
-            <span>Disparity Gap: <strong>D = 0.29</strong> (Kesenjangan Lebar / Unfair)</span>
-          </div>
-        </div>
-
-        <!-- Scenario B Card (Live Reactive) -->
-        <div class="card scenario-card border-emerald">
-          <div class="sc-header">
-            <span class="sc-tag tag-emerald">SKENARIO B (KANDIDAT)</span>
-            <span class="sc-name">Candidate Disparity-Aware LinUCB (λ = {{ lambdaWeight.toFixed(2) }})</span>
-          </div>
-          <div class="sc-stats-row">
-            <div class="sc-stat">
-              <span class="sc-val text-emerald">{{ dynamicOverallReward.toFixed(2) }}</span>
-              <span class="sc-lbl">Overall Reward</span>
-            </div>
-            <div class="sc-stat">
-              <span class="sc-val text-emerald">{{ dynamic3TOutcome.toFixed(2) }}</span>
-              <span class="sc-lbl">3T Outcome (Terangkat)</span>
-            </div>
-            <div class="sc-stat">
-              <span class="sc-val text-emerald">{{ dynamicUrbanOutcome.toFixed(2) }}</span>
-              <span class="sc-lbl">Urban Outcome</span>
-            </div>
-          </div>
-          <div class="sc-bar-alert bar-emerald">
-            <span>Disparity Gap: <strong>D = {{ liveDisparityGap.toFixed(2) }}</strong> (Kesenjangan Menyempit -{{ liveGapReductionPct }}%)</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- MAIN SIMULATOR INTERFACE (TWO COLUMNS HIGH-TECH DECK) -->
+      <!-- MAIN LAB GRID (LEFT: INPUT PROFILES & CONTEXT SHIFT | RIGHT: COMPUTATIONAL MODULES) -->
       <div class="sim-deck-grid">
-        <!-- LEFT COLUMN: Input Constraints (Keterbatasan Akses & Konteks) -->
-        <div class="card sim-panel-card">
-          <div class="panel-head">
-            <div class="panel-head-left">
-              <span class="icon-pulse">🎛️</span>
-              <h3 class="panel-title">1. Input Profil Konteks & Sinyal Perilaku</h3>
-            </div>
-            <span class="code-pill">Vektor c_t & x_t</span>
-          </div>
-
-          <!-- Presets -->
-          <div class="preset-wrap">
-            <span class="preset-label">Skenario Lapangan Cepat:</span>
-            <div class="preset-btn-group">
-              <button @click="applyPreset('3T_mobile')" class="p-btn" :class="{ active: currentPreset === '3T_mobile' }">
-                <span class="p-icon">🏝️</span>
-                <span class="p-txt">Daerah 3T (Ponsel, Sinyal Drop)</span>
-              </button>
-              <button @click="applyPreset('office_rush')" class="p-btn" :class="{ active: currentPreset === 'office_rush' }">
-                <span class="p-icon">🏢</span>
-                <span class="p-txt">Jam Kantor Sibuk (Desktop, SPPD)</span>
-              </button>
-              <button @click="applyPreset('night_study')" class="p-btn" :class="{ active: currentPreset === 'night_study' }">
-                <span class="p-icon">🌙</span>
-                <span class="p-txt">Belajar Mandiri (Desktop, Lancar)</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- SECTION A: PROFIL KONTEKS LINGKUNGAN -->
-          <div class="sub-input-section">
-            <span class="sub-sec-title">📍 Profil Konteks Lingkungan (c_t)</span>
-
-            <!-- Parameter 1: Bandwidth & Throughput -->
-            <div class="control-box">
-              <div class="ctrl-header">
-                <label class="ctrl-lbl">Throughput Jaringan (β_bw):</label>
-                <span class="val-pill pill-blue">{{ bandwidthKbps }} kbps ({{ bandwidthQuality }})</span>
-              </div>
-              <input type="range" min="50" max="10000" step="50" v-model.number="bandwidthKbps" class="slider slider-blue" />
-              <div class="slider-marks">
-                <span>50 kbps (3T Satelit)</span>
-                <span>1000 kbps (3G)</span>
-                <span>10.000 kbps (Fiber)</span>
-              </div>
-            </div>
-
-            <!-- Parameter 2: Latency & Stall Ratio -->
-            <div class="control-box">
-              <div class="ctrl-header">
-                <label class="ctrl-lbl">Latensi & Stall Ratio (β_lat):</label>
-                <span class="val-pill" :class="stallRatio > 20 ? 'pill-rose' : 'pill-slate'">{{ latencyMs }} ms / Buffer {{ stallRatio }}%</span>
-              </div>
-              <input type="range" min="20" max="1200" step="20" v-model.number="latencyMs" class="slider slider-amber" />
-            </div>
-
-            <!-- Parameter 3: Device Form Factor -->
-            <div class="control-box">
-              <div class="ctrl-header">
-                <label class="ctrl-lbl">Perangkat Akses (δ_dev):</label>
-                <span class="val-pill pill-slate">{{ deviceName }} (Bobot: {{ devicePenalty }})</span>
-              </div>
-              <div class="segmented-box">
-                <button :class="{ active: deviceType === 'smartphone' }" @click="deviceType = 'smartphone'">
-                  📱 Smartphone <span class="dev-w">(1.0)</span>
-                </button>
-                <button :class="{ active: deviceType === 'tablet' }" @click="deviceType = 'tablet'">
-                  📲 Tablet <span class="dev-w">(0.6)</span>
-                </button>
-                <button :class="{ active: deviceType === 'desktop' }" @click="deviceType = 'desktop'">
-                  💻 Desktop <span class="dev-w">(0.2)</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Parameter 4: Workload & Task Interruption -->
-            <div class="control-box">
-              <div class="ctrl-header">
-                <label class="ctrl-lbl">Beban Pelayanan & Interupsi Dinas (T_work):</label>
-                <span class="val-pill pill-rose">{{ workloadLevel }}/5 ({{ workloadDesc }})</span>
-              </div>
-              <input type="range" min="1" max="5" step="1" v-model.number="workloadLevel" class="slider slider-rose" />
-              <div class="workload-meter">
-                <div v-for="i in 5" :key="i" class="meter-bar" :class="{ filled: i <= workloadLevel, high: i > 3 }"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- SECTION B: SINYAL PERILAKU INTERAKSI BELAJAR -->
-          <div class="sub-input-section" style="margin-top: 1.25rem;">
-            <span class="sub-sec-title">🎬 Sinyal Perilaku Belajar Interaktif (x_t)</span>
-
-            <!-- Parameter 5: Video Watched Time -->
-            <div class="control-box">
-              <div class="ctrl-header">
-                <label class="ctrl-lbl">Durasi Menonton Video (B_watch):</label>
-                <span class="val-pill pill-indigo">{{ watchedMin.toFixed(1) }} / {{ videoDurationMin }} Menit ({{ watchCompletionRatio }}% Completion)</span>
-              </div>
-              <input type="range" min="0.5" :max="videoDurationMin" step="0.1" v-model.number="watchedMin" class="slider slider-indigo" />
-            </div>
-
-            <!-- Parameter 6: Skip & Revisit Events -->
-            <div class="control-box">
-              <div class="dual-ctrl-row">
-                <div class="ctrl-half">
-                  <div class="ctrl-header">
-                    <label class="ctrl-lbl">Skip Events (B_skip):</label>
-                    <span class="val-pill pill-slate">{{ skipEvents }}× Lompatan</span>
-                  </div>
-                  <input type="range" min="0" max="6" step="1" v-model.number="skipEvents" class="slider slider-slate" />
-                </div>
-                <div class="ctrl-half">
-                  <div class="ctrl-header">
-                    <label class="ctrl-lbl">Revisit Sinyal (B_revisit):</label>
-                    <span class="val-pill pill-purple">{{ revisitEvents }}× Mengulang Bagian</span>
-                  </div>
-                  <input type="range" min="0" max="5" step="1" v-model.number="revisitEvents" class="slider slider-purple" />
-                </div>
-              </div>
-            </div>
-
-            <!-- Parameter 7: Interactivity & Focus -->
-            <div class="control-box">
-              <div class="dual-ctrl-row">
-                <div class="ctrl-half">
-                  <div class="ctrl-header">
-                    <label class="ctrl-lbl">Interaksi Modul (B_interaction):</label>
-                    <span class="val-pill pill-emerald">{{ interactionEvents }}/10 Checkpoint ({{ interactionCoveragePct }}%)</span>
-                  </div>
-                  <input type="range" min="1" max="10" step="1" v-model.number="interactionEvents" class="slider slider-emerald" />
-                </div>
-                <div class="ctrl-half">
-                  <div class="ctrl-header">
-                    <label class="ctrl-lbl">Tab-Focus Engagement (B_engagement):</label>
-                    <span class="val-pill pill-blue">{{ (observedFocus * 100).toFixed(0) }}% Aktif</span>
-                  </div>
-                  <input type="range" min="0.1" max="1.0" step="0.05" v-model.number="observedFocus" class="slider slider-blue" />
-                </div>
-              </div>
-            </div>
-
-            <!-- Configurable Sufficiency Threshold -->
-            <div class="control-box border-dashed-box">
-              <div class="ctrl-header">
-                <label class="ctrl-lbl">⚙️ Configurable Sufficiency Threshold (θ_suff):</label>
-                <span class="val-pill pill-amber">Ambang Batas = {{ sufficiencyThreshold.toFixed(2) }}</span>
-              </div>
-              <input type="range" min="0.50" max="0.90" step="0.05" v-model.number="sufficiencyThreshold" class="slider slider-amber" />
-              <div class="slider-marks">
-                <span>0.50 (Permissive)</span>
-                <span>0.70 (Rekomendasi Default)</span>
-                <span>0.90 (Strict)</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- RIGHT COLUMN: Algorithmic Mediation Output & Comparison -->
-        <div class="sim-right-col">
-          <!-- STEP 1: CCBN Counterfactual Normalization -->
-          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 4 }">
+        <!-- LEFT COLUMN: MODULE A (CONTEXT) & MODULE B (BEHAVIOR EVIDENCE) -->
+        <div class="sim-left-col">
+          <!-- MODULE A — CONTEXT PROFILE -->
+          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 1 }">
             <div class="panel-head">
               <div class="panel-head-left">
-                <span class="icon-pulse purple">🧠</span>
-                <h3 class="panel-title">Contextual Expectation & Residual (ΔB)</h3>
+                <span class="icon-pulse blue">📍</span>
+                <h3 class="panel-title">MODULE A — CONTEXT PROFILE</h3>
               </div>
-              <span class="code-pill pill-purple">Langkah 3 & 4 CCBN</span>
+              <span class="code-pill pill-blue">Vektor C_t</span>
             </div>
 
-            <div class="calc-panel border-purple">
+            <!-- Presets -->
+            <div class="preset-wrap">
+              <span class="preset-label">Skenario Konteks Cepat:</span>
+              <div class="preset-btn-group">
+                <button @click="applyPreset('3T_mobile')" class="p-btn" :class="{ active: currentPreset === '3T_mobile' }">
+                  <span class="p-icon">🏝️</span>
+                  <span class="p-txt">3T (Ponsel, Sinyal Drop)</span>
+                </button>
+                <button @click="applyPreset('office_rush')" class="p-btn" :class="{ active: currentPreset === 'office_rush' }">
+                  <span class="p-icon">🏢</span>
+                  <span class="p-txt">Jam Kantor Sibuk</span>
+                </button>
+                <button @click="applyPreset('night_study')" class="p-btn" :class="{ active: currentPreset === 'night_study' }">
+                  <span class="p-icon">🌙</span>
+                  <span class="p-txt">Belajar Mandiri (Lancar)</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="sub-input-section">
+              <!-- Parameter 1: Bandwidth -->
+              <div class="control-box">
+                <div class="ctrl-header">
+                  <label class="ctrl-lbl">Bandwidth (β_bw):</label>
+                  <span class="val-pill pill-blue">{{ bandwidthKbps }} kbps ({{ bandwidthQuality }})</span>
+                </div>
+                <input type="range" min="50" max="10000" step="50" v-model.number="bandwidthKbps" class="slider slider-blue" />
+              </div>
+
+              <!-- Parameter 2: Latency -->
+              <div class="control-box">
+                <div class="ctrl-header">
+                  <label class="ctrl-lbl">Latency (β_lat):</label>
+                  <span class="val-pill" :class="stallRatio > 20 ? 'pill-rose' : 'pill-slate'">{{ latencyMs }} ms</span>
+                </div>
+                <input type="range" min="20" max="1200" step="20" v-model.number="latencyMs" class="slider slider-amber" />
+              </div>
+
+              <!-- Parameter 3: Device -->
+              <div class="control-box">
+                <div class="ctrl-header">
+                  <label class="ctrl-lbl">Device Form Factor (δ_dev):</label>
+                  <span class="val-pill pill-slate">{{ deviceName }}</span>
+                </div>
+                <div class="segmented-box">
+                  <button :class="{ active: deviceType === 'smartphone' }" @click="deviceType = 'smartphone'">
+                    📱 Smartphone
+                  </button>
+                  <button :class="{ active: deviceType === 'tablet' }" @click="deviceType = 'tablet'">
+                    📲 Tablet
+                  </button>
+                  <button :class="{ active: deviceType === 'desktop' }" @click="deviceType = 'desktop'">
+                    💻 Desktop
+                  </button>
+                </div>
+              </div>
+
+              <!-- Parameter 4: Workload -->
+              <div class="control-box">
+                <div class="ctrl-header">
+                  <label class="ctrl-lbl">Workload Kedinasan (T_work):</label>
+                  <span class="val-pill pill-rose">{{ workloadLevel }} / 5 ({{ workloadDesc }})</span>
+                </div>
+                <input type="range" min="1" max="5" step="1" v-model.number="workloadLevel" class="slider slider-rose" />
+              </div>
+
+              <!-- Parameter 5: Spatial Context -->
+              <div class="control-box">
+                <div class="ctrl-header">
+                  <label class="ctrl-lbl">Spatial Context (S_t):</label>
+                  <span class="val-pill pill-purple">{{ spatialType === '3T' ? '🏝️ Daerah 3T (Tertinggal/Terluar)' : '🏢 Wilayah Perkotaan (Urban)' }}</span>
+                </div>
+                <div class="segmented-box">
+                  <button :class="{ active: spatialType === '3T' }" @click="spatialType = '3T'">
+                    🏝️ Wilayah 3T
+                  </button>
+                  <button :class="{ active: spatialType === 'Urban' }" @click="spatialType = 'Urban'">
+                    🏢 Non-3T / Perkotaan
+                  </button>
+                </div>
+              </div>
+
+              <!-- Mathematical Context Vector Output -->
+              <div class="math-vector-callout">
+                <span class="vec-label">Context Vector:</span>
+                <code class="vec-code">C_t = [ {{ bandwidthKbps }} kbps, {{ latencyMs }} ms, "{{ deviceType }}", {{ workloadLevel }}/5, "{{ spatialType }}" ]</code>
+              </div>
+            </div>
+          </div>
+
+          <!-- MODULE B — BEHAVIORAL EVIDENCE -->
+          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 2 }">
+            <div class="panel-head">
+              <div class="panel-head-left">
+                <span class="icon-pulse purple">🎬</span>
+                <h3 class="panel-title">MODULE B — BEHAVIORAL EVIDENCE</h3>
+              </div>
+              <span class="code-pill pill-purple">Multimodal Signals</span>
+            </div>
+
+            <div class="sub-input-section">
+              <!-- Focus Signal -->
+              <div class="control-box">
+                <div class="ctrl-header">
+                  <label class="ctrl-lbl">Focus Signal (τ_focus):</label>
+                  <span class="val-pill pill-blue">{{ (observedFocus * 100).toFixed(0) }}%</span>
+                </div>
+                <input type="range" min="0.1" max="1.0" step="0.05" v-model.number="observedFocus" class="slider slider-blue" />
+              </div>
+
+              <!-- Video Completion -->
+              <div class="control-box">
+                <div class="ctrl-header">
+                  <label class="ctrl-lbl">Video Completion (B_watch):</label>
+                  <span class="val-pill pill-indigo">{{ watchCompletionRatio }}% ({{ watchedMin.toFixed(1) }} / {{ videoDurationMin }} min)</span>
+                </div>
+                <input type="range" min="0.5" :max="videoDurationMin" step="0.1" v-model.number="watchedMin" class="slider slider-indigo" />
+              </div>
+
+              <!-- Revisit & Skip -->
+              <div class="control-box">
+                <div class="dual-ctrl-row">
+                  <div class="ctrl-half">
+                    <div class="ctrl-header">
+                      <label class="ctrl-lbl">Revisit Sinyal:</label>
+                      <span class="val-pill pill-purple">{{ revisitEvents }}× Revisit</span>
+                    </div>
+                    <input type="range" min="0" max="5" step="1" v-model.number="revisitEvents" class="slider slider-purple" />
+                  </div>
+                  <div class="ctrl-half">
+                    <div class="ctrl-header">
+                      <label class="ctrl-lbl">Partial Retention:</label>
+                      <span class="val-pill pill-emerald">{{ (observedRetention * 100).toFixed(0) }}% Inti</span>
+                    </div>
+                    <input type="range" min="0.1" max="1.0" step="0.05" v-model.number="observedRetention" class="slider slider-emerald" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Interaction Coverage -->
+              <div class="control-box">
+                <div class="ctrl-header">
+                  <label class="ctrl-lbl">Interaction Coverage (B_int):</label>
+                  <span class="val-pill pill-emerald">{{ interactionCoveragePct }}% ({{ interactionEvents }}/10 Checkpoints)</span>
+                </div>
+                <input type="range" min="1" max="10" step="1" v-model.number="interactionEvents" class="slider slider-emerald" />
+              </div>
+
+              <div class="evidence-sources-tag">
+                <span class="src-lbl">Sources:</span>
+                <span class="src-pill">Computer Vision</span>
+                <span class="src-pill">Video Telemetry</span>
+                <span class="src-pill">Clickstream</span>
+                <span class="src-pill">LMS Interaction</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: MODULES C, D, E, F, G, H, I, J, K, L -->
+        <div class="sim-right-col">
+          <!-- MODULE C & D — CONTEXTUAL EXPECTATION & LEARNING EVIDENCE SUFFICIENCY -->
+          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 3 || simulationActiveStep === 4 || simulationActiveStep === 5 }">
+            <div class="panel-head">
+              <div class="panel-head-left">
+                <span class="icon-pulse emerald">⭐</span>
+                <h3 class="panel-title">MODULE C & D — CONTEXTUAL EXPECTATION & LEARNING EVIDENCE SUFFICIENCY</h3>
+              </div>
+              <span class="code-pill pill-emerald">Candidate Formulation</span>
+            </div>
+
+            <!-- Module C: Contextual Expectation & Residual Box -->
+            <div class="calc-panel border-purple" style="margin-bottom: 1rem;">
               <div class="calc-top">
-                <span class="calc-tag">CCBN RESIDUAL DECOMPOSITION</span>
-                <span class="formula-sm">ΔB = B_obs - E[B | C]</span>
+                <span class="calc-tag">MODULE C: CONTEXTUAL EXPECTATION (ΔB_t)</span>
+                <span class="formula-sm">ΔB_t = B_t^{obs} - E(B_t | C_t)</span>
               </div>
               <div class="metrics-3-col">
                 <div class="m-card">
-                  <span class="m-lbl">Ekspektasi E[B | C]:</span>
-                  <span class="m-val">{{ (expectedFocus * 100).toFixed(0) }}%</span>
-                  <span class="m-sub">Dihitung dari profil kendala C(t)</span>
+                  <span class="m-lbl">Observed Focus (B_obs):</span>
+                  <span class="m-val">{{ (observedFocus * 100).toFixed(0) }}%</span>
+                  <span class="m-sub">Sinyal perilaku teramati</span>
                 </div>
                 <div class="m-card">
-                  <span class="m-lbl">Perilaku Teramati B_obs:</span>
-                  <span class="m-val">{{ (observedFocus * 100).toFixed(0) }}%</span>
-                  <span class="m-sub">Sinyal atensi & fokus riil</span>
+                  <span class="m-lbl">Expected Focus E[B|C]:</span>
+                  <span class="m-val">{{ (expectedFocus * 100).toFixed(0) }}%</span>
+                  <span class="m-sub">Ekspektasi wajar konteks C_t</span>
                 </div>
                 <div class="m-card m-highlight">
-                  <span class="m-lbl">Sinyal Residual ΔB:</span>
+                  <span class="m-lbl">Residual ΔB_t:</span>
                   <span class="m-val" :style="{ color: deltaBColor }">{{ liveDeltaB >= 0 ? '+' : '' }}{{ liveDeltaB.toFixed(2) }}</span>
-                  <span class="m-sub"><strong>{{ deltaBInterpretation }}</strong></span>
+                  <span class="m-sub"><strong>Context-adjusted behavioral deviation</strong></span>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- STEP 2: LEARNING SUFFICIENCY CARD (BARU) -->
-          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 5 }">
-            <div class="panel-head">
-              <div class="panel-head-left">
-                <span class="icon-pulse emerald">📊</span>
-                <h3 class="panel-title">Learning Sufficiency (Candidate Formulation)</h3>
-              </div>
-              <span class="code-pill pill-emerald">Langkah 5 Pipeline</span>
-            </div>
-
-            <!-- Sufficiency Metrics Grid -->
+            <!-- Module D: Learning Evidence Sufficiency Card -->
             <div class="sufficiency-card-body">
               <div class="suff-metrics-grid">
                 <div class="suff-kpi-item">
-                  <span class="suff-kpi-lbl">Video Completion (B_watch)</span>
+                  <span class="suff-kpi-lbl">Completion</span>
                   <span class="suff-kpi-val text-blue">{{ watchCompletionRatio }}%</span>
-                  <span class="suff-kpi-sub">{{ watchedMin.toFixed(1) }} dari {{ videoDurationMin }} menit</span>
                 </div>
                 <div class="suff-kpi-item">
-                  <span class="suff-kpi-lbl">Interaction Coverage (B_int)</span>
-                  <span class="suff-kpi-val text-emerald">{{ interactionCoveragePct }}%</span>
-                  <span class="suff-kpi-sub">{{ interactionEvents }} / 10 checkpoint interaktif</span>
+                  <span class="suff-kpi-lbl">Focus</span>
+                  <span class="suff-kpi-val text-indigo">{{ (observedFocus * 100).toFixed(0) }}%</span>
                 </div>
                 <div class="suff-kpi-item">
-                  <span class="suff-kpi-lbl">Revisit Signal (B_revisit)</span>
+                  <span class="suff-kpi-lbl">Revisit</span>
                   <span class="suff-kpi-val text-purple">{{ revisitEvents }}×</span>
-                  <span class="suff-kpi-sub">Mengulang konsep sulit</span>
                 </div>
                 <div class="suff-kpi-item">
-                  <span class="suff-kpi-lbl">Engagement Signal (B_eng)</span>
-                  <span class="suff-kpi-val text-amber">{{ observedFocus.toFixed(2) }}</span>
-                  <span class="suff-kpi-sub">Atensi tab & clickstream</span>
+                  <span class="suff-kpi-lbl">Interaction</span>
+                  <span class="suff-kpi-val text-emerald">{{ interactionCoveragePct }}%</span>
+                </div>
+                <div class="suff-kpi-item">
+                  <span class="suff-kpi-lbl">Retention</span>
+                  <span class="suff-kpi-val text-amber">{{ (observedRetention * 100).toFixed(0) }}%</span>
                 </div>
               </div>
 
-              <!-- Main Sufficiency Score Box -->
+              <!-- Main Sufficiency Score Banner -->
               <div class="suff-score-banner" :class="isSufficient ? 'banner-sufficient' : 'banner-insufficient'">
                 <div class="suff-score-left">
-                  <span class="score-banner-label">LEARNING SUFFICIENCY SCORE (LS_t)</span>
+                  <span class="score-banner-label">CONTEXTUAL EVIDENCE SCORE (LS_t)</span>
                   <div class="score-banner-num-row">
                     <span class="score-banner-val">{{ sufficiencyScore.toFixed(2) }}</span>
-                    <span class="score-banner-threshold">/ Ambang Batas: {{ sufficiencyThreshold.toFixed(2) }}</span>
+                    <span class="score-banner-threshold">/ Candidate Threshold (τ): {{ sufficiencyThreshold.toFixed(2) }}</span>
                   </div>
                 </div>
                 <div class="suff-score-right">
                   <div class="suff-verdict-badge" :class="isSufficient ? 'badge-green' : 'badge-amber'">
-                    <span class="verdict-icon">{{ isSufficient ? '🛡️' : '⚠️' }}</span>
-                    <span class="verdict-text">{{ isSufficient ? 'Sufficient behavioral evidence' : 'Insufficient behavioral evidence' }}</span>
+                    <span class="verdict-icon">{{ isSufficient ? '●' : '○' }}</span>
+                    <span class="verdict-text">{{ isSufficient ? 'SUFFICIENT BEHAVIORAL EVIDENCE' : 'INSUFFICIENT BEHAVIORAL EVIDENCE' }}</span>
                   </div>
                 </div>
               </div>
 
-              <!-- Candidate Formula Card -->
-              <div class="suff-formula-box">
-                <div class="suff-formula-title">
-                  <span>📐 Formulasi Kandidat (Candidate Formulation):</span>
-                  <span class="cand-badge">Candidate Model (Not Final)</span>
-                </div>
-                <div class="cand-eq">
-                  <span class="m-bold">LS</span><sub class="m-idx">t</sub> = 
-                  <span class="eq-term">0.35 · <span class="m-var">B</span><sub>watch</sub></span> + 
-                  <span class="eq-term">0.25 · <span class="m-var">B</span><sub>interaction</sub></span> + 
-                  <span class="eq-term">0.20 · <span class="m-var">B</span><sub>revisit</sub></span> + 
-                  <span class="eq-term">0.20 · <span class="m-var">B</span><sub>engagement</sub></span>
-                  <span class="eq-domain">∈ [0.00, 1.00]</span>
-                </div>
-                <div class="suff-scale-visual">
-                  <div class="scale-track">
-                    <div class="scale-zone zone-insufficient" style="width: 50%;">0.00 - 0.50 (Insufficient)</div>
-                    <div class="scale-zone zone-moderate" style="width: 25%;">0.50 - 0.75 (Moderate)</div>
-                    <div class="scale-zone zone-sufficient" style="width: 25%;">0.75 - 1.00 (Sufficient)</div>
-                    <div class="scale-marker" :style="{ left: `${sufficiencyScore * 100}%` }">
-                      <span class="marker-pin">▼</span>
-                      <span class="marker-val">{{ sufficiencyScore.toFixed(2) }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Epistemic Guardrail Box -->
+              <!-- Epistemic Guardrail -->
               <div class="epistemic-guardrail-alert">
                 <span class="alert-icon">⚠️</span>
                 <div class="alert-txt">
-                  <strong>Prinsip Metodologis & Epistemik:</strong> Sistem mendeteksi <code>{{ isSufficient ? 'Sufficient behavioral evidence' : 'Insufficient behavioral evidence' }}</code>, bukan mengklaim <em>"Learning confirmed"</em>. Data perilaku (trace) hanya membuktikan kecukupan interaksi kognitif pada konteks tertentu, bukan label absolut kemampuan kognitif tanpa asesmen formatif.
+                  <strong>Catatan Epistemik Metodologis:</strong> <em>Sufficient behavioral evidence does not imply confirmed learning.</em> Data perilaku (trace) mengukur kecukupan bukti interaksi kognitif pada konteks lingkungan tertentu untuk memicu intervensi adaptif, bukan klaim penguasaan materi mutlak tanpa asesmen formatif.
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- STEP 3: EVIDENCE TIMELINE (BARU) -->
+          <!-- MODULE E — EVIDENCE TIMELINE -->
           <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 5 }">
             <div class="panel-head">
               <div class="panel-head-left">
                 <span class="icon-pulse blue">⏱️</span>
-                <h3 class="panel-title">Evidence Timeline (Deteksi Titik Kecukupan Belajar)</h3>
+                <h3 class="panel-title">MODULE E — EVIDENCE TIMELINE</h3>
               </div>
-              <span class="code-pill pill-blue">Video 10:00 Menit</span>
+              <span class="code-pill pill-blue">t* = \min \{ t : E_t \geq \tau \}</span>
             </div>
 
             <div class="timeline-card-body">
               <p class="timeline-intro">
-                Menjawab pertanyaan: <em>"Pada detik/menit ke berapa perilaku belajar partisipan dianggap memenuhi kecukupan bukti (sufficient evidence)?"</em>
+                Mengeksplorasi secara komputasional: <em>"Pada detik berapa behavioral evidence dianggap cukup untuk mengambil keputusan adaptif?"</em>
               </p>
 
               <!-- Video Timeline Track -->
               <div class="timeline-track-wrap">
                 <div class="timeline-time-labels">
                   <span>00:00</span>
-                  <span>02:00</span>
-                  <span>04:00</span>
-                  <span>06:00</span>
-                  <span>08:00</span>
+                  <span>01:30 (SKIP)</span>
+                  <span>03:10 (QUIZ)</span>
+                  <span>05:40 (REVISIT)</span>
+                  <span class="text-emerald">06:40 (★ SUFFICIENT)</span>
                   <span>10:00</span>
                 </div>
 
                 <div class="timeline-bar-container">
-                  <!-- Watched Progress Fill -->
                   <div class="timeline-watched-fill" :style="{ width: `${(watchedMin / videoDurationMin) * 100}%` }"></div>
 
-                  <!-- Event Marker 1: Skip -->
-                  <div class="timeline-event-marker marker-skip" style="left: 20%;" title="Skip event pada 02:00">
-                    <span class="t-badge badge-skip">skip (02:00)</span>
+                  <div class="timeline-event-marker marker-skip" style="left: 15%;">
+                    <span class="t-badge badge-skip">SKIP</span>
                     <div class="t-line"></div>
                   </div>
 
-                  <!-- Event Marker 2: Interaction -->
-                  <div class="timeline-event-marker marker-interaction" style="left: 42%;" title="Interactive Checkpoint pada 04:12">
-                    <span class="t-badge badge-interaction">quiz (04:12)</span>
+                  <div class="timeline-event-marker marker-interaction" style="left: 31%;">
+                    <span class="t-badge badge-interaction">QUIZ</span>
                     <div class="t-line"></div>
                   </div>
 
-                  <!-- Event Marker 3: Revisit -->
-                  <div class="timeline-event-marker marker-revisit" style="left: 60%;" title="Revisit Signal pada 06:00">
-                    <span class="t-badge badge-revisit">revisit (06:00)</span>
+                  <div class="timeline-event-marker marker-revisit" style="left: 56%;">
+                    <span class="t-badge badge-revisit">REVISIT</span>
                     <div class="t-line"></div>
                   </div>
 
-                  <!-- Threshold Crossing Pin -->
-                  <div v-if="isSufficient" class="timeline-detection-pin" :style="{ left: `${Math.min((watchedMin / videoDurationMin) * 95, 68)}%` }">
+                  <div v-if="isSufficient" class="timeline-detection-pin" style="left: 66%;">
                     <div class="detection-pulse-dot"></div>
-                    <div class="detection-flag">
-                      🎯 Sufficient evidence: {{ sufficiencyDetectionTime }}
-                    </div>
+                    <div class="detection-flag">★ SUFFICIENT ({{ sufficiencyDetectionTime || '06:40' }})</div>
                   </div>
                 </div>
               </div>
 
-              <!-- Score Progression Flow -->
+              <!-- Evidence Score Progression -->
               <div class="timeline-progression-row">
                 <div class="t-prog-item">
-                  <span class="t-prog-step">Menit 02:00</span>
-                  <span class="t-prog-val">LS = 0.28</span>
-                  <span class="t-prog-sub">Fase awal</span>
+                  <span class="t-prog-step">00:00</span>
+                  <span class="t-prog-val">0.21</span>
                 </div>
                 <div class="t-prog-arrow">➔</div>
                 <div class="t-prog-item">
-                  <span class="t-prog-step">Menit 04:12</span>
-                  <span class="t-prog-val">LS = 0.52</span>
-                  <span class="t-prog-sub">Interaksi aktif</span>
+                  <span class="t-prog-step">01:30</span>
+                  <span class="t-prog-val">0.35</span>
                 </div>
                 <div class="t-prog-arrow">➔</div>
                 <div class="t-prog-item">
-                  <span class="t-prog-step">Menit 06:00</span>
-                  <span class="t-prog-val">LS = 0.64</span>
-                  <span class="t-prog-sub">Revisit konsep</span>
+                  <span class="t-prog-step">03:10</span>
+                  <span class="t-prog-val">0.42</span>
+                </div>
+                <div class="t-prog-arrow">➔</div>
+                <div class="t-prog-item">
+                  <span class="t-prog-step">05:40</span>
+                  <span class="t-prog-val">0.58</span>
                 </div>
                 <div class="t-prog-arrow">➔</div>
                 <div class="t-prog-item highlight-prog">
-                  <span class="t-prog-step">Menit {{ sufficiencyDetectionTime || '06:40' }}</span>
-                  <span class="t-prog-val text-emerald">LS = {{ sufficiencyScore.toFixed(2) }}</span>
-                  <span class="t-prog-sub text-emerald">✓ Threshold Terlampaui</span>
-                </div>
-              </div>
-
-              <!-- Epistemic Clarification Callout -->
-              <div class="timeline-callout-box">
-                <div class="callout-badge-head">
-                  <span v-if="isSufficient" class="callout-pill-green">
-                    ✅ Sufficient behavioral evidence detected at {{ sufficiencyDetectionTime }}
-                  </span>
-                  <span v-else class="callout-pill-amber">
-                    ⚠️ Sufficient evidence belum terlampaui (Score {{ sufficiencyScore.toFixed(2) }} &lt; {{ sufficiencyThreshold.toFixed(2) }})
-                  </span>
-                </div>
-                <div class="callout-distinction-grid">
-                  <div class="dist-cell true-cell">
-                    <span class="dist-title">🎯 Yang Dideteksi Algoritma CABA:</span>
-                    <span class="dist-pill boxed-green">Sufficient Evidence</span>
-                    <p class="dist-desc">Sinyal bukti perilaku telah memadai sesuai batas toleransi konteks lingkungan.</p>
-                  </div>
-                  <div class="dist-cell false-cell">
-                    <span class="dist-title">❌ Bukan Yang Diklaim:</span>
-                    <span class="dist-pill boxed-red">Learning Confirmed</span>
-                    <p class="dist-desc">Algoritma tidak mengklaim proses kognitif internal telah tuntas 100%.</p>
-                  </div>
+                  <span class="t-prog-step">06:40</span>
+                  <span class="t-prog-val text-emerald">0.71</span>
+                  <span class="t-prog-sub text-emerald">★ Candidate Threshold (τ)</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- STEP 4: COMPLETION VS SUFFICIENCY SIMULATION (BARU) -->
-          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 5 }">
+          <!-- MODULE F & G — CONTEXTUAL FAIRNESS & DISPARITY-AWARE LINUCB -->
+          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 6 || simulationActiveStep === 7 }">
             <div class="panel-head">
               <div class="panel-head-left">
-                <span class="icon-pulse amber">⚖️</span>
-                <h3 class="panel-title">Traditional Completion vs. Contextual Learning Sufficiency</h3>
+                <span class="icon-pulse purple">🧠</span>
+                <h3 class="panel-title">MODULE F & G — CONTEXTUAL FAIRNESS & DISPARITY-AWARE LINUCB</h3>
               </div>
-              <span class="code-pill pill-amber">Komparasi Paradigma</span>
+              <span class="code-pill pill-purple">a_t^* = \arg\max U(a|C_t) \text{ s.t. } D \le \epsilon</span>
             </div>
 
-            <div class="comparison-card-body">
-              <!-- Dual Indicators -->
-              <div class="dual-indicator-grid">
-                <div class="indicator-card traditional-box">
-                  <span class="ind-badge">Metrik Tradisional</span>
-                  <h4 class="ind-title">Video Completion Rate</h4>
-                  <div class="ind-val text-rose">{{ watchCompletionRatio }}%</div>
-                  <p class="ind-note">Berdasarkan rasio durasi putar linier semata (6.2 / 10 menit).</p>
-                  <span class="ind-verdict verdict-bad">⚠️ Dianggap Belum Selesai / Tidak Tuntas</span>
+            <!-- Module F: Contextual Fairness Box -->
+            <div class="fairness-spec-card">
+              <div class="f-spec-head">
+                <span class="f-title">MODULE F: CONTEXTUAL FAIRNESS CONSTRAINT</span>
+                <span class="f-badge">Prototype Parameter (ε = 0.20)</span>
+              </div>
+              <div class="f-metrics-grid">
+                <div class="f-cell">
+                  <span class="fk">Contextual Residual (ΔB):</span>
+                  <span class="fv text-emerald">+{{ liveDeltaB.toFixed(2) }}</span>
                 </div>
-
-                <div class="indicator-vs">VS</div>
-
-                <div class="indicator-card contextual-box">
-                  <span class="ind-badge badge-green">Paradigma Disertasi (CABA–CCBN)</span>
-                  <h4 class="ind-title">Contextual Learning Sufficiency</h4>
-                  <div class="ind-val text-emerald">{{ (sufficiencyScore * 100).toFixed(0) }}%</div>
-                  <p class="ind-note">Menggabungkan completion, revisit, interaksi checkpoint, dan residu konteks.</p>
-                  <span class="ind-verdict verdict-good">✅ Sufficient Behavioral Evidence</span>
+                <div class="f-cell">
+                  <span class="fk">Disparity Gap (D):</span>
+                  <span class="fv text-amber">0.15 (Prototype)</span>
+                </div>
+                <div class="f-cell">
+                  <span class="fk">Fairness Constraint:</span>
+                  <span class="fv">D(a, C_t) ≤ ε</span>
+                </div>
+                <div class="f-cell">
+                  <span class="fk">Status Keadilan:</span>
+                  <span class="fv text-emerald"><strong>✓ Satisfied</strong></span>
                 </div>
               </div>
+            </div>
 
-              <!-- Case Study Table -->
-              <div class="case-study-box">
-                <div class="case-title">
-                  <span>📌 Studi Kasus Komparatif Profil Responden Lapangan:</span>
-                </div>
-                <div class="case-grid">
-                  <div class="case-col">
-                    <span class="case-col-title">Perilaku Belajar Riil</span>
-                    <ul class="case-list">
-                      <li><span>Durasi Video Total:</span> <strong>10.0 Menit</strong></li>
-                      <li><span>Durasi Ditonton:</span> <strong>{{ watchedMin.toFixed(1) }} Menit ({{ watchCompletionRatio }}%)</strong></li>
-                      <li><span>Skip Events:</span> <strong>{{ skipEvents }}×</strong></li>
-                      <li><span>Revisit Sinyal:</span> <strong>{{ revisitEvents }}× (Konsep Kunci)</strong></li>
-                      <li><span>Interaksi Modul:</span> <strong>{{ interactionEvents }} Checkpoint</strong></li>
-                      <li><span>Behavioral Signal:</span> <strong>{{ sufficiencyScore.toFixed(2) }}</strong></li>
-                    </ul>
+            <!-- Module G: Candidate Actions Engine -->
+            <div style="margin-top: 1rem;">
+              <span class="sub-sec-title">Candidate Adaptive Actions (LinUCB Exploration-Exploitation):</span>
+              <div class="candidate-actions-grid">
+                <div class="action-item-box" :class="{ active: selectedActionKey === 'A1' }">
+                  <div class="act-top-row">
+                    <span class="act-id">A1</span>
+                    <span class="act-score-tag">U(a1) = 0.88</span>
                   </div>
-                  <div class="case-col">
-                    <span class="case-col-title">Profil Konteks & Keputusan</span>
-                    <ul class="case-list">
-                      <li><span>Throughput Bandwidth:</span> <strong>{{ bandwidthKbps }} kbps ({{ bandwidthQuality }})</strong></li>
-                      <li><span>Perangkat Akses:</span> <strong>{{ deviceName }}</strong></li>
-                      <li><span>Beban Dinas (Workload):</span> <strong>{{ workloadLevel }}/5 ({{ workloadDesc }})</strong></li>
-                      <li><span>Expected Behavior E[B|C]:</span> <strong>{{ (expectedFocus * 100).toFixed(0) }}%</strong></li>
-                      <li><span>Observed Behavior B_obs:</span> <strong>{{ (observedFocus * 100).toFixed(0) }}%</strong></li>
-                      <li><span>Sinyal Residual ΔB:</span> <strong class="text-emerald">{{ liveDeltaB >= 0 ? '+' : '' }}{{ liveDeltaB.toFixed(2) }} (Wajar)</strong></li>
-                    </ul>
-                  </div>
+                  <span class="act-item-title">Video HD + Comprehensive Case</span>
+                  <span class="act-constraint-note">Memerlukan High Bandwidth (> 2 Mbps)</span>
                 </div>
-                <div class="case-footer">
-                  <span class="cf-badge">Kesimpulan Kebijakan:</span>
-                  <span class="cf-text">
-                    <strong>No immediate punitive intervention.</strong> Meskipun completion rate hanya {{ watchCompletionRatio }}%, residu perilaku terhadap konteksnya (ΔB = {{ liveDeltaB >= 0 ? '+' : '' }}{{ liveDeltaB.toFixed(2) }}) membuktikan tidak ada disparitas negatif akibat kelalaian otentik.
-                  </span>
+
+                <div class="action-item-box" :class="{ active: selectedActionKey === 'A2' }">
+                  <div class="act-top-row">
+                    <span class="act-id">A2</span>
+                    <span class="act-score-tag text-emerald">U(a2) = 0.71 (Selected)</span>
+                  </div>
+                  <span class="act-item-title">Text-First + Compressed Audio</span>
+                  <span class="act-constraint-note text-emerald">✓ Memenuhi kendala 3T (< 200 kbps)</span>
+                </div>
+
+                <div class="action-item-box" :class="{ active: selectedActionKey === 'A3' }">
+                  <div class="act-top-row">
+                    <span class="act-id">A3</span>
+                    <span class="act-score-tag">U(a3) = 0.74</span>
+                  </div>
+                  <span class="act-item-title">Interactive Scenario Quiz Stop-Gate</span>
+                  <span class="act-constraint-note">Verifikasi Atensi Aktif</span>
+                </div>
+
+                <div class="action-item-box" :class="{ active: selectedActionKey === 'A4' }">
+                  <div class="act-top-row">
+                    <span class="act-id">A4</span>
+                    <span class="act-score-tag">U(a4) = 0.79</span>
+                  </div>
+                  <span class="act-item-title">Dynamic Microlearning (3-Min Chunk)</span>
+                  <span class="act-constraint-note">Adaptif terhadap Interupsi Kantor</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- STEP 5: FAIRNESS CHECK (PESERTA A VS PESERTA B) (BARU) -->
-          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 6 }">
-            <div class="panel-head">
-              <div class="panel-head-left">
-                <span class="icon-pulse rose">⚖️</span>
-                <h3 class="panel-title">Contextual Fairness Check (Perbandingan Lintas Wilayah)</h3>
-              </div>
-              <span class="code-pill pill-rose">Keadilan Spasial 3T vs Urban</span>
-            </div>
-
-            <div class="fairness-card-body">
-              <p class="fairness-intro">
-                Mencegah bias algoritma yang secara sistematis mendiskriminasi ASN di daerah 3T hanya karena keterbatasan infrastruktur:
-              </p>
-
-              <div class="fairness-dual-table">
-                <table class="fair-table">
-                  <thead>
-                    <tr>
-                      <th>Dimensi Evaluasi</th>
-                      <th class="th-a">🏢 Peserta A (Perkotaan / Fiber)</th>
-                      <th class="th-b">🏝️ Peserta B (3T / Sinyal Terbatas)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>Kondisi Infrastruktur & Konteks</strong></td>
-                      <td>Bandwidth Tinggi (Fiber 10 Mbps), Workload Rendah</td>
-                      <td>Bandwidth Sangat Terbatas (110 kbps Satelit), Workload Tinggi</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Traditional Completion</strong></td>
-                      <td><span class="tbl-badge badge-emerald">90%</span></td>
-                      <td><span class="tbl-badge badge-rose">62%</span></td>
-                    </tr>
-                    <tr>
-                      <td><strong>Expected Behavior E[B | C]</strong></td>
-                      <td><span class="tbl-badge">85%</span></td>
-                      <td><span class="tbl-badge">60%</span></td>
-                    </tr>
-                    <tr>
-                      <td><strong>Observed Behavior B_obs</strong></td>
-                      <td><span class="tbl-badge">90%</span></td>
-                      <td><span class="tbl-badge">62%</span></td>
-                    </tr>
-                    <tr class="highlight-row">
-                      <td><strong>Residual Kontekstual (ΔB = B_obs - E)</strong></td>
-                      <td><strong class="text-emerald">+5%</strong> (Positif wajar)</td>
-                      <td><strong class="text-emerald">+2%</strong> (Positif wajar)</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Penilaian LMS Konvensional</strong></td>
-                      <td><span class="status-pill status-success">✅ Berprestasi / Tuntas</span></td>
-                      <td><span class="status-pill status-danger">❌ Tidak Disiplin / Gagal</span></td>
-                    </tr>
-                    <tr class="highlight-row-green">
-                      <td><strong>Penilaian CABA–CCBN (Disertasi)</strong></td>
-                      <td><span class="status-pill status-success">✅ Sesuai Konteks (+5%)</span></td>
-                      <td><span class="status-pill status-success">✅ Sesuai Konteks (+2%, Non-Punitif)</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div class="fairness-insight-box">
-                <span class="icon-light">💡</span>
-                <p class="insight-txt">
-                  <strong>Insight Keadilan Epistemik:</strong> Pada paradigma konvensional, Peserta B dihukum karena completion-nya 62%. Namun model kontekstual CABA–CCBN membuktikan bahwa dalam konteks keterbatasan 3T, capaian 62% sebenarnya melampaui ekspektasi wajar baseline-nya (Residual +2%). Algoritma <strong>tidak mendiskriminasi B</strong> sebagai pembelajar yang buruk.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- STEP 6: EXPLAINABILITY CARD: "WHY THIS DECISION?" (BARU) -->
+          <!-- MODULE H — WHY THIS DECISION? (REASONING CHAIN) -->
           <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 7 }">
             <div class="panel-head">
               <div class="panel-head-left">
                 <span class="icon-pulse cyan">🔍</span>
-                <h3 class="panel-title">Explainable AI (XAI) — "Why This Decision?"</h3>
+                <h3 class="panel-title">MODULE H — WHY THIS DECISION? (REASONING CHAIN)</h3>
               </div>
-              <span class="code-pill pill-cyan">Justifikasi Keputusan Algoritmik</span>
+              <span class="code-pill pill-cyan">Explainable AI (XAI)</span>
             </div>
 
             <div class="why-card-body">
               <div class="why-summary-grid">
                 <div class="why-row">
-                  <span class="why-k">Observed Video Completion:</span>
-                  <span class="why-v"><strong>{{ watchCompletionRatio }}%</strong> ({{ watchedMin.toFixed(1) }} menit)</span>
+                  <span class="why-k">Context:</span>
+                  <span class="why-v">✓ Low bandwidth ({{ bandwidthKbps }} kbps) • Mobile device • Workload {{ workloadLevel }}/5</span>
                 </div>
                 <div class="why-row">
-                  <span class="why-k">Contextual Expectation E[B|C]:</span>
-                  <span class="why-v"><strong>{{ (expectedFocus * 100).toFixed(0) }}%</strong> (Normalisasi kendala lapangan)</span>
+                  <span class="why-k">Behavior:</span>
+                  <span class="why-v">Focus: {{(observedFocus * 100).toFixed(0)}}% • Completion: {{watchCompletionRatio}}%</span>
                 </div>
                 <div class="why-row">
-                  <span class="why-k">Residual Sinyal (ΔB):</span>
-                  <span class="why-v text-emerald"><strong>{{ liveDeltaB >= 0 ? '+' : '' }}{{ liveDeltaB.toFixed(2) }}</strong> (Perilaku belajar dalam batas wajar)</span>
+                  <span class="why-k">Expected Behavior E[B|C]:</span>
+                  <span class="why-v">Focus: {{(expectedFocus * 100).toFixed(0)}}%</span>
                 </div>
                 <div class="why-row">
-                  <span class="why-k">Behavioral Evidence Status:</span>
-                  <span class="why-v" :class="isSufficient ? 'text-emerald' : 'text-amber'">
-                    <strong>{{ isSufficient ? 'Sufficient (Score ' + sufficiencyScore.toFixed(2) + ')' : 'Insufficient (Score ' + sufficiencyScore.toFixed(2) + ')' }}</strong>
-                  </span>
+                  <span class="why-k">Residual:</span>
+                  <span class="why-v text-emerald"><strong>+{{ liveDeltaB.toFixed(2) }}</strong> (Positif wajar)</span>
                 </div>
                 <div class="why-row">
-                  <span class="why-k">Primary Field Constraint:</span>
-                  <span class="why-v text-rose">
-                    <strong>{{ bandwidthKbps < 250 ? 'Low Bandwidth (' + bandwidthKbps + ' kbps, 3T Satellite)' : (workloadLevel >= 4 ? 'High Public Service Workload (Level ' + workloadLevel + ')' : 'Kondisi Normal') }}</strong>
-                  </span>
+                  <span class="why-k">Fairness Constraint:</span>
+                  <span class="why-v text-emerald"><strong>✓ Satisfied (D ≤ ε)</strong></span>
+                </div>
+                <div class="why-row">
+                  <span class="why-k">Expected Reward:</span>
+                  <span class="why-v"><strong>{{ liveRewardScore.toFixed(2) }}</strong></span>
                 </div>
                 <div class="why-row highlight-why">
-                  <span class="why-k">Recommended Algorithmic Action:</span>
+                  <span class="why-k">Selected Action:</span>
                   <span class="why-v text-emerald">
-                    <strong>{{ selectedAction.name }} (No Punitive Action)</strong>
+                    <strong>Text-First + Compressed Audio</strong>
                   </span>
-                </div>
-              </div>
-
-              <!-- Co-Promotor Q&A Dialogue Box -->
-              <div class="copromotor-qa-box">
-                <div class="qa-q">
-                  <span class="qa-icon">🗣️</span>
-                  <span><strong>Pertanyaan Penguji / Co-Promotor:</strong> <em>"Kenapa algoritmanya memutuskan format tersebut dan tidak menghukum peserta yang completion-nya rendah?"</em></span>
-                </div>
-                <div class="qa-a">
-                  <span class="qa-icon-ans">🎓</span>
-                  <span><strong>Jawaban Model Komputasional:</strong> <em>"Keputusan adaptif tidak dibuat semata-mata dari completion rate linier. Algoritma membandingkan perilaku teramati (observed behavior) terhadap ekspektasi wajar pada konteks peserta (contextual expectation). Karena residualnya positif (ΔB = {{ liveDeltaB >= 0 ? '+' : '' }}{{ liveDeltaB.toFixed(2) }}), sistem mengalihkan modalitas ke format hemat bandwidth tanpa memberikan penalti nilai atau teguran disiplin."</em></span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- STEP 7: ACTION SELECTION & HITL SUPERVISION -->
-          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 7 || simulationActiveStep === 8 }">
+          <!-- MODULE I — CONTEXT SHIFT SIMULATOR (YOUTUBE BITRATE ANALOGY) -->
+          <div class="card sim-panel-card">
             <div class="panel-head">
               <div class="panel-head-left">
-                <span class="icon-pulse purple">🎯</span>
-                <h3 class="panel-title">Aksi Adaptif Candidate Disparity-Aware LinUCB</h3>
+                <span class="icon-pulse amber">🔀</span>
+                <h3 class="panel-title">MODULE I — CONTEXT SHIFT SIMULATOR</h3>
               </div>
-              <span class="code-pill pill-purple">a_t^* = \arg\max_a Score_{a,t}</span>
+              <span class="code-pill pill-amber">YouTube Adaptive Bitrate Analogy</span>
             </div>
 
-            <!-- Action Card -->
-            <div class="action-card">
-              <div class="action-top">
-                <span class="act-badge">{{ selectedAction.tag }}</span>
-                <span class="act-score">Score = {{ liveRewardScore.toFixed(2) }}</span>
-              </div>
-              <h4 class="act-title">{{ selectedAction.name }}</h4>
-              <p class="act-desc">{{ selectedAction.desc }}</p>
-              
-              <div class="specs-grid">
-                <div class="spec-cell">
-                  <span class="sk">Resolusi Kognitif:</span>
-                  <span class="sv">{{ selectedAction.cognitiveResolution }}</span>
-                </div>
-                <div class="spec-cell">
-                  <span class="sk">Modalitas:</span>
-                  <span class="sv">{{ selectedAction.modality }}</span>
-                </div>
-                <div class="spec-cell">
-                  <span class="sk">Biaya Bandwidth:</span>
-                  <span class="sv text-emerald">{{ selectedAction.bandwidthCost }}</span>
-                </div>
-                <div class="spec-cell">
-                  <span class="sk">Disrupsi Waktu Kerja:</span>
-                  <span class="sv">{{ selectedAction.workloadFriction }}</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Policy Comparison (3-Way Modern Cards) -->
-            <div style="margin-top: 1.25rem;">
-              <h4 class="policy-sec-title">
-                ⚖️ Perbandingan Perlakuan Antar Kebijakan Algoritmik:
-              </h4>
-              <div class="policy-card-stack">
-                <!-- Policy 1: Punitive -->
-                <div class="pol-item-card pol-danger">
-                  <div class="pol-top">
-                    <span class="pol-name">1. LMS Konvensional (Punitive)</span>
-                    <span class="pol-status status-danger">❌ Unfair Penalty (Context Blind)</span>
-                  </div>
-                  <div class="pol-body">
-                    <span class="pol-decision">Keputusan: <strong>{{ punitivePolicyDecision }}</strong></span>
-                    <span class="pol-note">Menghukum ASN yang terkendala jaringan/tugas kedinasan tanpa normalisasi konteks.</span>
-                  </div>
-                </div>
-
-                <!-- Policy 2: Static Rule -->
-                <div class="pol-item-card pol-warning">
-                  <div class="pol-top">
-                    <span class="pol-name">2. Static Rule-Based</span>
-                    <span class="pol-status status-warning">⚠️ Drop / Kaku (Rigid Threshold)</span>
-                  </div>
-                  <div class="pol-body">
-                    <span class="pol-decision">Keputusan: <strong>{{ staticRuleDecision }}</strong></span>
-                    <span class="pol-note">Gagal beradaptasi pada fluktuasi bandwidth dinamis dan interupsi pelayanan publik.</span>
-                  </div>
-                </div>
-
-                <!-- Policy 3: Candidate Disparity-Aware LinUCB -->
-                <div class="pol-item-card pol-success">
-                  <div class="pol-top">
-                    <span class="pol-name">3. Candidate Disparity-Aware LinUCB</span>
-                    <span class="pol-status status-success">✅ Evaluating Effectiveness–Equity Trade-off</span>
-                  </div>
-                  <div class="pol-body">
-                    <span class="pol-decision text-emerald">Keputusan: <strong>{{ selectedAction.name }}</strong></span>
-                    <span class="pol-note">Memilih aksi adaptif secara adil berdasarkan residu ΔB dan memitigasi disparitas luaran antar wilayah.</span>
-                  </div>
-                </div>
+            <div class="context-shift-body">
+              <div class="shift-control-bar">
+                <button class="btn-shift-toggle" @click="toggleContextShift">
+                  <span>{{ contextShiftState === 't1' ? '▶ Simulate Context Shift (t1 → t2)' : '↺ Reset ke State Awal (t2 → t1)' }}</span>
+                </button>
+                <span class="shift-state-indicator">
+                  State Aktif: <strong>{{ contextShiftState === 't1' ? 'State t1 (3T Terkendala)' : 'State t2 (WiFi Kantor)' }}</strong>
+                </span>
               </div>
 
-              <!-- Human-in-the-Loop (HITL) Widyaiswara Action & Audit Box -->
-              <div class="hitl-governance-card">
-                <div class="hitl-head">
-                  <div class="hitl-title-row">
-                    <span class="hitl-icon">🛡️</span>
-                    <span class="hitl-heading">Human-in-the-Loop (HITL) & Non-Punitive Audit</span>
+              <!-- Dual State Visual Transition Flow -->
+              <div class="shift-flow-container">
+                <!-- State t1 -->
+                <div class="shift-state-card" :class="{ active: contextShiftState === 't1' }">
+                  <span class="state-badge">STATE t1 (INITIAL)</span>
+                  <ul class="state-list">
+                    <li><span>Bandwidth:</span> <strong>120 kbps (3T)</strong></li>
+                    <li><span>Device:</span> <strong>Smartphone</strong></li>
+                    <li><span>Workload:</span> <strong>4 / 5 (Tinggi)</strong></li>
+                  </ul>
+                  <div class="state-result">
+                    <span class="res-lbl">Action t1:</span>
+                    <span class="res-act text-blue">Text-First + Audio</span>
+                    <span class="res-r">Reward: 0.71</span>
                   </div>
-                  <span class="hitl-badge" :class="hitlStatus === 'approved' ? 'badge-green' : 'badge-amber'">
-                    {{ hitlStatus === 'approved' ? '✅ Rekomendasi Terverifikasi' : (hitlStatus === 'modified' ? '✏️ Dikoreksi Widyaiswara' : '⏸️ Ditunda / Reschedule') }}
-                  </span>
                 </div>
-                <p class="hitl-desc">
-                  Sesuai batasan tata kelola proposal (Sub-bab 4.3), seluruh rekomendasi algoritma berada di bawah supervisi Widyaiswara dan hanya berfungsi sebagai <strong>dukungan peningkatan kapasitas</strong>, bukan instrumen penilaian disiplin/punitif.
-                </p>
-                <div class="hitl-btn-group">
-                  <button 
-                    class="hitl-btn" 
-                    :class="{ active: hitlStatus === 'approved' }"
-                    @click="setHitlStatus('approved')"
-                  >
-                    <span>✓ Setujui Format Adaptif</span>
-                  </button>
-                  <button 
-                    class="hitl-btn" 
-                    :class="{ active: hitlStatus === 'modified' }"
-                    @click="setHitlStatus('modified')"
-                  >
-                    <span>✏️ Koreksi Moda Belajar</span>
-                  </button>
-                  <button 
-                    class="hitl-btn" 
-                    :class="{ active: hitlStatus === 'deferred' }"
-                    @click="setHitlStatus('deferred')"
-                  >
-                    <span>⏸️ Jadwal Ulang (Beban Dinas)</span>
-                  </button>
+
+                <div class="shift-arrow-col">
+                  <span class="arrow-sym">➔</span>
+                  <span class="arrow-txt">CONTEXT SHIFT</span>
                 </div>
-                <div class="hitl-audit-log">
-                  <span class="log-label">📋 Entri Log Audit Tata Kelola:</span>
-                  <code>[AUDIT-LOG: {{ currentPreset.toUpperCase() }}] Rekomendasi='{{ selectedAction.name }}' | Sufficiency={{ sufficiencyScore.toFixed(2) }} ({{ isSufficient ? 'SUFFICIENT' : 'INSUFFICIENT' }}) | Residual ΔB={{ liveDeltaB.toFixed(2) }} | Status={{ hitlStatus.toUpperCase() }} | Proteksi: Non-Punitif.</code>
+
+                <!-- State t2 -->
+                <div class="shift-state-card" :class="{ active: contextShiftState === 't2' }">
+                  <span class="state-badge badge-emerald">STATE t2 (NEW STATE)</span>
+                  <ul class="state-list">
+                    <li><span>Bandwidth:</span> <strong>8000 kbps (Fiber WiFi)</strong></li>
+                    <li><span>Device:</span> <strong>Laptop / Desktop</strong></li>
+                    <li><span>Workload:</span> <strong>2 / 5 (Rendah)</strong></li>
+                  </ul>
+                  <div class="state-result">
+                    <span class="res-lbl">Action t2:</span>
+                    <span class="res-act text-emerald">Video HD + Interactive Quiz</span>
+                    <span class="res-r">Reward: 0.88</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- MODULE J — REWARD TRAJECTORY & MODEL UPDATE -->
+          <div class="card sim-panel-card">
+            <div class="panel-head">
+              <div class="panel-head-left">
+                <span class="icon-pulse emerald">📈</span>
+                <h3 class="panel-title">MODULE J — REWARD TRAJECTORY & MODEL UPDATE</h3>
+              </div>
+              <span class="code-pill pill-emerald">(context_t, action_t) → reward_t → θ_{a,t+1}</span>
+            </div>
+
+            <div class="trajectory-card-body">
+              <!-- ASCII/SVG Trajectory Curve -->
+              <div class="trajectory-chart-wrap">
+                <div class="chart-y-axis">
+                  <span>1.0</span>
+                  <span>0.8</span>
+                  <span>0.6</span>
+                  <span>0.4</span>
+                </div>
+                <div class="chart-canvas">
+                  <!-- SVG Connecting Polyline -->
+                  <svg class="chart-svg" viewBox="0 0 500 120" preserveAspectRatio="none">
+                    <polyline
+                      fill="none"
+                      stroke="#10B981"
+                      stroke-width="3"
+                      points="40,58 120,48 200,36 280,24 360,42 440,18"
+                    />
+                    <!-- Data Points -->
+                    <circle cx="40" cy="58" r="5" fill="#3B82F6" />
+                    <circle cx="120" cy="48" r="5" fill="#3B82F6" />
+                    <circle cx="200" cy="36" r="5" fill="#10B981" />
+                    <circle cx="280" cy="24" r="5" fill="#10B981" />
+                    <circle cx="360" cy="42" r="5" fill="#F59E0B" />
+                    <circle cx="440" cy="18" r="6" fill="#059669" />
+                  </svg>
+                  <div class="chart-x-labels">
+                    <span>t1 (0.71)</span>
+                    <span>t2 (0.76)</span>
+                    <span>t3 (0.82)</span>
+                    <span>t4 (0.88)</span>
+                    <span>t5 (0.79)</span>
+                    <span>t6 (0.91)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sequential Log Matrix Table -->
+              <div class="trajectory-table-wrap">
+                <table class="traj-table">
+                  <thead>
+                    <tr>
+                      <th>Time Step</th>
+                      <th>Context (C_t)</th>
+                      <th>Action (a_t)</th>
+                      <th>Reward (r_t)</th>
+                      <th>Model Update (θ_a)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="log in trajectoryLogs" :key="log.t">
+                      <td><span class="tbl-badge">{{ log.t }}</span></td>
+                      <td>{{ log.context }}</td>
+                      <td><strong>{{ log.action }}</strong></td>
+                      <td><span class="tbl-badge badge-emerald">{{ log.reward }}</span></td>
+                      <td><code class="code-sm">{{ log.update }}</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- MODULE K & L — ALGORITHM BENCHMARK & REWARD-DISPARITY TRADE-OFF -->
+          <div class="card sim-panel-card">
+            <div class="panel-head">
+              <div class="panel-head-left">
+                <span class="icon-pulse rose">📊</span>
+                <h3 class="panel-title">MODULE K & L — ALGORITHM BENCHMARK & TRADE-OFF</h3>
+              </div>
+              <span class="code-pill pill-rose">Utility = Reward - λ · D</span>
+            </div>
+
+            <!-- Module K: Benchmark Table -->
+            <div class="benchmark-body">
+              <span class="sub-sec-title">MODULE K: Algorithm Comparison Benchmark:</span>
+              <table class="benchmark-table">
+                <thead>
+                  <tr>
+                    <th>Algorithm</th>
+                    <th>Overall Reward</th>
+                    <th>Disparity Gap (D)</th>
+                    <th>Karakteristik Operasional</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="bench in benchmarkAlgorithms" :key="bench.name">
+                    <td><strong>{{ bench.name }}</strong></td>
+                    <td><span class="tbl-badge">{{ bench.reward }}</span></td>
+                    <td><span class="tbl-badge" :class="bench.disparity === '0.15*' ? 'badge-emerald' : 'badge-rose'">{{ bench.disparity }}</span></td>
+                    <td class="text-slate">{{ bench.note }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <span class="bench-footnote">*Illustrative simulation values — not empirical results.</span>
+            </div>
+
+            <!-- Module L: Trade-off Slider & Formula -->
+            <div class="tradeoff-container" style="margin-top: 1.25rem;">
+              <div class="to-head">
+                <span class="sub-sec-title">MODULE L: Reward ↔ Disparity Trade-off Controller (λ):</span>
+                <span class="lambda-badge">λ = {{ lambdaWeight.toFixed(2) }}</span>
+              </div>
+              <input type="range" min="0.0" max="1.0" step="0.05" v-model.number="lambdaWeight" class="slider lambda-slider" />
+              <div class="tradeoff-pills-row">
+                <div class="to-pill">
+                  <span class="to-k">Efektivitas Agregat:</span>
+                  <span class="to-v text-slate">{{ dynamicOverallReward.toFixed(2) }}</span>
+                </div>
+                <div class="to-pill">
+                  <span class="to-k">Disparity Gap (D):</span>
+                  <span class="to-v text-emerald">{{ liveDisparityGap.toFixed(2) }} (-{{ liveGapReductionPct }}%)</span>
+                </div>
+                <div class="to-pill">
+                  <span class="to-k">3T Outcome Terangkat:</span>
+                  <span class="to-v text-emerald">{{ dynamic3TOutcome.toFixed(2) }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -1479,31 +1322,34 @@ import { ref, computed } from 'vue';
 import Navbar from '~/components/Navbar.vue';
 import CcbnLiteratureGrounding from '~/components/CcbnLiteratureGrounding.vue';
 
-// Human-in-the-Loop State
-const hitlStatus = ref<'approved' | 'modified' | 'deferred'>('approved');
-function setHitlStatus(status: 'approved' | 'modified' | 'deferred') {
-  hitlStatus.value = status;
-}
-
 // Dynamic Lambda (Disparity Penalty Weight)
 const lambdaWeight = ref<number>(0.50);
 
-// Simulator State: Context Profile
+// Simulator State: Context Profile (Module A)
 const currentPreset = ref<string>('3T_mobile');
 const bandwidthKbps = ref<number>(110);
 const latencyMs = ref<number>(520);
 const deviceType = ref<'smartphone' | 'tablet' | 'desktop'>('smartphone');
 const workloadLevel = ref<number>(4);
-const observedFocus = ref<number>(0.64);
-const observedRetention = ref<number>(0.70);
+const spatialType = ref<'3T' | 'Urban'>('3T');
 
-// Simulator State: Behavioral Signals & Learning Sufficiency
+// Behavioral Signals (Module B)
+const observedFocus = ref<number>(0.35);
+const observedRetention = ref<number>(0.70);
 const videoDurationMin = ref<number>(10.0);
 const watchedMin = ref<number>(6.2);
 const skipEvents = ref<number>(3);
 const revisitEvents = ref<number>(2);
 const interactionEvents = ref<number>(8);
 const sufficiencyThreshold = ref<number>(0.70);
+
+// Selected Action Key
+const selectedActionKey = computed(() => {
+  if (bandwidthKbps.value < 200) return 'A2'; // Text-First
+  if (workloadLevel.value >= 4) return 'A4'; // Microlearning
+  if (liveDeltaB.value < -0.15) return 'A3'; // Interactive Quiz
+  return 'A1'; // Video HD
+});
 
 // Trajectory Simulation Animation State
 const isSimulating = ref<boolean>(false);
@@ -1522,10 +1368,51 @@ function simulateTrajectory() {
     } else {
       clearInterval(interval);
       isSimulating.value = false;
-      // keep active step at 8 or complete
     }
-  }, 700);
+  }, 650);
 }
+
+// Module I: Context Shift Simulator State
+const contextShiftState = ref<'t1' | 't2'>('t1');
+
+function toggleContextShift() {
+  if (contextShiftState.value === 't1') {
+    contextShiftState.value = 't2';
+    bandwidthKbps.value = 8000;
+    latencyMs.value = 25;
+    deviceType.value = 'desktop';
+    workloadLevel.value = 2;
+    spatialType.value = 'Urban';
+    observedFocus.value = 0.85;
+    watchedMin.value = 8.8;
+  } else {
+    contextShiftState.value = 't1';
+    bandwidthKbps.value = 110;
+    latencyMs.value = 520;
+    deviceType.value = 'smartphone';
+    workloadLevel.value = 4;
+    spatialType.value = '3T';
+    observedFocus.value = 0.35;
+    watchedMin.value = 6.2;
+  }
+}
+
+// Module J: Trajectory Log Dataset
+const trajectoryLogs = ref([
+  { t: 't1', context: 'Low BW (120k), Phone, 3T', action: 'A2: Text-First + Audio', reward: 0.71, update: 'θ₁ update (explore text format)' },
+  { t: 't2', context: 'Low BW (150k), Phone, 3T', action: 'A4: Microlearning Chunk', reward: 0.76, update: 'θ₂ update (friction down)' },
+  { t: 't3', context: 'Med BW (2.5M), Desktop, Urban', action: 'A3: Interactive Scenario', reward: 0.82, update: 'θ₃ update (engagement bonus)' },
+  { t: 't4', context: 'High BW (5M), Desktop, Urban', action: 'A1: Full Video HD', reward: 0.88, update: 'θ₄ update (high completion)' },
+  { t: 't5', context: 'Mobile Rush (3G), Phone, Urban', action: 'A4: Micro-Chunking', reward: 0.79, update: 'θ₅ update (workload adapt)' },
+  { t: 't6', context: 'Stable Fiber (8M), Desktop, Urban', action: 'A1 + A3: Video + Interactive', reward: 0.91, update: 'θ₆ update (optimal convergence)' }
+]);
+
+// Module K: Benchmark Algorithms
+const benchmarkAlgorithms = ref([
+  { name: 'Rule-Based (Static Thresholds)', reward: '0.68*', disparity: '0.31*', note: 'Kaku pada fluktuasi bandwidth' },
+  { name: 'Standard LinUCB (Li et al., 2010)', reward: '0.71*', disparity: '0.29*', note: 'Eksploitasi format berat di perkotaan' },
+  { name: 'Disparity-Aware LinUCB (Candidate Disertasi)', reward: '0.69*', disparity: '0.15*', note: 'Penalti disparitas mereduksi gap -48%' }
+]);
 
 function applyPreset(preset: string) {
   currentPreset.value = preset;
@@ -1534,7 +1421,8 @@ function applyPreset(preset: string) {
     latencyMs.value = 520;
     deviceType.value = 'smartphone';
     workloadLevel.value = 4;
-    observedFocus.value = 0.64;
+    spatialType.value = '3T';
+    observedFocus.value = 0.35;
     observedRetention.value = 0.70;
     watchedMin.value = 6.2;
     skipEvents.value = 3;
@@ -1545,7 +1433,8 @@ function applyPreset(preset: string) {
     latencyMs.value = 45;
     deviceType.value = 'desktop';
     workloadLevel.value = 5;
-    observedFocus.value = 0.35;
+    spatialType.value = 'Urban';
+    observedFocus.value = 0.25;
     observedRetention.value = 0.60;
     watchedMin.value = 4.5;
     skipEvents.value = 4;
@@ -1556,7 +1445,8 @@ function applyPreset(preset: string) {
     latencyMs.value = 30;
     deviceType.value = 'desktop';
     workloadLevel.value = 1;
-    observedFocus.value = 0.92;
+    spatialType.value = 'Urban';
+    observedFocus.value = 0.90;
     observedRetention.value = 0.95;
     watchedMin.value = 9.8;
     skipEvents.value = 1;
@@ -1565,7 +1455,7 @@ function applyPreset(preset: string) {
   }
 }
 
-// Learning Sufficiency Computations
+// Learning Sufficiency Computations (Module D & E)
 const watchCompletionRatio = computed(() => {
   return Math.min(Math.round((watchedMin.value / videoDurationMin.value) * 100), 100);
 });
@@ -1609,7 +1499,26 @@ const sufficiencyDetectionTime = computed(() => {
   return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 });
 
-// Dynamic Disparity Trade-off Computations
+// Contextual Expectation & Residual (Module C)
+const expectedFocus = computed(() => {
+  let base = 0.85;
+  base -= (workloadLevel.value / 5) * 0.40;
+  if (bandwidthKbps.value < 250) base -= 0.12;
+  if (deviceType.value === 'smartphone') base -= 0.08;
+  return Math.max(Math.min(base, 0.95), 0.25);
+});
+
+const liveDeltaB = computed(() => {
+  return observedFocus.value - expectedFocus.value;
+});
+
+const deltaBColor = computed(() => {
+  if (liveDeltaB.value >= -0.05) return '#10B981';
+  if (liveDeltaB.value >= -0.20) return '#F59E0B';
+  return '#EF4444';
+});
+
+// Trade-off Computations (Module L)
 const dynamicOverallReward = computed(() => {
   const reward = 0.71 - (lambdaWeight.value * 0.05);
   return Math.round(reward * 100) / 100;
@@ -1637,114 +1546,6 @@ const liveGapReductionPct = computed(() => {
   return Math.round(reduction);
 });
 
-// Computed Descriptions
-const bandwidthQuality = computed(() => {
-  if (bandwidthKbps.value < 200) return 'Sangat Terbatas (3T)';
-  if (bandwidthKbps.value < 1000) return 'Sedang (3G/4G Low)';
-  return 'Tinggi / Stabil';
-});
-
-const stallRatio = computed(() => {
-  if (bandwidthKbps.value < 150) return Math.min(Math.round((150 / bandwidthKbps.value) * 35), 85);
-  if (bandwidthKbps.value < 500) return 15;
-  return 2;
-});
-
-const deviceName = computed(() => {
-  if (deviceType.value === 'smartphone') return 'Smartphone (Layar Kecil)';
-  if (deviceType.value === 'tablet') return 'Tablet';
-  return 'Desktop / Laptop Workstation';
-});
-
-const devicePenalty = computed(() => {
-  if (deviceType.value === 'smartphone') return 1.0;
-  if (deviceType.value === 'tablet') return 0.6;
-  return 0.2;
-});
-
-const workloadDesc = computed(() => {
-  if (workloadLevel.value >= 4) return 'Tinggi (Tugas Dinamis / SPPD / Pelayanan)';
-  if (workloadLevel.value === 3) return 'Sedang (Tugas Rutin Kantor)';
-  return 'Rendah / Waktu Belajar Didedikasikan';
-});
-
-// CCBN Calculations
-const expectedFocus = computed(() => {
-  let base = 0.90;
-  base -= (workloadLevel.value / 5) * 0.45;
-  if (bandwidthKbps.value < 250) base -= 0.15;
-  if (deviceType.value === 'smartphone') base -= 0.10;
-  return Math.max(Math.min(base, 0.95), 0.20);
-});
-
-const liveDeltaB = computed(() => {
-  return observedFocus.value - expectedFocus.value;
-});
-
-const deltaBColor = computed(() => {
-  if (liveDeltaB.value >= -0.05) return '#10B981'; // Emerald (Safe/Wajar)
-  if (liveDeltaB.value >= -0.20) return '#F59E0B'; // Amber (Mild Residual)
-  return '#EF4444'; // Red (Significant Ghost Learning)
-});
-
-const deltaBInterpretation = computed(() => {
-  if (liveDeltaB.value >= -0.05) {
-    return 'Wajar (Perilaku sesuai kendala situasi lingkungan, tidak ada penalti)';
-  } else if (liveDeltaB.value >= -0.20) {
-    return 'Friksi Ringan (Disarankan Dynamic Micro-Chunking)';
-  }
-  return 'Penyimpangan Signifikan (Terindikasi Ghost Learning otentik)';
-});
-
-// Candidate Action Selection
-const selectedAction = computed(() => {
-  if (bandwidthKbps.value < 200 || stallRatio.value > 30) {
-    return {
-      tag: 'AKSI ADAPTIF 1: BANDWIDTH FALLBACK',
-      name: 'Modality Fallback: Text-First & Audio Checklist Ringkas',
-      desc: 'Mengalihkan stream video berat ke modul teks terstruktur berukuran <100KB dengan audio podcast kompresi rendah dan pre-cached quiz.',
-      cognitiveResolution: 'Format Esensial (Hemat Bandwidth)',
-      modality: 'Teks Ringkas + Infografis + Audio',
-      bandwidthCost: '< 1 MB (Sangat Rendah)',
-      workloadFriction: 'Dapat dibaca offline'
-    };
-  }
-
-  if (workloadLevel.value >= 4) {
-    return {
-      tag: 'AKSI ADAPTIF 2: WORKLOAD MICRO-CHUNKING',
-      name: 'Dynamic Micro-Chunking: 3-Minute Case Scaffolding',
-      desc: 'Memecah modul panjang 45 menit menjadi skenario interaktif 3 menit. Titik jeda tersimpan otomatis saat tab berpindah tanpa penalti.',
-      cognitiveResolution: 'Bite-sized Micro Learning',
-      modality: 'Studi Kasus 1 Soal + Infografis Inti',
-      bandwidthCost: 'Sedang (5 MB)',
-      workloadFriction: 'Nol (Adaptif terhadap interupsi kantor)'
-    };
-  }
-
-  if (liveDeltaB.value < -0.20) {
-    return {
-      tag: 'AKSI ADAPTIF 3: ACTIVE VERIFICATION',
-      name: 'Active Verification Stop-Gate: 1-Question Checkpoint',
-      desc: 'Menjeda video latar belakang secara halus dan menampilkan 1 pertanyaan skenario kontekstual untuk mengubah kepatuhan pasif menjadi atensi kognitif aktif.',
-      cognitiveResolution: 'Verifikasi Atensi Aktif',
-      modality: 'Interactive Scenario Checkpoint',
-      bandwidthCost: 'Rendah',
-      workloadFriction: 'Ringan (1 Pertanyaan Interaktif)'
-    };
-  }
-
-  return {
-    tag: 'AKSI ADAPTIF 4: STANDARD INTERACTIVE',
-    name: 'Standard Interactive Multimedia & Case Discussion',
-    desc: 'Menyajikan materi video interaktif penuh dengan simulasi komprehensif karena kondisi jaringan dan ketersediaan waktu sangat mendukung.',
-    cognitiveResolution: 'Penuh (Standard Resolution)',
-    modality: 'Video HD + Simulasi Interaktif',
-    bandwidthCost: 'Tinggi (> 50 MB)',
-    workloadFriction: 'Memerlukan fokus penuh'
-  };
-});
-
 const liveRewardScore = computed(() => {
   let gain = observedRetention.value * 1.2;
   let workPenalty = (workloadLevel.value / 5) * 0.3;
@@ -1755,17 +1556,28 @@ const liveRewardScore = computed(() => {
   return Math.max(gain - workPenalty - infraPenalty + fairnessBonus - disparityPenalty, 0.1);
 });
 
-// Comparison Decisions
-const punitivePolicyDecision = computed(() => {
-  if (observedFocus.value < 0.5) return 'Gagal / Diberi Penalti Nilai karena Tab Tidak Fokus';
-  if (stallRatio.value > 25) return 'Session Timeout / Tugas Dianggap Terlambat';
-  return 'Lulus Bersyarat';
+const bandwidthQuality = computed(() => {
+  if (bandwidthKbps.value < 200) return '3T Satelit Terbatas';
+  if (bandwidthKbps.value < 1000) return 'Sedang (3G/4G)';
+  return 'Fiber Optic Stabil';
 });
 
-const staticRuleDecision = computed(() => {
-  if (workloadLevel.value >= 4) return 'Dropout / Modul Terhenti di Tengah';
-  if (bandwidthKbps.value < 200) return 'Video Error / Layar Hitam Buffering';
-  return 'Modul Tetap Berjalan Kaku';
+const stallRatio = computed(() => {
+  if (bandwidthKbps.value < 150) return 35;
+  if (bandwidthKbps.value < 500) return 15;
+  return 2;
+});
+
+const deviceName = computed(() => {
+  if (deviceType.value === 'smartphone') return 'Smartphone (Layar Kecil)';
+  if (deviceType.value === 'tablet') return 'Tablet';
+  return 'Desktop / Workstation';
+});
+
+const workloadDesc = computed(() => {
+  if (workloadLevel.value >= 4) return 'Tinggi (Tugas Dinamis)';
+  if (workloadLevel.value === 3) return 'Sedang (Rutin)';
+  return 'Rendah / Mandiri';
 });
 </script>
 
