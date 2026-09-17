@@ -504,10 +504,144 @@
       <!-- ========================================================================= -->
       <section class="section-title-wrap">
         <div class="title-col">
+          <div class="badge-row">
+            <span class="badge badge-emerald">🧪 Integrated Algorithmic Laboratory</span>
+            <span class="badge badge-blue">CABA–CCBN Pipeline</span>
+          </div>
           <h2 class="main-sec-title">5. Simulator Interaktif & Evaluasi Trade-off (Effectiveness vs Equity)</h2>
           <p class="main-sec-desc">
-            Uji sensitivitas model terhadap penalti disparitas (λ_t) dan kendala lapangan aktual ASN untuk melihat perbandingan skenario.
+            Uji sensitivitas model terhadap penalti disparitas (λ_t), kendala lapangan aktual ASN, serta pemodelan <strong>Learning Sufficiency</strong> berbasis evidensi perilaku kontekstual.
           </p>
+        </div>
+      </section>
+
+      <!-- PIPELINE TRAJECTORY TRACKER & SIMULATOR BUTTON -->
+      <section class="card pipeline-tracker-card" :class="{ 'simulating-pulse': isSimulating }">
+        <div class="pipeline-header-row">
+          <div class="pipe-title-left">
+            <span class="pipe-icon">🔄</span>
+            <div>
+              <h3 class="pipeline-heading">End-to-End Computational Pipeline</h3>
+              <p class="pipeline-sub">Alur komputasi lengkap CABA–CCBN dari Konteks Lingkungan hingga Reward & Update Model</p>
+            </div>
+          </div>
+          <div class="pipe-actions">
+            <button 
+              class="btn-simulate"
+              :class="{ 'btn-running': isSimulating }"
+              @click="simulateTrajectory"
+              :disabled="isSimulating"
+            >
+              <span class="sim-play-icon">{{ isSimulating ? '⏳' : '▶' }}</span>
+              <span>{{ isSimulating ? 'Simulasi Berjalan (Tahap ' + simulationActiveStep + '/8)...' : 'Simulate Learning Trajectory' }}</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 8-Step Pipeline Interactive Track -->
+        <div class="pipeline-stepper">
+          <div 
+            class="pipe-step-node" 
+            :class="{ active: simulationActiveStep === 1, done: simulationActiveStep > 1 }"
+            @click="simulationActiveStep = 1"
+          >
+            <div class="step-circle">1</div>
+            <div class="step-label-box">
+              <span class="step-name">CONTEXT</span>
+              <span class="step-detail">Bandwidth, Device, Workload</span>
+            </div>
+          </div>
+          <div class="pipe-step-divider">➔</div>
+
+          <div 
+            class="pipe-step-node" 
+            :class="{ active: simulationActiveStep === 2, done: simulationActiveStep > 2 }"
+            @click="simulationActiveStep = 2"
+          >
+            <div class="step-circle">2</div>
+            <div class="step-label-box">
+              <span class="step-name">BEHAVIOR SIGNAL</span>
+              <span class="step-detail">Watch, Skip, Revisit, Focus</span>
+            </div>
+          </div>
+          <div class="pipe-step-divider">➔</div>
+
+          <div 
+            class="pipe-step-node" 
+            :class="{ active: simulationActiveStep === 3, done: simulationActiveStep > 3 }"
+            @click="simulationActiveStep = 3"
+          >
+            <div class="step-circle">3</div>
+            <div class="step-label-box">
+              <span class="step-name">CONTEXTUAL EXPECTATION</span>
+              <span class="step-detail">E[B | C] Ekspektasi Wajar</span>
+            </div>
+          </div>
+          <div class="pipe-step-divider">➔</div>
+
+          <div 
+            class="pipe-step-node" 
+            :class="{ active: simulationActiveStep === 4, done: simulationActiveStep > 4 }"
+            @click="simulationActiveStep = 4"
+          >
+            <div class="step-circle">4</div>
+            <div class="step-label-box">
+              <span class="step-name">DISPARITY / RESIDUAL</span>
+              <span class="step-detail">ΔB = B_obs - E[B|C]</span>
+            </div>
+          </div>
+          <div class="pipe-step-divider">➔</div>
+
+          <div 
+            class="pipe-step-node highlight-node" 
+            :class="{ active: simulationActiveStep === 5, done: simulationActiveStep > 5 }"
+            @click="simulationActiveStep = 5"
+          >
+            <div class="step-circle">5</div>
+            <div class="step-label-box">
+              <span class="step-name">LEARNING SUFFICIENCY</span>
+              <span class="step-detail">LS_t Score & Evidence Timeline</span>
+            </div>
+          </div>
+          <div class="pipe-step-divider">➔</div>
+
+          <div 
+            class="pipe-step-node" 
+            :class="{ active: simulationActiveStep === 6, done: simulationActiveStep > 6 }"
+            @click="simulationActiveStep = 6"
+          >
+            <div class="step-circle">6</div>
+            <div class="step-label-box">
+              <span class="step-name">FAIRNESS CHECK</span>
+              <span class="step-detail">Context-Adjusted Assessment</span>
+            </div>
+          </div>
+          <div class="pipe-step-divider">➔</div>
+
+          <div 
+            class="pipe-step-node" 
+            :class="{ active: simulationActiveStep === 7, done: simulationActiveStep > 7 }"
+            @click="simulationActiveStep = 7"
+          >
+            <div class="step-circle">7</div>
+            <div class="step-label-box">
+              <span class="step-name">ADAPTIVE DECISION</span>
+              <span class="step-detail">a_t* Fallback / Scaffolding</span>
+            </div>
+          </div>
+          <div class="pipe-step-divider">➔</div>
+
+          <div 
+            class="pipe-step-node" 
+            :class="{ active: simulationActiveStep === 8, done: simulationActiveStep > 8 }"
+            @click="simulationActiveStep = 8"
+          >
+            <div class="step-circle">8</div>
+            <div class="step-label-box">
+              <span class="step-name">REWARD</span>
+              <span class="step-detail">Outcome & Model Update</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -607,63 +741,6 @@
         </div>
       </div>
 
-      <!-- Trade-off Evaluation Table -->
-      <div class="card table-section-card">
-        <h3 class="table-card-title">
-          📊 Tabel Evaluasi Trade-off: Efektivitas Agregat vs Keadilan Regional (Equity)
-        </h3>
-        <div class="table-responsive">
-          <table class="tradeoff-tbl">
-            <thead>
-              <tr>
-                <th>Metrik Evaluasi Komparatif</th>
-                <th>Scenario A (Standard LinUCB)</th>
-                <th>Scenario B (Candidate Disparity-Aware)</th>
-                <th>Delta / Dampak Perlakuan</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Overall Reward</strong> (Efektivitas Agregat)</td>
-                <td><span class="tbl-badge">0.71</span></td>
-                <td><span class="tbl-badge">{{ dynamicOverallReward.toFixed(2) }}</span></td>
-                <td class="text-amber"><strong>-{{ (0.71 - dynamicOverallReward).toFixed(2) }}</strong> (Trade-off efisiensi terkendali)</td>
-              </tr>
-              <tr>
-                <td><strong>3T Region Outcome</strong> (Kelompok Rentan Spasial)</td>
-                <td><span class="tbl-badge text-rose">0.42 (Tertinggal)</span></td>
-                <td><span class="tbl-badge text-emerald">{{ dynamic3TOutcome.toFixed(2) }} (Meningkat)</span></td>
-                <td class="text-emerald"><strong>+{{ (dynamic3TOutcome - 0.42).toFixed(2) }}</strong> (Perbaikan keadilan luaran)</td>
-              </tr>
-              <tr>
-                <td><strong>Urban Region Outcome</strong> (Perkotaan)</td>
-                <td><span class="tbl-badge">0.71</span></td>
-                <td><span class="tbl-badge">{{ dynamicUrbanOutcome.toFixed(2) }}</span></td>
-                <td class="text-slate">-{{ (0.71 - dynamicUrbanOutcome).toFixed(2) }}</td>
-              </tr>
-              <tr class="highlight-tr">
-                <td><strong>Disparity Gap D = |μ̂_{3T} - μ̂_{Urban}|</strong></td>
-                <td><span class="tbl-badge badge-rose">0.29 (Kesenjangan Lebar)</span></td>
-                <td><span class="tbl-badge badge-emerald">{{ liveDisparityGap.toFixed(2) }} (Kesenjangan Rata)</span></td>
-                <td class="text-emerald"><strong>-{{ (0.29 - liveDisparityGap).toFixed(2) }} (Reduksi Disparitas ~{{ liveGapReductionPct }}%)</strong></td>
-              </tr>
-              <tr>
-                <td><strong>Recommendation Burden Gap (Persamaan 9a)</strong><br><small class="text-slate">max |E[CB|3T] - E[CB|Urban]| (Disparitas Beban Kuota/Waktu)</small></td>
-                <td><span class="tbl-badge badge-rose">0.38 (Beban Timpang)</span></td>
-                <td><span class="tbl-badge badge-emerald">{{ (liveDisparityGap * 0.45).toFixed(2) }} (Beban Setara)</span></td>
-                <td class="text-emerald"><strong>Mencegah modul berbobot berat dipaksakan di 3T</strong></td>
-              </tr>
-              <tr>
-                <td><strong>Interpretation Error Gap (Persamaan 9b)</strong><br><small class="text-slate">max |MAE_{3T}(d) - MAE_{Urban}(d)| (Guardrail Epistemik MNAR)</small></td>
-                <td><span class="tbl-badge badge-rose">0.24 (Bias Observabilitas)</span></td>
-                <td><span class="tbl-badge badge-emerald">{{ (0.04 + liveDisparityGap * 0.1).toFixed(2) }} (&lt; 0.05 Target)</span></td>
-                <td class="text-emerald"><strong>Validitas pembacaan trace seimbang di semua wilayah</strong></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
       <!-- MAIN SIMULATOR INTERFACE (TWO COLUMNS HIGH-TECH DECK) -->
       <div class="sim-deck-grid">
         <!-- LEFT COLUMN: Input Constraints (Keterbatasan Akses & Konteks) -->
@@ -671,9 +748,9 @@
           <div class="panel-head">
             <div class="panel-head-left">
               <span class="icon-pulse">🎛️</span>
-              <h3 class="panel-title">Input Kendala Akses & Konteks ASN</h3>
+              <h3 class="panel-title">1. Input Profil Konteks & Sinyal Perilaku</h3>
             </div>
-            <span class="code-pill">Vektor x_t ∈ C(t)</span>
+            <span class="code-pill">Vektor c_t & x_t</span>
           </div>
 
           <!-- Presets -->
@@ -690,138 +767,589 @@
               </button>
               <button @click="applyPreset('night_study')" class="p-btn" :class="{ active: currentPreset === 'night_study' }">
                 <span class="p-icon">🌙</span>
-                <span class="p-txt">Belajar Malam (Mandiri, Lancar)</span>
+                <span class="p-txt">Belajar Mandiri (Desktop, Lancar)</span>
               </button>
             </div>
           </div>
 
-          <!-- Parameter 1: Bandwidth & Throughput -->
-          <div class="control-box">
-            <div class="ctrl-header">
-              <label class="ctrl-lbl">Throughput Jaringan (β_bw):</label>
-              <span class="val-pill pill-blue">{{ bandwidthKbps }} kbps ({{ bandwidthQuality }})</span>
+          <!-- SECTION A: PROFIL KONTEKS LINGKUNGAN -->
+          <div class="sub-input-section">
+            <span class="sub-sec-title">📍 Profil Konteks Lingkungan (c_t)</span>
+
+            <!-- Parameter 1: Bandwidth & Throughput -->
+            <div class="control-box">
+              <div class="ctrl-header">
+                <label class="ctrl-lbl">Throughput Jaringan (β_bw):</label>
+                <span class="val-pill pill-blue">{{ bandwidthKbps }} kbps ({{ bandwidthQuality }})</span>
+              </div>
+              <input type="range" min="50" max="10000" step="50" v-model.number="bandwidthKbps" class="slider slider-blue" />
+              <div class="slider-marks">
+                <span>50 kbps (3T Satelit)</span>
+                <span>1000 kbps (3G)</span>
+                <span>10.000 kbps (Fiber)</span>
+              </div>
             </div>
-            <input type="range" min="50" max="10000" step="50" v-model.number="bandwidthKbps" class="slider slider-blue" />
-            <div class="slider-marks">
-              <span>50 kbps (3T Satelit)</span>
-              <span>1000 kbps (3G)</span>
-              <span>10.000 kbps (Fiber)</span>
+
+            <!-- Parameter 2: Latency & Stall Ratio -->
+            <div class="control-box">
+              <div class="ctrl-header">
+                <label class="ctrl-lbl">Latensi & Stall Ratio (β_lat):</label>
+                <span class="val-pill" :class="stallRatio > 20 ? 'pill-rose' : 'pill-slate'">{{ latencyMs }} ms / Buffer {{ stallRatio }}%</span>
+              </div>
+              <input type="range" min="20" max="1200" step="20" v-model.number="latencyMs" class="slider slider-amber" />
+            </div>
+
+            <!-- Parameter 3: Device Form Factor -->
+            <div class="control-box">
+              <div class="ctrl-header">
+                <label class="ctrl-lbl">Perangkat Akses (δ_dev):</label>
+                <span class="val-pill pill-slate">{{ deviceName }} (Bobot: {{ devicePenalty }})</span>
+              </div>
+              <div class="segmented-box">
+                <button :class="{ active: deviceType === 'smartphone' }" @click="deviceType = 'smartphone'">
+                  📱 Smartphone <span class="dev-w">(1.0)</span>
+                </button>
+                <button :class="{ active: deviceType === 'tablet' }" @click="deviceType = 'tablet'">
+                  📲 Tablet <span class="dev-w">(0.6)</span>
+                </button>
+                <button :class="{ active: deviceType === 'desktop' }" @click="deviceType = 'desktop'">
+                  💻 Desktop <span class="dev-w">(0.2)</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Parameter 4: Workload & Task Interruption -->
+            <div class="control-box">
+              <div class="ctrl-header">
+                <label class="ctrl-lbl">Beban Pelayanan & Interupsi Dinas (T_work):</label>
+                <span class="val-pill pill-rose">{{ workloadLevel }}/5 ({{ workloadDesc }})</span>
+              </div>
+              <input type="range" min="1" max="5" step="1" v-model.number="workloadLevel" class="slider slider-rose" />
+              <div class="workload-meter">
+                <div v-for="i in 5" :key="i" class="meter-bar" :class="{ filled: i <= workloadLevel, high: i > 3 }"></div>
+              </div>
             </div>
           </div>
 
-          <!-- Parameter 2: Latency & Stall Ratio -->
-          <div class="control-box">
-            <div class="ctrl-header">
-              <label class="ctrl-lbl">Latensi & Stall Ratio (β_lat):</label>
-              <span class="val-pill" :class="stallRatio > 20 ? 'pill-rose' : 'pill-slate'">{{ latencyMs }} ms / Buffer {{ stallRatio }}%</span>
-            </div>
-            <input type="range" min="20" max="1200" step="20" v-model.number="latencyMs" class="slider slider-amber" />
-          </div>
+          <!-- SECTION B: SINYAL PERILAKU INTERAKSI BELAJAR -->
+          <div class="sub-input-section" style="margin-top: 1.25rem;">
+            <span class="sub-sec-title">🎬 Sinyal Perilaku Belajar Interaktif (x_t)</span>
 
-          <!-- Parameter 3: Device Form Factor -->
-          <div class="control-box">
-            <div class="ctrl-header">
-              <label class="ctrl-lbl">Perangkat Akses (δ_dev):</label>
-              <span class="val-pill pill-slate">{{ deviceName }} (Bobot: {{ devicePenalty }})</span>
+            <!-- Parameter 5: Video Watched Time -->
+            <div class="control-box">
+              <div class="ctrl-header">
+                <label class="ctrl-lbl">Durasi Menonton Video (B_watch):</label>
+                <span class="val-pill pill-indigo">{{ watchedMin.toFixed(1) }} / {{ videoDurationMin }} Menit ({{ watchCompletionRatio }}% Completion)</span>
+              </div>
+              <input type="range" min="0.5" :max="videoDurationMin" step="0.1" v-model.number="watchedMin" class="slider slider-indigo" />
             </div>
-            <div class="segmented-box">
-              <button :class="{ active: deviceType === 'smartphone' }" @click="deviceType = 'smartphone'">
-                📱 Smartphone <span class="dev-w">(1.0)</span>
-              </button>
-              <button :class="{ active: deviceType === 'tablet' }" @click="deviceType = 'tablet'">
-                📲 Tablet <span class="dev-w">(0.6)</span>
-              </button>
-              <button :class="{ active: deviceType === 'desktop' }" @click="deviceType = 'desktop'">
-                💻 Desktop <span class="dev-w">(0.2)</span>
-              </button>
-            </div>
-          </div>
 
-          <!-- Parameter 4: Workload & Task Interruption -->
-          <div class="control-box">
-            <div class="ctrl-header">
-              <label class="ctrl-lbl">Beban Pelayanan & Interupsi Dinas (T_work):</label>
-              <span class="val-pill pill-rose">{{ workloadLevel }}/5 ({{ workloadDesc }})</span>
-            </div>
-            <input type="range" min="1" max="5" step="1" v-model.number="workloadLevel" class="slider slider-rose" />
-            <div class="workload-meter">
-              <div v-for="i in 5" :key="i" class="meter-bar" :class="{ filled: i <= workloadLevel, high: i > 3 }"></div>
-            </div>
-          </div>
-
-          <!-- Parameter 5: Sinyal Telemetri Perilaku Aktual -->
-          <div class="telemetry-box">
-            <div class="tele-header">
-              <span class="tele-badge">📡 Telemetri Lapangan Aktual</span>
-              <span class="tele-subhead">Bukti Objektif Perilaku (B_tele)</span>
-            </div>
-            <div class="tele-grid">
-              <div class="tele-col">
-                <div class="tele-label-row">
-                  <label class="tele-lbl">Tab-Focus Ratio (τ_focus):</label>
-                  <span class="tele-val">{{ (observedFocus * 100).toFixed(0) }}% aktif</span>
+            <!-- Parameter 6: Skip & Revisit Events -->
+            <div class="control-box">
+              <div class="dual-ctrl-row">
+                <div class="ctrl-half">
+                  <div class="ctrl-header">
+                    <label class="ctrl-lbl">Skip Events (B_skip):</label>
+                    <span class="val-pill pill-slate">{{ skipEvents }}× Lompatan</span>
+                  </div>
+                  <input type="range" min="0" max="6" step="1" v-model.number="skipEvents" class="slider slider-slate" />
                 </div>
-                <input type="range" min="0.05" max="1.0" step="0.05" v-model.number="observedFocus" class="slider slider-purple" />
-                <div class="tele-bar-bg">
-                  <div class="tele-bar-fill" :style="{ width: `${observedFocus * 100}%` }"></div>
+                <div class="ctrl-half">
+                  <div class="ctrl-header">
+                    <label class="ctrl-lbl">Revisit Sinyal (B_revisit):</label>
+                    <span class="val-pill pill-purple">{{ revisitEvents }}× Mengulang Bagian</span>
+                  </div>
+                  <input type="range" min="0" max="5" step="1" v-model.number="revisitEvents" class="slider slider-purple" />
                 </div>
               </div>
-              <div class="tele-col">
-                <div class="tele-label-row">
-                  <label class="tele-lbl">Partial Retention (R_partial):</label>
-                  <span class="tele-val">{{ (observedRetention * 100).toFixed(0) }}% inti</span>
+            </div>
+
+            <!-- Parameter 7: Interactivity & Focus -->
+            <div class="control-box">
+              <div class="dual-ctrl-row">
+                <div class="ctrl-half">
+                  <div class="ctrl-header">
+                    <label class="ctrl-lbl">Interaksi Modul (B_interaction):</label>
+                    <span class="val-pill pill-emerald">{{ interactionEvents }}/10 Checkpoint ({{ interactionCoveragePct }}%)</span>
+                  </div>
+                  <input type="range" min="1" max="10" step="1" v-model.number="interactionEvents" class="slider slider-emerald" />
                 </div>
-                <input type="range" min="0.1" max="1.0" step="0.05" v-model.number="observedRetention" class="slider slider-emerald" />
-                <div class="tele-bar-bg">
-                  <div class="tele-bar-fill fill-green" :style="{ width: `${observedRetention * 100}%` }"></div>
+                <div class="ctrl-half">
+                  <div class="ctrl-header">
+                    <label class="ctrl-lbl">Tab-Focus Engagement (B_engagement):</label>
+                    <span class="val-pill pill-blue">{{ (observedFocus * 100).toFixed(0) }}% Aktif</span>
+                  </div>
+                  <input type="range" min="0.1" max="1.0" step="0.05" v-model.number="observedFocus" class="slider slider-blue" />
                 </div>
+              </div>
+            </div>
+
+            <!-- Configurable Sufficiency Threshold -->
+            <div class="control-box border-dashed-box">
+              <div class="ctrl-header">
+                <label class="ctrl-lbl">⚙️ Configurable Sufficiency Threshold (θ_suff):</label>
+                <span class="val-pill pill-amber">Ambang Batas = {{ sufficiencyThreshold.toFixed(2) }}</span>
+              </div>
+              <input type="range" min="0.50" max="0.90" step="0.05" v-model.number="sufficiencyThreshold" class="slider slider-amber" />
+              <div class="slider-marks">
+                <span>0.50 (Permissive)</span>
+                <span>0.70 (Rekomendasi Default)</span>
+                <span>0.90 (Strict)</span>
               </div>
             </div>
           </div>
         </div>
 
         <!-- RIGHT COLUMN: Algorithmic Mediation Output & Comparison -->
-        <div class="card sim-panel-card">
-          <div class="panel-head">
-            <div class="panel-head-left">
-              <span class="icon-pulse purple">🧠</span>
-              <h3 class="panel-title">Kalkulasi Komputasi CCBN & Fair-LinUCB</h3>
+        <div class="sim-right-col">
+          <!-- STEP 1: CCBN Counterfactual Normalization -->
+          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 4 }">
+            <div class="panel-head">
+              <div class="panel-head-left">
+                <span class="icon-pulse purple">🧠</span>
+                <h3 class="panel-title">Contextual Expectation & Residual (ΔB)</h3>
+              </div>
+              <span class="code-pill pill-purple">Langkah 3 & 4 CCBN</span>
             </div>
-            <span class="code-pill pill-purple">Output Mediasi Real-Time</span>
+
+            <div class="calc-panel border-purple">
+              <div class="calc-top">
+                <span class="calc-tag">CCBN RESIDUAL DECOMPOSITION</span>
+                <span class="formula-sm">ΔB = B_obs - E[B | C]</span>
+              </div>
+              <div class="metrics-3-col">
+                <div class="m-card">
+                  <span class="m-lbl">Ekspektasi E[B | C]:</span>
+                  <span class="m-val">{{ (expectedFocus * 100).toFixed(0) }}%</span>
+                  <span class="m-sub">Dihitung dari profil kendala C(t)</span>
+                </div>
+                <div class="m-card">
+                  <span class="m-lbl">Perilaku Teramati B_obs:</span>
+                  <span class="m-val">{{ (observedFocus * 100).toFixed(0) }}%</span>
+                  <span class="m-sub">Sinyal atensi & fokus riil</span>
+                </div>
+                <div class="m-card m-highlight">
+                  <span class="m-lbl">Sinyal Residual ΔB:</span>
+                  <span class="m-val" :style="{ color: deltaBColor }">{{ liveDeltaB >= 0 ? '+' : '' }}{{ liveDeltaB.toFixed(2) }}</span>
+                  <span class="m-sub"><strong>{{ deltaBInterpretation }}</strong></span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <!-- Step 1: CCBN Counterfactual Normalization -->
-          <div class="calc-panel border-purple">
-            <div class="calc-top">
-              <span class="calc-tag">STEP 1: CCBN NORMALISASI RESIDUAL</span>
-              <span class="formula-sm">ΔB = B_obs - E[B | C]</span>
+          <!-- STEP 2: LEARNING SUFFICIENCY CARD (BARU) -->
+          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 5 }">
+            <div class="panel-head">
+              <div class="panel-head-left">
+                <span class="icon-pulse emerald">📊</span>
+                <h3 class="panel-title">Learning Sufficiency (Candidate Formulation)</h3>
+              </div>
+              <span class="code-pill pill-emerald">Langkah 5 Pipeline</span>
             </div>
-            <div class="metrics-3-col">
-              <div class="m-card">
-                <span class="m-lbl">Ekspektasi E[τ_focus | C]:</span>
-                <span class="m-val">{{ (expectedFocus * 100).toFixed(0) }}%</span>
-                <span class="m-sub">Dihitung dari kendala C(t)</span>
+
+            <!-- Sufficiency Metrics Grid -->
+            <div class="sufficiency-card-body">
+              <div class="suff-metrics-grid">
+                <div class="suff-kpi-item">
+                  <span class="suff-kpi-lbl">Video Completion (B_watch)</span>
+                  <span class="suff-kpi-val text-blue">{{ watchCompletionRatio }}%</span>
+                  <span class="suff-kpi-sub">{{ watchedMin.toFixed(1) }} dari {{ videoDurationMin }} menit</span>
+                </div>
+                <div class="suff-kpi-item">
+                  <span class="suff-kpi-lbl">Interaction Coverage (B_int)</span>
+                  <span class="suff-kpi-val text-emerald">{{ interactionCoveragePct }}%</span>
+                  <span class="suff-kpi-sub">{{ interactionEvents }} / 10 checkpoint interaktif</span>
+                </div>
+                <div class="suff-kpi-item">
+                  <span class="suff-kpi-lbl">Revisit Signal (B_revisit)</span>
+                  <span class="suff-kpi-val text-purple">{{ revisitEvents }}×</span>
+                  <span class="suff-kpi-sub">Mengulang konsep sulit</span>
+                </div>
+                <div class="suff-kpi-item">
+                  <span class="suff-kpi-lbl">Engagement Signal (B_eng)</span>
+                  <span class="suff-kpi-val text-amber">{{ observedFocus.toFixed(2) }}</span>
+                  <span class="suff-kpi-sub">Atensi tab & clickstream</span>
+                </div>
               </div>
-              <div class="m-card">
-                <span class="m-lbl">Perilaku Teramati B_obs:</span>
-                <span class="m-val">{{ (observedFocus * 100).toFixed(0) }}%</span>
-                <span class="m-sub">Fokus tab riil</span>
+
+              <!-- Main Sufficiency Score Box -->
+              <div class="suff-score-banner" :class="isSufficient ? 'banner-sufficient' : 'banner-insufficient'">
+                <div class="suff-score-left">
+                  <span class="score-banner-label">LEARNING SUFFICIENCY SCORE (LS_t)</span>
+                  <div class="score-banner-num-row">
+                    <span class="score-banner-val">{{ sufficiencyScore.toFixed(2) }}</span>
+                    <span class="score-banner-threshold">/ Ambang Batas: {{ sufficiencyThreshold.toFixed(2) }}</span>
+                  </div>
+                </div>
+                <div class="suff-score-right">
+                  <div class="suff-verdict-badge" :class="isSufficient ? 'badge-green' : 'badge-amber'">
+                    <span class="verdict-icon">{{ isSufficient ? '🛡️' : '⚠️' }}</span>
+                    <span class="verdict-text">{{ isSufficient ? 'Sufficient behavioral evidence' : 'Insufficient behavioral evidence' }}</span>
+                  </div>
+                </div>
               </div>
-              <div class="m-card m-highlight">
-                <span class="m-lbl">Sinyal Residual ΔB:</span>
-                <span class="m-val" :style="{ color: deltaBColor }">{{ liveDeltaB >= 0 ? '+' : '' }}{{ liveDeltaB.toFixed(2) }}</span>
-                <span class="m-sub"><strong>{{ deltaBInterpretation }}</strong></span>
+
+              <!-- Candidate Formula Card -->
+              <div class="suff-formula-box">
+                <div class="suff-formula-title">
+                  <span>📐 Formulasi Kandidat (Candidate Formulation):</span>
+                  <span class="cand-badge">Candidate Model (Not Final)</span>
+                </div>
+                <div class="cand-eq">
+                  <span class="m-bold">LS</span><sub class="m-idx">t</sub> = 
+                  <span class="eq-term">0.35 · <span class="m-var">B</span><sub>watch</sub></span> + 
+                  <span class="eq-term">0.25 · <span class="m-var">B</span><sub>interaction</sub></span> + 
+                  <span class="eq-term">0.20 · <span class="m-var">B</span><sub>revisit</sub></span> + 
+                  <span class="eq-term">0.20 · <span class="m-var">B</span><sub>engagement</sub></span>
+                  <span class="eq-domain">∈ [0.00, 1.00]</span>
+                </div>
+                <div class="suff-scale-visual">
+                  <div class="scale-track">
+                    <div class="scale-zone zone-insufficient" style="width: 50%;">0.00 - 0.50 (Insufficient)</div>
+                    <div class="scale-zone zone-moderate" style="width: 25%;">0.50 - 0.75 (Moderate)</div>
+                    <div class="scale-zone zone-sufficient" style="width: 25%;">0.75 - 1.00 (Sufficient)</div>
+                    <div class="scale-marker" :style="{ left: `${sufficiencyScore * 100}%` }">
+                      <span class="marker-pin">▼</span>
+                      <span class="marker-val">{{ sufficiencyScore.toFixed(2) }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Epistemic Guardrail Box -->
+              <div class="epistemic-guardrail-alert">
+                <span class="alert-icon">⚠️</span>
+                <div class="alert-txt">
+                  <strong>Prinsip Metodologis & Epistemik:</strong> Sistem mendeteksi <code>{{ isSufficient ? 'Sufficient behavioral evidence' : 'Insufficient behavioral evidence' }}</code>, bukan mengklaim <em>"Learning confirmed"</em>. Data perilaku (trace) hanya membuktikan kecukupan interaksi kognitif pada konteks tertentu, bukan label absolut kemampuan kognitif tanpa asesmen formatif.
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Step 2: Algorithmic Action Selection (YouTube Bitrate Analogy) -->
-          <div class="calc-panel border-emerald" style="margin-top: 1rem;">
-            <div class="calc-top">
-              <span class="calc-tag tag-green">CANDIDATE DISPARITY-AWARE ACTION SELECTION</span>
-              <span class="formula-sm">a_t^* = \arg\max_a Score_{a,t}</span>
+          <!-- STEP 3: EVIDENCE TIMELINE (BARU) -->
+          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 5 }">
+            <div class="panel-head">
+              <div class="panel-head-left">
+                <span class="icon-pulse blue">⏱️</span>
+                <h3 class="panel-title">Evidence Timeline (Deteksi Titik Kecukupan Belajar)</h3>
+              </div>
+              <span class="code-pill pill-blue">Video 10:00 Menit</span>
             </div>
-            
+
+            <div class="timeline-card-body">
+              <p class="timeline-intro">
+                Menjawab pertanyaan: <em>"Pada detik/menit ke berapa perilaku belajar partisipan dianggap memenuhi kecukupan bukti (sufficient evidence)?"</em>
+              </p>
+
+              <!-- Video Timeline Track -->
+              <div class="timeline-track-wrap">
+                <div class="timeline-time-labels">
+                  <span>00:00</span>
+                  <span>02:00</span>
+                  <span>04:00</span>
+                  <span>06:00</span>
+                  <span>08:00</span>
+                  <span>10:00</span>
+                </div>
+
+                <div class="timeline-bar-container">
+                  <!-- Watched Progress Fill -->
+                  <div class="timeline-watched-fill" :style="{ width: `${(watchedMin / videoDurationMin) * 100}%` }"></div>
+
+                  <!-- Event Marker 1: Skip -->
+                  <div class="timeline-event-marker marker-skip" style="left: 20%;" title="Skip event pada 02:00">
+                    <span class="t-badge badge-skip">skip (02:00)</span>
+                    <div class="t-line"></div>
+                  </div>
+
+                  <!-- Event Marker 2: Interaction -->
+                  <div class="timeline-event-marker marker-interaction" style="left: 42%;" title="Interactive Checkpoint pada 04:12">
+                    <span class="t-badge badge-interaction">quiz (04:12)</span>
+                    <div class="t-line"></div>
+                  </div>
+
+                  <!-- Event Marker 3: Revisit -->
+                  <div class="timeline-event-marker marker-revisit" style="left: 60%;" title="Revisit Signal pada 06:00">
+                    <span class="t-badge badge-revisit">revisit (06:00)</span>
+                    <div class="t-line"></div>
+                  </div>
+
+                  <!-- Threshold Crossing Pin -->
+                  <div v-if="isSufficient" class="timeline-detection-pin" :style="{ left: `${Math.min((watchedMin / videoDurationMin) * 95, 68)}%` }">
+                    <div class="detection-pulse-dot"></div>
+                    <div class="detection-flag">
+                      🎯 Sufficient evidence: {{ sufficiencyDetectionTime }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Score Progression Flow -->
+              <div class="timeline-progression-row">
+                <div class="t-prog-item">
+                  <span class="t-prog-step">Menit 02:00</span>
+                  <span class="t-prog-val">LS = 0.28</span>
+                  <span class="t-prog-sub">Fase awal</span>
+                </div>
+                <div class="t-prog-arrow">➔</div>
+                <div class="t-prog-item">
+                  <span class="t-prog-step">Menit 04:12</span>
+                  <span class="t-prog-val">LS = 0.52</span>
+                  <span class="t-prog-sub">Interaksi aktif</span>
+                </div>
+                <div class="t-prog-arrow">➔</div>
+                <div class="t-prog-item">
+                  <span class="t-prog-step">Menit 06:00</span>
+                  <span class="t-prog-val">LS = 0.64</span>
+                  <span class="t-prog-sub">Revisit konsep</span>
+                </div>
+                <div class="t-prog-arrow">➔</div>
+                <div class="t-prog-item highlight-prog">
+                  <span class="t-prog-step">Menit {{ sufficiencyDetectionTime || '06:40' }}</span>
+                  <span class="t-prog-val text-emerald">LS = {{ sufficiencyScore.toFixed(2) }}</span>
+                  <span class="t-prog-sub text-emerald">✓ Threshold Terlampaui</span>
+                </div>
+              </div>
+
+              <!-- Epistemic Clarification Callout -->
+              <div class="timeline-callout-box">
+                <div class="callout-badge-head">
+                  <span v-if="isSufficient" class="callout-pill-green">
+                    ✅ Sufficient behavioral evidence detected at {{ sufficiencyDetectionTime }}
+                  </span>
+                  <span v-else class="callout-pill-amber">
+                    ⚠️ Sufficient evidence belum terlampaui (Score {{ sufficiencyScore.toFixed(2) }} &lt; {{ sufficiencyThreshold.toFixed(2) }})
+                  </span>
+                </div>
+                <div class="callout-distinction-grid">
+                  <div class="dist-cell true-cell">
+                    <span class="dist-title">🎯 Yang Dideteksi Algoritma CABA:</span>
+                    <span class="dist-pill boxed-green">Sufficient Evidence</span>
+                    <p class="dist-desc">Sinyal bukti perilaku telah memadai sesuai batas toleransi konteks lingkungan.</p>
+                  </div>
+                  <div class="dist-cell false-cell">
+                    <span class="dist-title">❌ Bukan Yang Diklaim:</span>
+                    <span class="dist-pill boxed-red">Learning Confirmed</span>
+                    <p class="dist-desc">Algoritma tidak mengklaim proses kognitif internal telah tuntas 100%.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4: COMPLETION VS SUFFICIENCY SIMULATION (BARU) -->
+          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 5 }">
+            <div class="panel-head">
+              <div class="panel-head-left">
+                <span class="icon-pulse amber">⚖️</span>
+                <h3 class="panel-title">Traditional Completion vs. Contextual Learning Sufficiency</h3>
+              </div>
+              <span class="code-pill pill-amber">Komparasi Paradigma</span>
+            </div>
+
+            <div class="comparison-card-body">
+              <!-- Dual Indicators -->
+              <div class="dual-indicator-grid">
+                <div class="indicator-card traditional-box">
+                  <span class="ind-badge">Metrik Tradisional</span>
+                  <h4 class="ind-title">Video Completion Rate</h4>
+                  <div class="ind-val text-rose">{{ watchCompletionRatio }}%</div>
+                  <p class="ind-note">Berdasarkan rasio durasi putar linier semata (6.2 / 10 menit).</p>
+                  <span class="ind-verdict verdict-bad">⚠️ Dianggap Belum Selesai / Tidak Tuntas</span>
+                </div>
+
+                <div class="indicator-vs">VS</div>
+
+                <div class="indicator-card contextual-box">
+                  <span class="ind-badge badge-green">Paradigma Disertasi (CABA–CCBN)</span>
+                  <h4 class="ind-title">Contextual Learning Sufficiency</h4>
+                  <div class="ind-val text-emerald">{{ (sufficiencyScore * 100).toFixed(0) }}%</div>
+                  <p class="ind-note">Menggabungkan completion, revisit, interaksi checkpoint, dan residu konteks.</p>
+                  <span class="ind-verdict verdict-good">✅ Sufficient Behavioral Evidence</span>
+                </div>
+              </div>
+
+              <!-- Case Study Table -->
+              <div class="case-study-box">
+                <div class="case-title">
+                  <span>📌 Studi Kasus Komparatif Profil Responden Lapangan:</span>
+                </div>
+                <div class="case-grid">
+                  <div class="case-col">
+                    <span class="case-col-title">Perilaku Belajar Riil</span>
+                    <ul class="case-list">
+                      <li><span>Durasi Video Total:</span> <strong>10.0 Menit</strong></li>
+                      <li><span>Durasi Ditonton:</span> <strong>{{ watchedMin.toFixed(1) }} Menit ({{ watchCompletionRatio }}%)</strong></li>
+                      <li><span>Skip Events:</span> <strong>{{ skipEvents }}×</strong></li>
+                      <li><span>Revisit Sinyal:</span> <strong>{{ revisitEvents }}× (Konsep Kunci)</strong></li>
+                      <li><span>Interaksi Modul:</span> <strong>{{ interactionEvents }} Checkpoint</strong></li>
+                      <li><span>Behavioral Signal:</span> <strong>{{ sufficiencyScore.toFixed(2) }}</strong></li>
+                    </ul>
+                  </div>
+                  <div class="case-col">
+                    <span class="case-col-title">Profil Konteks & Keputusan</span>
+                    <ul class="case-list">
+                      <li><span>Throughput Bandwidth:</span> <strong>{{ bandwidthKbps }} kbps ({{ bandwidthQuality }})</strong></li>
+                      <li><span>Perangkat Akses:</span> <strong>{{ deviceName }}</strong></li>
+                      <li><span>Beban Dinas (Workload):</span> <strong>{{ workloadLevel }}/5 ({{ workloadDesc }})</strong></li>
+                      <li><span>Expected Behavior E[B|C]:</span> <strong>{{ (expectedFocus * 100).toFixed(0) }}%</strong></li>
+                      <li><span>Observed Behavior B_obs:</span> <strong>{{ (observedFocus * 100).toFixed(0) }}%</strong></li>
+                      <li><span>Sinyal Residual ΔB:</span> <strong class="text-emerald">{{ liveDeltaB >= 0 ? '+' : '' }}{{ liveDeltaB.toFixed(2) }} (Wajar)</strong></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="case-footer">
+                  <span class="cf-badge">Kesimpulan Kebijakan:</span>
+                  <span class="cf-text">
+                    <strong>No immediate punitive intervention.</strong> Meskipun completion rate hanya {{ watchCompletionRatio }}%, residu perilaku terhadap konteksnya (ΔB = {{ liveDeltaB >= 0 ? '+' : '' }}{{ liveDeltaB.toFixed(2) }}) membuktikan tidak ada disparitas negatif akibat kelalaian otentik.
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 5: FAIRNESS CHECK (PESERTA A VS PESERTA B) (BARU) -->
+          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 6 }">
+            <div class="panel-head">
+              <div class="panel-head-left">
+                <span class="icon-pulse rose">⚖️</span>
+                <h3 class="panel-title">Contextual Fairness Check (Perbandingan Lintas Wilayah)</h3>
+              </div>
+              <span class="code-pill pill-rose">Keadilan Spasial 3T vs Urban</span>
+            </div>
+
+            <div class="fairness-card-body">
+              <p class="fairness-intro">
+                Mencegah bias algoritma yang secara sistematis mendiskriminasi ASN di daerah 3T hanya karena keterbatasan infrastruktur:
+              </p>
+
+              <div class="fairness-dual-table">
+                <table class="fair-table">
+                  <thead>
+                    <tr>
+                      <th>Dimensi Evaluasi</th>
+                      <th class="th-a">🏢 Peserta A (Perkotaan / Fiber)</th>
+                      <th class="th-b">🏝️ Peserta B (3T / Sinyal Terbatas)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Kondisi Infrastruktur & Konteks</strong></td>
+                      <td>Bandwidth Tinggi (Fiber 10 Mbps), Workload Rendah</td>
+                      <td>Bandwidth Sangat Terbatas (110 kbps Satelit), Workload Tinggi</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Traditional Completion</strong></td>
+                      <td><span class="tbl-badge badge-emerald">90%</span></td>
+                      <td><span class="tbl-badge badge-rose">62%</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Expected Behavior E[B | C]</strong></td>
+                      <td><span class="tbl-badge">85%</span></td>
+                      <td><span class="tbl-badge">60%</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Observed Behavior B_obs</strong></td>
+                      <td><span class="tbl-badge">90%</span></td>
+                      <td><span class="tbl-badge">62%</span></td>
+                    </tr>
+                    <tr class="highlight-row">
+                      <td><strong>Residual Kontekstual (ΔB = B_obs - E)</strong></td>
+                      <td><strong class="text-emerald">+5%</strong> (Positif wajar)</td>
+                      <td><strong class="text-emerald">+2%</strong> (Positif wajar)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Penilaian LMS Konvensional</strong></td>
+                      <td><span class="status-pill status-success">✅ Berprestasi / Tuntas</span></td>
+                      <td><span class="status-pill status-danger">❌ Tidak Disiplin / Gagal</span></td>
+                    </tr>
+                    <tr class="highlight-row-green">
+                      <td><strong>Penilaian CABA–CCBN (Disertasi)</strong></td>
+                      <td><span class="status-pill status-success">✅ Sesuai Konteks (+5%)</span></td>
+                      <td><span class="status-pill status-success">✅ Sesuai Konteks (+2%, Non-Punitif)</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="fairness-insight-box">
+                <span class="icon-light">💡</span>
+                <p class="insight-txt">
+                  <strong>Insight Keadilan Epistemik:</strong> Pada paradigma konvensional, Peserta B dihukum karena completion-nya 62%. Namun model kontekstual CABA–CCBN membuktikan bahwa dalam konteks keterbatasan 3T, capaian 62% sebenarnya melampaui ekspektasi wajar baseline-nya (Residual +2%). Algoritma <strong>tidak mendiskriminasi B</strong> sebagai pembelajar yang buruk.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 6: EXPLAINABILITY CARD: "WHY THIS DECISION?" (BARU) -->
+          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 7 }">
+            <div class="panel-head">
+              <div class="panel-head-left">
+                <span class="icon-pulse cyan">🔍</span>
+                <h3 class="panel-title">Explainable AI (XAI) — "Why This Decision?"</h3>
+              </div>
+              <span class="code-pill pill-cyan">Justifikasi Keputusan Algoritmik</span>
+            </div>
+
+            <div class="why-card-body">
+              <div class="why-summary-grid">
+                <div class="why-row">
+                  <span class="why-k">Observed Video Completion:</span>
+                  <span class="why-v"><strong>{{ watchCompletionRatio }}%</strong> ({{ watchedMin.toFixed(1) }} menit)</span>
+                </div>
+                <div class="why-row">
+                  <span class="why-k">Contextual Expectation E[B|C]:</span>
+                  <span class="why-v"><strong>{{ (expectedFocus * 100).toFixed(0) }}%</strong> (Normalisasi kendala lapangan)</span>
+                </div>
+                <div class="why-row">
+                  <span class="why-k">Residual Sinyal (ΔB):</span>
+                  <span class="why-v text-emerald"><strong>{{ liveDeltaB >= 0 ? '+' : '' }}{{ liveDeltaB.toFixed(2) }}</strong> (Perilaku belajar dalam batas wajar)</span>
+                </div>
+                <div class="why-row">
+                  <span class="why-k">Behavioral Evidence Status:</span>
+                  <span class="why-v" :class="isSufficient ? 'text-emerald' : 'text-amber'">
+                    <strong>{{ isSufficient ? 'Sufficient (Score ' + sufficiencyScore.toFixed(2) + ')' : 'Insufficient (Score ' + sufficiencyScore.toFixed(2) + ')' }}</strong>
+                  </span>
+                </div>
+                <div class="why-row">
+                  <span class="why-k">Primary Field Constraint:</span>
+                  <span class="why-v text-rose">
+                    <strong>{{ bandwidthKbps < 250 ? 'Low Bandwidth (' + bandwidthKbps + ' kbps, 3T Satellite)' : (workloadLevel >= 4 ? 'High Public Service Workload (Level ' + workloadLevel + ')' : 'Kondisi Normal') }}</strong>
+                  </span>
+                </div>
+                <div class="why-row highlight-why">
+                  <span class="why-k">Recommended Algorithmic Action:</span>
+                  <span class="why-v text-emerald">
+                    <strong>{{ selectedAction.name }} (No Punitive Action)</strong>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Co-Promotor Q&A Dialogue Box -->
+              <div class="copromotor-qa-box">
+                <div class="qa-q">
+                  <span class="qa-icon">🗣️</span>
+                  <span><strong>Pertanyaan Penguji / Co-Promotor:</strong> <em>"Kenapa algoritmanya memutuskan format tersebut dan tidak menghukum peserta yang completion-nya rendah?"</em></span>
+                </div>
+                <div class="qa-a">
+                  <span class="qa-icon-ans">🎓</span>
+                  <span><strong>Jawaban Model Komputasional:</strong> <em>"Keputusan adaptif tidak dibuat semata-mata dari completion rate linier. Algoritma membandingkan perilaku teramati (observed behavior) terhadap ekspektasi wajar pada konteks peserta (contextual expectation). Karena residualnya positif (ΔB = {{ liveDeltaB >= 0 ? '+' : '' }}{{ liveDeltaB.toFixed(2) }}), sistem mengalihkan modalitas ke format hemat bandwidth tanpa memberikan penalti nilai atau teguran disiplin."</em></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 7: ACTION SELECTION & HITL SUPERVISION -->
+          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 7 || simulationActiveStep === 8 }">
+            <div class="panel-head">
+              <div class="panel-head-left">
+                <span class="icon-pulse purple">🎯</span>
+                <h3 class="panel-title">Aksi Adaptif Candidate Disparity-Aware LinUCB</h3>
+              </div>
+              <span class="code-pill pill-purple">a_t^* = \arg\max_a Score_{a,t}</span>
+            </div>
+
+            <!-- Action Card -->
             <div class="action-card">
               <div class="action-top">
                 <span class="act-badge">{{ selectedAction.tag }}</span>
@@ -849,95 +1377,94 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Step 3: Policy Comparison (3-Way Modern Cards) -->
-          <div style="margin-top: 1.25rem;">
-            <h4 class="policy-sec-title">
-              ⚖️ Perbandingan Perlakuan Antar Kebijakan Algoritmik:
-            </h4>
-            <div class="policy-card-stack">
-              <!-- Policy 1: Punitive -->
-              <div class="pol-item-card pol-danger">
-                <div class="pol-top">
-                  <span class="pol-name">1. LMS Konvensional (Punitive)</span>
-                  <span class="pol-status status-danger">❌ Unfair Penalty (Context Blind)</span>
+            <!-- Policy Comparison (3-Way Modern Cards) -->
+            <div style="margin-top: 1.25rem;">
+              <h4 class="policy-sec-title">
+                ⚖️ Perbandingan Perlakuan Antar Kebijakan Algoritmik:
+              </h4>
+              <div class="policy-card-stack">
+                <!-- Policy 1: Punitive -->
+                <div class="pol-item-card pol-danger">
+                  <div class="pol-top">
+                    <span class="pol-name">1. LMS Konvensional (Punitive)</span>
+                    <span class="pol-status status-danger">❌ Unfair Penalty (Context Blind)</span>
+                  </div>
+                  <div class="pol-body">
+                    <span class="pol-decision">Keputusan: <strong>{{ punitivePolicyDecision }}</strong></span>
+                    <span class="pol-note">Menghukum ASN yang terkendala jaringan/tugas kedinasan tanpa normalisasi konteks.</span>
+                  </div>
                 </div>
-                <div class="pol-body">
-                  <span class="pol-decision">Keputusan: <strong>{{ punitivePolicyDecision }}</strong></span>
-                  <span class="pol-note">Menghukum ASN yang terkendala jaringan/tugas kedinasan tanpa normalisasi konteks.</span>
+
+                <!-- Policy 2: Static Rule -->
+                <div class="pol-item-card pol-warning">
+                  <div class="pol-top">
+                    <span class="pol-name">2. Static Rule-Based</span>
+                    <span class="pol-status status-warning">⚠️ Drop / Kaku (Rigid Threshold)</span>
+                  </div>
+                  <div class="pol-body">
+                    <span class="pol-decision">Keputusan: <strong>{{ staticRuleDecision }}</strong></span>
+                    <span class="pol-note">Gagal beradaptasi pada fluktuasi bandwidth dinamis dan interupsi pelayanan publik.</span>
+                  </div>
+                </div>
+
+                <!-- Policy 3: Candidate Disparity-Aware LinUCB -->
+                <div class="pol-item-card pol-success">
+                  <div class="pol-top">
+                    <span class="pol-name">3. Candidate Disparity-Aware LinUCB</span>
+                    <span class="pol-status status-success">✅ Evaluating Effectiveness–Equity Trade-off</span>
+                  </div>
+                  <div class="pol-body">
+                    <span class="pol-decision text-emerald">Keputusan: <strong>{{ selectedAction.name }}</strong></span>
+                    <span class="pol-note">Memilih aksi adaptif secara adil berdasarkan residu ΔB dan memitigasi disparitas luaran antar wilayah.</span>
+                  </div>
                 </div>
               </div>
 
-              <!-- Policy 2: Static Rule -->
-              <div class="pol-item-card pol-warning">
-                <div class="pol-top">
-                  <span class="pol-name">2. Static Rule-Based</span>
-                  <span class="pol-status status-warning">⚠️ Drop / Kaku (Rigid Threshold)</span>
+              <!-- Human-in-the-Loop (HITL) Widyaiswara Action & Audit Box -->
+              <div class="hitl-governance-card">
+                <div class="hitl-head">
+                  <div class="hitl-title-row">
+                    <span class="hitl-icon">🛡️</span>
+                    <span class="hitl-heading">Human-in-the-Loop (HITL) & Non-Punitive Audit</span>
+                  </div>
+                  <span class="hitl-badge" :class="hitlStatus === 'approved' ? 'badge-green' : 'badge-amber'">
+                    {{ hitlStatus === 'approved' ? '✅ Rekomendasi Terverifikasi' : (hitlStatus === 'modified' ? '✏️ Dikoreksi Widyaiswara' : '⏸️ Ditunda / Reschedule') }}
+                  </span>
                 </div>
-                <div class="pol-body">
-                  <span class="pol-decision">Keputusan: <strong>{{ staticRuleDecision }}</strong></span>
-                  <span class="pol-note">Gagal beradaptasi pada fluktuasi bandwidth dinamis dan interupsi pelayanan publik.</span>
+                <p class="hitl-desc">
+                  Sesuai batasan tata kelola proposal (Sub-bab 4.3), seluruh rekomendasi algoritma berada di bawah supervisi Widyaiswara dan hanya berfungsi sebagai <strong>dukungan peningkatan kapasitas</strong>, bukan instrumen penilaian disiplin/punitif.
+                </p>
+                <div class="hitl-btn-group">
+                  <button 
+                    class="hitl-btn" 
+                    :class="{ active: hitlStatus === 'approved' }"
+                    @click="setHitlStatus('approved')"
+                  >
+                    <span>✓ Setujui Format Adaptif</span>
+                  </button>
+                  <button 
+                    class="hitl-btn" 
+                    :class="{ active: hitlStatus === 'modified' }"
+                    @click="setHitlStatus('modified')"
+                  >
+                    <span>✏️ Koreksi Moda Belajar</span>
+                  </button>
+                  <button 
+                    class="hitl-btn" 
+                    :class="{ active: hitlStatus === 'deferred' }"
+                    @click="setHitlStatus('deferred')"
+                  >
+                    <span>⏸️ Jadwal Ulang (Beban Dinas)</span>
+                  </button>
                 </div>
-              </div>
-
-              <!-- Policy 3: Candidate Disparity-Aware LinUCB -->
-              <div class="pol-item-card pol-success">
-                <div class="pol-top">
-                  <span class="pol-name">3. Candidate Disparity-Aware LinUCB</span>
-                  <span class="pol-status status-success">✅ Evaluating Effectiveness–Equity Trade-off</span>
-                </div>
-                <div class="pol-body">
-                  <span class="pol-decision text-emerald">Keputusan: <strong>{{ selectedAction.name }}</strong></span>
-                  <span class="pol-note">Memilih aksi adaptif secara adil berdasarkan residu ΔB dan memitigasi disparitas luaran antar wilayah.</span>
+                <div class="hitl-audit-log">
+                  <span class="log-label">📋 Entri Log Audit Tata Kelola:</span>
+                  <code>[AUDIT-LOG: {{ currentPreset.toUpperCase() }}] Rekomendasi='{{ selectedAction.name }}' | Sufficiency={{ sufficiencyScore.toFixed(2) }} ({{ isSufficient ? 'SUFFICIENT' : 'INSUFFICIENT' }}) | Residual ΔB={{ liveDeltaB.toFixed(2) }} | Status={{ hitlStatus.toUpperCase() }} | Proteksi: Non-Punitif.</code>
                 </div>
               </div>
             </div>
-
-            <!-- Human-in-the-Loop (HITL) Widyaiswara Action & Audit Box -->
-            <div class="hitl-governance-card">
-              <div class="hitl-head">
-                <div class="hitl-title-row">
-                  <span class="hitl-icon">🛡️</span>
-                  <span class="hitl-heading">Human-in-the-Loop (HITL) & Non-Punitive Audit</span>
-                </div>
-                <span class="hitl-badge" :class="hitlStatus === 'approved' ? 'badge-green' : 'badge-amber'">
-                  {{ hitlStatus === 'approved' ? '✅ Rekomendasi Terverifikasi' : (hitlStatus === 'modified' ? '✏️ Dikoreksi Widyaiswara' : '⏸️ Ditunda / Reschedule') }}
-                </span>
-              </div>
-              <p class="hitl-desc">
-                Sesuai batasan tata kelola proposal (Sub-bab 4.3), seluruh rekomendasi algoritma berada di bawah supervisi Widyaiswara dan hanya berfungsi sebagai <strong>dukungan peningkatan kapasitas</strong>, bukan instrumen penilaian disiplin/punitif.
-              </p>
-              <div class="hitl-btn-group">
-                <button 
-                  class="hitl-btn" 
-                  :class="{ active: hitlStatus === 'approved' }"
-                  @click="setHitlStatus('approved')"
-                >
-                  <span>✓ Setujui Format Adaptif</span>
-                </button>
-                <button 
-                  class="hitl-btn" 
-                  :class="{ active: hitlStatus === 'modified' }"
-                  @click="setHitlStatus('modified')"
-                >
-                  <span>✏️ Koreksi Moda Belajar</span>
-                </button>
-                <button 
-                  class="hitl-btn" 
-                  :class="{ active: hitlStatus === 'deferred' }"
-                  @click="setHitlStatus('deferred')"
-                >
-                  <span>⏸️ Jadwal Ulang (Beban Dinas)</span>
-                </button>
-              </div>
-              <div class="hitl-audit-log">
-                <span class="log-label">📋 Entri Log Audit Tata Kelola:</span>
-                <code>[AUDIT-LOG: {{ currentPreset.toUpperCase() }}] Rekomendasi='{{ selectedAction.name }}' | Residual ΔB={{ liveDeltaB.toFixed(2) }} | Status={{ hitlStatus.toUpperCase() }} | Proteksi: Data Dipseudonimkan & Non-Punitif.</code>
-              </div>
-            </div>
           </div>
-
         </div>
       </div>
 
@@ -961,14 +1488,44 @@ function setHitlStatus(status: 'approved' | 'modified' | 'deferred') {
 // Dynamic Lambda (Disparity Penalty Weight)
 const lambdaWeight = ref<number>(0.50);
 
-// Simulator State
+// Simulator State: Context Profile
 const currentPreset = ref<string>('3T_mobile');
-const bandwidthKbps = ref<number>(120);
-const latencyMs = ref<number>(450);
+const bandwidthKbps = ref<number>(110);
+const latencyMs = ref<number>(520);
 const deviceType = ref<'smartphone' | 'tablet' | 'desktop'>('smartphone');
 const workloadLevel = ref<number>(4);
-const observedFocus = ref<number>(0.35);
+const observedFocus = ref<number>(0.64);
 const observedRetention = ref<number>(0.70);
+
+// Simulator State: Behavioral Signals & Learning Sufficiency
+const videoDurationMin = ref<number>(10.0);
+const watchedMin = ref<number>(6.2);
+const skipEvents = ref<number>(3);
+const revisitEvents = ref<number>(2);
+const interactionEvents = ref<number>(8);
+const sufficiencyThreshold = ref<number>(0.70);
+
+// Trajectory Simulation Animation State
+const isSimulating = ref<boolean>(false);
+const simulationActiveStep = ref<number>(0);
+
+function simulateTrajectory() {
+  if (isSimulating.value) return;
+  isSimulating.value = true;
+  simulationActiveStep.value = 1;
+
+  let step = 1;
+  const interval = setInterval(() => {
+    step++;
+    if (step <= 8) {
+      simulationActiveStep.value = step;
+    } else {
+      clearInterval(interval);
+      isSimulating.value = false;
+      // keep active step at 8 or complete
+    }
+  }, 700);
+}
 
 function applyPreset(preset: string) {
   currentPreset.value = preset;
@@ -976,25 +1533,81 @@ function applyPreset(preset: string) {
     bandwidthKbps.value = 110;
     latencyMs.value = 520;
     deviceType.value = 'smartphone';
-    workloadLevel.value = 3;
-    observedFocus.value = 0.40;
-    observedRetention.value = 0.65;
+    workloadLevel.value = 4;
+    observedFocus.value = 0.64;
+    observedRetention.value = 0.70;
+    watchedMin.value = 6.2;
+    skipEvents.value = 3;
+    revisitEvents.value = 2;
+    interactionEvents.value = 8;
   } else if (preset === 'office_rush') {
     bandwidthKbps.value = 2500;
     latencyMs.value = 45;
     deviceType.value = 'desktop';
     workloadLevel.value = 5;
-    observedFocus.value = 0.25;
+    observedFocus.value = 0.35;
     observedRetention.value = 0.60;
+    watchedMin.value = 4.5;
+    skipEvents.value = 4;
+    revisitEvents.value = 1;
+    interactionEvents.value = 6;
   } else if (preset === 'night_study') {
     bandwidthKbps.value = 5000;
     latencyMs.value = 30;
     deviceType.value = 'desktop';
     workloadLevel.value = 1;
-    observedFocus.value = 0.90;
+    observedFocus.value = 0.92;
     observedRetention.value = 0.95;
+    watchedMin.value = 9.8;
+    skipEvents.value = 1;
+    revisitEvents.value = 3;
+    interactionEvents.value = 10;
   }
 }
+
+// Learning Sufficiency Computations
+const watchCompletionRatio = computed(() => {
+  return Math.min(Math.round((watchedMin.value / videoDurationMin.value) * 100), 100);
+});
+
+const interactionCoveragePct = computed(() => {
+  return Math.min(Math.round((interactionEvents.value / 10) * 100), 100);
+});
+
+const bWatch = computed(() => {
+  return Math.min(watchedMin.value / videoDurationMin.value, 1.0);
+});
+
+const bInteraction = computed(() => {
+  return Math.min(interactionEvents.value / 10, 1.0) * 0.8 + 0.2;
+});
+
+const bRevisit = computed(() => {
+  return Math.min(revisitEvents.value / 3, 1.0);
+});
+
+const bEngagement = computed(() => {
+  return Math.min(Math.max(observedFocus.value, 0), 1.0);
+});
+
+// Candidate Sufficiency Score: LS_t = w1*B_watch + w2*B_interaction + w3*B_revisit + w4*B_engagement
+const sufficiencyScore = computed(() => {
+  const score = (0.35 * bWatch.value) + (0.25 * bInteraction.value) + (0.20 * bRevisit.value) + (0.20 * bEngagement.value);
+  return Math.min(Math.max(Math.round(score * 100) / 100, 0), 1.0);
+});
+
+const isSufficient = computed(() => {
+  return sufficiencyScore.value >= sufficiencyThreshold.value;
+});
+
+const sufficiencyDetectionTime = computed(() => {
+  if (!isSufficient.value) return null;
+  const ratio = Math.min(sufficiencyThreshold.value / Math.max(sufficiencyScore.value, 0.01), 1.0);
+  const detMinutes = Math.min(watchedMin.value * ratio, watchedMin.value);
+  const m = Math.floor(detMinutes);
+  const s = Math.round((detMinutes - m) * 60);
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+});
 
 // Dynamic Disparity Trade-off Computations
 const dynamicOverallReward = computed(() => {
@@ -1076,7 +1689,7 @@ const deltaBColor = computed(() => {
 
 const deltaBInterpretation = computed(() => {
   if (liveDeltaB.value >= -0.05) {
-    return 'Wajar (Perilaku sesuai kendala situasi lingkungan, tidak ada hukuman)';
+    return 'Wajar (Perilaku sesuai kendala situasi lingkungan, tidak ada penalti)';
   } else if (liveDeltaB.value >= -0.20) {
     return 'Friksi Ringan (Disarankan Dynamic Micro-Chunking)';
   }
@@ -3202,5 +3815,1027 @@ const staticRuleDecision = computed(() => {
   font-family: 'KaTeX_Math', 'KaTeX_Main', serif;
   font-size: 0.8rem;
   color: #3B0764;
+}
+
+/* ========================================================================= */
+/* 8-STEP PIPELINE TRAJECTORY TRACKER & SIMULATOR                            */
+/* ========================================================================= */
+.pipeline-tracker-card {
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  color: #FFFFFF;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.4);
+  transition: all 0.3s ease;
+}
+
+.pipeline-tracker-card.simulating-pulse {
+  border-color: #10B981;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.3);
+}
+
+.pipeline-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.pipe-title-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pipe-icon {
+  font-size: 1.5rem;
+}
+
+.pipeline-heading {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.pipeline-sub {
+  font-size: 0.775rem;
+  color: #94A3B8;
+  margin: 0.15rem 0 0 0;
+}
+
+.btn-simulate {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-simulate:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+.btn-simulate.btn-running {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  cursor: wait;
+}
+
+.pipeline-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.pipe-step-node {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 110px;
+}
+
+.pipe-step-node:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.pipe-step-node.active {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10B981;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+.pipe-step-node.done {
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.step-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+}
+
+.pipe-step-node.active .step-circle {
+  background: #10B981;
+  color: #064E3B;
+}
+
+.pipe-step-node.done .step-circle {
+  background: rgba(16, 185, 129, 0.4);
+  color: #D1FAE5;
+}
+
+.step-label-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.step-name {
+  font-size: 0.675rem;
+  font-weight: 800;
+  color: #F1F5F9;
+  letter-spacing: 0.03em;
+}
+
+.step-detail {
+  font-size: 0.575rem;
+  color: #94A3B8;
+  white-space: nowrap;
+}
+
+.pipe-step-divider {
+  color: #64748B;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.step-highlight-active {
+  border-color: #10B981 !important;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.25) !important;
+  animation: pulse-border 1.5s infinite;
+}
+
+@keyframes pulse-border {
+  0%, 100% { border-color: #10B981; }
+  50% { border-color: #34D399; }
+}
+
+/* ========================================================================= */
+/* INPUT PANEL ENHANCEMENTS                                                  */
+/* ========================================================================= */
+.sub-input-section {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.sub-sec-title {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #1E293B;
+  margin-bottom: 0.85rem;
+  display: block;
+}
+
+.dual-ctrl-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .dual-ctrl-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ctrl-half {
+  display: flex;
+  flex-direction: column;
+}
+
+.border-dashed-box {
+  border: 1.5px dashed #F59E0B;
+  background: #FFFBEB;
+  padding: 0.85rem;
+  border-radius: 8px;
+}
+
+.sim-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.slider-indigo::-webkit-slider-thumb {
+  background: #6366F1;
+}
+
+/* ========================================================================= */
+/* LEARNING SUFFICIENCY STYLING                                              */
+/* ========================================================================= */
+.sufficiency-card-body {
+  padding: 0.5rem 0;
+}
+
+.suff-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.suff-kpi-item {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 0.75rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.suff-kpi-lbl {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.suff-kpi-val {
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.suff-kpi-sub {
+  font-size: 0.65rem;
+  color: #94A3B8;
+  margin-top: 0.15rem;
+}
+
+.suff-score-banner {
+  border-radius: 12px;
+  padding: 1.15rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.banner-sufficient {
+  background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+  border: 2px solid #34D399;
+}
+
+.banner-insufficient {
+  background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+  border: 2px solid #FCD34D;
+}
+
+.score-banner-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #065F46;
+  letter-spacing: 0.05em;
+  display: block;
+}
+
+.banner-insufficient .score-banner-label {
+  color: #92400E;
+}
+
+.score-banner-num-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.score-banner-val {
+  font-size: 2.25rem;
+  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+  color: #047857;
+}
+
+.banner-insufficient .score-banner-val {
+  color: #B45309;
+}
+
+.score-banner-threshold {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #047857;
+}
+
+.banner-insufficient .score-banner-threshold {
+  color: #B45309;
+}
+
+.suff-verdict-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.suff-verdict-badge.badge-green {
+  background: #059669;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+}
+
+.suff-verdict-badge.badge-amber {
+  background: #D97706;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(217, 119, 6, 0.25);
+}
+
+.suff-formula-box {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.suff-formula-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.775rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 0.5rem;
+}
+
+.cand-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  background: #EFF6FF;
+  color: #1D4ED8;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  border: 1px solid #BFDBFE;
+}
+
+.cand-eq {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0F172A;
+  background: #F8FAFC;
+  padding: 0.65rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid #E2E8F0;
+  margin-bottom: 0.75rem;
+  overflow-x: auto;
+}
+
+.eq-domain {
+  font-size: 0.75rem;
+  color: #64748B;
+  margin-left: 0.5rem;
+}
+
+.suff-scale-visual {
+  margin-top: 0.5rem;
+}
+
+.scale-track {
+  position: relative;
+  display: flex;
+  height: 24px;
+  border-radius: 6px;
+  overflow: visible;
+}
+
+.scale-zone {
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+}
+
+.zone-insufficient { background: #F87171; border-radius: 6px 0 0 6px; }
+.zone-moderate { background: #FBBF24; color: #78350F; }
+.zone-sufficient { background: #34D399; border-radius: 0 6px 6px 0; color: #064E3B; }
+
+.scale-marker {
+  position: absolute;
+  top: -18px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: left 0.3s ease;
+}
+
+.marker-pin {
+  font-size: 0.75rem;
+  color: #0F172A;
+  line-height: 1;
+}
+
+.marker-val {
+  font-size: 0.65rem;
+  font-weight: 900;
+  background: #0F172A;
+  color: #FFFFFF;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+}
+
+.epistemic-guardrail-alert {
+  display: flex;
+  gap: 0.75rem;
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  font-size: 0.775rem;
+  color: #166534;
+  line-height: 1.5;
+}
+
+/* ========================================================================= */
+/* EVIDENCE TIMELINE STYLING                                                 */
+/* ========================================================================= */
+.timeline-card-body {
+  padding: 0.5rem 0;
+}
+
+.timeline-intro {
+  font-size: 0.825rem;
+  color: #475569;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.timeline-track-wrap {
+  background: #0F172A;
+  border-radius: 12px;
+  padding: 1.5rem 1.25rem 1.75rem 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.timeline-time-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #94A3B8;
+  margin-bottom: 0.6rem;
+}
+
+.timeline-bar-container {
+  position: relative;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
+
+.timeline-watched-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3B82F6 0%, #10B981 100%);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.timeline-event-marker {
+  position: absolute;
+  top: -24px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.t-badge {
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.badge-skip { background: #F87171; color: #FFFFFF; }
+.badge-interaction { background: #34D399; color: #064E3B; }
+.badge-revisit { background: #A78BFA; color: #FFFFFF; }
+
+.t-line {
+  width: 2px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.6);
+  margin-top: 2px;
+}
+
+.timeline-detection-pin {
+  position: absolute;
+  top: 22px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: left 0.3s ease;
+}
+
+.detection-pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981;
+  animation: pulse 1.5s infinite;
+  margin-bottom: 3px;
+}
+
+.detection-flag {
+  font-size: 0.675rem;
+  font-weight: 800;
+  background: #10B981;
+  color: #FFFFFF;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.timeline-progression-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.25rem;
+  overflow-x: auto;
+}
+
+.t-prog-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.t-prog-item.highlight-prog {
+  background: #ECFDF5;
+  border: 1.5px solid #10B981;
+  border-radius: 8px;
+  padding: 0.35rem 0.65rem;
+}
+
+.t-prog-step {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #64748B;
+}
+
+.t-prog-val {
+  font-size: 0.95rem;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  color: #0F172A;
+  margin: 0.1rem 0;
+}
+
+.t-prog-sub {
+  font-size: 0.6rem;
+  color: #94A3B8;
+}
+
+.t-prog-arrow {
+  color: #94A3B8;
+  font-weight: 800;
+  font-size: 0.8rem;
+}
+
+.timeline-callout-box {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.callout-badge-head {
+  margin-bottom: 0.85rem;
+}
+
+.callout-pill-green {
+  display: inline-block;
+  background: #DCFCE7;
+  color: #166534;
+  border: 1px solid #86EFAC;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.callout-pill-amber {
+  display: inline-block;
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FDE68A;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.callout-distinction-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .callout-distinction-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dist-cell {
+  padding: 0.85rem;
+  border-radius: 8px;
+}
+
+.true-cell {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+}
+
+.false-cell {
+  background: #FFF1F2;
+  border: 1px solid #FECDD3;
+}
+
+.dist-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #334155;
+}
+
+.dist-pill {
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 0.35rem;
+}
+
+.boxed-green {
+  background: #10B981;
+  color: #FFFFFF;
+}
+
+.boxed-red {
+  background: #EF4444;
+  color: #FFFFFF;
+  text-decoration: line-through;
+}
+
+.dist-desc {
+  font-size: 0.725rem;
+  color: #475569;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ========================================================================= */
+/* TRADITIONAL COMPLETION VS CONTEXTUAL SUFFICIENCY                          */
+/* ========================================================================= */
+.comparison-card-body {
+  padding: 0.5rem 0;
+}
+
+.dual-indicator-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .dual-indicator-grid {
+    grid-template-columns: 1fr;
+  }
+  .indicator-vs {
+    display: none;
+  }
+}
+
+.indicator-card {
+  padding: 1.25rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.traditional-box {
+  background: #FFF1F2;
+  border: 1.5px solid #FDA4AF;
+}
+
+.contextual-box {
+  background: #F0FDF4;
+  border: 2px solid #86EFAC;
+}
+
+.indicator-vs {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #94A3B8;
+  background: #F1F5F9;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ind-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #9F1239;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.ind-badge.badge-green {
+  color: #065F46;
+}
+
+.ind-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.5rem 0;
+}
+
+.ind-val {
+  font-size: 2.25rem;
+  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 0.35rem;
+}
+
+.ind-note {
+  font-size: 0.725rem;
+  color: #475569;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.ind-verdict {
+  font-size: 0.725rem;
+  font-weight: 800;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  align-self: flex-start;
+}
+
+.verdict-bad { background: #FFE4E6; color: #9F1239; }
+.verdict-good { background: #DCFCE7; color: #166534; }
+
+.case-study-box {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 1.15rem;
+}
+
+.case-title {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #1E293B;
+  margin-bottom: 0.85rem;
+}
+
+.case-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .case-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.case-col-title {
+  font-size: 0.725rem;
+  font-weight: 800;
+  color: #475569;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.case-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.75rem;
+}
+
+.case-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #E2E8F0;
+  color: #475569;
+}
+
+.case-footer {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 6px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.75rem;
+  color: #1E40AF;
+  line-height: 1.45;
+}
+
+.cf-badge {
+  font-weight: 800;
+  margin-right: 0.35rem;
+}
+
+/* ========================================================================= */
+/* FAIRNESS DUAL TABLE STYLING                                               */
+/* ========================================================================= */
+.fairness-card-body {
+  padding: 0.5rem 0;
+}
+
+.fairness-intro {
+  font-size: 0.825rem;
+  color: #475569;
+  margin-bottom: 1rem;
+}
+
+.fairness-dual-table {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.fair-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.775rem;
+}
+
+.fair-table th, .fair-table td {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #E2E8F0;
+  text-align: left;
+}
+
+.fair-table th {
+  background: #F1F5F9;
+  color: #0F172A;
+  font-weight: 800;
+}
+
+.th-a { background: #EFF6FF !important; color: #1E40AF !important; }
+.th-b { background: #FFFBEB !important; color: #92400E !important; }
+
+.highlight-row {
+  background: #F0FDF4;
+  font-weight: 700;
+}
+
+.highlight-row-green {
+  background: #DCFCE7;
+  font-weight: 800;
+}
+
+.fairness-insight-box {
+  display: flex;
+  gap: 0.75rem;
+  background: #FAF5FF;
+  border: 1px solid #DDD6FE;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+}
+
+.icon-light {
+  font-size: 1.25rem;
+}
+
+.insight-txt {
+  font-size: 0.775rem;
+  color: #5B21B6;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ========================================================================= */
+/* EXPLAINABILITY "WHY THIS DECISION?" CARD                                  */
+/* ========================================================================= */
+.why-card-body {
+  padding: 0.5rem 0;
+}
+
+.why-summary-grid {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.why-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid #E2E8F0;
+  font-size: 0.775rem;
+}
+
+.why-row:last-child {
+  border-bottom: none;
+}
+
+.why-row.highlight-why {
+  background: #ECFDF5;
+  padding: 0.6rem 0.85rem;
+  border-radius: 6px;
+  margin-top: 0.35rem;
+}
+
+.why-k {
+  color: #64748B;
+  font-weight: 600;
+}
+
+.why-v {
+  color: #0F172A;
+  text-align: right;
+}
+
+.copromotor-qa-box {
+  background: linear-gradient(135deg, #F0FDF4 0%, #EFF6FF 100%);
+  border: 1.5px solid #93C5FD;
+  border-radius: 12px;
+  padding: 1.15rem;
+}
+
+.qa-q {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  color: #1E3A8A;
+  margin-bottom: 0.75rem;
+  line-height: 1.45;
+}
+
+.qa-a {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  color: #065F46;
+  line-height: 1.5;
+  background: #FFFFFF;
+  padding: 0.85rem;
+  border-radius: 8px;
+  border: 1px solid #A7F3D0;
+}
+
+.qa-icon, .qa-icon-ans {
+  font-size: 1.1rem;
 }
 </style>
