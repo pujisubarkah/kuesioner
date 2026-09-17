@@ -190,7 +190,7 @@ const literatureList: LiteratureItem[] = [
     source: 'Ecology and Evolution, 11(8), 3565-3576',
     venue: 'Ecology & Evolution (Wiley)',
     citationAPA: 'Castelli, F. R., & Sarvary, M. A. (2021). Why students do not turn on their video cameras during online classes and an equitable and inclusive approach to solve it. Ecology and Evolution, 11(8), 3565–3576.',
-    keyFindings: 'Studi empiris membuktikan bahwa alasan utama peserta mematikan kamera adalah kelemahan koneksi internet, keterbatasan perangkat, serta kecemasan lingkungan (privasi/ruang fisik). Menghukum peserta karena kamera non-aktif merupakan bentuk ketidakadilan pedagogis sistemik.',
+    keyFindings: 'Studi empiris menunjukkan bahwa alasan utama peserta mematikan kamera adalah kelemahan koneksi internet, keterbatasan perangkat, serta kecemasan lingkungan (privasi/ruang fisik). Menghukum peserta karena kamera non-aktif merupakan bentuk ketidakadilan pedagogis sistemik.',
     dissertationRelevance: 'Menjadi landasan etik mengapa model disertasi menolak metrik naif kewajiban kamera aktif dan melarang penalti otomatis saat video conferencing tidak aktif pada ASN di lokasi terpencil / perangkat mobile.',
     formulaSnippet: 'Penalti Kamera-Off = 0 (Grounded in Castelli & Sarvary)',
     codeVariables: ['observedFocus', 'q47SyncCameraOffReasons', 'devicePenalty']
@@ -275,7 +275,7 @@ const literatureList: LiteratureItem[] = [
     source: 'Proceedings of the 19th International Conference on World Wide Web (WWW), 661-670',
     venue: 'ACM WWW (Seminal LinUCB Paper)',
     citationAPA: 'Li, L., Chu, W., Langford, J., & Schapire, R. E. (2010). A contextual-bandit approach to personalized recommendation. In Proceedings of the 19th international conference on World wide web (pp. 661-670).',
-    keyFindings: 'Makalah seminal LinUCB. Membuktikan bagaimana algoritma secara dinamis memilih aksi rekomendasi intervensi terbaik berdasarkan vektor fitur konteks pengguna (x_t) dengan menyeimbangkan eksplorasi ketidakpastian dan eksploitasi.',
+    keyFindings: 'Makalah seminal LinUCB. Menunjukkan bagaimana algoritma secara dinamis memilih aksi rekomendasi intervensi terbaik berdasarkan vektor fitur konteks pengguna (x_t) dengan menyeimbangkan eksplorasi ketidakpastian dan eksploitasi.',
     dissertationRelevance: 'Menjadi mesin algoritma utama untuk mengestimasi pay-off tiap modalitas konten berdasarkan vektor konteks kendala ASN (bandwidth, beban pelayanan dinas, dan form factor perangkat).',
     formulaSnippet: 'A* = argmax_a [ x_t^T θ_a + α √(x_t^T A_a^-1 x_t) ]',
     codeVariables: ['selectedAction', 'liveRewardScore', 'bandwidthKbps', 'workloadLevel']
