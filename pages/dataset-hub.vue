@@ -62,6 +62,13 @@
                 <span>📄</span>
                 <span>{{ showAbstract ? 'Tutup Abstrak' : 'Baca Abstrak JISEBI' }}</span>
               </button>
+              <NuxtLink
+                to="/analisis"
+                class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition cursor-pointer flex items-center gap-1.5 shadow-2xs no-underline"
+              >
+                <span>🧪</span>
+                <span>Lab Komputasi 5-Tahap →</span>
+              </NuxtLink>
               <button
                 type="button"
                 @click="fetchDatasetHubData"
@@ -78,6 +85,52 @@
                 <span>📐</span>
                 <span>Model SEM-PLS →</span>
               </NuxtLink>
+            </div>
+          </div>
+
+          <!-- DSR RESEARCH ROADMAP BANNER -->
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col gap-2.5">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded font-mono text-[10px] font-bold bg-blue-100 text-blue-800 border border-blue-200">
+                  📐 DSR ROADMAP (DESIGN SCIENCE RESEARCH)
+                </span>
+                <span class="text-xs font-bold text-slate-800">
+                  Kedudukan Manuskrip: Tahap 1 (Proof-of-Concept & Synthetic Operationalization)
+                </span>
+              </div>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                ● TAHAP 1 AKTIF (PAPER JISEBI)
+              </span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs">
+              <div class="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 flex flex-col justify-between">
+                <div>
+                  <span class="font-bold text-emerald-900 block text-[11px]">Tahap 1 (Saat Ini / Paper JISEBI)</span>
+                  <p class="text-[11px] text-emerald-800 mt-0.5 leading-relaxed">
+                    Membuktikan formulasi artifak (CABA 4-Layer, ekspektasi wajar E[B|C], dan simulasi operasional) berfungsi menghasilkan keputusan non-punitif.
+                  </p>
+                </div>
+                <span class="text-[10px] font-bold text-emerald-700 mt-1">Status: Active Prototype / Synthetic Benchmark</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-white border border-slate-200 flex flex-col justify-between">
+                <div>
+                  <span class="font-bold text-slate-700 block text-[11px]">Tahap 2 (Disertasi / Lapangan)</span>
+                  <p class="text-[11px] text-slate-600 mt-0.5 leading-relaxed">
+                    Pengujian validitas eksternal dengan log telemetri riil LMS ASN dan kuesioner spasial 6-dimensi di instansi pemerintah.
+                  </p>
+                </div>
+                <span class="text-[10px] font-bold text-slate-400 mt-1">Status: ○ Next Step</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-white border border-slate-200 flex flex-col justify-between">
+                <div>
+                  <span class="font-bold text-slate-700 block text-[11px]">Tahap 3 (DSR Loop)</span>
+                  <p class="text-[11px] text-slate-600 mt-0.5 leading-relaxed">
+                    Penyempurnaan bobot penalti disparitas (λ) dan konvergensi bandit adaptif berdasarkan evaluasi jangka panjang.
+                  </p>
+                </div>
+                <span class="text-[10px] font-bold text-slate-400 mt-1">Status: ○ Iteration Loop</span>
+              </div>
             </div>
           </div>
 
@@ -357,6 +410,10 @@
                     <li>• <strong>Offline PWA cache</strong> (unduh lokal)</li>
                     <li>• <strong>Async telemetry sync</strong> (sinkronisasi tertunda)</li>
                   </ul>
+                  <div class="mt-2 pt-1.5 border-t border-amber-200 text-[10px] text-amber-900 font-semibold flex items-center gap-1">
+                    <span>🔬 Uji Missingness:</span>
+                    <span class="px-1.5 py-0.2 rounded bg-amber-100 font-mono text-rose-800 font-bold">MNAR (Little's p &lt; 0.01)</span>
+                  </div>
                 </div>
               </div>
             </div>
