@@ -907,9 +907,6 @@
                     <span class="m-sub"><strong>Deviasi perilaku kontekstual</strong></span>
                   </div>
                 </div>
-                <div class="residual-expl-box" style="margin-top: 0.85rem; font-size: 0.75rem; color: #475569; line-height: 1.45;">
-                  <span>💡 <strong>Interpretasi:</strong> Nilai residual positif (ΔB ≥ 0) menunjukkan peserta berusaha maksimal di tengah keterbatasan konteks tanpa indikasi disengagement disengaja.</span>
-                </div>
               </div>
             </div>
 
@@ -932,20 +929,6 @@
               </div>
 
               <div class="sufficiency-card-body">
-                <!-- Mathematical Formula Display -->
-                <div class="suff-formula-box">
-                  <div class="suff-formula-title">
-                    <span>Formulasi Skor Kecukupan Bukti (Candidate):</span>
-                    <span class="cand-badge">Candidate Formulation (Not Final)</span>
-                  </div>
-                  <div class="cand-eq">
-                    LS_t = 0.35 &middot; B_{watch} + 0.25 &middot; B_{int} + 0.20 &middot; \tilde{B}_{revisit} + 0.20 &middot; B_{eng}
-                  </div>
-                  <span class="revisit-norm-note">
-                    📌 <strong>Normalisasi Revisit:</strong> \tilde{B}_{revisit} \in [0, 1] — <em>Prototype Parameter (To Be Validated)</em>
-                  </span>
-                </div>
-
                 <div class="suff-metrics-grid">
                   <div class="suff-kpi-item">
                     <span class="suff-kpi-lbl">Completion (B_watch)</span>
@@ -989,16 +972,8 @@
                     <strong>Prinsip Inti: Insufficient Evidence ≠ Poor Learner & Insufficient Evidence ≠ Punitive Action</strong>
                   </div>
                   <p class="ihc-p">
-                    Walaupun bukti perilaku (<strong>LS = {{ sufficiencyScore.toFixed(2) }} &lt; 0.70</strong>) berstatus <em>insufficient</em>, residual konteks peserta bernilai positif (<strong>ΔB = +{{ liveDeltaB.toFixed(2) }}</strong>). Model menyimpulkan peserta belajar secara wajar di tengah kendala infrastruktur. Algoritma melakukan <strong>adaptasi moda belajar (fallback ke Teks Ringkas + Audio)</strong> alih-alih menghukum peserta.
+                    Walaupun bukti perilaku (<strong>LS = {{ sufficiencyScore.toFixed(2) }} &lt; 0.70</strong>) berstatus <em>insufficient</em>, residual konteks bernilai positif (<strong>ΔB = +{{ liveDeltaB.toFixed(2) }}</strong>). Sistem merespons dengan <strong>adaptasi moda belajar (fallback Teks Ringkas + Audio)</strong> tanpa penalti.
                   </p>
-                </div>
-
-                <!-- Epistemic Guardrail -->
-                <div class="epistemic-guardrail-alert" style="margin-top: 0.85rem;">
-                  <span class="alert-icon">⚠️</span>
-                  <div class="alert-txt">
-                    <strong>Catatan Epistemik Metodologis:</strong> <em>Sufficient behavioral evidence does not imply confirmed learning.</em> Data perilaku (trace) mengukur kecukupan bukti interaksi kognitif pada konteks tertentu untuk memicu rekomendasi intervensi, bukan klaim penguasaan materi mutlak tanpa asesmen formatif.
-                  </div>
                 </div>
               </div>
             </div>
@@ -1023,9 +998,6 @@
             </div>
 
             <div class="timeline-card-body">
-              <p class="timeline-intro">
-                Mengeksplorasi secara komputasional: <em>"Pada detik berapa behavioral evidence mencapai titik keputusan adaptif tanpa mengharuskan penyelesaian 100% video berukuran berat?"</em>
-              </p>
 
               <!-- Video Timeline Track -->
               <div class="timeline-track-wrap">
@@ -1148,9 +1120,6 @@
                     <span class="fv text-emerald"><strong>✓ Satisfied</strong></span>
                   </div>
                 </div>
-                <div style="margin-top: 0.85rem; font-size: 0.75rem; color: #64748B; line-height: 1.45;">
-                  <span>Evaluasi memastikan peserta dengan kendala infrastruktur dilindungi dari penalti performa yang bias geografis.</span>
-                </div>
               </div>
             </div>
 
@@ -1218,9 +1187,6 @@
                     <div class="hf-arrow">➔</div>
                     <div class="hf-step hf-act">Intervensi LMS</div>
                   </div>
-                  <p class="hitl-gov-desc">
-                    Algoritma memposisikan diri sebagai <strong>decision-support system</strong> bagi Widyaiswara/Pengampu untuk menyetujui format adaptif, mengoreksi moda materi, atau menjadwalkan ulang sesi secara fleksibel — <em>bukan automated punitive decision</em>.
-                  </p>
                 </div>
               </div>
             </div>
@@ -1402,9 +1368,6 @@
                     <span class="to-k">3T Outcome Terangkat:</span>
                     <span class="to-v text-emerald">{{ dynamic3TOutcome.toFixed(2) }}</span>
                   </div>
-                </div>
-                <div style="margin-top: 0.85rem; font-size: 0.75rem; color: #64748B; line-height: 1.45;">
-                  <span>Membuktikan kemampuan algoritma meregulasi keseimbangan antara performa rata-rata sistem vs keadilan outcome bagi kelompok tertinggal.</span>
                 </div>
               </div>
             </div>
