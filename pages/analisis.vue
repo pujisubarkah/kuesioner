@@ -585,6 +585,58 @@
         </div>
       </section>
 
+      <!-- DSR RESEARCH ROADMAP & REASONING BEHIND ARTIFACT -->
+      <section class="card dsr-roadmap-card">
+        <div class="dsr-header-row">
+          <div class="dsr-title-block">
+            <span class="dsr-badge">📐 DESIGN SCIENCE RESEARCH (DSR) ROADMAP</span>
+            <h3 class="dsr-heading">Kedudukan Ilmiah & Tahapan Validasi Artifak (Proof of Concept ➔ Real Evaluation)</h3>
+          </div>
+          <span class="dsr-phase-pill">STATUS: TAHAP 1 (SYNTHETIC OPERATIONALIZATION)</span>
+        </div>
+
+        <!-- 3-Phase DSR Grid -->
+        <div class="dsr-phases-grid">
+          <div class="dsr-phase-item active-phase">
+            <div class="phase-badge-row">
+              <span class="phase-num">TAHAP 1 (Saat Ini / Paper 1)</span>
+              <span class="phase-status-tag tag-active">● Active Prototype</span>
+            </div>
+            <h4 class="phase-title">Theoretical Formulation & Synthetic Operationalization</h4>
+            <p class="phase-desc">Membuktikan artifak dan formulasi matematika (Level 1 ΔB + Level 2 D) bekerja menghasilkan adaptasi moda non-punitif tanpa bias penalti.</p>
+          </div>
+
+          <div class="dsr-phase-item">
+            <div class="phase-badge-row">
+              <span class="phase-num">TAHAP 2 (Disertasi / Lapangan)</span>
+              <span class="phase-status-tag">○ Next Step</span>
+            </div>
+            <h4 class="phase-title">Empirical Validation on Real LMS & Spatial Dataset</h4>
+            <p class="phase-desc">Pengujian validitas eksternal dan akurasi prediksi menggunakan log telemetri riil LMS serta kuesioner spasial ASN di lapangan.</p>
+          </div>
+
+          <div class="dsr-phase-item">
+            <div class="phase-badge-row">
+              <span class="phase-num">TAHAP 3 (DSR Feedback Loop)</span>
+              <span class="phase-status-tag">○ Iteration Loop</span>
+            </div>
+            <h4 class="phase-title">Algorithmic Improvement & Long-Term Policy Convergence</h4>
+            <p class="phase-desc">Penyempurnaan bobot penalti disparitas (λ) dan konvergensi bandit dinamis berdasarkan umpan balik empiris Widyaiswara (HITL).</p>
+          </div>
+        </div>
+
+        <!-- Reasoning Behind Artifact Callout -->
+        <div class="reasoning-behind-box">
+          <div class="rb-head">
+            <span class="rb-icon">💡</span>
+            <strong>Reasoning Behind the Artifact: Mengapa Model Preferensi & Komplesi Statis Gagal di Negara Berkembang?</strong>
+          </div>
+          <p class="rb-p">
+            Model rekomendasi konvensional berbasis preferensi (<em>collaborative filtering</em>) dan ambang komplesi video statis (100%) mengasumsikan konektivitas ideal. Di negara berkembang (<em>developing countries</em> / daerah 3T), friksi fisik dan keterbatasan bandwidth tidak bersifat seragam. Sistem yang menghakimi data hilang sebagai kegagalan belajar akan melahirkan <em>punitive bias</em> bagi pembelajar di pelosok. Artifak CABA–CCBN membalik paradigma ini: <strong>kondisi lingkungan dimodelkan sebagai ekspektasi wajar E[B|C], sehingga data hilang akibat sinyal drop tidak dihukum sebagai kelalaian.</strong>
+          </p>
+        </div>
+      </section>
+
       <!-- PIPELINE TRAJECTORY TRACKER & SIMULATOR BUTTON -->
       <section class="card pipeline-tracker-card" :class="{ 'simulating-pulse': isSimulating }">
         <div class="pipeline-header-row">
@@ -895,6 +947,35 @@
                   <span class="src-pill">Video Telemetry</span>
                   <span class="src-pill">Clickstream</span>
                   <span class="src-pill">LMS Interaction</span>
+                </div>
+
+                <!-- Verification of Missingness Mechanism (Little's MCAR Test & MNAR) -->
+                <div class="missingness-verify-box" style="margin-top: 1rem;">
+                  <div class="mv-head">
+                    <span class="mv-icon">🔬</span>
+                    <strong>Verifikasi Mekanisme Data Hilang (Missingness Test):</strong>
+                  </div>
+                  <div class="mv-grid">
+                    <div class="mv-item">
+                      <span class="mv-k">Status Aliran Data:</span>
+                      <span class="mv-v text-amber">{{ 100 - watchCompletionRatio }}% Hilang (Stall 06:40)</span>
+                    </div>
+                    <div class="mv-item">
+                      <span class="mv-k">Little's MCAR Test:</span>
+                      <span class="mv-v text-rose">p &lt; 0.01 (Tolak MCAR)</span>
+                    </div>
+                    <div class="mv-item">
+                      <span class="mv-k">Klasifikasi Missingness:</span>
+                      <span class="mv-v text-purple">MNAR (Missing Not At Random)</span>
+                    </div>
+                    <div class="mv-item">
+                      <span class="mv-k">Tindakan Sistem:</span>
+                      <span class="mv-v text-emerald">Kompensasi E[B|C] (Bukan Vonis Gagal)</span>
+                    </div>
+                  </div>
+                  <span class="mv-note">
+                    *Data hilang berkorelasi kuat dengan latency tinggi ({{ latencyMs }} ms) & bandwidth rendah ({{ bandwidthKbps }} kbps), bukan kelalaian peserta.
+                  </span>
                 </div>
               </div>
             </div>
@@ -4185,6 +4266,225 @@ const modalModuleData = computed(() => {
   font-family: 'KaTeX_Math', 'KaTeX_Main', serif;
   font-size: 0.8rem;
   color: #3B0764;
+}
+
+/* ========================================================================= */
+/* DSR RESEARCH ROADMAP & REASONING BEHIND ARTIFACT                          */
+/* ========================================================================= */
+.dsr-roadmap-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1.5px solid #E2E8F0;
+  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+}
+
+.dsr-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.dsr-badge {
+  font-size: 0.675rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #2563EB;
+  background: #EFF6FF;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 0.35rem;
+}
+
+.dsr-heading {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.dsr-phase-pill {
+  font-size: 0.7rem;
+  font-weight: 800;
+  background: #ECFDF5;
+  color: #047857;
+  border: 1px solid #A7F3D0;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+}
+
+.dsr-phases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 860px) {
+  .dsr-phases-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dsr-phase-item {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+}
+
+.dsr-phase-item.active-phase {
+  background: #F0FDF4;
+  border-color: #10B981;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);
+}
+
+.phase-badge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.phase-num {
+  font-size: 0.675rem;
+  font-weight: 800;
+  color: #64748B;
+  text-transform: uppercase;
+}
+
+.active-phase .phase-num {
+  color: #047857;
+}
+
+.phase-status-tag {
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: #E2E8F0;
+  color: #475569;
+}
+
+.phase-status-tag.tag-active {
+  background: #10B981;
+  color: #FFFFFF;
+}
+
+.phase-title {
+  font-size: 0.825rem;
+  font-weight: 800;
+  color: #1E293B;
+  margin: 0 0 0.35rem 0;
+  line-height: 1.35;
+}
+
+.phase-desc {
+  font-size: 0.725rem;
+  color: #64748B;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.reasoning-behind-box {
+  background: linear-gradient(135deg, #FEF3C7 0%, #FFFBEB 100%);
+  border: 1.5px solid #FDE68A;
+  border-radius: 12px;
+  padding: 1.15rem 1.35rem;
+}
+
+.rb-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #92400E;
+  font-size: 0.825rem;
+  font-weight: 800;
+  margin-bottom: 0.45rem;
+}
+
+.rb-icon {
+  font-size: 1.1rem;
+}
+
+.rb-p {
+  font-size: 0.775rem;
+  color: #78350F;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Missingness Verification Box */
+.missingness-verify-box {
+  background: #FAF5FF;
+  border: 1.5px dashed #DDD6FE;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+
+.mv-head {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #6D28D9;
+  font-size: 0.775rem;
+  font-weight: 800;
+  margin-bottom: 0.6rem;
+}
+
+.mv-icon {
+  font-size: 1rem;
+}
+
+.mv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .mv-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mv-item {
+  background: #FFFFFF;
+  border: 1px solid #EDE9FE;
+  padding: 0.5rem 0.65rem;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mv-k {
+  font-size: 0.625rem;
+  color: #64748B;
+  font-weight: 700;
+}
+
+.mv-v {
+  font-size: 0.775rem;
+  font-weight: 800;
+  margin-top: 0.15rem;
+}
+
+.mv-note {
+  font-size: 0.675rem;
+  color: #7C3AED;
+  font-style: italic;
+  display: block;
 }
 
 /* ========================================================================= */
