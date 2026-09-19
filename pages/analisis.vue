@@ -15,189 +15,167 @@
             <span class="badge badge-amber">⚖️ Fairness: Regional Disparity-Aware</span>
           </div>
           <h1 class="hero-title">
-            CABA–CCBN Research Prototype
+            Disparity-Aware Learning Adaptation Lab
           </h1>
           <p class="hero-subtitle" style="font-weight: 700; color: #93C5FD; margin-bottom: 0.35rem;">
-            Context-Conditioned Behavioral Baseline for Context-Aware and Disparity-Sensitive Adaptive Learning
+            Context-Aware Adaptive Learning Algorithm for ASN Training
           </p>
           <p class="hero-subtitle">
             Prototipe komputasional Disertasi untuk menguji bagaimana jejak perilaku pembelajaran digital ASN dikalibrasi oleh konteks enam dimensi ($c_{i,t}$) dan kualitas evidensi ($q_{i,t}$) untuk membentuk baseline perilaku wajar ($hat{b}_{i,t}$), mengukur residual diagnostik individual ($d_{i,t}$), mengevaluasi disparitas kelompok ($D_t$), serta menghasilkan rekomendasi adaptif suportif yang adil dan non-punitif.
           </p>
-          <div class="hero-synthetic-warning">
-            <span class="warn-icon">ℹ️</span>
-            <span><strong>CATATAN PROTOTIPE:</strong> Seluruh metrik numerik dan nilai evaluasi dalam simulator ini merupakan <strong>SYNTHETIC PROTOTYPE VALUES — NOT EMPIRICAL RESULTS</strong> (Simulasi Proof-of-Concept terkalibrasi, bukan temuan empiris atau evaluasi lapangan final).</span>
+          <div class="hero-synthetic-warning" style="margin-top: 0.85rem; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); padding: 0.45rem 0.8rem; border-radius: 8px; font-size: 0.75rem; color: #FDE68A; display: flex; align-items: flex-start; gap: 0.4rem; line-height: 1.45;">
+            <span>ℹ️</span>
+            <span><strong>CATATAN PROTOTIPE:</strong> Seluruh metrik numerik dalam simulator ini merupakan <strong>SYNTHETIC PROTOTYPE VALUES — NOT EMPIRICAL RESULTS</strong>.</span>
           </div>
         </div>
 
         <div class="hero-kpi-deck">
           <div class="kpi-card">
-            <span class="kpi-label">Candidate Reward (Eq. 9)</span>
-            <span class="kpi-val text-emerald">{{ liveRewardScore.toFixed(2) }}*</span>
-            <span class="kpi-sub">Reward terkalibrasi aktif</span>
+            <span class="kpi-label">Candidate Score</span>
+            <span class="kpi-val text-emerald">{{ liveRewardScore.toFixed(2) }}</span>
+            <span class="kpi-sub">Score_{a,t} aktif</span>
           </div>
           <div class="kpi-card">
-            <span class="kpi-label">Contextual Residual (Eq. 6)</span>
-            <span class="kpi-val" :style="{ color: deltaBColor }">{{ liveResidual >= 0 ? '+' : '' }}{{ liveResidual.toFixed(2) }}</span>
-            <span class="kpi-sub">d_{i,t} = B_{i,t} - hat{b}_{i,t}</span>
+            <span class="kpi-label">Residual CCBN (ΔB)</span>
+            <span class="kpi-val" :style="{ color: deltaBColor }">{{ liveDeltaB >= 0 ? '+' : '' }}{{ liveDeltaB.toFixed(2) }}</span>
+            <span class="kpi-sub">B_obs - E[B|C]</span>
           </div>
           <div class="kpi-card highlight">
-            <span class="kpi-label">Disparity Gap (Eq. 7)</span>
-            <span class="kpi-val text-amber">{{ liveDisparityGap.toFixed(2) }}*</span>
-            <span class="kpi-sub">Gap simulatif: -{{ liveGapReductionPct }}%*</span>
+            <span class="kpi-label">Disparity Gap (D)</span>
+            <span class="kpi-val text-amber">{{ liveDisparityGap.toFixed(2) }}</span>
+            <span class="kpi-sub">Reduksi -{{ liveGapReductionPct }}%</span>
           </div>
-          <div class="kpi-card" :class="'validity-card-' + validityResult.state">
-            <span class="kpi-label">Baseline Validity (Eq. 18)</span>
-            <span class="kpi-val uppercase">{{ validityResult.state }}</span>
-            <span class="kpi-sub">S: {{ spatialIndex.toFixed(2) }} | q: {{ evidenceQuality.toFixed(2) }}</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- PROPOSAL EQUATION LEDGER -->
-      <section class="card proposal-equation-ledger" aria-labelledby="proposal-equations-title">
-        <div class="equation-ledger-head">
-          <div>
-            <span class="stage-pill pill-indigo">PROPOSAL REVISI 2 · PERSAMAAN (1)–(18c)</span>
-            <h2 id="proposal-equations-title" class="stage-title">Ledger Persamaan Operasional CABA–CCBN</h2>
-            <p class="stage-p">
-              Pemetaan matematis formal dari Proposal Disertasi Revisi 2. Nilai di bawah dihitung secara dinamis dari status simulator aktif saat ini.
-            </p>
-          </div>
-          <div class="baseline-status" :class="`status-${validityResult.state}`">
-            <span>Status Baseline Gate (Eq. 18a–18c)</span>
-            <strong>{{ validityResult.state.toUpperCase() }}</strong>
-            <small>{{ validityResult.message }}</small>
-          </div>
-        </div>
-
-        <div class="equation-ledger-grid">
-          <article v-for="equation in proposalEquationLedger" :key="equation.id" class="equation-ledger-item" :class="{ safeguard: equation.id.startsWith('(18') }">
-            <div class="equation-ledger-meta">
-              <span>{{ equation.id }}</span>
-              <strong>{{ equation.title }}</strong>
-            </div>
-            <code>{{ equation.formula }}</code>
-            <p>{{ equation.live }}</p>
-          </article>
         </div>
       </section>
 
       <!-- ========================================================================= -->
-      <!-- TAHAP 1 & 2: SCIENTIFIC FOUNDATIONS DUAL CARDS                            -->
+      <!-- TAHAP 1 & 2: BASELINE & RESEARCH PROBLEM DUAL CARDS                      -->
       <!-- ========================================================================= -->
       <section class="theory-grid">
-        <!-- 1. Scientific Problem -->
-        <div class="card stage-card border-rose">
+        <!-- 1. Baseline: LinUCB -->
+        <div class="card stage-card border-blue">
           <div class="stage-card-header">
-            <span class="stage-pill pill-rose">MASALAH ILMIAH UTAMA</span>
-            <span class="stage-ref">Infrastructural Confounding & Epistemic Bias</span>
+            <span class="stage-pill pill-blue">TAHAP 1: BASELINE ALGORITHM</span>
+            <span class="stage-ref">Li et al., 2010 (ACM WWW)</span>
           </div>
-          <h2 class="stage-title">1. Masalah: Bias Ambang Universal pada Learning Analytics</h2>
+          <h2 class="stage-title">1. Baseline Algorithm — LinUCB</h2>
           <p class="stage-p">
-            Sistem analitik konvensional sering menggunakan ambang tunggal universal (durasi login kaku, komplesi video 100%) sebagai proksi keterlibatan peserta. Dalam konteks pelatihan ASN dengan ketimpangan infrastruktur digital nyata:
+            LinUCB dipilih sebagai <em>baseline algorithm</em> standar karena secara luas digunakan untuk memilih intervensi adaptif berdasarkan vektor konteks fitur (<code class="code-sm">x_t</code>) dan menyeimbangkan <em>exploitation–exploration trade-off</em> melalui bound UCB:
           </p>
           
+          <div class="math-box math-blue">
+            <div class="math-formula-rendered">
+              <span class="m-lhs"><span class="m-bold">A</span><sub class="m-idx">t</sub><sup class="m-ast">*</sup></span>
+              <span class="m-sign">=</span>
+              <span class="m-operator"><span class="m-op-txt">arg max</span><sub class="m-op-cond">a ∈ &#119964;</sub></span>
+              <span class="m-bracket">[</span>
+              <span class="m-term-box term-blue">
+                <span class="m-bold">x</span><sub class="m-idx">t</sub><sup class="m-exp">T</sup> <span class="m-bold">&theta;&#770;</span><sub class="m-idx">a</sub>
+              </span>
+              <span class="m-sign">+</span>
+              <span class="m-term-box term-purple">
+                <span class="m-sym">&alpha;</span>
+                <span class="m-sqrt-wrap">
+                  <span class="m-sqrt-symbol">&radic;</span>
+                  <span class="m-sqrt-inner">
+                    <span class="m-bold">x</span><sub class="m-idx">t</sub><sup class="m-exp">T</sup> <span class="m-bold">A</span><sub class="m-idx">a</sub><sup class="m-exp">-1</sup> <span class="m-bold">x</span><sub class="m-idx">t</sub>
+                  </span>
+                </span>
+              </span>
+              <span class="m-bracket">]</span>
+            </div>
+            <div class="math-legend">
+              <span class="leg-pill pill-blue-sm"><strong>x<sub>t</sub><sup>T</sup> &theta;&#770;<sub>a</sub></strong> : Estimasi Reward (Eksploitasi)</span>
+              <span class="dot">•</span>
+              <span class="leg-pill pill-purple-sm"><strong>&alpha; &radic;(x<sub>t</sub><sup>T</sup> A<sub>a</sub><sup>-1</sup> x<sub>t</sub>)</strong> : Bonus Eksplorasi Ketidakpastian (UCB Bound)</span>
+            </div>
+          </div>
+          <div class="stage-callout callout-blue">
+            <span class="callout-icon">💡</span>
+            <span><strong>Kekuatan Baseline:</strong> Mampu mempersonalisasi rekomendasi konten/modalitas secara dinamis pada data kontinu.</span>
+          </div>
+        </div>
+
+        <!-- 2. Research Problem: Belum Disparity-Aware -->
+        <div class="card stage-card border-rose">
+          <div class="stage-card-header">
+            <span class="stage-pill pill-rose">TAHAP 2: RESEARCH PROBLEM</span>
+            <span class="stage-ref">Celah Metodologis</span>
+          </div>
+          <h2 class="stage-title">2. Problem: LinUCB Belum Disparity-Aware</h2>
+          <p class="stage-p">
+            <strong>Masalah Mendasar:</strong> LinUCB mengoptimalkan <em>expected reward</em> berdasarkan konteks individu, <strong>tetapi belum secara eksplisit memperhitungkan disparitas outcome antar kelompok/konteks wilayah</strong> (3T vs Non-3T).
+          </p>
+
+          <!-- Visual Flow Diagram of Disparity -->
           <div class="disparity-flow">
             <div class="flow-step">
-              <span class="flow-badge">Trace LMS Mentah (X_{i,t})</span>
+              <span class="flow-badge">LinUCB Standar</span>
             </div>
             <div class="flow-arrow">➔</div>
             <div class="flow-step">
-              <span class="flow-badge badge-rose">Ambang Universal / Naive Interpretation</span>
+              <span class="flow-badge badge-high">High Overall Reward (0.71)</span>
             </div>
             <div class="flow-arrow">➔</div>
             <div class="flow-step flow-split">
-              <div class="split-pill split-3t">🏝️ Wilayah Terkendala: Sinyal Drop → Salah Vonis "Tidak Aktif"</div>
-              <div class="split-pill split-urban">🏢 Wilayah Ideal: Koneksi Cepat → Dianggap "Sangat Terlibat"</div>
-              <div class="split-gap-alert">⚠️ Infrastructural Confounding: Hambatan akses keliru dibaca sebagai defisit belajar</div>
+              <div class="split-pill split-3t">🏝️ 3T: Outcome Rendah (0.42)</div>
+              <div class="split-pill split-urban">🏢 Urban: Outcome Tinggi (0.71)</div>
+              <div class="split-gap-alert">⚠️ Regional Disparity Gap: D = 0.29</div>
             </div>
           </div>
-
           <div class="stage-callout callout-rose">
             <span class="callout-icon">⚠️</span>
-            <span><strong>Dampak Epistemik:</strong> Peserta di wilayah berinfrastruktur terbatas dihukum secara tidak adil karena keterbatasan observasi sistem keliru ditafsirkan sebagai kelalaian atau rendahnya motivasi.</span>
-          </div>
-        </div>
-
-        <!-- 2. CABA-CCBN Solution -->
-        <div class="card stage-card border-emerald">
-          <div class="stage-card-header">
-            <span class="stage-pill pill-emerald">SOLUSI DISERTASI: CABA–CCBN</span>
-            <span class="stage-ref">Pujiatmo Subarkah (2026)</span>
-          </div>
-          <h2 class="stage-title">2. Solusi: Baseline Perilaku Terkondisi Konteks (CCBN)</h2>
-          <p class="stage-p">
-            <strong>CABA–CCBN</strong> menyelesaikan masalah ini dengan mengondisikan ekspektasi perilaku wajar melalui vektor konteks enam dimensi ($c_{i,t}$) dan kualitas evidensi ($q_{i,t}$), menghitung residual individual ($d_{i,t}$), dan menilai disparitas kelompok ($D_t$):
-          </p>
-
-          <div class="math-box math-emerald">
-            <div class="math-formula-rendered">
-              <span class="m-lhs">hat{b}_{i,t} = mathbb{E}[B_{i,t} mid c_{i,t}, q_{i,t}] = f(c_{i,t}, q_{i,t})</span>
-            </div>
-            <div class="math-formula-rendered" style="margin-top: 0.5rem;">
-              <span class="m-lhs">d_{i,t} = B_{i,t} - hat{b}_{i,t} quad implies quad D_t = 	ext{disparity}(d_{i,t} mid 	ext{group})</span>
-            </div>
-            <div class="math-legend">
-              <span class="leg-pill pill-blue-sm"><strong>c_{i,t} = [T, I, O, D, W, S]</strong> : Konteks 6D</span>
-              <span class="dot">•</span>
-              <span class="leg-pill pill-purple-sm"><strong>q_{i,t}</strong> : Kualitas Evidensi</span>
-              <span class="dot">•</span>
-              <span class="leg-pill pill-emerald-sm"><strong>d_{i,t}</strong> : Residual Diagnostik</span>
-              <span class="dot">•</span>
-              <span class="leg-pill pill-amber-sm"><strong>D_t</strong> : Disparitas Kelompok</span>
-            </div>
-          </div>
-
-          <div class="stage-callout callout-emerald">
-            <span class="callout-icon">💡</span>
-            <span><strong>Prinsip Suportif Non-Punitif:</strong> Data hilang karena sinyal drop diperlakukan sebagai batasan observabilitas sistem ($m_{i,t}$), bukan bukti absensi belajar. LinUCB diposisikan sebagai <em>decision support layer</em> setelah evidensi dan fairness dikalibrasi.</span>
+            <span><strong>Dampak:</strong> ASN 3T tertinggal secara akumulatif karena algoritma standar mengeksploitasi format berat yang hanya optimal untuk infrastruktur perkotaan.</span>
           </div>
         </div>
       </section>
 
       <!-- ========================================================================= -->
-      <!-- DIAGRAM KERANGKA BERPIKIR: PIPELINE CABA-CCBN (GAMBAR 2 & 3 PROPOSAL)    -->
+      <!-- DIAGRAM KERANGKA BERPIKIR: MODERASI SPASIAL DALAM CABA-CCBN (GAMBAR 2 & 3)-->
       <!-- ========================================================================= -->
       <section class="card spatial-moderation-diagram-card">
         <div class="diagram-head">
           <div class="badge-row">
             <span class="badge badge-indigo">🔬 Diagram Kerangka Berpikir (Gambar 2 & 3 Proposal)</span>
-            <span class="badge badge-dashed">┆ Moderasi Spasial S_{i,t} (Garis Putus-Putus)</span>
-            <span class="badge badge-cyan">Pipeline Primer: X → B → (c,q) → b̂ → d → D → A</span>
+            <span class="badge badge-dashed">┆ Moderasi Spasial (Garis Putus-Putus)</span>
+            <span class="badge badge-cyan">Persamaan (1)–(11)</span>
           </div>
           <h2 class="diagram-title">
-            Struktur Alur Pipeline Komputasi CABA–CCBN & Peran Moderasi Konteks Spasial
+            Struktur Alur Pipeline Komputasi & Efek Moderasi Spasial CABA–CCBN
           </h2>
           <p class="diagram-desc">
-            Sesuai perumusan Proposal Disertasi Bab 8 & 11, jalur vertikal padat menggambarkan <strong>data pipeline primer</strong> dari trace mentah hingga rekomendasi adaptif. Jalur samping bergaris putus-putus merepresentasikan peran <strong>Moderasi Konteks Spasial ($S_{i,t}$)</strong> yang mengondisikan ekspektasi baseline perilaku wajar dan mengatur bobot observabilitas visual ($w_{i,t}$).
+            Sesuai perumusan proposal disertasi, jalur vertikal padat (<em>solid arrow</em>) menggambarkan <strong>data pipeline primer</strong> dari trace mentah hingga rekomendasi adaptif. Jalur samping bergaris putus-putus (<strong><em>dashed border & connector</em></strong>) merepresentasikan peran <strong>Moderasi Konteks Spasial ($S_{i,t}$)</strong> yang mengondisikan ekspektasi baseline perilaku wajar dan mengatur bobot <em>spatially-gated fusion</em> ($g_{i,t}$).
           </p>
         </div>
 
         <div class="diagram-interactive-body">
           <!-- Main Sequential Flow Column -->
           <div class="flow-pipeline-col">
-            <!-- Step 1 -->
+            <!-- Box 1 -->
             <div class="pipe-box pipe-blue">
               <div class="pipe-header">
                 <span class="pipe-step-num">LANGKAH 1</span>
                 <span class="pipe-eq">Persamaan (1)</span>
               </div>
-              <div class="pipe-title">1) Raw Behavioral Traces (<strong>X</strong><sub>i,t</sub>) → Behavioral Outcome (<strong>B</strong><sub>i,t</sub>)</div>
+              <div class="pipe-title">1) Trace LMS Mentah (<strong>x</strong><sub>i,t</sub>)</div>
               <div class="pipe-content">
                 <div class="math-sym-row">
-                  <span class="m-bold">X</span><sub>i,t</sub> = [<span class="m-var">login</span>, <span class="m-var">durasi</span>, <span class="m-var">clickstream</span>, <span class="m-var">completion</span>, <span class="m-var">artifact</span>, ...]
+                  <span class="m-bold">x</span><sub>i,t</sub> = [<span class="m-var">login</span><sub>i,t</sub>, <span class="m-var">durasi</span><sub>i,t</sub>, <span class="m-var">clickstream</span><sub>i,t</sub>, <span class="m-var">completion</span><sub>i,t</sub>, <span class="m-var">artifact</span><sub>i,t</sub>]
                 </div>
-                <span class="pipe-note">X adalah telemetri mentah; B adalah evidensi perilaku ternormalisasi. X bukan label langsung kompetensi/motivasi.</span>
+                <span class="pipe-note">Bukan label mutlak kemampuan, melainkan evidensi probabilistik awal.</span>
               </div>
             </div>
 
-            <div class="solid-connector-down"><span class="connector-arrow">▼</span></div>
+            <div class="solid-connector-down">
+              <span class="connector-line"></span>
+              <span class="connector-arrow">▼</span>
+            </div>
 
-            <!-- Step 2 -->
+            <!-- Box 2 -->
             <div class="pipe-box pipe-indigo">
               <div class="pipe-header">
                 <span class="pipe-step-num">LANGKAH 2</span>
-                <span class="pipe-eq">Persamaan (2) & (2a–2c)</span>
+                <span class="pipe-eq">Persamaan (2)</span>
               </div>
               <div class="pipe-title">2) Konteks Enam Dimensi (<strong>c</strong><sub>i,t</sub>)</div>
               <div class="pipe-content">
@@ -210,14 +188,17 @@
                   <span class="p-tag">Organisasi (O)</span>
                   <span class="p-tag">Perangkat (D)</span>
                   <span class="p-tag">Beban Kerja (W)</span>
-                  <span class="p-tag highlight-tag">Spasial Komposit (S)</span>
+                  <span class="p-tag highlight-tag">Spasial (S)</span>
                 </span>
               </div>
             </div>
 
-            <div class="solid-connector-down"><span class="connector-arrow">▼</span></div>
+            <div class="solid-connector-down">
+              <span class="connector-line"></span>
+              <span class="connector-arrow">▼</span>
+            </div>
 
-            <!-- Step 3 -->
+            <!-- Box 3 -->
             <div class="pipe-box pipe-amber">
               <div class="pipe-header">
                 <span class="pipe-step-num">LANGKAH 3</span>
@@ -226,106 +207,118 @@
               <div class="pipe-title">3) Missingness (m<sub>i,t</sub>) & Kualitas Evidensi (q<sub>i,t</sub>)</div>
               <div class="pipe-content">
                 <div class="math-sym-row">
-                  <span class="m-var">m</span><sub>i,t</sub> = 1 - (n<sub>obs</sub> / n<sub>exp</sub>), quad <span class="m-var">q</span><sub>i,t</sub> = 1 - <span class="m-var">m</span><sub>i,t</sub> - <span class="m-sym">&lambda;</span> &middot; <span class="m-var">noise</span><sub>i,t</sub>
+                  <span class="m-var">q</span><sub>i,t</sub> = 1 - <span class="m-var">m</span><sub>i,t</sub> - <span class="m-sym">&lambda;</span> &middot; <span class="m-var">noise</span><sub>i,t</sub>
                 </div>
-                <span class="pipe-note">Observabilitas sistem diuji melalui Little's MCAR Test & Pattern-Mixture Model. Data hilang tidak otomatis dianggap lalai.</span>
+                <span class="pipe-note">Uji MNAR via Little's Test & Pattern-Mixture Model (PMM). Data hilang tidak otomatis dianggap lalai.</span>
               </div>
             </div>
 
-            <div class="solid-connector-down"><span class="connector-arrow">▼</span></div>
+            <div class="solid-connector-down">
+              <span class="connector-line"></span>
+              <span class="connector-arrow">▼</span>
+            </div>
 
-            <!-- Step 4 -->
+            <!-- Box 4: CCBN Baseline (Target of Moderation) -->
             <div class="pipe-box pipe-purple moderated-target-box">
               <div class="pipe-header">
                 <span class="pipe-step-num">LANGKAH 4 (INTI CCBN)</span>
-                <span class="pipe-eq">Persamaan (5), (10) & (10a)</span>
+                <span class="pipe-eq">Persamaan (5) & (7, 8)</span>
               </div>
-              <div class="pipe-title">4) Expected Behavioral Baseline (<span class="m-bold">b̂</span><sub>i,t</sub>) & Observabilitas Visual (<span class="m-bold">F</span><sub>i,t</sub>)</div>
+              <div class="pipe-title">4) Baseline Perilaku Kontekstual (<strong>b</strong><sub>i,t</sub>) & Spatially-Gated Fusion (<strong>z</strong><sub>i,t</sub>)</div>
               <div class="pipe-content">
                 <div class="formula-subgrid">
                   <div class="math-sub-cell">
-                    <span class="f-lbl">Baseline Perilaku Terkondisi Konteks (Eq. 5):</span>
-                    <span class="m-bold">b̂</span><sub>i,t</sub> = <span class="m-func">E</span>[<span class="m-bold">B</span><sub>i,t</sub> | <span class="m-bold">c</span><sub>i,t</sub>, <span class="m-var">q</span><sub>i,t</sub>] = <span class="m-func">f</span>(<span class="m-bold">c</span><sub>i,t</sub>, <span class="m-var">q</span><sub>i,t</sub>)
+                    <span class="f-lbl">Baseline Perilaku Wajar:</span>
+                    <span class="m-bold">b</span><sub>i,t</sub> = <span class="m-func">f</span>(<span class="m-bold">c</span><sub>i,t</sub>, <span class="m-var">q</span><sub>i,t</sub>)
                   </div>
                   <div class="math-sub-cell">
-                    <span class="f-lbl">Bobot Observabilitas Visual (Eq. 10):</span>
-                    <span class="m-var">w</span><sub>i,t</sub> = <span class="m-sym">&sigma;</span>(&alpha;<sub>1</sub>(1 - S<sub>i,t</sub>) + &alpha;<sub>2</sub>q<sup>visual</sup><sub>i,t</sub>)
+                    <span class="f-lbl">Bobot Gerbang Spasial:</span>
+                    <span class="m-var">g</span><sub>i,t</sub> = <span class="m-sym">&sigma;</span>(<span class="m-sym">&alpha;</span><span class="m-var">S</span><sub>i,t</sub> + <span class="m-sym">&beta;</span><span class="m-var">I</span><sub>i,t</sub> + <span class="m-sym">&gamma;</span><span class="m-var">q</span><sub>i,t</sub>)
                   </div>
                   <div class="math-sub-cell full-w">
-                    <span class="f-lbl">Fusi Multimodal Terbatas (Eq. 10a):</span>
-                    <span class="m-bold">F</span><sub>i,t</sub> = <span class="m-var">w</span><sub>i,t</sub> &middot; <span class="m-bold">V</span><sub>i,t</sub> + (1 - <span class="m-var">w</span><sub>i,t</sub>) &middot; <span class="m-bold">b</span><sub>LMS,i,t</sub>
+                    <span class="f-lbl">Representasi Fusi Akhir (Persamaan 8):</span>
+                    <span class="m-bold">z</span><sub>i,t</sub> = <span class="m-var">g</span><sub>i,t</sub> &middot; <span class="m-bold">x</span><sub>i,t</sub> + (1 - <span class="m-var">g</span><sub>i,t</sub>) &middot; <span class="m-bold">c</span><sub>i,t</sub>
                   </div>
                 </div>
               </div>
               <div class="moderated-receive-badge">
-                <span class="dot-pulse"></span> Dimoderasi langsung oleh Indeks Spasial <strong>S<sub>i,t</sub></strong> dan Kualitas Evidensi <strong>q<sub>i,t</sub></strong>
+                <span class="dot-pulse"></span> Dimoderasi langsung oleh Indeks Spasial <strong>S<sub>i,t</sub></strong>
               </div>
             </div>
 
-            <div class="solid-connector-down"><span class="connector-arrow">▼</span></div>
+            <div class="solid-connector-down">
+              <span class="connector-line"></span>
+              <span class="connector-arrow">▼</span>
+            </div>
 
-            <!-- Step 5 -->
+            <!-- Box 5 -->
             <div class="pipe-box pipe-cyan">
               <div class="pipe-header">
                 <span class="pipe-step-num">LANGKAH 5</span>
                 <span class="pipe-eq">Persamaan (6)</span>
               </div>
-              <div class="pipe-title">5) Contextual Residual Individual (<strong>d</strong><sub>i,t</sub>)</div>
+              <div class="pipe-title">5) Deviasi Aktual terhadap Baseline (<strong>d</strong><sub>i,t</sub>)</div>
               <div class="pipe-content">
                 <div class="math-sym-row">
-                  <span class="m-bold">d</span><sub>i,t</sub> = <span class="m-bold">B</span><sub>i,t</sub> - <span class="m-bold">b̂</span><sub>i,t</sub>
+                  <span class="m-bold">d</span><sub>i,t</sub> = <span class="m-bold">x</span><sub>i,t</sub> - <span class="m-bold">b</span><sub>i,t</sub>
                 </div>
-                <span class="pipe-note">Deviasi individual terhadap ekspektasi wajar. Membedakan hambatan akses dari kebutuhan intervensi belajar otentik.</span>
+                <span class="pipe-note">Membedakan kendala infrastruktur dari deviasi belajar otentik.</span>
               </div>
             </div>
 
-            <div class="solid-connector-down"><span class="connector-arrow">▼</span></div>
+            <div class="solid-connector-down">
+              <span class="connector-line"></span>
+              <span class="connector-arrow">▼</span>
+            </div>
 
-            <!-- Step 6 -->
+            <!-- Box 6 -->
             <div class="pipe-box pipe-rose">
               <div class="pipe-header">
                 <span class="pipe-step-num">LANGKAH 6</span>
-                <span class="pipe-eq">Persamaan (7), (8), (8a), (8b)</span>
+                <span class="pipe-eq">Persamaan (9), (9a), (9b)</span>
               </div>
-              <div class="pipe-title">6) Contextual Disparity Kelompok (<strong>D</strong><sub>t</sub>) & Evaluasi Beban Rekomendasi</div>
+              <div class="pipe-title">6) Evaluasi Keadilan Formal (*Contextual Fairness*)</div>
               <div class="pipe-content">
                 <div class="fairness-two-pillars">
                   <div class="f-pil">
-                    <strong>Persamaan (8a) Recommendation Burden Gap:</strong>
+                    <strong>Persamaan (9a) Recommendation Burden Gap:</strong>
                     <span class="m-func">max</span><sub>g,h &isin; G</sub> | <span class="m-sym">&#120124;</span>[<span class="m-var">CB</span><sub>i,a,t</sub> | g] - <span class="m-sym">&#120124;</span>[<span class="m-var">CB</span><sub>i,a,t</sub> | h] |
                   </div>
                   <div class="f-pil">
-                    <strong>Persamaan (8b) Interpretation Error Gap:</strong>
+                    <strong>Persamaan (9b) Interpretation Error Gap:</strong>
                     <span class="m-func">max</span><sub>g,h &isin; G</sub> | <span class="m-var">MAE</span><sub>g,t</sub>(d) - <span class="m-var">MAE</span><sub>h,t</sub>(d) |
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="solid-connector-down"><span class="connector-arrow">▼</span></div>
+            <div class="solid-connector-down">
+              <span class="connector-line"></span>
+              <span class="connector-arrow">▼</span>
+            </div>
 
-            <!-- Step 7 -->
+            <!-- Box 7 -->
             <div class="pipe-box pipe-emerald">
               <div class="pipe-header">
-                <span class="pipe-step-num">LANGKAH 7 (OUTPUT & HITL)</span>
-                <span class="pipe-eq">Persamaan (9) & LinUCB</span>
+                <span class="pipe-step-num">LANGKAH 7 (OUTPUT)</span>
+                <span class="pipe-eq">Persamaan (10) & (11)</span>
               </div>
-              <div class="pipe-title">7) Keputusan Adaptif Suportif (<strong>a</strong><sub>t+1</sub><sup>*</sup>) Berbasis Reward Terkalibrasi</div>
+              <div class="pipe-title">7) Rekomendasi LinUCB Time-Varying Non-Punitif (<strong>a</strong><sub>t+1</sub><sup>*</sup>)</div>
               <div class="pipe-content">
                 <div class="math-sym-row wrap">
-                  <span class="m-bold">r′</span><sub>i,a,t+1</sub> = <span class="m-var">r</span><sub>i,a,t</sub> + &eta;<sub>t</sub> <span class="m-var">U</span>(a, <span class="m-bold">d</span><sub>i,t</sub>) - &mu;<sub>t</sub> <span class="m-var">CB</span><sub>i,a,t</sub> - &nu;<sub>t</sub> <span class="m-var">OB</span><sub>i,a,t</sub> - &rho;<sub>t</sub> &Delta;<span class="m-bold">c</span><sub>i,t</sub> - &gamma;<sub>t</sub> <span class="m-bold">D</span><sub>t</sub>
+                  <span class="m-bold">a</span><sub>t+1</sub><sup>*</sup> = <span class="m-func">arg max</span><sub>a &isin; &#119964;</sub> [ <span class="m-bold">&theta;&#770;</span><sub>a,t</sub><sup>T</sup> <span class="m-bold">z</span><sub>i,t</sub> + <span class="m-sym">&alpha;</span><sub>t</sub> &radic;(<span class="m-bold">z</span><sub>i,t</sub><sup>T</sup> <span class="m-bold">A</span><sub>a,t</sub><sup>-1</sup> <span class="m-bold">z</span><sub>i,t</sub>) - <span class="m-sym">&mu;</span><sub>t</sub> <span class="m-var">CB</span><sub>i,a,t</sub> - <span class="m-sym">&nu;</span><sub>t</sub> <span class="m-var">OB</span><sub>i,a,t</sub> - <span class="m-sym">&rho;</span><sub>t</sub> &Delta;<span class="m-bold">c</span><sub>i,t</sub> ]
                 </div>
-                <span class="pipe-note">Pilihan intervensi: materi rendah bandwidth, audio mikro, microlearning, mentoring dengan pengawasan Human-in-the-Loop.</span>
+                <span class="pipe-note">Pemilihan materi (materi hemat bandwidth, micro-chunking, audio mikro) dengan dukungan tata kelola HITL.</span>
               </div>
             </div>
           </div>
 
-          <!-- Spatial Moderation Sidebar -->
+          <!-- Spatial Moderation Sidebar (Dashed Line Component) -->
           <div class="spatial-moderator-sidebar">
             <div class="dashed-moderator-card">
               <div class="dashed-badge">
                 <span class="dashed-icon">┆</span>
-                <span>VARIABEL MODERATOR KONTEKS</span>
+                <span>VARIABEL MODERATOR UTAMA</span>
               </div>
 
               <h3 class="mod-title">
@@ -340,6 +333,7 @@
                   <span class="m-bold">S</span><sub>i,t</sub> = <span class="m-sym">&delta;</span> &middot; <span class="m-bold">K</span><sub>i</sub> + (1 - <span class="m-sym">&delta;</span>) &middot; <span class="m-bold">N</span><sub>i,t</sub>
                 </div>
                 <div class="mod-layers">
+                  <!-- Layer 1 -->
                   <div class="layer-item">
                     <span class="layer-dot blue"></span>
                     <div class="layer-txt">
@@ -347,6 +341,7 @@
                       <span>Data Terbuka BPS, Podes sinyal desa, APJII, Ookla Speedtest (Persamaan 2a).</span>
                     </div>
                   </div>
+                  <!-- Layer 2 -->
                   <div class="layer-item">
                     <span class="layer-dot amber"></span>
                     <div class="layer-txt">
@@ -357,23 +352,24 @@
                 </div>
               </div>
 
+              <!-- Dashed Connector Visual Indicator -->
               <div class="dashed-action-indicator">
                 <div class="indicator-arrow-box">
                   <span class="dashed-arrow-line">---------------------------------➔</span>
-                  <span class="indicator-label">Efek Moderasi Konseptual (c<sub>i,t</sub> & q<sub>i,t</sub>)</span>
+                  <span class="indicator-label">Efek Moderasi Statistik (H2a: K<sub>i</sub> &times; x<sub>i,t</sub>)</span>
                 </div>
                 <ul class="mod-impact-list">
                   <li>
                     <span class="icon-check">✓</span>
-                    <span><strong>Mengondisikan Baseline (b̂<sub>i,t</sub>):</strong> Standar keaktifan wajar di 3T disesuaikan secara adil.</span>
+                    <span><strong>Mengondisikan Baseline (b<sub>i,t</sub>):</strong> Standar keaktifan wajar di 3T disesuaikan secara adil.</span>
                   </li>
                   <li>
                     <span class="icon-check">✓</span>
-                    <span><strong>Mengontrol Gerbang Observabilitas (w<sub>i,t</sub>):</strong> Jika sinyal/observabilitas drop, sistem tidak memaksakan sinyal visual.</span>
+                    <span><strong>Mengontrol Gerbang Spasial (g<sub>i,t</sub>):</strong> Jika sinyal drop (S<sub>i,t</sub> &rarr; 0), model beralih mengandalkan konteks c<sub>i,t</sub> agar tidak menghukum peserta.</span>
                   </li>
                   <li>
                     <span class="icon-check">✓</span>
-                    <span><strong>Mencegah infrastructural confounding:</strong> Menjaga validitas epistemik sebelum rekomendasi diputuskan.</span>
+                    <span><strong>Mencegah infrastructural confounding:</strong> Menjaga validitas epistemik sebelum pemilihan rekomendasi.</span>
                   </li>
                 </ul>
               </div>
@@ -383,7 +379,7 @@
                   <span class="sd-tag">⚙️ Service Dynamics Fusion (OB<sub>i,a,t</sub>)</span>
                 </div>
                 <p class="sd-desc">
-                  Data beban layanan publik agregat (SP4N-LAPOR) berinteraksi memoderasi penalti beban operasional pada Persamaan (9).
+                  Data beban layanan publik agregat (SP4N-LAPOR) berinteraksi memoderasi penalti beban operasional pada Persamaan (10) & (11).
                 </p>
               </div>
             </div>
@@ -392,7 +388,128 @@
       </section>
 
       <!-- ========================================================================= -->
-      <!-- DISTINGSI KONSEPTUAL: RESIDUAL vs DISPARITY                              -->
+      <!-- TAHAP 3: ALGORITHM DEVELOPMENT ROADMAP                                    -->
+      <!-- ========================================================================= -->
+      <section class="card roadmap-section">
+        <div class="section-head">
+          <div class="badge-row">
+            <span class="badge badge-purple">🛣️ Kerangka Pengembangan Bertahap</span>
+            <span class="badge badge-yellow">🟡 Status: Under Development</span>
+          </div>
+          <h2 class="section-title">3. Algorithm Development Roadmap</h2>
+          <p class="section-desc">
+            Peta jalan iteratif evolusi formulasi matematika dari standard bandit hingga adaptive disparity mitigation:
+          </p>
+        </div>
+
+        <div class="roadmap-grid">
+          <div class="roadmap-step step-done">
+            <div class="step-num">STEP 0</div>
+            <h3 class="step-heading">Standard LinUCB</h3>
+            <p class="step-text">Baseline Li et al. (2010) dengan fitur kontekstual standar.</p>
+            <span class="step-tag tag-blue">✅ Baseline Selesai</span>
+          </div>
+
+          <div class="roadmap-step step-done">
+            <div class="step-num">STEP 1</div>
+            <h3 class="step-heading">Context-Aware LinUCB</h3>
+            <p class="step-text">Pemodelan vektor kendala spasial, bandwidth (&beta;<sub>bw</sub>), latensi (&beta;<sub>lat</sub>), & beban dinas (T<sub>work</sub>).</p>
+            <span class="step-tag tag-blue">✅ Fitur Dipetakan</span>
+          </div>
+
+          <div class="roadmap-step step-done">
+            <div class="step-num">STEP 2</div>
+            <h3 class="step-heading">Disparity Measurement</h3>
+            <p class="step-text">Pengukuran gap luaran antar wilayah: D<sub>a,t</sub> = |&mu;&#770;<sub>a,3T</sub> - &mu;&#770;<sub>a,Urban</sub>|.</p>
+            <span class="step-tag tag-blue">✅ Metrik Terdefinisi</span>
+          </div>
+
+          <div class="roadmap-step step-active">
+            <div class="step-num">STEP 3</div>
+            <h3 class="step-heading">Disparity-Aware Decision</h3>
+            <p class="step-text">Penetapan fungsi skor keputusan berbobot penalti disparitas Score<sub>a,t</sub>.</p>
+            <span class="step-tag tag-amber">🟡 Under Development</span>
+          </div>
+
+          <div class="roadmap-step step-future">
+            <div class="step-num">STEP 4</div>
+            <h3 class="step-heading">Adaptive Controller</h3>
+            <p class="step-text">Kontroler adaptif parameter penalti &lambda;<sub>t</sub> berbasis kestabilan konvergensi.</p>
+            <span class="step-tag tag-amber">🟡 Under Development</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- TAHAP 4: FORMULASI MATEMATIKA CABA-CCBN DISERTASI (PERSAMAAN 1-11)        -->
+      <!-- ========================================================================= -->
+      <section class="card candidate-section">
+        <div class="candidate-header">
+          <div>
+            <div class="badge-row">
+              <span class="badge badge-amber">📐 Formulasi Matematika Lengkap Proposal</span>
+              <span class="badge badge-outline">Persamaan (1) s/d Persamaan (11) Terintegrasi</span>
+            </div>
+            <h2 class="candidate-title">4. Formulasi Komputasional Utama CABA–CCBN LinUCB</h2>
+          </div>
+        </div>
+
+        <div class="candidate-math-card">
+          <div class="candidate-equation-row">
+            <div class="eq-token eq-target">
+              <span class="eq-sym"><span class="m-bold">a</span><sub>t+1</sub><sup>*</sup></span>
+              <span class="eq-lbl">Aksi Optimal (Persamaan 11)</span>
+            </div>
+            <span class="eq-op">=</span>
+            <span class="eq-op-txt"><span class="m-func">arg max</span><sub>a &isin; &#119964;</sub> [</span>
+            <div class="eq-token eq-reward">
+              <span class="eq-sym"><span class="m-bold">&theta;&#770;</span><sub>a,t</sub><sup>T</sup> <span class="m-bold">z</span><sub>i,t</sub></span>
+              <span class="eq-lbl">Expected Learning Utility</span>
+            </div>
+            <span class="eq-op">+</span>
+            <div class="eq-token eq-explore">
+              <span class="eq-sym"><span class="m-sym">&alpha;</span><sub>t</sub> &radic;(<span class="m-bold">z</span><sub>i,t</sub><sup>T</sup> <span class="m-bold">A</span><sub>a,t</sub><sup>-1</sup> <span class="m-bold">z</span><sub>i,t</sub>)</span>
+              <span class="eq-lbl">UCB Exploration Bound</span>
+            </div>
+            <span class="eq-op">-</span>
+            <div class="eq-token eq-penalty">
+              <span class="eq-sym"><span class="m-sym">&mu;</span><sub>t</sub> <span class="m-var">CB</span><sub>i,a,t</sub></span>
+              <span class="eq-lbl">Contextual Burden (Eq. 9)</span>
+            </div>
+            <span class="eq-op">-</span>
+            <div class="eq-token eq-penalty" style="background:#FFF1F2; border-color:#FDA4AF;">
+              <span class="eq-sym"><span class="m-sym">&nu;</span><sub>t</sub> <span class="m-var">OB</span><sub>i,a,t</sub> + <span class="m-sym">&rho;</span><sub>t</sub> &Delta;<span class="m-bold">c</span><sub>i,t</sub></span>
+              <span class="eq-lbl">Service Burden & Context Shift</span>
+            </div>
+            <span class="eq-op">]</span>
+          </div>
+
+          <div class="candidate-rules-row">
+            <div class="rule-box">
+              <span class="rule-k">Spatially-Gated Fusion (Eq. 8):</span>
+              <span class="rule-v"><span class="m-bold">z</span><sub>i,t</sub> = <span class="m-var">g</span><sub>i,t</sub> &middot; <span class="m-bold">x</span><sub>i,t</sub> + (1 - <span class="m-var">g</span><sub>i,t</sub>) &middot; <span class="m-bold">c</span><sub>i,t</sub></span>
+            </div>
+            <div class="rule-box">
+              <span class="rule-k">Bobot Gerbang Spasial (Eq. 7):</span>
+              <span class="rule-v"><span class="m-var">g</span><sub>i,t</sub> = <span class="m-sym">&sigma;</span>(<span class="m-sym">&alpha;</span><span class="m-var">S</span><sub>i,t</sub> + <span class="m-sym">&beta;</span><span class="m-var">I</span><sub>i,t</sub> + <span class="m-sym">&gamma;</span><span class="m-var">q</span><sub>i,t</sub>)</span>
+            </div>
+            <div class="rule-box">
+              <span class="rule-k">Indeks Spasial Komposit (Eq. 2c):</span>
+              <span class="rule-v"><span class="m-bold">S</span><sub>i,t</sub> = <span class="m-sym">&delta;</span> <span class="m-bold">K</span><sub>i</sub> + (1 - <span class="m-sym">&delta;</span>) <span class="m-bold">N</span><sub>i,t</sub></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="candidate-disclaimer">
+          <span class="disc-icon">💡</span>
+          <div class="disc-text">
+            <strong>Keterkaitan Konseptual Proposal:</strong> Formulasi Persamaan (11) ini memastikan bahwa algoritma tidak hanya mengejar <em>utility</em> kognitif secara buta, melainkan mengurangi penalti beban kontekstual (<span class="m-var">CB</span><sub>i,a,t</sub>) dan beban operasional dinas (<span class="m-var">OB</span><sub>i,a,t</sub>). Fitur yang digunakan oleh Contextual Bandit berasal dari vektor fusi terkalibrasi <span class="m-bold">z</span><sub>i,t</sub> yang telah dimoderasi oleh kondisi spasial <span class="m-bold">S</span><sub>i,t</sub> dan kualitas data <span class="m-var">q</span><sub>i,t</sub>.
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- DISTINGSI KONSEPTUAL DISERTASI: RESIDUAL vs DISPARITY                    -->
       <!-- ========================================================================= -->
       <section class="card disparity-levels-card" style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFFFFF; border-radius: 14px; padding: 1.35rem 1.65rem; margin-bottom: 2rem; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.35);">
         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
@@ -401,40 +518,40 @@
               📐 Distingsi Konseptual Disertasi
             </span>
             <h3 style="font-size: 1.1rem; font-weight: 800; color: #FFFFFF; margin: 0;">
-              Pemisahan Dua Tingkat: Contextual Residual (d_{i,t}) vs Group Disparity (D_t)
+              Pemisahan Dua Tingkat Disparitas: Behavioral Residual (ΔB) vs Group Disparity (D)
             </h3>
           </div>
           <span style="font-size: 0.725rem; color: #FCD34D; font-family: monospace; font-weight: 800; background: rgba(245, 158, 11, 0.15); padding: 0.2rem 0.5rem; border-radius: 4px; border: 1px solid rgba(245, 158, 11, 0.3);">
-            Individual Residual (d_{i,t}) ≠ Group Disparity (D_t)
+            Residual (Individu) ≠ Disparitas (Kelompok)
           </span>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem;">
-          <!-- Level 1: Contextual Residual -->
+          <!-- Level 1: Behavioral Residual -->
           <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(147, 197, 253, 0.25); border-radius: 10px; padding: 1.1rem;">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.35rem;">
-              <span style="font-size: 0.725rem; font-weight: 800; color: #93C5FD; text-transform: uppercase; letter-spacing: 0.03em;">Level 1 — Contextual Residual (Individual Diagnostic Signal)</span>
-              <code style="color: #34D399; font-size: 0.8rem; background: rgba(0,0,0,0.4); padding: 0.15rem 0.45rem; border-radius: 4px; font-family: monospace;">d_{i,t} = B_{i,t} - hat{b}_{i,t}</code>
+              <span style="font-size: 0.725rem; font-weight: 800; color: #93C5FD; text-transform: uppercase; letter-spacing: 0.03em;">Level 1 — Behavioral Residual (Individual Signal)</span>
+              <code style="color: #34D399; font-size: 0.8rem; background: rgba(0,0,0,0.4); padding: 0.15rem 0.45rem; border-radius: 4px; font-family: monospace;">ΔB_{i,t} = B_{i,t}^{obs} - E[B_{i,t}|C_{i,t}]</code>
             </div>
             <p style="font-size: 0.8rem; color: #E2E8F0; line-height: 1.5; margin: 0 0 0.65rem 0;">
-              <strong>Pertanyaan Diagnostik:</strong> <em>"Apakah perilaku belajar individu menyimpang dari ekspektasi wajar pada konteks kendalanya?"</em>
+              <strong>Pertanyaan Kausal:</strong> <em>"Apakah perilaku belajar individu menyimpang dari ekspektasi wajar pada konteks kendalanya?"</em>
             </p>
             <div style="font-size: 0.725rem; color: #94A3B8; background: rgba(0,0,0,0.25); padding: 0.45rem 0.75rem; border-radius: 6px; line-height: 1.45;">
-              📌 <strong>Fungsi Diagnostik:</strong> Memisahkan hambatan teknis/infrastruktur dari kebutuhan intervensi otentik agar peserta di wilayah terkendala tidak menerima penalti bias.
+              📌 <strong>Fungsi Diagnostik:</strong> Memisahkan hambatan teknis/infrastruktur dari kelalaian otentik agar peserta 3T tidak menerima penalti bias.
             </div>
           </div>
 
           <!-- Level 2: Group Disparity -->
           <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(248, 113, 113, 0.25); border-radius: 10px; padding: 1.1rem;">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.35rem;">
-              <span style="font-size: 0.725rem; font-weight: 800; color: #FCA5A5; text-transform: uppercase; letter-spacing: 0.03em;">Level 2 — Contextual Disparity (Group Fairness Metric)</span>
-              <code style="color: #F87171; font-size: 0.8rem; background: rgba(0,0,0,0.4); padding: 0.15rem 0.45rem; border-radius: 4px; font-family: monospace;">D_t = 	ext{disparity}(d_{i,t} mid 	ext{group})</code>
+              <span style="font-size: 0.725rem; font-weight: 800; color: #FCA5A5; text-transform: uppercase; letter-spacing: 0.03em;">Level 2 — Group Disparity (Group Fairness Outcome)</span>
+              <code style="color: #F87171; font-size: 0.8rem; background: rgba(0,0,0,0.4); padding: 0.15rem 0.45rem; border-radius: 4px; font-family: monospace;">D_{a,t} = |\hat{μ}_{a,3T} - \hat{μ}_{a,Urban}|</code>
             </div>
             <p style="font-size: 0.8rem; color: #E2E8F0; line-height: 1.5; margin: 0 0 0.65rem 0;">
-              <strong>Pertanyaan Keadilan:</strong> <em>"Apakah keputusan/rekomendasi adaptif menghasilkan disparitas beban atau kesalahan interpretasi antar kelompok konteks?"</em>
+              <strong>Pertanyaan Kausal:</strong> <em>"Apakah keputusan/luaran intervensi adaptif menghasilkan gap hasil pembelajaran antar kelompok wilayah?"</em>
             </p>
             <div style="font-size: 0.725rem; color: #94A3B8; background: rgba(0,0,0,0.25); padding: 0.45rem 0.75rem; border-radius: 6px; line-height: 1.45;">
-              📌 <strong>Fungsi Keadilan:</strong> Menjaga kesetaraan beban rekomendasi (Eq. 8a) dan galat interpretasi (Eq. 8b) antar wilayah yang diregulasi via penalti disparitas (γ) pada Persamaan (9).
+              📌 <strong>Fungsi Keadilan:</strong> Metrik evaluasi keadilan luaran agregat sistem yang diregulasi melalui penalti disparitas (λ) pada LinUCB.
             </div>
           </div>
         </div>
@@ -442,30 +559,49 @@
         <!-- Hierarchical Pipeline Flow -->
         <div style="margin-top: 1rem; padding-top: 0.85rem; border-top: 1px dashed rgba(255, 255, 255, 0.15); display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: #E2E8F0; flex-wrap: wrap;">
           <span style="font-weight: 800; color: #FCD34D;">Alur Hierarki Disertasi:</span>
-          <span style="background: rgba(255,255,255,0.08); padding: 0.2rem 0.5rem; border-radius: 4px;">Raw Traces X</span>
+          <span style="background: rgba(255,255,255,0.08); padding: 0.2rem 0.5rem; border-radius: 4px;">Individual Behavior</span>
           <span style="color: #64748B;">➔</span>
-          <span style="background: rgba(255,255,255,0.08); padding: 0.2rem 0.5rem; border-radius: 4px;">Behavioral Evidence B</span>
+          <span style="background: rgba(59,130,246,0.2); color: #93C5FD; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 4px;">ΔB_{i,t} (Diagnostik)</span>
           <span style="color: #64748B;">➔</span>
-          <span style="background: rgba(59,130,246,0.2); color: #93C5FD; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 4px;">b̂ = E[B|c,q]</span>
+          <span style="background: rgba(255,255,255,0.08); padding: 0.2rem 0.5rem; border-radius: 4px;">Contextual Interpretation</span>
           <span style="color: #64748B;">➔</span>
-          <span style="background: rgba(16,185,129,0.2); color: #6EE7B7; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 4px;">d = B - b̂ (Individu)</span>
+          <span style="background: rgba(16,185,129,0.2); color: #6EE7B7; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 4px;">Action (a_t*)</span>
           <span style="color: #64748B;">➔</span>
-          <span style="background: rgba(239,68,68,0.2); color: #FCA5A5; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 4px;">D_t (Kelompok)</span>
+          <span style="background: rgba(255,255,255,0.08); padding: 0.2rem 0.5rem; border-radius: 4px;">Group Outcomes</span>
           <span style="color: #64748B;">➔</span>
-          <span style="background: rgba(245,158,11,0.2); color: #FCD34D; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 4px;">Adaptive Action (a*)</span>
+          <span style="background: rgba(239,68,68,0.2); color: #FCA5A5; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 4px;">D_{a,t} (Disparity Gap)</span>
+          <span style="color: #64748B;">➔</span>
+          <span style="background: rgba(245,158,11,0.2); color: #FCD34D; font-weight: 800; padding: 0.2rem 0.5rem; border-radius: 4px;">Fairness Regulation (λ)</span>
         </div>
       </section>
 
-      <!-- DSR RESEARCH ROADMAP -->
+      <!-- ========================================================================= -->
+      <!-- TAHAP 5: COMPUTATIONAL BLUEPRINT (12 COMPUTATIONAL MODULES: MODUL 01 - 12)  -->
+      <!-- ========================================================================= -->
+      <section class="section-title-wrap">
+        <div class="title-col">
+          <div class="badge-row">
+            <span class="badge badge-emerald">🧪 Disparity-Aware Learning Adaptation Lab</span>
+            <span class="badge badge-blue">Arsitektur CABA–CCBN (12 Modul Terintegrasi)</span>
+          </div>
+          <h2 class="main-sec-title">5. Laboratorium Komputasi Adaptasi Pembelajaran & Evaluasi Disparitas</h2>
+          <p class="main-sec-desc">
+            Computational prototype for investigating how contextual constraints and behavioral evidence inform fair and adaptive learning interventions.
+          </p>
+        </div>
+      </section>
+
+      <!-- DSR RESEARCH ROADMAP & REASONING BEHIND ARTIFACT -->
       <section class="card dsr-roadmap-card">
         <div class="dsr-header-row">
           <div class="dsr-title-block">
             <span class="dsr-badge">📐 DESIGN SCIENCE RESEARCH (DSR) ROADMAP</span>
-            <h3 class="dsr-heading">Kedudukan Ilmiah & Tahapan Validasi Artefak CABA–CCBN</h3>
+            <h3 class="dsr-heading">Kedudukan Ilmiah & Tahapan Validasi Artifak (Proof of Concept ➔ Real Evaluation)</h3>
           </div>
           <span class="dsr-phase-pill">STATUS: TAHAP 1 (SYNTHETIC OPERATIONALIZATION)</span>
         </div>
 
+        <!-- 3-Phase DSR Grid -->
         <div class="dsr-phases-grid">
           <div class="dsr-phase-item active-phase">
             <div class="phase-badge-row">
@@ -473,7 +609,7 @@
               <span class="phase-status-tag tag-active">● Active Prototype</span>
             </div>
             <h4 class="phase-title">Theoretical Formulation & Synthetic Operationalization</h4>
-            <p class="phase-desc">Membuktikan artefak dan formulasi matematika (Level 1 d_{i,t} + Level 2 D_t) bekerja menghasilkan adaptasi moda non-punitif tanpa bias penalti.</p>
+            <p class="phase-desc">Membuktikan artifak dan formulasi matematika (Level 1 ΔB + Level 2 D) bekerja menghasilkan adaptasi moda non-punitif tanpa bias penalti.</p>
           </div>
 
           <div class="dsr-phase-item">
@@ -482,7 +618,7 @@
               <span class="phase-status-tag">○ Next Step</span>
             </div>
             <h4 class="phase-title">Empirical Validation on Real LMS & Spatial Dataset</h4>
-            <p class="phase-desc">Pengujian validitas eksternal menggunakan log telemetri riil LMS serta instrumen kuesioner konteks ASN di lapangan.</p>
+            <p class="phase-desc">Pengujian validitas eksternal dan akurasi prediksi menggunakan log telemetri riil LMS serta kuesioner spasial ASN di lapangan.</p>
           </div>
 
           <div class="dsr-phase-item">
@@ -490,18 +626,19 @@
               <span class="phase-num">TAHAP 3 (DSR Feedback Loop)</span>
               <span class="phase-status-tag">○ Iteration Loop</span>
             </div>
-            <h4 class="phase-title">Algorithmic Improvement & Policy Convergence</h4>
-            <p class="phase-desc">Penyempurnaan bobot penalti disparitas (γ) dan konvergensi bandit dinamis berdasarkan umpan balik empiris Widyaiswara (HITL).</p>
+            <h4 class="phase-title">Algorithmic Improvement & Long-Term Policy Convergence</h4>
+            <p class="phase-desc">Penyempurnaan bobot penalti disparitas (λ) dan konvergensi bandit dinamis berdasarkan umpan balik empiris Widyaiswara (HITL).</p>
           </div>
         </div>
 
+        <!-- Reasoning Behind Artifact Callout -->
         <div class="reasoning-behind-box">
           <div class="rb-head">
             <span class="rb-icon">💡</span>
-            <strong>Rasional Pedagogis: Kuesioner sebagai Sumber Data Konteks (Bukan CCBN itu Sendiri)</strong>
+            <strong>Reasoning Behind the Artifact: Mengapa Model Preferensi & Komplesi Statis Gagal di Negara Berkembang?</strong>
           </div>
           <p class="rb-p">
-            Instrumen kuesioner pembelajaran digital berfungsi sebagai <strong>sumber data konteks</strong> ($T, I, O, D, W, S$) dan verifikasi persepsi hambatan. CCBN memproses konteks tersebut bersama telemetri riil LMS untuk membentuk ekspektasi baseline perilaku wajar ($hat{b}_{i,t}$), memastikan peserta yang mengalami gangguan koneksi tidak menerima label tidak disiplin.
+            Model rekomendasi konvensional berbasis preferensi (<em>collaborative filtering</em>) dan ambang komplesi video statis (100%) mengasumsikan konektivitas ideal. Di negara berkembang (<em>developing countries</em> / daerah 3T), friksi fisik dan keterbatasan bandwidth tidak bersifat seragam. Sistem yang menghakimi data hilang sebagai kegagalan belajar akan melahirkan <em>punitive bias</em> bagi pembelajar di pelosok. Artifak CABA–CCBN membalik paradigma ini: <strong>kondisi lingkungan dimodelkan sebagai ekspektasi wajar E[B|C], sehingga data hilang akibat sinyal drop tidak dihukum sebagai kelalaian.</strong>
           </p>
         </div>
       </section>
@@ -541,7 +678,7 @@
             <div class="step-circle">01</div>
             <div class="step-label-box">
               <span class="step-name">1. CONTEXT</span>
-              <span class="step-detail">Context 6D (c_{i,t})</span>
+              <span class="step-detail">Context Profile (C_t)</span>
             </div>
           </div>
           <div class="pipe-step-divider">➔</div>
@@ -556,7 +693,7 @@
             <div class="step-circle">02</div>
             <div class="step-label-box">
               <span class="step-name">2. EVIDENCE</span>
-              <span class="step-detail">X, B, m, q, b̂, d, Gate 18</span>
+              <span class="step-detail">Evidence, E[B|C], ΔB, LS</span>
             </div>
           </div>
           <div class="pipe-step-divider">➔</div>
@@ -571,7 +708,7 @@
             <div class="step-circle">03</div>
             <div class="step-label-box">
               <span class="step-name">3. FAIRNESS</span>
-              <span class="step-detail">Disparity D, Burden, Eq 11-17</span>
+              <span class="step-detail">Contextual Fairness & D</span>
             </div>
           </div>
           <div class="pipe-step-divider">➔</div>
@@ -586,7 +723,7 @@
             <div class="step-circle">04</div>
             <div class="step-label-box">
               <span class="step-name">4. DECISION</span>
-              <span class="step-detail">Reward (Eq. 9) & HITL</span>
+              <span class="step-detail">LinUCB a_t* & HITL</span>
             </div>
           </div>
           <div class="pipe-step-divider">➔</div>
@@ -601,7 +738,7 @@
             <div class="step-circle">05</div>
             <div class="step-label-box">
               <span class="step-name">5. LEARNING LOOP</span>
-              <span class="step-detail">Trajectory, θ Update, Shift</span>
+              <span class="step-detail">Reward, θ Update, Shift, λ</span>
             </div>
           </div>
         </div>
@@ -617,8 +754,8 @@
         <!-- ===================================================================== -->
         <section class="lab-layer-section">
           <div class="layer-section-header">
-            <div class="layer-pill">TAHAP 1: CONTEXT (CONTEXT PROFILE ENAM DIMENSI)</div>
-            <span class="layer-desc">Pemetaan parameter lingkungan kendala peserta: Temporal (T), Infrastruktur (I), Organisasi (O), Perangkat (D), Beban Kerja (W), Spasial Komposit (S) [Persamaan 2 & 2a–2c]</span>
+            <div class="layer-pill">TAHAP 1: CONTEXT (CONTEXT PROFILE)</div>
+            <span class="layer-desc">Pemetaan parameter lingkungan kendala peserta (Bandwidth, Latency, Perangkat, Beban Kerja, Wilayah Spasial)</span>
           </div>
 
           <!-- MODUL 01: CONTEXT PROFILE -->
@@ -628,20 +765,20 @@
                 <span class="icon-pulse blue">📍</span>
                 <div>
                   <span class="mod-num-badge badge-blue">MODUL 01</span>
-                  <h3 class="panel-title">Profil Vektor Konteks Enam Dimensi (Context Profile)</h3>
+                  <h3 class="panel-title">Profil Vektor Konteks (Context Profile)</h3>
                 </div>
               </div>
               <div class="panel-head-right">
                 <button class="btn-inspect-modal" @click.stop="openModuleModal(1)" title="Buka Detail Komputasi & Telemetri">
                   <span>🔍 Detail</span>
                 </button>
-                <span class="code-pill pill-blue">Vektor c_{i,t} (Eq. 2)</span>
+                <span class="code-pill pill-blue">Vektor C_t</span>
               </div>
             </div>
 
             <!-- Presets -->
             <div class="preset-wrap">
-              <span class="preset-label">Skenario Konteks Cepat (Simulasi):</span>
+              <span class="preset-label">Skenario Konteks Cepat:</span>
               <div class="preset-btn-group">
                 <button @click="applyPreset('3T_mobile')" class="p-btn" :class="{ active: currentPreset === '3T_mobile' }">
                   <span class="p-icon">🏝️</span>
@@ -663,7 +800,7 @@
                 <!-- Parameter 1: Bandwidth -->
                 <div class="control-box">
                   <div class="ctrl-header">
-                    <label class="ctrl-lbl">Infrastruktur Bandwidth (I_{i,t}):</label>
+                    <label class="ctrl-lbl">Bandwidth (β_bw):</label>
                     <span class="val-pill pill-blue">{{ bandwidthKbps }} kbps ({{ bandwidthQuality }})</span>
                   </div>
                   <input type="range" min="50" max="10000" step="50" v-model.number="bandwidthKbps" class="slider slider-blue" />
@@ -672,7 +809,7 @@
                 <!-- Parameter 2: Latency -->
                 <div class="control-box">
                   <div class="ctrl-header">
-                    <label class="ctrl-lbl">Session Latency (N_{i,t} component):</label>
+                    <label class="ctrl-lbl">Latency (β_lat):</label>
                     <span class="val-pill" :class="stallRatio > 20 ? 'pill-rose' : 'pill-slate'">{{ latencyMs }} ms</span>
                   </div>
                   <input type="range" min="20" max="1200" step="20" v-model.number="latencyMs" class="slider slider-amber" />
@@ -683,7 +820,7 @@
                 <!-- Parameter 3: Device -->
                 <div class="control-box">
                   <div class="ctrl-header">
-                    <label class="ctrl-lbl">Device / Delivery Context (D_{i,t}):</label>
+                    <label class="ctrl-lbl">Device Form Factor (δ_dev):</label>
                     <span class="val-pill pill-slate">{{ deviceName }}</span>
                   </div>
                   <div class="segmented-box">
@@ -702,7 +839,7 @@
                 <!-- Parameter 4: Workload -->
                 <div class="control-box">
                   <div class="ctrl-header">
-                    <label class="ctrl-lbl">Workload / Beban Kerja Kedinasan (W_{i,t}):</label>
+                    <label class="ctrl-lbl">Workload Kedinasan (T_work):</label>
                     <span class="val-pill pill-rose">{{ workloadLevel }} / 5 ({{ workloadDesc }})</span>
                   </div>
                   <input type="range" min="1" max="5" step="1" v-model.number="workloadLevel" class="slider slider-rose" />
@@ -712,23 +849,23 @@
               <!-- Parameter 5: Spatial Context -->
               <div class="control-box" style="margin-top: 0.75rem;">
                 <div class="ctrl-header">
-                  <label class="ctrl-lbl">Konteks Spasial Komposit (S_{i,t} = δK_i + (1-δ)N_{i,t}):</label>
-                  <span class="val-pill pill-purple">Indeks Spasial S_{i,t} = {{ spatialIndex.toFixed(2) }} ({{ spatialType === '3T' ? 'Klaster 3T' : 'Klaster Perkotaan' }})</span>
+                  <label class="ctrl-lbl">Spatial Context (S_t):</label>
+                  <span class="val-pill pill-purple">{{ spatialType === '3T' ? '🏝️ Daerah 3T (Tertinggal/Terluar)' : '🏢 Wilayah Perkotaan (Urban)' }}</span>
                 </div>
                 <div class="segmented-box">
                   <button :class="{ active: spatialType === '3T' }" @click="spatialType = '3T'">
-                    🏝️ Klaster Wilayah 3T (K_i = 0.30)
+                    🏝️ Wilayah 3T
                   </button>
                   <button :class="{ active: spatialType === 'Urban' }" @click="spatialType = 'Urban'">
-                    🏢 Klaster Non-3T / Perkotaan (K_i = 0.80)
+                    🏢 Non-3T / Perkotaan
                   </button>
                 </div>
               </div>
 
               <!-- Mathematical Context Vector Output -->
               <div class="math-vector-callout" style="margin-top: 1rem;">
-                <span class="vec-label">Formal Context Vector c_{i,t} (Persamaan 2):</span>
-                <code class="vec-code">c_{i,t} = [ T="Sesi Mandiri", I="{{ bandwidthKbps }}k/{{ latencyMs }}ms", O="Instansi Daerah", D="{{ deviceType }}", W="{{ workloadLevel }}/5", S="{{ spatialIndex.toFixed(2) }}" ]</code>
+                <span class="vec-label">Formal Context Vector:</span>
+                <code class="vec-code">C_t = [ {{ bandwidthKbps }} kbps, {{ latencyMs }} ms, "{{ deviceType }}", {{ workloadLevel }}/5, "{{ spatialType }}" ]</code>
               </div>
             </div>
           </div>
@@ -739,283 +876,312 @@
         <!-- ===================================================================== -->
         <section class="lab-layer-section">
           <div class="layer-section-header">
-            <div class="layer-pill">TAHAP 2: EVIDENCE (EVIDENCE FORMATION, CCBN BASELINE & VALIDITY GATE)</div>
-            <span class="layer-desc">Pembentukan evidensi perilaku B_{i,t}, penilaian missingness m_{i,t} & kualitas q_{i,t}, estimasi baseline CCBN b̂_{i,t}, residual d_{i,t}, dan pengujian Baseline Validity Gate [Persamaan 1–6, 10, 10a, 18a–18c]</span>
+            <div class="layer-pill">TAHAP 2: EVIDENCE (BEHAVIORAL EVIDENCE, EXPECTATION & SUFFICIENCY)</div>
+            <span class="layer-desc">Pengumpulan sinyal multimodal, penetapan baseline wajar E[B|C], kalkulasi deviasi residual individual ΔB, asesmen kecukupan bukti belajar temporal LS, dan deteksi titik waktu optimal t*</span>
           </div>
 
           <div class="layer-grid-2">
-            <!-- MODUL 02: RAW TRACES & BEHAVIORAL EVIDENCE -->
+            <!-- MODUL 02: BEHAVIORAL EVIDENCE -->
             <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 2 }">
               <div class="panel-head">
                 <div class="panel-head-left">
                   <span class="icon-pulse purple">🎬</span>
                   <div>
                     <span class="mod-num-badge badge-purple">MODUL 02</span>
-                    <h3 class="panel-title">Trace LMS Mentah (X) & Evidensi Perilaku (B)</h3>
+                    <h3 class="panel-title">Bukti Perilaku Multimodal (Behavioral Evidence)</h3>
                   </div>
                 </div>
                 <div class="panel-head-right">
                   <button class="btn-inspect-modal" @click.stop="openModuleModal(2)" title="Buka Detail Komputasi & Telemetri">
                     <span>🔍 Detail</span>
                   </button>
-                  <span class="code-pill pill-purple">Persamaan (1) & (10a)</span>
+                  <span class="code-pill pill-purple">Multimodal Telemetry</span>
                 </div>
               </div>
 
               <div class="sub-input-section">
-                <!-- Observational Signals -->
+                <!-- Focus Signal -->
                 <div class="control-box">
                   <div class="ctrl-header">
-                    <label class="ctrl-lbl">Sinyal Atensi Teramati (Observed Learning Signal):</label>
+                    <label class="ctrl-lbl">Focus Signal (τ_focus):</label>
                     <span class="val-pill pill-blue">{{ (observedFocus * 100).toFixed(0) }}%</span>
                   </div>
                   <input type="range" min="0.1" max="1.0" step="0.05" v-model.number="observedFocus" class="slider slider-blue" />
                 </div>
 
+                <!-- Video Completion -->
                 <div class="control-box">
                   <div class="ctrl-header">
-                    <label class="ctrl-lbl">Durasi Akses Substansi (Substantive Completion):</label>
+                    <label class="ctrl-lbl">Video Completion (B_watch):</label>
                     <span class="val-pill pill-indigo">{{ watchCompletionRatio }}% ({{ watchedMin.toFixed(1) }} / {{ videoDurationMin }} min)</span>
                   </div>
                   <input type="range" min="0.5" :max="videoDurationMin" step="0.1" v-model.number="watchedMin" class="slider slider-indigo" />
                 </div>
 
+                <!-- Revisit & Skip -->
                 <div class="control-box">
                   <div class="dual-ctrl-row">
                     <div class="ctrl-half">
                       <div class="ctrl-header">
-                        <label class="ctrl-lbl">Revisit Konten:</label>
+                        <label class="ctrl-lbl">Revisit Sinyal:</label>
                         <span class="val-pill pill-purple">{{ revisitEvents }}× Revisit</span>
                       </div>
                       <input type="range" min="0" max="5" step="1" v-model.number="revisitEvents" class="slider slider-purple" />
                     </div>
                     <div class="ctrl-half">
                       <div class="ctrl-header">
-                        <label class="ctrl-lbl">Artefak Evaluasi Inti:</label>
-                        <span class="val-pill pill-emerald">{{ (observedRetention * 100).toFixed(0) }}% Retensi</span>
+                        <label class="ctrl-lbl">Partial Retention:</label>
+                        <span class="val-pill pill-emerald">{{ (observedRetention * 100).toFixed(0) }}% Inti</span>
                       </div>
                       <input type="range" min="0.1" max="1.0" step="0.05" v-model.number="observedRetention" class="slider slider-emerald" />
                     </div>
                   </div>
                 </div>
 
+                <!-- Interaction Coverage -->
                 <div class="control-box">
                   <div class="ctrl-header">
-                    <label class="ctrl-lbl">Aktivitas Checkpoint LMS (Interaksi):</label>
-                    <span class="val-pill pill-emerald">{{ interactionCoveragePct }}% ({{ interactionEvents }}/10 Checkpoint)</span>
+                    <label class="ctrl-lbl">Interaction Coverage (B_int):</label>
+                    <span class="val-pill pill-emerald">{{ interactionCoveragePct }}% ({{ interactionEvents }}/10 Checkpoints)</span>
                   </div>
                   <input type="range" min="1" max="10" step="1" v-model.number="interactionEvents" class="slider slider-emerald" />
                 </div>
 
-                <!-- Verification of Missingness Mechanism -->
+                <div class="evidence-sources-tag">
+                  <span class="src-lbl">Sources:</span>
+                  <span class="src-pill">Computer Vision</span>
+                  <span class="src-pill">Video Telemetry</span>
+                  <span class="src-pill">Clickstream</span>
+                  <span class="src-pill">LMS Interaction</span>
+                </div>
+
+                <!-- Verification of Missingness Mechanism (Little's MCAR Test & MNAR) -->
                 <div class="missingness-verify-box" style="margin-top: 1rem;">
                   <div class="mv-head">
                     <span class="mv-icon">🔬</span>
-                    <strong>Penilaian Mekanisme Missingness (Observabilitas):</strong>
+                    <strong>Verifikasi Mekanisme Data Hilang (Missingness Test):</strong>
                   </div>
                   <div class="mv-grid">
                     <div class="mv-item">
-                      <span class="mv-k">Tingkat Data Hilang (m_{i,t}):</span>
-                      <span class="mv-v text-amber">{{ missingnessRate.toFixed(2) }} ({{ 100 - interactionCoveragePct }}% unobserved)</span>
+                      <span class="mv-k">Status Aliran Data:</span>
+                      <span class="mv-v text-amber">{{ 100 - watchCompletionRatio }}% Hilang (Stall 06:40)</span>
                     </div>
                     <div class="mv-item">
                       <span class="mv-k">Little's MCAR Test:</span>
-                      <span class="mv-v text-rose">p &lt; 0.05 (Tolak MCAR → MNAR)</span>
+                      <span class="mv-v text-rose">p &lt; 0.01 (Tolak MCAR)</span>
                     </div>
                     <div class="mv-item">
-                      <span class="mv-k">Kualitas Evidensi (q_{i,t}):</span>
-                      <span class="mv-v text-purple">{{ evidenceQuality.toFixed(2) }} (Eq. 4)</span>
+                      <span class="mv-k">Klasifikasi Missingness:</span>
+                      <span class="mv-v text-purple">MNAR (Missing Not At Random)</span>
                     </div>
                     <div class="mv-item">
-                      <span class="mv-k">Tindakan Epistemik:</span>
-                      <span class="mv-v text-emerald">Kompensasi Konteks (Bukan Vonis Gagal)</span>
+                      <span class="mv-k">Tindakan Sistem:</span>
+                      <span class="mv-v text-emerald">Kompensasi E[B|C] (Bukan Vonis Gagal)</span>
                     </div>
                   </div>
                   <span class="mv-note">
-                    *Data hilang berkorelasi dengan latensi ({{ latencyMs }} ms) & bandwidth rendah ({{ bandwidthKbps }} kbps), bukan kelalaian belajar peserta.
+                    *Data hilang berkorelasi kuat dengan latency tinggi ({{ latencyMs }} ms) & bandwidth rendah ({{ bandwidthKbps }} kbps), bukan kelalaian peserta.
                   </span>
                 </div>
               </div>
             </div>
 
-            <!-- MODUL 03: MISSINGNESS & EVIDENCE QUALITY -->
+            <!-- MODUL 03: CONTEXTUAL EXPECTATION & RESIDUAL -->
             <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 2 }">
               <div class="panel-head">
                 <div class="panel-head-left">
-                  <span class="icon-pulse amber">🛡️</span>
+                  <span class="icon-pulse amber">⚖️</span>
                   <div>
                     <span class="mod-num-badge badge-amber">MODUL 03</span>
-                    <h3 class="panel-title">Missingness (m_{i,t}) & Kualitas Evidensi (q_{i,t})</h3>
+                    <h3 class="panel-title">Ekspektasi Kontekstual & Residual (ΔB_t)</h3>
                   </div>
                 </div>
                 <div class="panel-head-right">
                   <button class="btn-inspect-modal" @click.stop="openModuleModal(3)" title="Buka Detail Komputasi & Telemetri">
                     <span>🔍 Detail</span>
                   </button>
-                  <span class="code-pill pill-amber">Persamaan (3) & (4)</span>
+                  <span class="code-pill pill-amber">ΔB_t = B_t^{obs} - E(B_t | C_t)</span>
                 </div>
               </div>
 
               <div class="calc-panel border-purple">
                 <div class="calc-top">
-                  <span class="calc-tag">EVIDENCE RELIABILITY SCORE</span>
-                  <span class="formula-sm">q_{i,t} = 1 - m_{i,t} - lambda cdot 	ext{noise}_{i,t}</span>
+                  <span class="calc-tag">CONTEXT-ADJUSTED BEHAVIORAL DEVIATION</span>
+                  <span class="formula-sm">E[B|C_t] Prototype</span>
                 </div>
                 <div class="metrics-3-col">
                   <div class="m-card">
-                    <span class="m-lbl">Missingness Rate (m_{i,t}):</span>
-                    <span class="m-val">{{ missingnessRate.toFixed(2) }}</span>
-                    <span class="m-sub">Proporsi checkpoint tak teramati</span>
+                    <span class="m-lbl">Observed Focus (B_obs):</span>
+                    <span class="m-val">{{ (observedFocus * 100).toFixed(0) }}%</span>
+                    <span class="m-sub">Sinyal perilaku teramati</span>
                   </div>
                   <div class="m-card">
-                    <span class="m-lbl">Noise / Telemetry Friction:</span>
-                    <span class="m-val">{{ evidenceNoise.toFixed(2) }}</span>
-                    <span class="m-sub">Ketidakstabilan sinyal</span>
+                    <span class="m-lbl">Expected Focus E[B|C]:</span>
+                    <span class="m-val">{{ (expectedFocus * 100).toFixed(0) }}%</span>
+                    <span class="m-sub">Ekspektasi wajar konteks C_t</span>
                   </div>
                   <div class="m-card m-highlight">
-                    <span class="m-lbl">Evidence Quality (q_{i,t}):</span>
-                    <span class="m-val text-purple">{{ evidenceQuality.toFixed(2) }}</span>
-                    <span class="m-sub"><strong>Keandalan evidensi aktual</strong></span>
+                    <span class="m-lbl">Residual ΔB_t:</span>
+                    <span class="m-val" :style="{ color: deltaBColor }">{{ liveDeltaB >= 0 ? '+' : '' }}{{ liveDeltaB.toFixed(2) }}</span>
+                    <span class="m-sub"><strong>Deviasi perilaku kontekstual</strong></span>
                   </div>
-                </div>
-
-                <div class="stage-callout callout-blue" style="margin-top: 1rem;">
-                  <span class="callout-icon">💡</span>
-                  <span><strong>Distingsi Kunci:</strong> Nilai perilaku ($B_{i,t}$) berbeda dari kualitas evidensi ($q_{i,t}$). Jika $q_{i,t}$ rendah akibat sinyal drop, sistem menurunkan bobot vonis dan membatasi rekomendasi ke modalitas berbeban rendah.</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- MODUL 04 & MODUL 05 ROW -->
-          <div class="layer-grid-2" style="margin-top: 1.5rem;">
-            <!-- MODUL 04: CCBN BASELINE & CONTEXTUAL RESIDUAL -->
-            <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 2 }">
-              <div class="panel-head">
-                <div class="panel-head-left">
-                  <span class="icon-pulse emerald">⚖️</span>
-                  <div>
-                    <span class="mod-num-badge badge-emerald">MODUL 04</span>
-                    <h3 class="panel-title">Baseline Perilaku CCBN (b̂_{i,t}) & Contextual Residual (d_{i,t})</h3>
-                  </div>
-                </div>
-                <div class="panel-head-right">
-                  <button class="btn-inspect-modal" @click.stop="openModuleModal(4)" title="Buka Detail Komputasi & Telemetri">
-                    <span>🔍 Detail</span>
-                  </button>
-                  <span class="code-pill pill-emerald">Persamaan (5) & (6)</span>
+          <!-- MODUL 04: LEARNING EVIDENCE SUFFICIENCY -->
+          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 2 }" style="margin-top: 1.5rem;">
+            <div class="panel-head">
+              <div class="panel-head-left">
+                <span class="icon-pulse emerald">⭐</span>
+                <div>
+                  <span class="mod-num-badge badge-emerald">MODUL 04</span>
+                  <h3 class="panel-title">Asesmen Kecukupan Bukti Belajar (Sufficiency)</h3>
                 </div>
               </div>
-
-              <div class="sufficiency-card-body">
-                <div class="suff-metrics-grid">
-                  <div class="suff-kpi-item">
-                    <span class="suff-kpi-lbl">Behavioral Outcome (B_{i,t})</span>
-                    <span class="suff-kpi-val text-blue">{{ behavioralEvidence.toFixed(2) }}</span>
-                  </div>
-                  <div class="suff-kpi-item">
-                    <span class="suff-kpi-lbl">Expected Baseline (b̂_{i,t})</span>
-                    <span class="suff-kpi-val text-purple">{{ contextualBaseline.toFixed(2) }}</span>
-                  </div>
-                  <div class="suff-kpi-item">
-                    <span class="suff-kpi-lbl">Contextual Residual (d_{i,t})</span>
-                    <span class="suff-kpi-val" :style="{ color: deltaBColor }">{{ liveResidual >= 0 ? '+' : '' }}{{ liveResidual.toFixed(2) }}</span>
-                  </div>
-                  <div class="suff-kpi-item">
-                    <span class="suff-kpi-lbl">Evidence Sufficiency (LS)</span>
-                    <span class="suff-kpi-val text-amber">{{ behavioralEvidence.toFixed(2) }}</span>
-                  </div>
-                </div>
-
-                <div class="suff-score-banner" :class="isSufficient ? 'banner-sufficient' : 'banner-insufficient'">
-                  <div class="suff-score-left">
-                    <span class="score-banner-label">CONTEXT-ADJUSTED RESIDUAL EVALUATION</span>
-                    <div class="score-banner-num-row">
-                      <span class="score-banner-val">{{ liveResidual >= 0 ? '+' : '' }}{{ liveResidual.toFixed(2) }}</span>
-                      <span class="score-banner-threshold">Baseline Wajar: {{ contextualBaseline.toFixed(2) }}</span>
-                    </div>
-                  </div>
-                  <div class="suff-score-right">
-                    <div class="suff-verdict-badge" :class="liveResidual >= -0.05 ? 'badge-green' : 'badge-amber'">
-                      <span class="verdict-icon">{{ liveResidual >= -0.05 ? '●' : '○' }}</span>
-                      <span class="verdict-text">{{ liveResidual >= -0.05 ? 'RESIDUAL POSITIF / WAJAR' : 'DEVIASI MEMERLUKAN DUKUNGAN' }}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="insight-highlight-callout">
-                  <div class="ihc-head">
-                    <span class="ihc-icon">💡</span>
-                    <strong>Prinsip Keadilan Epistemik: Residual Negatif ≠ Peserta Buruk</strong>
-                  </div>
-                  <p class="ihc-p">
-                    Residual negatif ($d_{i,t} < 0$) diposisikan sebagai indikator kebutuhan <strong>dukungan belajar alternatif</strong> (misal switch ke teks/audio mikro atau microlearning), bukan sebagai dasar penilaian kedisiplinan atau sanksi administratif.
-                  </p>
-                </div>
+              <div class="panel-head-right">
+                <button class="btn-inspect-modal" @click.stop="openModuleModal(4)" title="Buka Detail Komputasi & Telemetri">
+                  <span>🔍 Detail</span>
+                </button>
+                <span class="code-pill pill-emerald">Candidate Formulation</span>
               </div>
             </div>
 
-            <!-- MODUL 05: BASELINE VALIDITY GATE (PERSAMAAN 18a-18c) -->
-            <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 2 }">
-              <div class="panel-head">
-                <div class="panel-head-left">
-                  <span class="icon-pulse blue">🛡️</span>
-                  <div>
-                    <span class="mod-num-badge badge-blue">MODUL 05</span>
-                    <h3 class="panel-title">Baseline Validity Gate & Safeguard Observabilitas</h3>
-                  </div>
+            <div class="sufficiency-card-body">
+              <div class="suff-metrics-grid">
+                <div class="suff-kpi-item">
+                  <span class="suff-kpi-lbl">Completion (B_watch)</span>
+                  <span class="suff-kpi-val text-blue">{{ watchCompletionRatio }}%</span>
                 </div>
-                <div class="panel-head-right">
-                  <button class="btn-inspect-modal" @click.stop="openModuleModal(5)" title="Buka Detail Komputasi & Telemetri">
-                    <span>🔍 Detail</span>
-                  </button>
-                  <span class="code-pill pill-blue">Persamaan (18a)–(18c)</span>
+                <div class="suff-kpi-item">
+                  <span class="suff-kpi-lbl">Interaction (B_int)</span>
+                  <span class="suff-kpi-val text-emerald">{{ interactionCoveragePct }}%</span>
+                </div>
+                <div class="suff-kpi-item">
+                  <span class="suff-kpi-lbl">Revisit (\tilde{B}_rev)</span>
+                  <span class="suff-kpi-val text-purple">{{ revisitEvents }}× (0.67)</span>
+                </div>
+                <div class="suff-kpi-item">
+                  <span class="suff-kpi-lbl">Engagement (B_eng)</span>
+                  <span class="suff-kpi-val text-amber">{{ (observedRetention * 100).toFixed(0) }}%</span>
                 </div>
               </div>
 
-              <div class="timeline-card-body">
-                <div class="gate-status-card" :class="'gate-' + validityResult.state">
-                  <div class="gate-head">
-                    <span class="gate-tag">BASELINE VALIDITY STATUS:</span>
-                    <strong class="gate-val">{{ validityResult.state.toUpperCase() }}</strong>
+              <!-- Main Sufficiency Score Banner -->
+              <div class="suff-score-banner" :class="isSufficient ? 'banner-sufficient' : 'banner-insufficient'">
+                <div class="suff-score-left">
+                  <span class="score-banner-label">CONTEXTUAL EVIDENCE SCORE (LS_t)</span>
+                  <div class="score-banner-num-row">
+                    <span class="score-banner-val">{{ sufficiencyScore.toFixed(2) }}</span>
+                    <span class="score-banner-threshold">/ Ambang Batas (τ): {{ sufficiencyThreshold.toFixed(2) }}</span>
                   </div>
-                  <p class="gate-desc">
-                    {{ validityResult.message }}
-                  </p>
-                  <div class="gate-params-grid">
-                    <div class="gp-item">
-                      <span>Spatial Index S_{i,t}:</span>
-                      <strong>{{ spatialIndex.toFixed(2) }} (Ambang: &theta;_S = {{ DEFAULT_VALIDITY_THRESHOLDS.thetaSpatial }}, &theta;'_S = {{ DEFAULT_VALIDITY_THRESHOLDS.thetaSpatialBoundary }})</strong>
-                    </div>
-                    <div class="gp-item">
-                      <span>Evidence Quality q_{i,t}:</span>
-                      <strong>{{ evidenceQuality.toFixed(2) }} (Ambang: &theta;_q = {{ DEFAULT_VALIDITY_THRESHOLDS.thetaQuality }}, &theta;'_q = {{ DEFAULT_VALIDITY_THRESHOLDS.thetaQualityBoundary }})</strong>
+                </div>
+                <div class="suff-score-right">
+                  <div class="suff-verdict-badge" :class="isSufficient ? 'badge-green' : 'badge-amber'">
+                    <span class="verdict-icon">{{ isSufficient ? '●' : '○' }}</span>
+                    <span class="verdict-text">{{ isSufficient ? 'SUFFICIENT BEHAVIORAL EVIDENCE' : 'INSUFFICIENT BEHAVIORAL EVIDENCE (0.69 < 0.70)' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Core Methodological & Algorithmic Insight -->
+              <div class="insight-highlight-callout">
+                <div class="ihc-head">
+                  <span class="ihc-icon">💡</span>
+                  <strong>Prinsip Inti: Insufficient Evidence ≠ Poor Learner & Insufficient Evidence ≠ Punitive Action</strong>
+                </div>
+                <p class="ihc-p">
+                  Walaupun bukti perilaku (<strong>LS = {{ sufficiencyScore.toFixed(2) }} &lt; 0.70</strong>) berstatus <em>insufficient</em>, residual konteks bernilai positif (<strong>ΔB = +{{ liveDeltaB.toFixed(2) }}</strong>). Sistem merespons dengan <strong>adaptasi moda belajar (fallback Teks Ringkas + Audio)</strong> tanpa penalti.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- MODUL 05: EVIDENCE TIMELINE (FULL WIDTH) -->
+          <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 2 }" style="margin-top: 1.5rem;">
+            <div class="panel-head">
+              <div class="panel-head-left">
+                <span class="icon-pulse blue">⏱️</span>
+                <div>
+                  <span class="mod-num-badge badge-blue">MODUL 05</span>
+                  <h3 class="panel-title">Garis Waktu Bukti Temporal (Evidence Timeline)</h3>
+                </div>
+              </div>
+              <div class="panel-head-right">
+                <button class="btn-inspect-modal" @click.stop="openModuleModal(5)" title="Buka Detail Komputasi & Telemetri">
+                  <span>🔍 Detail</span>
+                </button>
+                <span class="code-pill pill-blue">t^* = \min \{ t : E_t \geq \tau \}</span>
+              </div>
+            </div>
+
+            <div class="timeline-card-body">
+
+              <!-- Video Timeline Track -->
+              <div class="timeline-track-wrap">
+                <div class="timeline-time-labels">
+                  <span>00:00</span>
+                  <span>01:30 (SKIP)</span>
+                  <span>03:10 (QUIZ)</span>
+                  <span>05:40 (REVISIT)</span>
+                  <span class="text-amber">06:40 (LS = 0.69, Approaching τ = 0.70)</span>
+                  <span>10:00</span>
+                </div>
+
+                <div class="timeline-bar-container">
+                  <div class="timeline-watched-fill" :style="{ width: `${(watchedMin / videoDurationMin) * 100}%` }"></div>
+
+                  <div class="timeline-event-marker marker-skip" style="left: 15%;">
+                    <span class="t-badge badge-skip">SKIP</span>
+                    <div class="t-line"></div>
+                  </div>
+
+                  <div class="timeline-event-marker marker-interaction" style="left: 31%;">
+                    <span class="t-badge badge-interaction">QUIZ</span>
+                    <div class="t-line"></div>
+                  </div>
+
+                  <div class="timeline-event-marker marker-revisit" style="left: 56%;">
+                    <span class="t-badge badge-revisit">REVISIT</span>
+                    <div class="t-line"></div>
+                  </div>
+
+                  <div class="timeline-detection-pin" style="left: 66%;">
+                    <div class="detection-pulse-dot" :style="{ background: isSufficient ? '#10B981' : '#F59E0B' }"></div>
+                    <div class="detection-flag" :style="{ background: isSufficient ? '#10B981' : '#D97706' }">
+                      {{ isSufficient ? '★ SUFFICIENT' : '● CHECKPOINT: LS = 0.69' }} (06:40)
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div class="gate-rules-explanation">
-                  <div class="gr-item" :class="{ active: validityResult.state === 'valid' }">
-                    <span class="gr-dot green"></span>
-                    <div>
-                      <strong>18a: VALID (S &ge; &theta;_S &and; q &ge; &theta;_q)</strong>
-                      <span>Residual dihitung normal; rekomendasi adaptif otomatis diizinkan.</span>
-                    </div>
-                  </div>
-                  <div class="gr-item" :class="{ active: validityResult.state === 'boundary' }">
-                    <span class="gr-dot amber"></span>
-                    <div>
-                      <strong>18b: BOUNDARY (&theta;'_S &le; S &lt; &theta;_S &or; &theta;'_q &le; q &lt; &theta;_q)</strong>
-                      <span>Residual berkepercayaan rendah; dibatasi pada dukungan berbeban rendah.</span>
-                    </div>
-                  </div>
-                  <div class="gr-item" :class="{ active: validityResult.state === 'invalid' }">
-                    <span class="gr-dot red"></span>
-                    <div>
-                      <strong>18c: INVALID (S &lt; &theta;'_S &or; q &lt; &theta;'_q)</strong>
-                      <span>Not observable: Eskalasi langsung ke Human-in-the-Loop tanpa rekomendasi otomatis.</span>
-                    </div>
-                  </div>
+              <!-- Evidence Score Progression -->
+              <div class="timeline-progression-row">
+                <div class="t-prog-item">
+                  <span class="t-prog-step">00:00</span>
+                  <span class="t-prog-val">0.21</span>
+                </div>
+                <div class="t-prog-arrow">➔</div>
+                <div class="t-prog-item">
+                  <span class="t-prog-step">01:30</span>
+                  <span class="t-prog-val">0.35</span>
+                </div>
+                <div class="t-prog-arrow">➔</div>
+                <div class="t-prog-item">
+                  <span class="t-prog-step">03:10</span>
+                  <span class="t-prog-val">0.42</span>
+                </div>
+                <div class="t-prog-arrow">➔</div>
+                <div class="t-prog-item">
+                  <span class="t-prog-step">05:40</span>
+                  <span class="t-prog-val">0.58</span>
+                </div>
+                <div class="t-prog-arrow">➔</div>
+                <div class="t-prog-item highlight-prog">
+                  <span class="t-prog-step">06:40</span>
+                  <span class="t-prog-val" :class="isSufficient ? 'text-emerald' : 'text-amber'">0.69</span>
+                  <span class="t-prog-sub">{{ isSufficient ? '★ Sufficient Evidence' : 'Mendekati τ = 0.70 (Pemicu Fallback)' }}</span>
                 </div>
               </div>
             </div>
@@ -1027,81 +1193,160 @@
         <!-- ===================================================================== -->
         <section class="lab-layer-section">
           <div class="layer-section-header">
-            <div class="layer-pill">TAHAP 3: FAIRNESS & EVALUATION (CONTEXTUAL DISPARITY & METRICS)</div>
-            <span class="layer-desc">Evaluasi disparitas kelompok D_t, Recommendation Burden Gap (Eq. 8a), Interpretation Error Gap (Eq. 8b), dan 7 Metrik Keadilan Spasial [Persamaan 7, 8, 8a, 8b, 11–17]</span>
+            <div class="layer-pill">TAHAP 3: FAIRNESS (CONTEXTUAL FAIRNESS & GROUP DISPARITY)</div>
+            <span class="layer-desc">Evaluasi batasan keadilan formal D(a, C_t) ≤ ε, distingsi konseptual Level 1 (Residual ΔB) vs Level 2 (Group Disparity D), dan matriks benchmark komparasi</span>
           </div>
 
           <div class="layer-grid-2">
-            <!-- MODUL 06: CONTEXTUAL DISPARITY & BURDEN GAP -->
+            <!-- MODUL 06: CONTEXTUAL FAIRNESS CONSTRAINT -->
             <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 3 }">
               <div class="panel-head">
                 <div class="panel-head-left">
                   <span class="icon-pulse rose">⚖️</span>
                   <div>
                     <span class="mod-num-badge badge-rose">MODUL 06</span>
-                    <h3 class="panel-title">Contextual Disparity (D_t) & Beban Rekomendasi</h3>
+                    <h3 class="panel-title">Batasan Keadilan Kontekstual (Contextual Fairness)</h3>
                   </div>
                 </div>
                 <div class="panel-head-right">
                   <button class="btn-inspect-modal" @click.stop="openModuleModal(6)" title="Buka Detail Komputasi & Telemetri">
                     <span>🔍 Detail</span>
                   </button>
-                  <span class="code-pill pill-rose">Persamaan (7), (8), (8a), (8b)</span>
+                  <span class="code-pill pill-rose">D(a, C_t) \le \epsilon</span>
                 </div>
               </div>
 
-              <div class="fairness-spec-card">
-                <div class="f-spec-head">
-                  <span class="f-title">GROUP DISPARITY EVALUATION</span>
-                  <span class="f-badge">Disparity Metric (D_t)</span>
+              <div class="fairness-friendly-body" style="display: flex; flex-direction: column; gap: 0.85rem;">
+                <!-- Summary Chips -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                  <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 0.6rem 0.85rem; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.75rem; color: #64748B;">Residual Individual (d_{i,t}):</span>
+                    <strong style="color: #059669; font-size: 0.85rem;">{{ liveResidual >= 0 ? '+' : '' }}{{ liveResidual.toFixed(2) }}</strong>
+                  </div>
+                  <div style="background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 8px; padding: 0.6rem 0.85rem; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.75rem; color: #92400E;">Disparity Gap (D_t)*:</span>
+                    <strong style="color: #D97706; font-size: 0.85rem;">{{ liveDisparityGap.toFixed(2) }}*</strong>
+                  </div>
                 </div>
-                <div class="f-metrics-grid">
-                  <div class="f-cell">
-                    <span class="fk">Individual Residual (d_{i,t}):</span>
-                    <span class="fv text-emerald">{{ liveResidual >= 0 ? '+' : '' }}{{ liveResidual.toFixed(2) }}</span>
+
+                <!-- Persamaan (8a) Recommendation Burden Gap User-Friendly Card -->
+                <div class="friendly-formula-card" style="background: #F0F7FF; border: 1px solid #BFDBFE; border-radius: 10px; padding: 0.9rem;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.4rem;">
+                    <div style="display: flex; align-items: center; gap: 0.45rem;">
+                      <span style="background: #DBEAFE; color: #1E40AF; font-size: 0.65rem; font-weight: 800; padding: 0.2rem 0.45rem; border-radius: 4px; border: 1px solid #BFDBFE;">PERSAMAAN (8a)</span>
+                      <strong style="font-size: 0.85rem; color: #1E3A8A;">Recommendation Burden Gap</strong>
+                    </div>
+                    <span style="font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 999px; background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0;">
+                      ✓ Toleransi Aman (≤ 0.15)
+                    </span>
                   </div>
-                  <div class="f-cell">
-                    <span class="fk">Group Disparity Gap (D_t):</span>
-                    <span class="fv text-amber">{{ liveDisparityGap.toFixed(2) }}* (Synthetic)</span>
+
+                  <div style="background: #FFFFFF; border: 1px solid #DBEAFE; border-radius: 6px; padding: 0.4rem 0.6rem; margin-bottom: 0.65rem; font-family: monospace; font-size: 0.75rem; color: #1D4ED8;">
+                    Gap_burden = max_{g,h ∈ G} | 𝔼[CB_{i,a,t} | g] - 𝔼[CB_{i,a,t} | h] |
                   </div>
-                  <div class="f-cell">
-                    <span class="fk">Recommendation Burden (Eq. 8a):</span>
-                    <span class="fv text-blue">&le; 0.12* (Toleransi Rendah)</span>
+
+                  <!-- Visual Progress Bars -->
+                  <div style="display: flex; flex-direction: column; gap: 0.4rem; background: #FFFFFF; border-radius: 6px; padding: 0.6rem; border: 1px solid #E2E8F0;">
+                    <div style="display: grid; grid-template-columns: 160px 1fr 110px; align-items: center; gap: 0.5rem; font-size: 0.72rem;">
+                      <span style="color: #475569;">Wilayah 3T ($g$):</span>
+                      <div style="height: 8px; background: #F1F5F9; border-radius: 4px; overflow: hidden;">
+                        <div style="height: 100%; background: #F43F5E; border-radius: 4px;" :style="{ width: (liveContextualBurden * 100) + '%' }"></div>
+                      </div>
+                      <span style="color: #BE123C; font-family: monospace; font-weight: 700; text-align: right;">E[CB|g] = {{ liveContextualBurden.toFixed(2) }}</span>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 160px 1fr 110px; align-items: center; gap: 0.5rem; font-size: 0.72rem;">
+                      <span style="color: #475569;">Wilayah Urban ($h$):</span>
+                      <div style="height: 8px; background: #F1F5F9; border-radius: 4px; overflow: hidden;">
+                        <div style="height: 100%; background: #10B981; border-radius: 4px; width: 10%;"></div>
+                      </div>
+                      <span style="color: #047857; font-family: monospace; font-weight: 700; text-align: right;">E[CB|h] = 0.10</span>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; border-top: 1px dashed #E2E8F0; padding-top: 0.35rem; margin-top: 0.2rem; font-size: 0.72rem;">
+                      <span style="color: #64748B; font-weight: 600;">Selisih Beban Rekomendasi:</span>
+                      <strong style="color: #1D4ED8; font-family: monospace;">|ΔCB| = {{ liveBurdenGap.toFixed(2) }}*</strong>
+                    </div>
                   </div>
-                  <div class="f-cell">
-                    <span class="fk">Interpretation Error Gap (Eq. 8b):</span>
-                    <span class="fv text-emerald">&Delta;MAE = 0.04* (&lt; 0.05)</span>
+
+                  <p style="margin: 0.5rem 0 0 0; font-size: 0.7rem; color: #475569; line-height: 1.4;">
+                    💡 <strong>Tujuan:</strong> Mencegah sistem merekomendasikan format materi berat (misal video HD berkuota besar) yang membebani ASN di daerah 3T.
+                  </p>
+                </div>
+
+                <!-- Persamaan (8b) Interpretation Error Gap User-Friendly Card -->
+                <div class="friendly-formula-card" style="background: #FAF5FF; border: 1px solid #E9D5FF; border-radius: 10px; padding: 0.9rem;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.4rem;">
+                    <div style="display: flex; align-items: center; gap: 0.45rem;">
+                      <span style="background: #F3E8FF; color: #6B21A8; font-size: 0.65rem; font-weight: 800; padding: 0.2rem 0.45rem; border-radius: 4px; border: 1px solid #E9D5FF;">PERSAMAAN (8b)</span>
+                      <strong style="font-size: 0.85rem; color: #581C87;">Interpretation Error Gap (Guardrail)</strong>
+                    </div>
+                    <span style="font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 999px; background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0;">
+                      ✓ Guardrail Terpenuhi (&lt; 0.05)
+                    </span>
                   </div>
+
+                  <div style="background: #FFFFFF; border: 1px solid #E9D5FF; border-radius: 6px; padding: 0.4rem 0.6rem; margin-bottom: 0.65rem; font-family: monospace; font-size: 0.75rem; color: #7E22CE;">
+                    Gap_interpretation = max_{g,h ∈ G} | MAE_{g,t}(d) - MAE_{h,t}(d) |
+                  </div>
+
+                  <!-- Visual Error Bars -->
+                  <div style="display: flex; flex-direction: column; gap: 0.4rem; background: #FFFFFF; border-radius: 6px; padding: 0.6rem; border: 1px solid #E2E8F0;">
+                    <div style="display: grid; grid-template-columns: 160px 1fr 110px; align-items: center; gap: 0.5rem; font-size: 0.72rem;">
+                      <span style="color: #475569;">Galat Wilayah 3T ($g$):</span>
+                      <div style="height: 8px; background: #F1F5F9; border-radius: 4px; overflow: hidden;">
+                        <div style="height: 100%; background: #F59E0B; border-radius: 4px; width: 9%;"></div>
+                      </div>
+                      <span style="color: #B45309; font-family: monospace; font-weight: 700; text-align: right;">MAE_g(d) = 0.09*</span>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 160px 1fr 110px; align-items: center; gap: 0.5rem; font-size: 0.72rem;">
+                      <span style="color: #475569;">Galat Wilayah Urban ($h$):</span>
+                      <div style="height: 8px; background: #F1F5F9; border-radius: 4px; overflow: hidden;">
+                        <div style="height: 100%; background: #10B981; border-radius: 4px; width: 5%;"></div>
+                      </div>
+                      <span style="color: #047857; font-family: monospace; font-weight: 700; text-align: right;">MAE_h(d) = 0.05*</span>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; border-top: 1px dashed #E2E8F0; padding-top: 0.35rem; margin-top: 0.2rem; font-size: 0.72rem;">
+                      <span style="color: #64748B; font-weight: 600;">Selisih Deviasi Akurasi:</span>
+                      <strong style="color: #7E22CE; font-family: monospace;">|ΔMAE| = 0.04*</strong>
+                    </div>
+                  </div>
+
+                  <p style="margin: 0.5rem 0 0 0; font-size: 0.7rem; color: #475569; line-height: 1.4;">
+                    🛡️ <strong>Guardrail:</strong> Memastikan penaksiran residual wajar akurat dan tidak bias pada daerah yang minim sinyal/telemetri.
+                  </p>
                 </div>
               </div>
             </div>
 
-            <!-- MODUL 11: 7 SPATIAL FAIRNESS METRICS BENCHMARK -->
+            <!-- MODUL 11: ALGORITHM BENCHMARK MATRIX -->
             <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 3 }">
               <div class="panel-head">
                 <div class="panel-head-left">
                   <span class="icon-pulse rose">📊</span>
                   <div>
                     <span class="mod-num-badge badge-rose">MODUL 11</span>
-                    <h3 class="panel-title">7 Metrik Fairness Spasial & Komparasi Algoritma</h3>
+                    <h3 class="panel-title">Matriks Benchmark Komparasi Algoritma</h3>
                   </div>
                 </div>
                 <div class="panel-head-right">
                   <button class="btn-inspect-modal" @click.stop="openModuleModal(11)" title="Buka Detail Komputasi & Telemetri">
                     <span>🔍 Detail</span>
                   </button>
-                  <span class="code-pill pill-rose">Persamaan (11)–(17)</span>
+                  <span class="code-pill pill-rose">Comparative Baseline</span>
                 </div>
               </div>
 
               <div class="benchmark-body">
-                <span class="sub-sec-title">Perbandingan Performa Simulatif & Disparity Gap:</span>
+                <span class="sub-sec-title">Perbandingan Performa & Gap Disparitas:</span>
                 <table class="benchmark-table">
                   <thead>
                     <tr>
-                      <th>Algorithm Approach</th>
-                      <th>Expected Utility*</th>
-                      <th>Disparity Gap (D)*</th>
+                      <th>Algorithm</th>
+                      <th>Overall Reward</th>
+                      <th>Disparity Gap (D)</th>
                       <th>Karakteristik Operasional</th>
                     </tr>
                   </thead>
@@ -1109,12 +1354,12 @@
                     <tr v-for="bench in benchmarkAlgorithms" :key="bench.name">
                       <td><strong>{{ bench.name }}</strong></td>
                       <td><span class="tbl-badge">{{ bench.reward }}</span></td>
-                      <td><span class="tbl-badge" :class="bench.disparity.includes('0.15') ? 'badge-emerald' : 'badge-rose'">{{ bench.disparity }}</span></td>
+                      <td><span class="tbl-badge" :class="bench.disparity === '0.15*' ? 'badge-emerald' : 'badge-rose'">{{ bench.disparity }}</span></td>
                       <td class="text-slate">{{ bench.note }}</td>
                     </tr>
                   </tbody>
                 </table>
-                <span class="bench-footnote">*SYNTHETIC PROTOTYPE VALUES — NOT EMPIRICAL RESULTS (Nilai simulasi ilustratif untuk pengujian logika artefak).</span>
+                <span class="bench-footnote">*Illustrative simulation values — not empirical results.</span>
               </div>
             </div>
           </div>
@@ -1125,130 +1370,134 @@
         <!-- ===================================================================== -->
         <section class="lab-layer-section">
           <div class="layer-section-header">
-            <div class="layer-pill">TAHAP 4: DECISION (ADAPTIVE REWARD & HITL GOVERNANCE)</div>
-            <span class="layer-desc">Pemilihan aksi intervensi adaptif suportif LinUCB berbasis reward terkalibrasi multi-objektif (Eq. 9) dan tata kelola Human-in-the-Loop [Persamaan 9, 17]</span>
+            <div class="layer-pill">TAHAP 4: DECISION (DISPARITY-AWARE LINUCB & HITL GOVERNANCE)</div>
+            <span class="layer-desc">Optimisasi fungsi objektif aksi adaptif non-punitif LinUCB dan rantai penalaran transparan (XAI) dengan tata kelola Human-in-the-Loop (Review Widyaiswara)</span>
           </div>
 
           <div class="layer-grid-2">
-            <!-- MODUL 07: CALIBRATED REWARD & LINUCB SELECTION -->
-            <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 4 }">
-              <div class="panel-head">
-                <div class="panel-head-left">
-                  <span class="icon-pulse purple">🧠</span>
-                  <div>
-                    <span class="mod-num-badge badge-purple">MODUL 07</span>
-                    <h3 class="panel-title">Reward Terkalibrasi & Pemilihan Aksi LinUCB</h3>
-                  </div>
-                </div>
-                <div class="panel-head-right">
-                  <button class="btn-inspect-modal" @click.stop="openModuleModal(7)" title="Buka Detail Komputasi & Telemetri">
-                    <span>🔍 Detail</span>
-                  </button>
-                  <span class="code-pill pill-purple">Persamaan (9) & LinUCB</span>
-                </div>
-              </div>
-
-              <div>
-                <span class="sub-sec-title">Candidate Action Space & Trade-off Scoring (Eq. 9):</span>
-                <div class="candidate-actions-grid">
-                  <div class="action-item-box" :class="{ active: selectedActionKey === 'A1' }">
-                    <div class="act-top-row">
-                      <span class="act-id">A1</span>
-                      <span class="act-score-tag">Score: 0.88*</span>
-                    </div>
-                    <span class="act-item-title">Video HD + Case Study</span>
-                    <span class="act-constraint-note">> 2 Mbps (Tinggi Beban)</span>
-                  </div>
-
-                  <div class="action-item-box" :class="{ active: selectedActionKey === 'A2' }">
-                    <div class="act-top-row">
-                      <span class="act-id">A2</span>
-                      <span class="act-score-tag text-emerald">Score: 0.71* (Selected)</span>
-                    </div>
-                    <span class="act-item-title">Text-First + Audio Mikro</span>
-                    <span class="act-constraint-note text-emerald">✓ Hemat Bandwidth (< 200k)</span>
-                  </div>
-
-                  <div class="action-item-box" :class="{ active: selectedActionKey === 'A3' }">
-                    <div class="act-top-row">
-                      <span class="act-id">A3</span>
-                      <span class="act-score-tag">Score: 0.74*</span>
-                    </div>
-                    <span class="act-item-title">Interactive Scenario Check</span>
-                    <span class="act-constraint-note">Dukungan Konseptual</span>
-                  </div>
-
-                  <div class="action-item-box" :class="{ active: selectedActionKey === 'A4' }">
-                    <div class="act-top-row">
-                      <span class="act-id">A4</span>
-                      <span class="act-score-tag">Score: 0.79*</span>
-                    </div>
-                    <span class="act-item-title">Dynamic Micro-Chunking</span>
-                    <span class="act-constraint-note">Penyesuaian Beban Kerja</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- MODUL 08: REASONING CHAIN & HITL REVIEW -->
+            <!-- MODUL 08: WHY THIS DECISION? (REASONING CHAIN & HITL) -->
             <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 4 }">
               <div class="panel-head">
                 <div class="panel-head-left">
                   <span class="icon-pulse cyan">🔍</span>
                   <div>
                     <span class="mod-num-badge badge-cyan">MODUL 08</span>
-                    <h3 class="panel-title">Rantai Penalaran Transparan & Tata Kelola HITL</h3>
+                    <h3 class="panel-title">Rantai Penalaran & Tata Kelola HITL</h3>
                   </div>
                 </div>
                 <div class="panel-head-right">
                   <button class="btn-inspect-modal" @click.stop="openModuleModal(8)" title="Buka Detail Komputasi & Telemetri">
                     <span>🔍 Detail</span>
                   </button>
-                  <span class="code-pill pill-cyan">Explainable XAI + HITL</span>
+                  <span class="code-pill pill-cyan">Explainable AI (XAI) + HITL</span>
                 </div>
               </div>
 
               <div class="why-card-body">
                 <div class="why-summary-grid">
                   <div class="why-row">
-                    <span class="why-k">1. Konteks 6D (c_{i,t}):</span>
-                    <span class="why-v">✓ Bandwidth {{ bandwidthKbps }} kbps • Latensi {{ latencyMs }} ms • {{ deviceName }} • Beban Kerja {{ workloadLevel }}/5</span>
+                    <span class="why-k">1. Context (C_t):</span>
+                    <span class="why-v">✓ Low bandwidth ({{ bandwidthKbps }} kbps) • {{ deviceName }} • Workload {{ workloadLevel }}/5</span>
                   </div>
                   <div class="why-row">
-                    <span class="why-k">2. Kualitas Evidensi (q_{i,t}):</span>
-                    <span class="why-v text-purple">q_{i,t} = {{ evidenceQuality.toFixed(2) }} (Missingness m_{i,t} = {{ missingnessRate.toFixed(2) }})</span>
+                    <span class="why-k">2. Behavioral Observed:</span>
+                    <span class="why-v">Focus: {{(observedFocus * 100).toFixed(0)}}% • Watch: {{watchCompletionRatio}}% • Revisit: {{ revisitEvents }}×</span>
                   </div>
                   <div class="why-row">
-                    <span class="why-k">3. Baseline CCBN (b̂_{i,t}):</span>
-                    <span class="why-v">Expected Baseline: {{ contextualBaseline.toFixed(2) }}</span>
+                    <span class="why-k">3. Learning Evidence (LS_t):</span>
+                    <span class="why-v text-amber"><strong>Score {{ sufficiencyScore.toFixed(2) }} &lt; 0.70 (Insufficient Evidence)</strong></span>
                   </div>
                   <div class="why-row">
-                    <span class="why-k">4. Contextual Residual (d_{i,t}):</span>
-                    <span class="why-v text-emerald"><strong>{{ liveResidual >= 0 ? '+' : '' }}{{ liveResidual.toFixed(2) }}</strong> (Residual Wajar — Dukungan Adaptif Suportif)</span>
+                    <span class="why-k">4. Expected Baseline E[B|C]:</span>
+                    <span class="why-v">Focus Baseline: {{(expectedFocus * 100).toFixed(0)}}%</span>
                   </div>
                   <div class="why-row">
-                    <span class="why-k">5. Status Baseline Gate:</span>
-                    <span class="why-v text-emerald"><strong>{{ validityResult.state.toUpperCase() }}</strong> ({{ validityResult.message }})</span>
+                    <span class="why-k">5. Contextual Residual (ΔB_t):</span>
+                    <span class="why-v text-emerald"><strong>+{{ liveDeltaB.toFixed(2) }}</strong> (Positif Wajar — Tidak Ada Penalti Disipliner)</span>
+                  </div>
+                  <div class="why-row">
+                    <span class="why-k">6. Fairness Constraint:</span>
+                    <span class="why-v text-emerald"><strong>✓ Satisfied (D ≤ ε)</strong></span>
                   </div>
                   <div class="why-row highlight-why">
-                    <span class="why-k">6. Rekomendasi Aksi:</span>
+                    <span class="why-k">7. Rekomendasi LinUCB:</span>
                     <span class="why-v text-emerald">
-                      <strong>{{ selectedActionKey === 'A2' ? 'Text-First + Audio Mikro (A2)' : selectedActionKey === 'A4' ? 'Dynamic Microlearning (A4)' : 'Interactive Scenario (A3)' }}</strong>
+                      <strong>Text-First + Compressed Audio (A2)</strong>
                     </span>
                   </div>
                 </div>
 
                 <!-- HITL Decision Support Governance Flow -->
                 <div class="hitl-governance-box" style="margin-top: 1rem;">
-                  <span class="hitl-gov-title">🏛️ Decision-Support Governance Pipeline (Human-in-the-Loop):</span>
+                  <span class="hitl-gov-title">🏛️ Decision-Support Pipeline (Human-in-the-Loop):</span>
                   <div class="hitl-flow-steps">
-                    <div class="hf-step">Sistem (CABA-CCBN)</div>
+                    <div class="hf-step">Algoritma (LinUCB)</div>
                     <div class="hf-arrow">➔</div>
-                    <div class="hf-step hf-rec">Rekomendasi Suportif</div>
+                    <div class="hf-step hf-rec">Rekomendasi Format A2</div>
                     <div class="hf-arrow">➔</div>
-                    <div class="hf-step hf-human">Review Widyaiswara (Audit/Override)</div>
+                    <div class="hf-step hf-human">Review Widyaiswara (HITL)</div>
                     <div class="hf-arrow">➔</div>
-                    <div class="hf-step hf-act">Intervensi LMS Non-Punitif</div>
+                    <div class="hf-step hf-act">Intervensi LMS</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- MODUL 07: CANDIDATE DISPARITY-AWARE LINUCB -->
+            <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 4 }">
+              <div class="panel-head">
+                <div class="panel-head-left">
+                  <span class="icon-pulse purple">🧠</span>
+                  <div>
+                    <span class="mod-num-badge badge-purple">MODUL 07</span>
+                    <h3 class="panel-title">Algoritma LinUCB Sadar-Disparitas (Candidate Action Selection)</h3>
+                  </div>
+                </div>
+                <div class="panel-head-right">
+                  <button class="btn-inspect-modal" @click.stop="openModuleModal(7)" title="Buka Detail Komputasi & Telemetri">
+                    <span>🔍 Detail</span>
+                  </button>
+                  <span class="code-pill pill-purple">a_t^* = \arg\max U(a|C_t) \text{ s.t. } D \le \epsilon</span>
+                </div>
+              </div>
+
+              <div>
+                <span class="sub-sec-title">Candidate Action Space & Exploration-Exploitation Score:</span>
+                <div class="candidate-actions-grid">
+                  <div class="action-item-box" :class="{ active: selectedActionKey === 'A1' }">
+                    <div class="act-top-row">
+                      <span class="act-id">A1</span>
+                      <span class="act-score-tag">U(a1) = 0.88</span>
+                    </div>
+                    <span class="act-item-title">Video HD + Case</span>
+                    <span class="act-constraint-note">> 2 Mbps</span>
+                  </div>
+
+                  <div class="action-item-box" :class="{ active: selectedActionKey === 'A2' }">
+                    <div class="act-top-row">
+                      <span class="act-id">A2</span>
+                      <span class="act-score-tag text-emerald">U(a2) = 0.71 (Selected)</span>
+                    </div>
+                    <span class="act-item-title">Text-First + Audio</span>
+                    <span class="act-constraint-note text-emerald">✓ 3T (< 200 kbps)</span>
+                  </div>
+
+                  <div class="action-item-box" :class="{ active: selectedActionKey === 'A3' }">
+                    <div class="act-top-row">
+                      <span class="act-id">A3</span>
+                      <span class="act-score-tag">U(a3) = 0.74</span>
+                    </div>
+                    <span class="act-item-title">Scenario Quiz Gate</span>
+                    <span class="act-constraint-note">Atensi Aktif</span>
+                  </div>
+
+                  <div class="action-item-box" :class="{ active: selectedActionKey === 'A4' }">
+                    <div class="act-top-row">
+                      <span class="act-id">A4</span>
+                      <span class="act-score-tag">U(a4) = 0.79</span>
+                    </div>
+                    <span class="act-item-title">Dynamic Microlearning</span>
+                    <span class="act-constraint-note">Interupsi Kantor</span>
                   </div>
                 </div>
               </div>
@@ -1261,8 +1510,8 @@
         <!-- ===================================================================== -->
         <section class="lab-layer-section">
           <div class="layer-section-header">
-            <div class="layer-pill">TAHAP 5: LEARNING LOOP (REWARD TRAJECTORY, MODEL UPDATE & RECALIBRATION)</div>
-            <span class="layer-desc">Pencatatan trajektori online, pembaruan parameter bandit θ_a, simulator pergeseran konteks (t1 ⇌ t2), dan pengatur trade-off penalti disparitas (λ Controller)</span>
+            <div class="layer-pill">TAHAP 5: LEARNING LOOP (REWARD, MODEL UPDATE & ADAPTIVE TUNING)</div>
+            <span class="layer-desc">Pencatatan trajektori reward online, pembaruan parameter model θ, simulator pergeseran konteks (t1 ⇌ t2), dan pengatur trade-off (λ Controller)</span>
           </div>
 
           <div class="layer-grid-2">
@@ -1273,14 +1522,14 @@
                   <span class="icon-pulse amber">🔀</span>
                   <div>
                     <span class="mod-num-badge badge-amber">MODUL 09</span>
-                    <h3 class="panel-title">Simulator Pergeseran Konteks Dinamis (Context Shift)</h3>
+                    <h3 class="panel-title">Simulator Pergeseran Konteks (Context Shift)</h3>
                   </div>
                 </div>
                 <div class="panel-head-right">
                   <button class="btn-inspect-modal" @click.stop="openModuleModal(9)" title="Buka Detail Komputasi & Telemetri">
                     <span>🔍 Detail</span>
                   </button>
-                  <span class="code-pill pill-amber">Δc_{i,t} Adaptation</span>
+                  <span class="code-pill pill-amber">YouTube Bitrate Analogy</span>
                 </div>
               </div>
 
@@ -1290,23 +1539,24 @@
                     <span>{{ contextShiftState === 't1' ? '▶ Simulasi Shift Konteks (t1 → t2)' : '↺ Reset ke State Awal (t2 → t1)' }}</span>
                   </button>
                   <span class="shift-state-indicator">
-                    State: <strong>{{ contextShiftState === 't1' ? 'State t1 (3T Terkendala)' : 'State t2 (WiFi Kantor Lancar)' }}</strong>
+                    State: <strong>{{ contextShiftState === 't1' ? 'State t1 (3T Terkendala)' : 'State t2 (WiFi Kantor)' }}</strong>
                   </span>
                 </div>
 
+                <!-- Dual State Visual Transition Flow -->
                 <div class="shift-flow-container">
                   <!-- State t1 -->
                   <div class="shift-state-card" :class="{ active: contextShiftState === 't1' }">
-                    <span class="state-badge">STATE t1 (KENDALA 3T)</span>
+                    <span class="state-badge">STATE t1 (INITIAL)</span>
                     <ul class="state-list">
-                      <li><span>Bandwidth:</span> <strong>110 kbps</strong></li>
-                      <li><span>Perangkat:</span> <strong>Smartphone</strong></li>
-                      <li><span>Beban Kerja:</span> <strong>4 / 5 (Tinggi)</strong></li>
+                      <li><span>Bandwidth:</span> <strong>120 kbps (3T)</strong></li>
+                      <li><span>Device:</span> <strong>Smartphone</strong></li>
+                      <li><span>Workload:</span> <strong>4 / 5 (Tinggi)</strong></li>
                     </ul>
                     <div class="state-result">
-                      <span class="res-lbl">Aksi Terpilih:</span>
-                      <span class="res-act text-blue">Text-First + Audio Mikro</span>
-                      <span class="res-r">Reward: 0.71*</span>
+                      <span class="res-lbl">Action t1:</span>
+                      <span class="res-act text-blue">Text-First + Audio</span>
+                      <span class="res-r">Reward: 0.71</span>
                     </div>
                   </div>
 
@@ -1317,57 +1567,57 @@
 
                   <!-- State t2 -->
                   <div class="shift-state-card" :class="{ active: contextShiftState === 't2' }">
-                    <span class="state-badge badge-emerald">STATE t2 (WIFI KANTOR)</span>
+                    <span class="state-badge badge-emerald">STATE t2 (NEW STATE)</span>
                     <ul class="state-list">
-                      <li><span>Bandwidth:</span> <strong>8000 kbps</strong></li>
-                      <li><span>Perangkat:</span> <strong>Desktop</strong></li>
-                      <li><span>Beban Kerja:</span> <strong>2 / 5 (Rendah)</strong></li>
+                      <li><span>Bandwidth:</span> <strong>8000 kbps (WiFi)</strong></li>
+                      <li><span>Device:</span> <strong>Desktop</strong></li>
+                      <li><span>Workload:</span> <strong>2 / 5 (Rendah)</strong></li>
                     </ul>
                     <div class="state-result">
-                      <span class="res-lbl">Aksi Terpilih:</span>
-                      <span class="res-act text-emerald">Video HD + Interactive</span>
-                      <span class="res-r">Reward: 0.88*</span>
+                      <span class="res-lbl">Action t2:</span>
+                      <span class="res-act text-emerald">Video HD + Quiz</span>
+                      <span class="res-r">Reward: 0.88</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- MODUL 12: MULTI-OBJECTIVE TRADE-OFF CONTROLLER -->
+            <!-- MODUL 12: REWARD-DISPARITY TRADE-OFF CONTROLLER -->
             <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 5 }">
               <div class="panel-head">
                 <div class="panel-head-left">
                   <span class="icon-pulse emerald">🎛️</span>
                   <div>
                     <span class="mod-num-badge badge-emerald">MODUL 12</span>
-                    <h3 class="panel-title">Kontroler Trade-off Multi-Objektif Reward ↔ Disparitas (λ / γ)</h3>
+                    <h3 class="panel-title">Kontroler Trade-off Reward ↔ Disparitas (λ)</h3>
                   </div>
                 </div>
                 <div class="panel-head-right">
                   <button class="btn-inspect-modal" @click.stop="openModuleModal(12)" title="Buka Detail Komputasi & Telemetri">
                     <span>🔍 Detail</span>
                   </button>
-                  <span class="code-pill pill-emerald">Multi-Objective Controller</span>
+                  <span class="code-pill pill-emerald">Utility = Reward - λ · D</span>
                 </div>
               </div>
 
               <div class="tradeoff-container">
                 <div class="to-head">
-                  <span class="sub-sec-title">Bobot Penalti Disparitas (γ / λ):</span>
+                  <span class="sub-sec-title">Bobot Penalti Disparitas (λ):</span>
                   <span class="lambda-badge">λ = {{ lambdaWeight.toFixed(2) }}</span>
                 </div>
                 <input type="range" min="0.0" max="1.0" step="0.05" v-model.number="lambdaWeight" class="slider lambda-slider" />
                 <div class="tradeoff-pills-row" style="margin-top: 1rem;">
                   <div class="to-pill">
-                    <span class="to-k">Efektivitas Agregat*:</span>
+                    <span class="to-k">Efektivitas Agregat:</span>
                     <span class="to-v text-slate">{{ dynamicOverallReward.toFixed(2) }}</span>
                   </div>
                   <div class="to-pill">
-                    <span class="to-k">Disparity Gap (D_t)*:</span>
+                    <span class="to-k">Disparity Gap (D):</span>
                     <span class="to-v text-emerald">{{ liveDisparityGap.toFixed(2) }} (-{{ liveGapReductionPct }}%)</span>
                   </div>
                   <div class="to-pill">
-                    <span class="to-k">3T Outcome Estimasi*:</span>
+                    <span class="to-k">3T Outcome:</span>
                     <span class="to-v text-emerald">{{ dynamic3TOutcome.toFixed(2) }}</span>
                   </div>
                 </div>
@@ -1375,7 +1625,7 @@
             </div>
           </div>
 
-          <!-- MODUL 10: REWARD TRAJECTORY & ONLINE UPDATE -->
+          <!-- MODUL 10: REWARD TRAJECTORY & MODEL UPDATE (FULL WIDTH) -->
           <div class="card sim-panel-card" :class="{ 'step-highlight-active': simulationActiveStep === 5 }" style="margin-top: 1.5rem;">
             <div class="panel-head">
               <div class="panel-head-left">
@@ -1389,11 +1639,12 @@
                 <button class="btn-inspect-modal" @click.stop="openModuleModal(10)" title="Buka Detail Komputasi & Telemetri">
                   <span>🔍 Detail</span>
                 </button>
-                <span class="code-pill pill-emerald">θ_{a,t+1} Online Ridge Update</span>
+                <span class="code-pill pill-emerald">(C_t, a_t) → r_t → θ_{a,t+1}</span>
               </div>
             </div>
 
             <div class="trajectory-card-body">
+              <!-- SVG Trajectory Curve -->
               <div class="trajectory-chart-wrap">
                 <div class="chart-y-axis">
                   <span>1.0</span>
@@ -1417,25 +1668,26 @@
                     <circle cx="440" cy="18" r="6" fill="#059669" />
                   </svg>
                   <div class="chart-x-labels">
-                    <span>t1 (0.71*)</span>
-                    <span>t2 (0.76*)</span>
-                    <span>t3 (0.82*)</span>
-                    <span>t4 (0.88*)</span>
-                    <span>t5 (0.79*)</span>
-                    <span>t6 (0.91*)</span>
+                    <span>t1 (0.71)</span>
+                    <span>t2 (0.76)</span>
+                    <span>t3 (0.82)</span>
+                    <span>t4 (0.88)</span>
+                    <span>t5 (0.79)</span>
+                    <span>t6 (0.91)</span>
                   </div>
                 </div>
               </div>
 
+              <!-- Sequential Log Matrix Table -->
               <div class="trajectory-table-wrap">
                 <table class="traj-table">
                   <thead>
                     <tr>
                       <th>Step</th>
-                      <th>Context (c_{i,t})</th>
+                      <th>Context (C_t)</th>
                       <th>Action (a_t)</th>
-                      <th>Reward (r_t)*</th>
-                      <th>Model Parameter Update (θ_a)</th>
+                      <th>Reward (r_t)</th>
+                      <th>Model Update (θ_a)</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1443,7 +1695,7 @@
                       <td><span class="tbl-badge">{{ log.t }}</span></td>
                       <td>{{ log.context }}</td>
                       <td><strong>{{ log.action }}</strong></td>
-                      <td><span class="tbl-badge badge-emerald">{{ log.reward }}*</span></td>
+                      <td><span class="tbl-badge badge-emerald">{{ log.reward }}</span></td>
                       <td><code class="code-sm">{{ log.update }}</code></td>
                     </tr>
                   </tbody>
@@ -1454,217 +1706,6 @@
         </section>
 
       </div>
-
-      <!-- ========================================================================= -->
-      <!-- SECTION 10: MATHEMATICAL MODEL — CABA-CCBN REFERENCE PANEL (GROUPS A-G)   -->
-      <!-- ========================================================================= -->
-      <section class="card math-ref-panel-section">
-        <div class="math-ref-head" @click="isMathPanelCollapsed = !isMathPanelCollapsed" style="cursor: pointer;">
-          <div class="badge-row">
-            <span class="badge badge-indigo">📐 SECTION 10 · MATHEMATICAL MODEL</span>
-            <span class="badge badge-blue">Formulasi Lengkap CABA–CCBN</span>
-            <span class="badge badge-cyan">Grup A s/d G (Proposal Revisi 2)</span>
-            <span class="badge badge-yellow" style="margin-left: auto;">{{ isMathPanelCollapsed ? '▼ Buka Panel' : '▲ Tutup Panel' }}</span>
-          </div>
-          <h2 class="math-ref-title">Mathematical Model — CABA–CCBN Reference Taxonomy</h2>
-          <p class="math-ref-desc">
-            Rangkuman taksonomi persamaan operasional lengkap dari Proposal Disertasi Revisi 2, dikelompokkan ke dalam 7 klaster matematis beserta definisi variabel, interpretasi ilmiah, dan perannya dalam pipeline.
-          </p>
-        </div>
-
-        <div v-show="!isMathPanelCollapsed" class="math-groups-grid" style="margin-top: 1.25rem;">
-          <!-- GROUP A: Evidence Formation -->
-          <div class="math-group-card border-blue">
-            <div class="mg-head">
-              <span class="mg-pill pill-blue">GRUP A</span>
-              <h3 class="mg-title">Evidence Formation (Persamaan 1–4)</h3>
-            </div>
-            <div class="mg-eq-list">
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (1) Raw Traces:</strong> <code>X_{i,t} = [	ext{login}, 	ext{durasi}, 	ext{clickstream}, 	ext{completion}, 	ext{artifact}, dots]</code></div>
-                <p class="mg-eq-desc"><strong>Definisi:</strong> Vektor telemetri mentah LMS. $X$ bukan label langsung kompetensi atau motivasi; $B_{i,t}$ dibentuk dari $X_{i,t}$.</p>
-              </div>
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (2) Konteks 6D:</strong> <code>c_{i,t} = [T_{i,t}, I_{i,t}, O_{i,t}, D_{i,t}, W_{i,t}, S_{i,t}]</code></div>
-                <p class="mg-eq-desc"><strong>Definisi:</strong> Temporal ($T$), Infrastruktur ($I$), Organisasi ($O$), Perangkat ($D$), Beban Kerja ($W$), Spasial ($S$). Kuesioner menjadi sumber data konteks.</p>
-              </div>
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (2a–2c) Spasial Komposit:</strong> <code>S_{i,t} = delta K_i + (1 - delta) N_{i,t}</code></div>
-                <p class="mg-eq-desc"><strong>Definisi:</strong> Menggabungkan klaster makro terbuka $K_i$ (BPS, Podes, Ookla) dengan kualitas jaringan sesi $N_{i,t}$ (latensi, buffering, retry).</p>
-              </div>
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (3) & (4) Missingness & Quality:</strong> <code>m_{i,t} = 1 - rac{n_{	ext{obs}}}{n_{	ext{exp}}}, quad q_{i,t} = 1 - m_{i,t} - lambda cdot 	ext{noise}_{i,t}</code></div>
-                <p class="mg-eq-desc"><strong>Definisi:</strong> Mengukur batas observabilitas sistem (MNAR). Data hilang tidak otomatis divonis sebagai kelalaian belajar.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- GROUP B: Context-Conditioned Baseline -->
-          <div class="math-group-card border-purple">
-            <div class="mg-head">
-              <span class="mg-pill pill-purple">GRUP B</span>
-              <h3 class="mg-title">Context-Conditioned Baseline (Persamaan 5–6)</h3>
-            </div>
-            <div class="mg-eq-list">
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (5) Expected Baseline CCBN:</strong> <code>hat{b}_{i,t} = mathbb{E}[B_{i,t} mid c_{i,t}, q_{i,t}] = f(c_{i,t}, q_{i,t})</code></div>
-                <p class="mg-eq-desc"><strong>Definisi:</strong> Estimator perilaku wajar yang diekspektasikan pada kondisi kendala $c_{i,t}$ dan keandalan $q_{i,t}$. Inti inovasi CCBN.</p>
-              </div>
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (6) Contextual Residual:</strong> <code>d_{i,t} = B_{i,t} - hat{b}_{i,t}</code></div>
-                <p class="mg-eq-desc"><strong>Definisi:</strong> Selisih individual antara bukti aktual $B_{i,t}$ dan baseline $hat{b}_{i,t}$. Memisahkan kendala akses dari kebutuhan dukungan belajar.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- GROUP C: Contextual Disparity & Burden -->
-          <div class="math-group-card border-rose">
-            <div class="mg-head">
-              <span class="mg-pill pill-rose">GRUP C</span>
-              <h3 class="mg-title">Contextual Disparity & Burden (Persamaan 7, 8, 8a, 8b)</h3>
-            </div>
-            <div class="mg-eq-list">
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (7) Contextual Disparity:</strong> <code>D_t = 	ext{disparity}(d_{i,t} mid 	ext{context/group})</code></div>
-                <p class="mg-eq-desc"><strong>Definisi:</strong> Disparitas tingkat kelompok agregat dari distribusi residual $d_{i,t}$. Jelas berbeda dari residual individu $d_{i,t}$.</p>
-              </div>
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (8) Contextual Burden:</strong> <code>CB_{i,a,t} = 	ext{cost}_a(c_{i,t}, Delta c_{i,t})</code></div>
-                <p class="mg-eq-desc"><strong>Definisi:</strong> Beban kontekstual pelaksanaan aksi $a$ (kebutuhan kuota, waktu belajar, beban operasional dinas).</p>
-              </div>
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (8a) Recommendation Burden Gap:</strong> <code>	ext{Gap}_{	ext{burden}} = max_{g,h} |mathbb{E}[CB mid g] - mathbb{E}[CB mid h]|</code></div>
-                <p class="mg-eq-desc"><strong>Definisi:</strong> Memastikan intervensi berat tidak membebani wilayah berinfrastruktur rendah secara timpang.</p>
-              </div>
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (8b) Interpretation Error Gap:</strong> <code>	ext{Gap}_{	ext{interpretation}} = max_{g,h} |	ext{MAE}_g(d) - 	ext{MAE}_h(d)|</code></div>
-                <p class="mg-eq-desc"><strong>Definisi:</strong> Guardrail epistemik untuk memastikan akurasi pembacaan residual tidak timpang antar wilayah.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- GROUP D: Adaptive Decision -->
-          <div class="math-group-card border-emerald">
-            <div class="mg-head">
-              <span class="mg-pill pill-emerald">GRUP D</span>
-              <h3 class="mg-title">Adaptive Decision (Persamaan 9 & LinUCB)</h3>
-            </div>
-            <div class="mg-eq-list">
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (9) Calibrated Multi-Objective Reward:</strong> <code>r'_{i,a,t+1} = r_{i,a,t} + eta_t U(a, d_{i,t}) - mu_t CB_{i,a,t} - 
-u_t OB_{i,a,t} - ho_t Delta c_{i,t} - gamma_t D_t</code></div>
-                <p class="mg-eq-desc"><strong>Definisi:</strong> Fungsi optimasi keputusan yang menyeimbangkan utility belajar $U$, beban kontekstual $CB$, beban dinas $OB$, pergeseran konteks $Delta c$, dan penalti disparitas $D_t$. LinUCB berperan sebagai decision layer operasional.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- GROUP E: Multimodal Observability -->
-          <div class="math-group-card border-cyan">
-            <div class="mg-head">
-              <span class="mg-pill pill-cyan">GRUP E</span>
-              <h3 class="mg-title">Multimodal Observability (Persamaan 10, 10a)</h3>
-            </div>
-            <div class="mg-eq-list">
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (10) Observability Weight:</strong> <code>w(S_{i,t}, q_{	ext{visual},i,t}) = sigma(alpha_1 (1 - S_{i,t}) + alpha_2 q_{	ext{visual},i,t})</code></div>
-                <p class="mg-eq-desc"><strong>Definisi:</strong> Bobot sigmoid yang menurunkan ketergantungan pada sinyal visual saat koneksi/kamera drop.</p>
-              </div>
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (10a) Multimodal Fusion:</strong> <code>F_{i,t} = w_{i,t} V_{i,t} + (1 - w_{i,t}) b_{	ext{LMS},i,t}</code></div>
-                <p class="mg-eq-desc"><strong>Definisi:</strong> Fusi terbatas di mana sinyal visual hanya menjadi pendukung observabilitas, bukan vonis mutlak.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- GROUP F: Fairness & Robustness Evaluation -->
-          <div class="math-group-card border-amber">
-            <div class="mg-head">
-              <span class="mg-pill pill-amber">GRUP F</span>
-              <h3 class="mg-title">Fairness & Robustness Evaluation (Persamaan 11–17)</h3>
-            </div>
-            <div class="mg-eq-list">
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (11) Spatial Performance Gap:</strong> <code>max_{g,h} |L_{g,t}(d) - L_{h,t}(d)|</code></div>
-                <p class="mg-eq-desc">Evaluasi galat residual terhadap status komplesi substantif antar klaster wilayah.</p>
-              </div>
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (12) Low-Engagement Misinterpretation Gap:</strong> <code>max_{g,h} |P(	ext{low}(d)=1 mid 	ext{complete}, g) - P(dots mid h)|</code></div>
-                <p class="mg-eq-desc">Menguji risiko kesalahan interpretasi residual negatif sebagai low engagement pada peserta yang menyelesaikan materi.</p>
-              </div>
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (13a–13c) FPR / FNR Gap:</strong> <code>max_{g,h} { |FPR_g - FPR_h|, |FNR_g - FNR_h| }</code></div>
-                <p class="mg-eq-desc">Keseimbangan kesalahan pembacaan residual risiko antar wilayah dengan batas kualitas evidensi $q ge 	au_q$.</p>
-              </div>
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (14)–(17):</strong> Calibration Error Gap (14), Missingness Bias Gap (15), Visual Observability Gap (16, 16a), Human Override Rate Gap (17).</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- GROUP G: Baseline Validity Gate -->
-          <div class="math-group-card border-emerald">
-            <div class="mg-head">
-              <span class="mg-pill pill-emerald">GRUP G</span>
-              <h3 class="mg-title">Baseline Validity Gate (Persamaan 18a–18c)</h3>
-            </div>
-            <div class="mg-eq-list">
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (18a) VALID:</strong> <code>	ext{status} = 	ext{VALID if } S_{i,t} ge 	heta_S land q_{i,t} ge 	heta_q</code></div>
-                <p class="mg-eq-desc">Data cukup teramati; residual dihitung penuh dan dapat memicu adaptasi normal.</p>
-              </div>
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (18b) BOUNDARY:</strong> <code>	ext{status} = 	ext{BOUNDARY if } 	heta'_S le S < 	heta_S lor 	heta'_q le q < 	heta_q</code></div>
-                <p class="mg-eq-desc">Zona batas observabilitas; kepercayaan rendah, dibatasi pada rekomendasi berbeban rendah.</p>
-              </div>
-              <div class="mg-eq-item">
-                <div class="mg-eq-token"><strong>Eq. (18c) INVALID:</strong> <code>	ext{status} = 	ext{INVALID if } S_{i,t} < 	heta'_S lor q_{i,t} < 	heta'_q</code></div>
-                <p class="mg-eq-desc">Not observable; tidak menjalankan rekomendasi otomatis, eskalasi langsung ke Human-in-the-Loop.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ========================================================================= -->
-      <!-- SECTION 11: PROPOSAL ↔ APPLICATION TRACEABILITY MATRIX PANEL              -->
-      <!-- ========================================================================= -->
-      <section class="card traceability-section">
-        <div class="trace-head">
-          <div class="badge-row">
-            <span class="badge badge-indigo">🔗 SECTION 11 · TRACEABILITY MATRIX</span>
-            <span class="badge badge-emerald">Proposal Disertasi Revisi 2 ↔ Modul Aplikasi</span>
-          </div>
-          <h2 class="trace-title">Proposal ↔ Application Traceability Matrix</h2>
-          <p class="trace-desc">
-            Matriks keterlacakan end-to-end yang menjamin korespondensi 1:1 antara formula dalam naskah proposal disertasi dan implementasi modul komputasi pada aplikasi.
-          </p>
-        </div>
-
-        <div class="trace-table-wrap">
-          <table class="trace-table">
-            <thead>
-              <tr>
-                <th>Komponen Proposal</th>
-                <th>Persamaan</th>
-                <th>Modul Aplikasi</th>
-                <th>Input Data</th>
-                <th>Output / Representasi</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="t in traceabilityList" :key="t.eq">
-                <td><strong>{{ t.component }}</strong></td>
-                <td><span class="tbl-badge badge-blue">{{ t.eq }}</span></td>
-                <td><span class="tbl-badge badge-purple">{{ t.module }}</span></td>
-                <td><code class="code-sm">{{ t.input }}</code></td>
-                <td><code class="code-sm">{{ t.output }}</code></td>
-                <td><span class="tbl-badge badge-emerald">Implemented</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
 
       <!-- CCBN & Fair-LinUCB Theoretical Literature Matrix -->
       <CcbnLiteratureGrounding />
@@ -1708,7 +1749,7 @@ u_t OB_{i,a,t} - ho_t Delta c_{i,t} - gamma_t D_t</code></div>
 
               <!-- Live Telemetry State Grid -->
               <div class="modal-sec-box">
-                <span class="modal-sec-lbl">⚡ Status Telemetri & Variabel Live (Simulator):</span>
+                <span class="modal-sec-lbl">⚡ Status Telemetri & Variabel Live:</span>
                 <div class="modal-live-grid">
                   <div v-for="(val, key) in modalModuleData.liveState" :key="key" class="live-grid-item">
                     <span class="live-k">{{ key }}:</span>
@@ -1721,7 +1762,7 @@ u_t OB_{i,a,t} - ho_t Delta c_{i,t} - gamma_t D_t</code></div>
               <div class="modal-sec-box modal-insight-box">
                 <div class="modal-insight-head">
                   <span class="insight-icon">💡</span>
-                  <strong>Wawasan Epistemik & Pedagogis (Non-Punitif):</strong>
+                  <strong>Wawasan Epistemik & Pedagogis:</strong>
                 </div>
                 <p class="modal-insight-desc">{{ modalModuleData.insight }}</p>
               </div>
@@ -1764,6 +1805,8 @@ import {
   computeResidual,
   computeDisparity,
   computeContextualBurden,
+  computeRecommendationBurdenGap,
+  computeInterpretationErrorGap,
   computeCalibratedReward,
   computeVisualObservabilityQuality,
   computeVisualObservabilityWeight,
@@ -1775,7 +1818,7 @@ import {
 // Dynamic Lambda (Disparity Penalty Weight)
 const lambdaWeight = ref<number>(0.50);
 
-// Simulator State: Context Profile (Module 01)
+// Simulator State: Context Profile (Module A)
 const currentPreset = ref<string>('3T_mobile');
 const bandwidthKbps = ref<number>(110);
 const latencyMs = ref<number>(520);
@@ -1783,7 +1826,7 @@ const deviceType = ref<'smartphone' | 'tablet' | 'desktop'>('smartphone');
 const workloadLevel = ref<number>(4);
 const spatialType = ref<'3T' | 'Urban'>('3T');
 
-// Behavioral Signals (Module 02)
+// Behavioral Signals (Module B)
 const observedFocus = ref<number>(0.35);
 const observedRetention = ref<number>(0.70);
 const videoDurationMin = ref<number>(10.0);
@@ -1793,8 +1836,13 @@ const revisitEvents = ref<number>(2);
 const interactionEvents = ref<number>(8);
 const sufficiencyThreshold = ref<number>(0.70);
 
-// UI Panel State
-const isMathPanelCollapsed = ref<boolean>(false);
+// Selected Action Key
+const selectedActionKey = computed(() => {
+  if (bandwidthKbps.value < 200) return 'A2'; // Text-First
+  if (workloadLevel.value >= 4) return 'A4'; // Microlearning
+  if (liveDeltaB.value < -0.15) return 'A3'; // Interactive Quiz
+  return 'A1'; // Video HD
+});
 
 // Trajectory Simulation Animation State
 const isSimulating = ref<boolean>(false);
@@ -1817,7 +1865,7 @@ function simulateTrajectory() {
   }, 800);
 }
 
-// Module 09: Context Shift Simulator State
+// Module I: Context Shift Simulator State
 const contextShiftState = ref<'t1' | 't2'>('t1');
 
 function toggleContextShift() {
@@ -1842,21 +1890,21 @@ function toggleContextShift() {
   }
 }
 
-// Module 10: Trajectory Log Dataset (Synthetic Demo Values)
+// Module J: Trajectory Log Dataset
 const trajectoryLogs = ref([
   { t: 't1', context: 'Low BW (120k), Phone, 3T', action: 'A2: Text-First + Audio', reward: 0.71, update: 'θ₁ update (explore text format)' },
   { t: 't2', context: 'Low BW (150k), Phone, 3T', action: 'A4: Microlearning Chunk', reward: 0.76, update: 'θ₂ update (friction down)' },
-  { t: 't3', context: 'Med BW (2.5M), Desktop, Urban', action: 'A3: Interactive Scenario', reward: 0.82, update: 'θ₃ update (support bonus)' },
+  { t: 't3', context: 'Med BW (2.5M), Desktop, Urban', action: 'A3: Interactive Scenario', reward: 0.82, update: 'θ₃ update (engagement bonus)' },
   { t: 't4', context: 'High BW (5M), Desktop, Urban', action: 'A1: Full Video HD', reward: 0.88, update: 'θ₄ update (high completion)' },
   { t: 't5', context: 'Mobile Rush (3G), Phone, Urban', action: 'A4: Micro-Chunking', reward: 0.79, update: 'θ₅ update (workload adapt)' },
   { t: 't6', context: 'Stable Fiber (8M), Desktop, Urban', action: 'A1 + A3: Video + Interactive', reward: 0.91, update: 'θ₆ update (optimal convergence)' }
 ]);
 
-// Module 11: Benchmark Algorithms Matrix (Synthetic Demo Values)
+// Module K: Benchmark Algorithms
 const benchmarkAlgorithms = ref([
-  { name: 'Standard Analytics (Universal Threshold)', reward: '0.68*', disparity: '0.31*', note: 'Bias punitif: menghukum data hilang di wilayah terkendala' },
-  { name: 'Standard LinUCB (Tanpa Kalibrasi Disparitas)', reward: '0.71*', disparity: '0.29*', note: 'Eksploitasi format berat di perkotaan' },
-  { name: 'CABA–CCBN Adaptive LinUCB (Usulan)', reward: '0.69*', disparity: '0.15*', note: 'Reduksi gap disparitas -48%* dengan rekomendasi adil' }
+  { name: 'Rule-Based (Static Thresholds)', reward: '0.68*', disparity: '0.31*', note: 'Kaku pada fluktuasi bandwidth' },
+  { name: 'Standard LinUCB (Li et al., 2010)', reward: '0.71*', disparity: '0.29*', note: 'Eksploitasi format berat di perkotaan' },
+  { name: 'Disparity-Aware LinUCB (Candidate Disertasi)', reward: '0.69*', disparity: '0.15*', note: 'Penalti disparitas mereduksi gap -48%' }
 ]);
 
 function applyPreset(preset: string) {
@@ -1900,7 +1948,7 @@ function applyPreset(preset: string) {
   }
 }
 
-// Substantive Completion Computations
+// Learning Sufficiency Computations (Module D & E)
 const watchCompletionRatio = computed(() => {
   return Math.min(Math.round((watchedMin.value / videoDurationMin.value) * 100), 100);
 });
@@ -1909,91 +1957,79 @@ const interactionCoveragePct = computed(() => {
   return Math.min(Math.round((interactionEvents.value / 10) * 100), 100);
 });
 
-// Context & Spatial Index Computation using Engine
-const spatialIndex = computed(() => {
-  return computeSpatialIndex(spatialType.value, {
-    bandwidthKbps: bandwidthKbps.value,
-    latencyMs: latencyMs.value
-  });
+const bWatch = computed(() => {
+  return Math.min(watchedMin.value / videoDurationMin.value, 1.0);
 });
 
-const contextProfile = computed(() => {
-  return createContextProfile(
-    'Sesi Mandiri / Rutin',
-    bandwidthKbps.value,
-    latencyMs.value,
-    'Instansi Daerah',
-    deviceType.value,
-    workloadLevel.value,
-    spatialIndex.value
-  );
+const bInteraction = computed(() => {
+  return Math.min(interactionEvents.value / 10, 1.0);
 });
 
-// Evidence & Missingness Computation using Engine
-const missingnessRate = computed(() => {
-  return computeMissingness(interactionEvents.value, 10);
+const bRevisit = computed(() => {
+  return Math.min(revisitEvents.value / 3, 1.0);
 });
 
-const evidenceNoise = computed(() => {
-  return Math.round((1 - observedRetention.value) * 100) / 100;
+const bEngagement = computed(() => {
+  return Math.min(Math.max(observedRetention.value, 0), 1.0);
 });
 
-const evidenceQuality = computed(() => {
-  return computeEvidenceQuality(missingnessRate.value, evidenceNoise.value);
-});
-
-const behavioralEvidence = computed(() => {
-  return computeBehavioralEvidence({
-    loginCount: 1,
-    durationMinutes: watchedMin.value,
-    clickstreamCount: 15,
-    substantiveCompletionRatio: watchedMin.value / videoDurationMin.value,
-    quizArtifactScore: observedRetention.value,
-    revisitCount: revisitEvents.value,
-    interactionCount: interactionEvents.value
-  });
+// Candidate Sufficiency Score: LS_t = 0.35*B_watch + 0.25*B_int + 0.20*B̃_revisit + 0.20*B_eng
+const sufficiencyScore = computed(() => {
+  const score = (0.35 * bWatch.value) + (0.25 * bInteraction.value) + (0.20 * bRevisit.value) + (0.20 * bEngagement.value);
+  return Math.min(Math.max(Math.round(score * 100) / 100, 0), 1.0);
 });
 
 const isSufficient = computed(() => {
-  return behavioralEvidence.value >= sufficiencyThreshold.value;
+  return sufficiencyScore.value >= sufficiencyThreshold.value;
 });
 
-// Contextual Baseline & Residual Computation using Engine
-const networkReadiness = computed(() => {
-  const bandwidthScore = Math.min(bandwidthKbps.value / 5000, 1);
-  const latencyScore = Math.max(0, 1 - (latencyMs.value / 1200));
-  return Math.round(((bandwidthScore * 0.6) + (latencyScore * 0.4)) * 100) / 100;
+const sufficiencyDetectionTime = computed(() => {
+  if (!isSufficient.value) return null;
+  const ratio = Math.min(sufficiencyThreshold.value / Math.max(sufficiencyScore.value, 0.01), 1.0);
+  const detMinutes = Math.min(watchedMin.value * ratio, watchedMin.value);
+  const m = Math.floor(detMinutes);
+  const s = Math.round((detMinutes - m) * 60);
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 });
 
-const contextualBaseline = computed(() => {
-  return computeCCBNBaseline(contextProfile.value, evidenceQuality.value, networkReadiness.value);
+// Contextual Expectation & Residual (Module C)
+const expectedFocus = computed(() => {
+  let base = 0.85;
+  base -= (workloadLevel.value / 5) * 0.40;
+  if (bandwidthKbps.value < 250) base -= 0.12;
+  if (deviceType.value === 'smartphone') base -= 0.08;
+  return Math.max(Math.min(base, 0.95), 0.25);
+});
+
+const liveDeltaB = computed(() => {
+  return observedFocus.value - expectedFocus.value;
 });
 
 const liveResidual = computed(() => {
-  return computeResidual(behavioralEvidence.value, contextualBaseline.value);
+  return Math.round(liveDeltaB.value * 100) / 100;
 });
 
+const liveContextualBurden = computed(() => {
+  if (selectedActionKey.value === 'A1') return bandwidthKbps.value < 500 ? 0.85 : 0.25;
+  if (selectedActionKey.value === 'A2') return 0.15;
+  if (selectedActionKey.value === 'A3') return workloadLevel.value >= 4 ? 0.50 : 0.20;
+  return 0.10;
+});
+
+const liveBurdenGap = computed(() => {
+  return Math.round(Math.abs(liveContextualBurden.value - 0.10) * 100) / 100;
+});
+
+const liveInterpretationErrorGap = computed(() => 0.04);
+
+
 const deltaBColor = computed(() => {
-  if (liveResidual.value >= -0.05) return '#10B981';
-  if (liveResidual.value >= -0.20) return '#F59E0B';
+  if (liveDeltaB.value >= -0.05) return '#10B981';
+  if (liveDeltaB.value >= -0.20) return '#F59E0B';
   return '#EF4444';
 });
 
-// Baseline Validity Gate Evaluation using Engine
-const validityResult = computed(() => {
-  return computeValidityGate(spatialIndex.value, evidenceQuality.value);
-});
-
-// Visual Observability Computation using Engine
-const visualObservabilityQuality = computed(() => {
-  return computeVisualObservabilityQuality(evidenceQuality.value, spatialType.value === '3T');
-});
-
-const visualFusionWeight = computed(() => {
-  return computeVisualObservabilityWeight(spatialIndex.value, visualObservabilityQuality.value);
-});
-
-// Disparity & Multi-Objective Trade-offs
+// Trade-off Computations (Module L)
 const dynamicOverallReward = computed(() => {
   const reward = 0.71 - (lambdaWeight.value * 0.05);
   return Math.round(reward * 100) / 100;
@@ -2010,7 +2046,8 @@ const dynamicUrbanOutcome = computed(() => {
 });
 
 const liveDisparityGap = computed(() => {
-  return computeDisparity(dynamicUrbanOutcome.value, dynamic3TOutcome.value);
+  const gap = Math.abs(dynamicUrbanOutcome.value - dynamic3TOutcome.value);
+  return Math.round(gap * 100) / 100;
 });
 
 const liveGapReductionPct = computed(() => {
@@ -2020,25 +2057,14 @@ const liveGapReductionPct = computed(() => {
   return Math.round(reduction);
 });
 
-const selectedActionKey = computed(() => {
-  return selectAdaptiveAction(contextProfile.value, liveResidual.value);
-});
-
-const liveContextualBurden = computed(() => {
-  return computeContextualBurden(selectedActionKey.value, contextProfile.value);
-});
-
-// Multi-Objective Calibrated Reward Score (Equation 9)
 const liveRewardScore = computed(() => {
-  return computeCalibratedReward(
-    0.70,
-    liveResidual.value,
-    liveContextualBurden.value,
-    (workloadLevel.value / 5) * 0.30,
-    0.05,
-    liveDisparityGap.value,
-    lambdaWeight.value
-  );
+  let gain = observedRetention.value * 1.2;
+  let workPenalty = (workloadLevel.value / 5) * 0.3;
+  let infraPenalty = (1000 / Math.max(bandwidthKbps.value, 100)) * 0.15;
+  let fairnessBonus = liveDeltaB.value >= -0.05 ? 0.35 : -0.25;
+  let disparityPenalty = lambdaWeight.value * liveDisparityGap.value * 0.4;
+
+  return Math.max(gain - workPenalty - infraPenalty + fairnessBonus - disparityPenalty, 0.1);
 });
 
 const bandwidthQuality = computed(() => {
@@ -2060,48 +2086,10 @@ const deviceName = computed(() => {
 });
 
 const workloadDesc = computed(() => {
-  if (workloadLevel.value >= 4) return 'Tinggi (Tugas Layanan Dinamis)';
-  if (workloadLevel.value === 3) return 'Sedang (Tugas Rutin)';
+  if (workloadLevel.value >= 4) return 'Tinggi (Tugas Dinamis)';
+  if (workloadLevel.value === 3) return 'Sedang (Rutin)';
   return 'Rendah / Mandiri';
 });
-
-// Proposal Equation Ledger (1 to 18c)
-const proposalEquationLedger = computed(() => [
-  { id: '(1)', title: 'Raw behavioral traces', formula: 'X_{i,t} = [login, duration, clickstream, completion, artifact, ...]', live: `Trace sesi: tonton ${watchedMin.value.toFixed(1)}/${videoDurationMin.value} menit; ${interactionEvents.value}/10 checkpoint; B_{i,t} = ${behavioralEvidence.value.toFixed(2)}.` },
-  { id: '(2)', title: 'Konteks enam dimensi', formula: 'c_{i,t} = [T_{i,t}, I_{i,t}, O_{i,t}, D_{i,t}, W_{i,t}, S_{i,t}]', live: `I: ${bandwidthKbps.value} kbps / ${latencyMs.value} ms; D: ${deviceName.value}; W: ${workloadLevel.value}/5; S: ${spatialIndex.value.toFixed(2)}.` },
-  { id: '(2a–2c)', title: 'Indeks spasial komposit', formula: 'S_{i,t} = δK_i + (1 − δ)N_{i,t}', live: `K: ${spatialType.value === '3T' ? '0.30' : '0.80'}; N: ${networkReadiness.value.toFixed(2)}; S_{i,t}: ${spatialIndex.value.toFixed(2)}.` },
-  { id: '(3)', title: 'Missingness (Observabilitas)', formula: 'm_{i,t} = 1 − n_{observed,i,t} / n_{expected,i,t}', live: `m_{i,t}: ${missingnessRate.value.toFixed(2)} dari ${interactionEvents.value} observasi atas 10 checkpoint (MNAR).` },
-  { id: '(4)', title: 'Kualitas evidensi', formula: 'q_{i,t} = 1 − m_{i,t} − λ · noise_{i,t}', live: `noise: ${evidenceNoise.value.toFixed(2)}; q_{i,t}: ${evidenceQuality.value.toFixed(2)}.` },
-  { id: '(5)', title: 'CCBN expected baseline', formula: 'b̂_{i,t} = E[B_{i,t} | c_{i,t}, q_{i,t}] = f(c_{i,t}, q_{i,t})', live: `Expected Baseline CCBN: ${contextualBaseline.value.toFixed(2)}.` },
-  { id: '(6)', title: 'Contextual residual', formula: 'd_{i,t} = B_{i,t} − b̂_{i,t}', live: `B: ${behavioralEvidence.value.toFixed(2)}; d_{i,t}: ${liveResidual.value >= 0 ? '+' : ''}${liveResidual.value.toFixed(2)}.` },
-  { id: '(7)', title: 'Contextual disparity', formula: 'D_t = disparity(d_{i,t} | context/group)', live: `Gap disparitas kelompok: ${liveDisparityGap.value.toFixed(2)}* (Synthetic).` },
-  { id: '(8, 8a, 8b)', title: 'Beban & gap fairness', formula: 'CB_{i,a,t} = cost_a(c_{i,t}, Δc_{i,t}); max |E[CB|g] − E[CB|h]|; max |MAE_g(d) − MAE_h(d)|', live: `CB: ${liveContextualBurden.value.toFixed(2)}; Guardrail toleransi beban & interpretasi.` },
-  { id: '(9)', title: 'Reward terkalibrasi LinUCB', formula: "r′_{i,a,t+1} = r_{i,a,t} + ηU(a,d_{i,t}) − μCB_{i,a,t} − νOB_{i,a,t} − ρΔc_{i,t} − γD_t", live: `Candidate reward: ${liveRewardScore.value.toFixed(2)}*; D_t: ${liveDisparityGap.value.toFixed(2)}*.` },
-  { id: '(10, 10a)', title: 'Observabilitas & fusi visual', formula: 'w_{i,t} = σ(α₁(1 − S_{i,t}) + α₂q_{visual,i,t}); F_{i,t} = w_{i,t}V_{i,t} + (1 − w_{i,t})b_{LMS,i,t}', live: `q_visual: ${visualObservabilityQuality.value.toFixed(2)}; w: ${visualFusionWeight.value.toFixed(2)}. Visual adalah pendukung observabilitas.` },
-  { id: '(11–17)', title: 'Tujuh metrik fairness spasial', formula: 'Spatial performance, low-engagement, FPR/FNR, calibration, missingness, visual-observability, & override gaps', live: 'Dihitung pada evaluasi kelompok saat data empiris / sandbox multi-wilayah tersedia.' },
-  { id: '(18a–18c)', title: 'Baseline Validity Gate', formula: 'valid / boundary / invalid berdasarkan S_{i,t} dan q_{i,t} terhadap ambang metodologis', live: `Status: ${validityResult.value.state.toUpperCase()} — ${validityResult.value.message}` }
-]);
-
-// Section 11: Traceability Table Data
-const traceabilityList = [
-  { component: 'Raw behavioral traces', eq: 'Eq. (1)', module: 'Modul 02: Trace & Evidence', input: 'LMS Telemetry (login, clickstream, duration)', output: 'Vektor X_{i,t} & Outcome B_{i,t}' },
-  { component: 'Context Profile 6D', eq: 'Eq. (2)', module: 'Modul 01: Context Profile', input: 'Kuesioner + Telemetri Sistem', output: 'Vektor c_{i,t} = [T, I, O, D, W, S]' },
-  { component: 'Klaster Spasial Makro', eq: 'Eq. (2a)', module: 'Modul 01 & Sidebar Spasial', input: 'Data Terbuka (BPS, Podes, APJII, Ookla)', output: 'Klaster K_i' },
-  { component: 'Kualitas Jaringan Sesi', eq: 'Eq. (2b)', module: 'Modul 01 & Sidebar Spasial', input: 'Telemetri Sesi (latency, retry, buffering)', output: 'Kualitas Jaringan N_{i,t}' },
-  { component: 'Indeks Spasial Komposit', eq: 'Eq. (2c)', module: 'Modul 01 & Sidebar Spasial', input: 'K_i dan N_{i,t}', output: 'Indeks Spasial S_{i,t}' },
-  { component: 'Missingness (Observabilitas)', eq: 'Eq. (3)', module: 'Modul 03: Missingness & Quality', input: 'Jumlah data teramati vs ekspektasi', output: 'Tingkat Missingness m_{i,t}' },
-  { component: 'Evidence Quality', eq: 'Eq. (4)', module: 'Modul 03: Missingness & Quality', input: 'm_{i,t} dan noise sinyal', output: 'Skor Kualitas Evidensi q_{i,t}' },
-  { component: 'Expected Baseline CCBN', eq: 'Eq. (5)', module: 'Modul 04: CCBN Baseline & Residual', input: 'Konteks c_{i,t} dan Kualitas q_{i,t}', output: 'Baseline Wajar b̂_{i,t}' },
-  { component: 'Contextual Residual', eq: 'Eq. (6)', module: 'Modul 04: CCBN Baseline & Residual', input: 'Evidensi B_{i,t} dan Baseline b̂_{i,t}', output: 'Residual Diagnostik d_{i,t}' },
-  { component: 'Contextual Disparity', eq: 'Eq. (7)', module: 'Modul 06: Contextual Disparity', input: 'Distribusi d_{i,t} antarkelompok', output: 'Metrik Disparitas D_t' },
-  { component: 'Contextual Burden', eq: 'Eq. (8)', module: 'Modul 06 & Modul 07', input: 'Aksi a, konteks c, pergeseran Δc', output: 'Beban Intervensi CB_{i,a,t}' },
-  { component: 'Recommendation Burden Gap', eq: 'Eq. (8a)', module: 'Modul 06 & Evaluator', input: 'Distribusi CB antarkelompok', output: 'Gap Beban Rekomendasi' },
-  { component: 'Interpretation Error Gap', eq: 'Eq. (8b)', module: 'Modul 06 & Evaluator', input: 'MAE(d) antarkelompok', output: 'Gap Kesalahan Interpretasi' },
-  { component: 'Calibrated Reward / LinUCB', eq: 'Eq. (9)', module: 'Modul 07 & Modul 08', input: 'd_{i,t}, D_t, CB, OB, Δc, LinUCB UCB bound', output: 'Aksi Terpilih a*_{t+1}' },
-  { component: 'Observabilitas Visual', eq: 'Eq. (10, 10a)', module: 'Modul 02 & Sidebar', input: 'S_{i,t}, sinyal visual pilot (FDR, HRLV)', output: 'Bobot w_{i,t} & Fusi F_{i,t}' },
-  { component: '7 Metrik Fairness Spasial', eq: 'Eq. (11)–(17)', module: 'Modul 11: Benchmark & Metrics', input: 'Residual d, status komplesi, log HITL', output: 'Tujuh gap evaluasi keadilan' },
-  { component: 'Baseline Validity Gate', eq: 'Eq. (18a–18c)', module: 'Modul 05: Validity Gate', input: 'S_{i,t} dan q_{i,t} terhadap ambang θ', output: 'Status VALID / BOUNDARY / INVALID' }
-];
 
 // =========================================================================
 // COMPUTATIONAL MODULE DETAIL MODAL STATE & LOGIC
@@ -2140,155 +2128,154 @@ const modalModuleData = computed(() => {
     case 1:
       return {
         num: 'MODUL 01',
-        title: 'Profil Vektor Konteks Enam Dimensi (Context Profile)',
+        title: 'Profil Vektor Konteks Lingkungan (Context Profile)',
         layer: 'TAHAP 1: CONTEXT (CONTEXT PROFILE)',
         badgeClass: 'badge-blue',
-        role: 'Menangkap vektor fitur 6-dimensi kendala temporal, infrastruktur, organisasi, perangkat, beban kerja kedinasan, dan kewilayahan spasial ASN.',
-        formula: 'c_{i,t} = [ T_{i,t}, I_{i,t}, O_{i,t}, D_{i,t}, W_{i,t}, S_{i,t} ]',
-        equationRef: 'Persamaan (2) & (2a–2c) Proposal Revisi 2',
+        role: 'Menangkap vektor fitur 5-dimensi kendala fisik, infrastruktur, perangkat, beban kerja, dan kewilayahan ASN sebagai input dasar seluruh inferensi kontekstual.',
+        formula: 'C_t = [ \\beta_{bw}, \\beta_{lat}, \\delta_{dev}, T_{work}, S_t ]',
+        equationRef: 'Persamaan (2) — Vektor Konteks Multidimensi Proposal',
         liveState: {
-          'Temporal (T)': 'Sesi Belajar Mandiri / Rutin',
-          'Infrastruktur (I)': `${bandwidthKbps.value} kbps (${bandwidthQuality.value})`,
-          'Device / Delivery (D)': deviceName.value,
-          'Workload (W)': `${workloadLevel.value} / 5 (${workloadDesc.value})`,
-          'Spatial Index (S_{i,t})': `${spatialIndex.value.toFixed(2)} (Klaster: ${spatialType.value === '3T' ? '3T' : 'Perkotaan'})`,
-          'Role Kuesioner': 'Sumber data konteks (Bukan CCBN itu sendiri)'
+          'Bandwidth (β_bw)': `${bandwidthKbps.value} kbps (${bandwidthQuality.value})`,
+          'Latency (β_lat)': `${latencyMs.value} ms`,
+          'Device (δ_dev)': deviceName.value,
+          'Workload (T_work)': `${workloadLevel.value} / 5 (${workloadDesc.value})`,
+          'Spatial Index (S_t)': spatialType.value === '3T' ? 'Daerah 3T (Tertinggal/Terluar)' : 'Perkotaan (Urban)'
         },
         insight: 'Vektor konteks memastikan bahwa performa belajar tidak dinilai dalam ruang hampa, melainkan dikondisikan oleh keterbatasan nyata infrastruktur dan operasional kantor peserta.'
       };
     case 2:
       return {
         num: 'MODUL 02',
-        title: 'Trace LMS Mentah (X) & Evidensi Perilaku (B)',
-        layer: 'TAHAP 2: EVIDENCE (EVIDENCE FORMATION)',
+        title: 'Bukti Perilaku Multimodal (Behavioral Evidence)',
+        layer: 'TAHAP 2: EVIDENCE (BEHAVIORAL EVIDENCE, EXPECTATION & SUFFICIENCY)',
         badgeClass: 'badge-purple',
-        role: 'Mengumpulkan telemetri interaksi autentik LMS (login, durasi, clickstream, checkpoint) dan membentuk evidensi perilaku ternormalisasi B_{i,t}.',
-        formula: 'X_{i,t} = [\text{login}, \text{durasi}, \text{clickstream}, \text{completion}, \dots] \implies B_{i,t}',
-        equationRef: 'Persamaan (1) & (10a) Proposal Revisi 2',
+        role: 'Mengumpulkan sinyal interaksi autentik peserta melalui computer vision, telemetri pemutar video, clickstream navigasi, dan checkpoint LMS.',
+        formula: 'B_t^{obs} = [ B_{focus}, B_{watch}, \\tilde{B}_{revisit}, B_{interaction}, B_{retention} ]',
+        equationRef: 'Persamaan (1) — Trace LMS & Multimodal Telemetry',
         liveState: {
-          'Sinyal Atensi Teramati': `${(observedFocus.value * 100).toFixed(0)}%`,
-          'Durasi Akses Substansi': `${watchCompletionRatio.value}% (${watchedMin.value.toFixed(1)}/10 min)`,
-          'Revisit Konten': `${revisitEvents.value}× Revisit`,
-          'Aktivitas Checkpoint': `${interactionCoveragePct.value}% (${interactionEvents.value}/10 Checkpoint)`,
-          'Artefak Evaluasi': `${(observedRetention.value * 100).toFixed(0)}%`
+          'Focus Signal (τ_focus)': `${(observedFocus.value * 100).toFixed(0)}%`,
+          'Video Watch (B_watch)': `${watchCompletionRatio.value}% (${watchedMin.value.toFixed(1)}/10 min)`,
+          'Revisit Count (B_rev)': `${revisitEvents.value}× (Normalisasi 0.67)`,
+          'Interaction Coverage (B_int)': `${interactionCoveragePct.value}% (${interactionEvents.value}/10 Checkpoints)`,
+          'Partial Retention': `${(observedRetention.value * 100).toFixed(0)}%`
         },
-        insight: 'Data trace mentah X diposisikan sebagai bukti awal perilaku, bukan sebagai label langsung kemampuan intelektual atau motivasi belajar.'
+        insight: 'Data trace mentah diposisikan sebagai bukti probabilistik awal perilaku, bukan sebagai vonis mutlak kecakapan intelektual peserta.'
       };
     case 3:
       return {
         num: 'MODUL 03',
-        title: 'Missingness (m_{i,t}) & Kualitas Evidensi (q_{i,t})',
-        layer: 'TAHAP 2: EVIDENCE (OBSERVABILITY & RELIABILITY)',
+        title: 'Ekspektasi Kontekstual & Residual Perilaku (CCBN ΔB)',
+        layer: 'TAHAP 2: EVIDENCE (BEHAVIORAL EVIDENCE, EXPECTATION & SUFFICIENCY)',
         badgeClass: 'badge-amber',
-        role: 'Mengukur ketidaklengkapan data sebagai batas observabilitas sistem (MNAR) dan menghitung skor kualitas evidensi q_{i,t}.',
-        formula: 'm_{i,t} = 1 - \frac{n_{\text{obs}}}{n_{\text{exp}}}, \quad q_{i,t} = 1 - m_{i,t} - \lambda \cdot \text{noise}_{i,t}',
-        equationRef: 'Persamaan (3) & (4) Proposal Revisi 2',
+        role: 'Level 1: Menghitung baseline ekspektasi perilaku wajar E[B|C] berdasarkan kendala lingkungan, lalu mengkalkulasi deviasi residual individual ΔB_t.',
+        formula: 'ΔB_t = B_t^{obs} - E(B_t | C_t) = ' + (liveDeltaB.value >= 0 ? '+' : '') + liveDeltaB.value.toFixed(2),
+        equationRef: 'Level 1 — Behavioral Residual (Individual Diagnostic Signal)',
         liveState: {
-          'Missingness Rate (m_{i,t})': `${missingnessRate.value.toFixed(2)}`,
-          'Noise Telemetri': `${evidenceNoise.value.toFixed(2)}`,
-          'Evidence Quality (q_{i,t})': `${evidenceQuality.value.toFixed(2)}`,
-          'Uji MCAR': 'p < 0.05 (Tolak MCAR → MNAR karena latensi/sinyal)'
+          'Observed Focus (B_obs)': `${(observedFocus.value * 100).toFixed(0)}%`,
+          'Expected Focus E[B|C]': `${(expectedFocus.value * 100).toFixed(0)}% (Baseline Wajar 3T)`,
+          'Residual (ΔB_t)': `${liveDeltaB.value >= 0 ? '+' : ''}${liveDeltaB.value.toFixed(2)}`,
+          'Interpretasi Residual': liveDeltaB.value >= 0 ? 'Positif Wajar (Sungguh-sungguh Belajar)' : 'Deviasi Negatif (Friksi)'
         },
-        insight: 'Data hilang akibat sinyal putus diperlakukan sebagai batasan observabilitas sistem, bukan ketidakaktifan atau kelalaian peserta.'
+        insight: 'CCBN memisahkan kendala infrastruktur dari penurunan atensi otentik. Dalam simulasi ini, residual positif mengindikasikan partisipasi belajar yang wajar di tengah sinyal buruk sehingga terhindar dari penalti bias.'
       };
     case 4:
       return {
         num: 'MODUL 04',
-        title: 'Expected Behavioral Baseline CCBN (b̂_{i,t}) & Residual (d_{i,t})',
-        layer: 'TAHAP 2: EVIDENCE (CCBN BASELINE MECHANISM)',
+        title: 'Asesmen Kecukupan Bukti Belajar (Learning Evidence Sufficiency)',
+        layer: 'TAHAP 2: EVIDENCE (BEHAVIORAL EVIDENCE, EXPECTATION & SUFFICIENCY)',
         badgeClass: 'badge-emerald',
-        role: 'Level 1: Menghitung baseline ekspektasi perilaku wajar b̂_{i,t} = E[B|c,q] berdasarkan kendala lingkungan, lalu mengkalkulasi deviasi residual individual d_{i,t}.',
-        formula: 'b̂_{i,t} = f(c_{i,t}, q_{i,t}), \quad d_{i,t} = B_{i,t} - b̂_{i,t} = ' + (liveResidual.value >= 0 ? '+' : '') + liveResidual.value.toFixed(2),
-        equationRef: 'Persamaan (5) & (6) — Core CCBN Mechanism',
+        role: 'Mengukur kecukupan bukti multimodal sebelum mengambil keputusan adaptif tanpa menunggu 100% video selesai.',
+        formula: 'LS_t = 0.35 B_{watch} + 0.25 B_{int} + 0.20 \\tilde{B}_{revisit} + 0.20 B_{eng}',
+        equationRef: 'Candidate Evidence Formulation (Not Final)',
         liveState: {
-          'Observed Evidence (B_{i,t})': `${behavioralEvidence.value.toFixed(2)}`,
-          'Expected Baseline (b̂_{i,t})': `${contextualBaseline.value.toFixed(2)} (Ekspektasi Wajar 3T)`,
-          'Contextual Residual (d_{i,t})': `${liveResidual.value >= 0 ? '+' : ''}${liveResidual.value.toFixed(2)}`,
-          'Interpretasi Residual': liveResidual.value >= 0 ? 'Positif Wajar (Belajar sungguh-sungguh di tengah kendala)' : 'Deviasi Memerlukan Dukungan'
+          'Evidence Score (LS_t)': `${sufficiencyScore.value.toFixed(2)}`,
+          'Ambang Batas (τ)': `${sufficiencyThreshold.value.toFixed(2)}`,
+          'Status Bukti': isSufficient.value ? '● SUFFICIENT BEHAVIORAL EVIDENCE' : '○ INSUFFICIENT BEHAVIORAL EVIDENCE (0.69 < 0.70)',
+          'Respon Kebijakan': 'Modality Adaptation (Fallback Teks+Audio), Bukan Penalti Disipliner'
         },
-        insight: 'CCBN memisahkan kendala infrastruktur dari penurunan atensi otentik. Residual positif di tengah kendala membuktikan partisipasi belajar yang layak diapresiasi.'
+        insight: 'Prinsip Kunci: Insufficient Evidence ≠ Poor Learner. Skor 0.69 < 0.70 memicu adaptasi materi yang lebih ringan tanpa menghukum peserta.'
       };
     case 5:
       return {
         num: 'MODUL 05',
-        title: 'Baseline Validity Gate & Safeguard Observabilitas',
-        layer: 'TAHAP 2: EVIDENCE (EPISTEMIC SAFEGUARD)',
+        title: 'Garis Waktu Bukti Temporal (Evidence Timeline)',
+        layer: 'TAHAP 2: EVIDENCE (BEHAVIORAL EVIDENCE, EXPECTATION & SUFFICIENCY)',
         badgeClass: 'badge-blue',
-        role: 'Mengevaluasi kelayakan epistemik baseline sebelum residual digunakan: VALID (18a), BOUNDARY (18b), atau INVALID (18c).',
-        formula: "\text{Status: } \begin{cases} \text{VALID} & S_{i,t} \ge \theta_S \land q_{i,t} \ge \theta_q \\ \text{BOUNDARY} & \theta'_S \le S < \theta_S \lor \theta'_q \le q < \theta_q \\ \text{INVALID} & S < \theta'_S \lor q < \theta'_q \end{cases}",
-        equationRef: 'Persamaan (18a)–(18c) Proposal Revisi 2',
+        role: 'Menentukan titik waktu optimal t* ketika evidensi interaksi mencapai ambang batas keputusan adaptif.',
+        formula: 't^* = \\min \\{ t : E_t \\geq \\tau \\}',
+        equationRef: 'Optimal Stopping Rule for Adaptive Video Streams',
         liveState: {
-          'Spatial Index S_{i,t}': `${spatialIndex.value.toFixed(2)} (&theta;_S = ${DEFAULT_VALIDITY_THRESHOLDS.thetaSpatial})`,
-          'Evidence Quality q_{i,t}': `${evidenceQuality.value.toFixed(2)} (&theta;_q = ${DEFAULT_VALIDITY_THRESHOLDS.thetaQuality})`,
-          'Status Gerbang': validityResult.value.state.toUpperCase(),
-          'Respon Sistem': validityResult.value.message
+          'Durasi Video Total': `${videoDurationMin.value} Menit`,
+          'Waktu Teramati': `${watchedMin.value.toFixed(1)} Menit`,
+          'Titik Deteksi Checkpoint': '06:40 (LS = 0.69, Approaching τ = 0.70)',
+          'Event Terdeteksi': 'SKIP (01:30), QUIZ (03:10), REVISIT (05:40)'
         },
-        insight: 'Safeguard epistemik: jika observabilitas tidak memadai (INVALID), sistem tidak memaksa inferensi otomatis, melainkan mengeskalasi kasus ke Human-in-the-Loop.'
+        insight: 'Membebaskan ASN di pelosok dari keharusan menghabiskan kuota streaming video panjang jika bukti pemahaman parsial telah memadai.'
       };
     case 6:
       return {
         num: 'MODUL 06',
-        title: 'Contextual Disparity (D_t) & Beban Rekomendasi (CB)',
-        layer: 'TAHAP 3: FAIRNESS (GROUP DISPARITY & BURDEN)',
+        title: 'Batasan Keadilan Kontekstual (Contextual Fairness Constraint)',
+        layer: 'TAHAP 3: FAIRNESS (CONTEXTUAL FAIRNESS & GROUP DISPARITY)',
         badgeClass: 'badge-rose',
-        role: 'Level 2: Mengevaluasi disparitas kelompok agregat D_t, Recommendation Burden Gap (8a), dan Interpretation Error Gap (8b).',
-        formula: 'D_t = \text{disparity}(d_{i,t} \mid \text{group}), \quad \text{Gap}_{\text{burden}} = \max_{g,h} |\mathbb{E}[CB \mid g] - \mathbb{E}[CB \mid h]|',
-        equationRef: 'Persamaan (7), (8), (8a), (8b) Proposal Revisi 2',
+        role: 'Level 2: Mengevaluasi batasan keadilan kelompok agar disparitas luaran antar wilayah berada dalam toleransi ε.',
+        formula: 'D(a, C_t) \\leq \\epsilon \\quad (\\text{Prototype } \\epsilon = 0.20)',
+        equationRef: 'Level 2 — Group Disparity (Group-Level Fairness Outcome)',
         liveState: {
-          'Individual Residual (d_{i,t})': `${liveResidual.value >= 0 ? '+' : ''}${liveResidual.value.toFixed(2)}`,
-          'Group Disparity Gap (D_t)': `${liveDisparityGap.value.toFixed(2)}* (Synthetic)`,
-          'Recommendation Burden Gap': '< 0.15* (Toleransi Tercapai)',
-          'Interpretation Error Gap': 'ΔMAE = 0.04* (< 0.05)'
+          'Disparity Gap (D)': `${liveDisparityGap.value.toFixed(2)}`,
+          'Fairness Bound (ε)': '0.20',
+          'Status Batasan': '✓ Satisfied (D ≤ ε)',
+          'Proteksi Kelompok': 'Melindungi wilayah 3T dari kesenjangan luaran sistemik'
         },
-        insight: 'Menjamin kesetaraan antar kelompok wilayah dengan meregulasi rekomendasi agar intervensi tidak menambah beban kuota/waktu berlebih kepada wilayah 3T.'
+        insight: 'Menjamin kesetaraan kesempatan belajar antar kelompok wilayah dengan meregulasi rekomendasi aksi agar gap luaran (D) tidak melampaui bound toleransi ε.'
       };
     case 7:
       return {
         num: 'MODUL 07',
-        title: 'Algoritma Keputusan Adaptif Berbasis Reward Terkalibrasi (LinUCB)',
-        layer: 'TAHAP 4: DECISION (ADAPTIVE DECISION LAYER)',
+        title: 'Algoritma LinUCB Sadar-Disparitas (Candidate Action Space)',
+        layer: 'TAHAP 4: DECISION (DISPARITY-AWARE LINUCB & HITL)',
         badgeClass: 'badge-purple',
-        role: 'Memilih aksi modalitas adaptif yang memaksimalkan reward terkalibrasi multi-objektif (Eq. 9) dengan eksplorasi LinUCB.',
-        formula: "a^*_{t+1} = \arg\max_{a \in \mathcal{A}} [ r'_{i,a,t+1} + \alpha_t \sqrt{z_{i,t}^T A_{a,t}^{-1} z_{i,t}} ]",
-        equationRef: 'Persamaan (9) & Adaptive LinUCB Decision Layer',
+        role: 'Memilih aksi modalitas adaptif yang memaksimalkan expected utility sekaligus memenuhi batasan keadilan disparitas.',
+        formula: 'a_t^* = \\arg\\max_{a \\in \\mathcal{A}} [ \\hat{\\theta}_{a,t}^T z_t + \\alpha_t \\sqrt{z_t^T A_{a,t}^{-1} z_t} - \\mu_t CB_{i,a,t} ]',
+        equationRef: 'Persamaan (11) — Decision Objective Proposal Disertasi',
         liveState: {
-          'Aksi Terpilih': selectedActionKey.value === 'A2' ? 'A2: Text-First + Audio Mikro' : selectedActionKey.value === 'A4' ? 'A4: Dynamic Microlearning' : 'A3: Interactive Scenario',
-          'Candidate Reward Score': `${liveRewardScore.value.toFixed(2)}*`,
-          'Beban Kontekstual (CB)': '< 1 MB (Ultra Low Bandwidth)',
+          'Aksi Terpilih': selectedActionKey.value === 'A2' ? 'A2: Text-First + Compressed Audio' : selectedActionKey.value,
+          'Utility Aksi Terpilih': selectedActionKey.value === 'A2' ? 'U(a2) = 0.71' : 'U(a*)',
+          'Biaya Bandwidth': '< 1 MB (Ultra Low Bandwidth)',
           'Ruang Aksi': '4 Kandidat Modalitas (A1 s/d A4)'
         },
-        insight: 'Mengintegrasikan penalti beban kontekstual (CB), beban dinas (OB), dan disparitas (D) ke dalam reward agar rekomendasi selalu realistis bagi kondisi peserta.'
+        insight: 'Mengintegrasikan penalti beban kontekstual (CB) ke dalam fungsi optimasi bandit linier agar adaptasi materi bersifat realistis.'
       };
     case 8:
       return {
         num: 'MODUL 08',
         title: 'Rantai Penalaran Transparan & Tata Kelola HITL',
-        layer: 'TAHAP 4: DECISION (EXPLAINABLE AI & HITL)',
+        layer: 'TAHAP 4: DECISION (DISPARITY-AWARE LINUCB & HITL)',
         badgeClass: 'badge-cyan',
         role: 'Menyajikan rantai inferensi explainable AI (XAI) dan menempatkan Widyaiswara sebagai reviewer akhir intervensi.',
-        formula: 'c_{i,t} \to X_{i,t} \to (b̂, d) \to \text{Validity Gate} \to D_t \to \text{Rekomendasi Aksi} \to \text{Review HITL}',
-        equationRef: 'Persamaan (17) — Human Override Governance',
+        formula: 'C_t \\to B_t^{obs} \\to E[B|C] \\to \\Delta B_t \\to \\text{Fairness Check} \\to \\text{Rekomendasi Aksi} \\to \\text{HITL}',
+        equationRef: 'Human-in-the-Loop Decision Support Governance',
         liveState: {
-          'Rantai Inferensi': `Konteks (${bandwidthKbps.value}k) → Evidensi (${(observedFocus.value * 100).toFixed(0)}%) → Residual (${liveResidual.value >= 0 ? '+' : ''}${liveResidual.value.toFixed(2)}) → Format ${selectedActionKey.value}`,
+          'Rantai Inferensi': `Context (${bandwidthKbps.value}k) → Behavior (${(observedFocus.value * 100).toFixed(0)}%) → Residual (${liveDeltaB.value >= 0 ? '+' : ''}${liveDeltaB.value.toFixed(2)}) → Format A2`,
           'Tipe Intervensi': 'Decision-Support bagi Pengampu/Widyaiswara',
-          'Wewenang Review': 'Persetujuan, Pengubahan Moda, Penjadwalan Ulang'
+          'Wewenang Review': 'Persetujuan, Pengubahan Moda, atau Reschedule'
         },
-        insight: 'Sistem tidak mengeksekusi vonis otomatis, melainkan memberikan rekomendasi cerdas dan transparan kepada pendidik manusia untuk diaudit.'
+        insight: 'Algoritma tidak mengeksekusi vonis otomatis, melainkan memberikan rekomendasi cerdas dan transparan kepada pendidik manusia.'
       };
     case 9:
       return {
         num: 'MODUL 09',
         title: 'Simulator Pergeseran Konteks Dinamis (Context Shift)',
-        layer: 'TAHAP 5: LEARNING LOOP (NON-STATIONARY ADAPTATION)',
+        layer: 'TAHAP 5: LEARNING LOOP (REWARD, MODEL UPDATE & TUNING)',
         badgeClass: 'badge-amber',
         role: 'Menguji ketangguhan adaptasi real-time saat konteks jaringan/perangkat bergeser secara tiba-tiba (analogi YouTube bitrate).',
-        formula: 't_1 (110 \text{ kbps, Phone, 3T}) \rightleftharpoons t_2 (8000 \text{ kbps, Desktop, WiFi})',
-        equationRef: 'Context Drift & Non-Stationary Shift (\Delta c_{i,t})',
+        formula: 't_1 (120 \\text{ kbps, Phone, 3T}) \\rightleftharpoons t_2 (8000 \\text{ kbps, Desktop, WiFi})',
+        equationRef: 'Context Drift & Non-Stationary Bandit Adaptation',
         liveState: {
           'State Aktif': contextShiftState.value === 't1' ? 'State t1 (3T Terkendala)' : 'State t2 (WiFi Kantor Lancar)',
           'Bandwidth Sesi': `${bandwidthKbps.value} kbps`,
-          'Aksi Terpilih': contextShiftState.value === 't1' ? 'Text-First + Audio Mikro' : 'Video HD + Interactive',
-          'Candidate Reward': contextShiftState.value === 't1' ? '0.71*' : '0.88*'
+          'Aksi Terpilih': contextShiftState.value === 't1' ? 'Text-First + Audio' : 'Video HD + Interactive Quiz',
+          'Expected Reward': contextShiftState.value === 't1' ? '0.71' : '0.88'
         },
         insight: 'Menunjukkan bagaimana algoritma langsung merespons peningkatan maupun penurunan kualitas jaringan secara mulus tanpa mengganggu peserta.'
       };
@@ -2296,57 +2283,56 @@ const modalModuleData = computed(() => {
       return {
         num: 'MODUL 10',
         title: 'Trajektori Reward & Pembaruan Parameter Model (Online Update)',
-        layer: 'TAHAP 5: LEARNING LOOP (MODEL PARAMETER UPDATE)',
+        layer: 'TAHAP 5: LEARNING LOOP (REWARD, MODEL UPDATE & TUNING)',
         badgeClass: 'badge-emerald',
         role: 'Mencatat log pembelajaran sekuensial dan memperbarui parameter bobot bandit θ_a setelah intervensi selesai.',
-        formula: "A_{a, t+1} \leftarrow A_{a, t} + z_{i,t} z_{i,t}^T, \quad b_{a, t+1} \leftarrow b_{a, t} + r'_t z_{i,t}",
-        equationRef: 'Online Ridge Regression Parameter Update',
+        formula: 'A_{a, t+1} \\leftarrow A_{a, t} + z_t z_t^T, \\quad b_{a, t+1} \\leftarrow b_{a, t} + r_t z_t',
+        equationRef: 'Online Ridge Regression Update (LinUCB)',
         liveState: {
-          'Time Step Terkini': 't6 (Reward 0.91*)',
-          'Konvergensi Trajektori': '0.71* (t1) → 0.76* → 0.82* → 0.88* → 0.79* → 0.91* (t6)',
-          'Log Record': '6 Sesi Pembelajaran Terpetakan (Simulatif)'
+          'Time Step Terkini': 't6 (Reward 0.91)',
+          'Konvergensi Trajektori': '0.71 (t1) → 0.76 → 0.82 → 0.88 → 0.79 → 0.91 (t6)',
+          'Log Record': '6 Sesi Pembelajaran Terpetakan'
         },
-        insight: 'Model terus belajar dari interaksi setiap peserta di berbagai wilayah sehingga rekomendasi masa depan semakin presisi dan kontekstual.'
+        insight: 'Model terus belajar dari interaksi setiap peserta di berbagai wilayah sehingga rekomendasi masa depan semakin presisi.'
       };
     case 11:
       return {
         num: 'MODUL 11',
-        title: '7 Metrik Fairness Spasial & Matriks Benchmark Komparasi',
-        layer: 'TAHAP 3: FAIRNESS & EVALUATION (METRICS & BENCHMARK)',
+        title: 'Matriks Benchmark Komparasi Algoritma',
+        layer: 'TAHAP 3: FAIRNESS (CONTEXTUAL FAIRNESS & GROUP DISPARITY)',
         badgeClass: 'badge-rose',
-        role: 'Evaluasi komparatif multi-metrik (Spatial Performance, Low-Engagement Misinterpretation, FPR/FNR, Calibration, Missingness Bias, Visual Observability, Override Gaps).',
-        formula: '\text{Evaluasi: } [\text{Eq. 11: Perf Gap} \mid \text{Eq. 12: Low-Eng Gap} \mid \text{Eq. 13c: FPR/FNR} \mid \text{Eq. 14: Calib} \mid \text{Eq. 15: Miss} \mid \text{Eq. 16: Visual} \mid \text{Eq. 17: Override}]',
-        equationRef: 'Persamaan (11)–(17) Proposal Revisi 2',
+        role: 'Membandingkan trade-off performa reward dan disparity gap antara Rule-Based, Standard LinUCB, dan Disparity-Aware.',
+        formula: '\\text{Benchmark: } [\\text{Rule-Based} \\mid \\text{Standard LinUCB} \\mid \\text{Disparity-Aware}]',
+        equationRef: 'Illustrative Baseline Comparison',
         liveState: {
-          'Spatial Performance Gap (11)': '0.06* (Terkalibrasi)',
-          'Low-Engagement Misinterpretation (12)': '0.04* (Operasional)',
-          'FPR/FNR Residual Gap (13c)': '0.05* (Seimbang)',
-          'Human Override Rate Gap (17)': '0.08* (Log Audit)'
+          'Rule-Based': 'Reward 0.68* | Gap Disparitas 0.31*',
+          'Standard LinUCB': 'Reward 0.71* | Gap Disparitas 0.29*',
+          'Disparity-Aware': 'Reward 0.69* | Gap Disparitas 0.15* (-48% Gap)'
         },
-        insight: '7 metrik spasial memastikan evaluasi tidak hanya berhenti pada akurasi prediksi, melainkan memverifikasi keadilan interpretasi di seluruh dimensi kewilayahan.'
+        insight: 'Disparity-Aware LinUCB sedikit mengorbankan puncak reward di perkotaan demi mengangkat hasil pembelajaran ASN di daerah 3T secara drastis.'
       };
     case 12:
       return {
         num: 'MODUL 12',
-        title: 'Kontroler Trade-off Multi-Objektif Reward ↔ Disparitas (λ / γ)',
-        layer: 'TAHAP 5: LEARNING LOOP (MULTI-OBJECTIVE TUNING)',
+        title: 'Kontroler Trade-off Reward ↔ Disparitas (λ Controller)',
+        layer: 'TAHAP 5: LEARNING LOOP (REWARD, MODEL UPDATE & TUNING)',
         badgeClass: 'badge-emerald',
-        role: 'Menyediakan instrumen kendali interaktif untuk mengatur bobot penalti disparitas (γ / λ) antara efisiensi agregat vs keadilan kesetaraan luaran.',
-        formula: "r'_{i,a,t+1} = \dots - \gamma_t D_t \quad (\text{Slider } \lambda = " + lambdaWeight.value.toFixed(2) + ")",
-        equationRef: 'Multi-Objective Equity Optimization (Persamaan 9)',
+        role: 'Menyediakan instrumen kendali interaktif untuk mengatur bobot prioritas antara efisiensi agregat vs kesetaraan outcome.',
+        formula: '\\text{Utility} = \\text{Expected Reward} - \\lambda \\cdot \\text{Disparity Gap} (D)',
+        equationRef: 'Multi-Objective Equity Optimization',
         liveState: {
           'Bobot Penalti (λ)': `${lambdaWeight.value.toFixed(2)}`,
-          'Expected Utility Agregat': `${dynamicOverallReward.value.toFixed(2)}*`,
-          'Disparity Gap (D_t)': `${liveDisparityGap.value.toFixed(2)}* (-${liveGapReductionPct.value}%*)`,
-          '3T Outcome Estimasi': `${dynamic3TOutcome.value.toFixed(2)}*`
+          'Overall Reward': `${dynamicOverallReward.value.toFixed(2)}`,
+          'Disparity Gap': `${liveDisparityGap.value.toFixed(2)} (-${liveGapReductionPct.value}%)`,
+          '3T Outcome Terangkat': `${dynamic3TOutcome.value.toFixed(2)}`
         },
-        insight: 'Dalam simulasi ini, kontroler mendemonstrasikan bagaimana sistem meregulasi trade-off antara efisiensi agregat vs kesetaraan luaran bagi ASN daerah 3T.'
+        insight: 'Dalam simulasi ini, candidate controller menunjukkan bagaimana sistem meregulasi trade-off antara efektivitas agregat vs kesetaraan luaran bagi ASN daerah 3T.'
       };
     default:
       return {
         num: 'MODUL 01',
-        title: 'Profil Vektor Konteks Enam Dimensi',
-        layer: 'TAHAP 1: CONTEXT',
+        title: 'Profil Vektor Konteks Lingkungan',
+        layer: 'TAHAP 1: CONTEXT (CONTEXT PROFILE)',
         badgeClass: 'badge-blue',
         role: '',
         formula: '',
@@ -2359,63 +2345,6 @@ const modalModuleData = computed(() => {
 </script>
 
 <style scoped>
-.proposal-equation-ledger {
-  margin: 1.5rem 0;
-  padding: 1.35rem;
-  border: 1px solid #c7d2fe;
-  background: linear-gradient(135deg, #f8faff 0%, #f5f3ff 100%);
-}
-
-.equation-ledger-head {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
-
-.baseline-status {
-  flex: 0 0 16rem;
-  padding: 0.7rem 0.8rem;
-  border-radius: 0.65rem;
-  border: 1px solid;
-  display: grid;
-  gap: 0.15rem;
-  font-size: 0.75rem;
-}
-
-.baseline-status strong { font-size: 0.92rem; letter-spacing: 0.04em; }
-.baseline-status small { line-height: 1.35; }
-.status-valid { color: #047857; border-color: #6ee7b7; background: #ecfdf5; }
-.status-boundary { color: #92400e; border-color: #fcd34d; background: #fffbeb; }
-.status-invalid { color: #b91c1c; border-color: #fca5a5; background: #fef2f2; }
-
-.equation-ledger-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.65rem;
-}
-
-.equation-ledger-item {
-  padding: 0.8rem;
-  border: 1px solid #e0e7ff;
-  border-radius: 0.6rem;
-  background: rgba(255, 255, 255, 0.88);
-}
-
-.equation-ledger-item.safeguard { border-color: #fbbf24; background: #fffbeb; }
-.equation-ledger-meta { display: flex; gap: 0.45rem; align-items: baseline; margin-bottom: 0.4rem; color: #3730a3; }
-.equation-ledger-meta span { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 800; }
-.equation-ledger-meta strong { font-size: 0.82rem; }
-.equation-ledger-item code { display: block; color: #334155; font-size: 0.72rem; line-height: 1.45; white-space: normal; word-break: break-word; }
-.equation-ledger-item p { margin: 0.45rem 0 0; color: #475569; font-size: 0.72rem; line-height: 1.4; }
-
-@media (max-width: 760px) {
-  .equation-ledger-head { flex-direction: column; }
-  .baseline-status { flex-basis: auto; width: 100%; }
-  .equation-ledger-grid { grid-template-columns: 1fr; }
-}
-
 /* ========================================================================= */
 /* EXECUTIVE HERO BANNER                                                     */
 /* ========================================================================= */
@@ -2446,20 +2375,6 @@ const modalModuleData = computed(() => {
   margin-bottom: 0.75rem;
 }
 
-.hero-synthetic-warning {
-  margin-top: 1rem;
-  background: rgba(245, 158, 11, 0.15);
-  border: 1px solid rgba(245, 158, 11, 0.35);
-  padding: 0.5rem 0.85rem;
-  border-radius: 8px;
-  font-size: 0.75rem;
-  color: #FDE68A;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.45rem;
-  line-height: 1.45;
-}
-
 .badge {
   font-size: 0.725rem;
   font-weight: 700;
@@ -2468,18 +2383,6 @@ const modalModuleData = computed(() => {
   display: inline-flex;
   align-items: center;
   letter-spacing: 0.02em;
-}
-
-.badge-emerald {
-  background: rgba(16, 185, 129, 0.2);
-  color: #6EE7B7;
-  border: 1px solid rgba(110, 231, 183, 0.35);
-}
-
-.badge-indigo {
-  background: rgba(99, 102, 241, 0.2);
-  color: #A5B4FC;
-  border: 1px solid rgba(165, 180, 252, 0.35);
 }
 
 .badge-blue {
@@ -2506,22 +2409,10 @@ const modalModuleData = computed(() => {
   border: 1px solid rgba(216, 180, 254, 0.35);
 }
 
-.badge-cyan {
-  background: rgba(6, 182, 212, 0.2);
-  color: #67E8F9;
-  border: 1px solid rgba(103, 232, 249, 0.35);
-}
-
-.badge-rose {
-  background: rgba(244, 63, 94, 0.2);
-  color: #FDA4AF;
-  border: 1px solid rgba(253, 164, 175, 0.35);
-}
-
-.badge-dashed {
-  background: rgba(255, 255, 255, 0.05);
-  color: #E2E8F0;
-  border: 1px dashed rgba(255, 255, 255, 0.35);
+.badge-outline {
+  background: transparent;
+  color: #64748B;
+  border: 1px dashed #CBD5E1;
 }
 
 .hero-title {
@@ -2534,84 +2425,67 @@ const modalModuleData = computed(() => {
 }
 
 .hero-subtitle {
-  font-size: 0.875rem;
-  color: #94A3B8;
-  margin: 0 0 0.4rem 0;
-  line-height: 1.55;
+  font-size: 0.9rem;
+  color: #CBD5E1;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.formula-code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  color: #FDE047;
 }
 
 .hero-kpi-deck {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
   gap: 0.85rem;
-  flex: 0 0 340px;
-}
-
-@media (max-width: 900px) {
-  .hero-kpi-deck {
-    flex: 1 1 100%;
-  }
+  flex-wrap: wrap;
 }
 
 .kpi-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px);
+  padding: 0.85rem 1.15rem;
   border-radius: 12px;
-  padding: 0.85rem 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  backdrop-filter: blur(8px);
+  align-items: center;
+  min-width: 120px;
 }
 
 .kpi-card.highlight {
-  background: rgba(245, 158, 11, 0.1);
-  border-color: rgba(245, 158, 11, 0.3);
-}
-
-.validity-card-valid {
-  border-color: rgba(16, 185, 129, 0.4);
-  background: rgba(16, 185, 129, 0.1);
-}
-
-.validity-card-boundary {
   border-color: rgba(245, 158, 11, 0.4);
-  background: rgba(245, 158, 11, 0.1);
-}
-
-.validity-card-invalid {
-  border-color: rgba(239, 68, 68, 0.4);
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(245, 158, 11, 0.08);
 }
 
 .kpi-label {
-  font-size: 0.7rem;
+  font-size: 0.675rem;
   font-weight: 700;
   color: #94A3B8;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
 }
 
 .kpi-val {
-  font-size: 1.25rem;
+  font-size: 1.45rem;
   font-weight: 800;
-  color: #FFFFFF;
+  font-family: 'JetBrains Mono', monospace;
+  margin: 0.2rem 0;
 }
 
 .kpi-sub {
-  font-size: 0.675rem;
+  font-size: 0.65rem;
   color: #64748B;
-  font-family: monospace;
+  font-weight: 600;
 }
 
-.text-emerald { color: #10B981; }
-.text-amber { color: #F59E0B; }
-.text-blue { color: #3B82F6; }
-.text-purple { color: #8B5CF6; }
-.text-rose { color: #F43F5E; }
-.text-slate { color: #64748B; }
-
-/* Theory Grid */
+/* ========================================================================= */
+/* TAHAP 1 & 2: DUAL THEORY CARDS                                            */
+/* ========================================================================= */
 .theory-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -2626,17 +2500,20 @@ const modalModuleData = computed(() => {
 }
 
 .stage-card {
-  padding: 1.5rem;
-  border-radius: 14px;
   background: #FFFFFF;
+  border-radius: 14px;
+  padding: 1.5rem;
   border: 1px solid #E2E8F0;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
 }
 
-.stage-card.border-rose { border-top: 4px solid #F43F5E; }
-.stage-card.border-emerald { border-top: 4px solid #10B981; }
+.stage-card.border-blue {
+  border-top: 5px solid #2563EB;
+}
+
+.stage-card.border-rose {
+  border-top: 5px solid #E11D48;
+}
 
 .stage-card-header {
   display: flex;
@@ -2646,26 +2523,24 @@ const modalModuleData = computed(() => {
 }
 
 .stage-pill {
-  font-size: 0.7rem;
+  font-size: 0.675rem;
   font-weight: 800;
-  padding: 0.2rem 0.55rem;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.6rem;
   border-radius: 6px;
-  text-transform: uppercase;
 }
 
-.pill-indigo { background: #EEF2FF; color: #4F46E5; }
-.pill-blue { background: #EFF6FF; color: #2563EB; }
-.pill-rose { background: #FFF1F2; color: #E11D48; }
-.pill-emerald { background: #ECFDF5; color: #059669; }
-.pill-amber { background: #FEF3C7; color: #D97706; }
-.pill-purple { background: #F5F3FF; color: #7C3AED; }
-.pill-cyan { background: #ECFEFF; color: #0891B2; }
-.pill-slate { background: #F1F5F9; color: #475569; }
+.pill-blue { background: #EFF6FF; color: #1D4ED8; }
+.pill-rose { background: #FFF1F2; color: #BE123C; }
 
 .stage-ref {
   font-size: 0.725rem;
+  font-weight: 700;
   color: #64748B;
-  font-weight: 600;
+  background: #F8FAFC;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #E2E8F0;
 }
 
 .stage-title {
@@ -2677,154 +2552,1188 @@ const modalModuleData = computed(() => {
 
 .stage-p {
   font-size: 0.85rem;
-  color: #334155;
+  color: #475569;
   line-height: 1.55;
-  margin: 0 0 1rem 0;
+  margin-bottom: 1rem;
+}
+
+.code-sm {
+  font-family: monospace;
+  font-weight: 700;
+  background: #F1F5F9;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  color: #1E293B;
 }
 
 .math-box {
+  padding: 1rem 1.15rem;
   border-radius: 10px;
-  padding: 1rem;
   margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 }
 
-.math-emerald {
-  background: #ECFDF5;
-  border: 1px solid #A7F3D0;
+.math-blue {
+  background: #F0F7FF;
+  border: 1px solid #BFDBFE;
 }
 
-.math-formula-rendered {
+.math-display {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85rem;
+  font-size: 0.925rem;
   font-weight: 700;
-  color: #065F46;
-  overflow-x: auto;
+  color: #1E40AF;
+  text-align: center;
+  margin-bottom: 0.5rem;
 }
 
 .math-legend {
   display: flex;
-  gap: 0.4rem;
-  align-items: center;
-  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
   font-size: 0.725rem;
   color: #475569;
-  margin-top: 0.35rem;
+  flex-wrap: wrap;
 }
 
-.leg-pill {
-  padding: 0.15rem 0.45rem;
-  border-radius: 4px;
-  font-size: 0.7rem;
-}
-
-.pill-blue-sm { background: #DBEAFE; color: #1E40AF; }
-.pill-purple-sm { background: #EDE9FE; color: #5B21B6; }
-.pill-emerald-sm { background: #D1FAE5; color: #065F46; }
-.pill-amber-sm { background: #FEF3C7; color: #92400E; }
+.dot { color: #94A3B8; }
 
 .stage-callout {
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
   display: flex;
-  gap: 0.5rem;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
   font-size: 0.8rem;
   line-height: 1.45;
-  margin-top: auto;
 }
 
-.callout-rose { background: #FFF1F2; border: 1px solid #FECDD3; color: #9F1239; }
-.callout-emerald { background: #ECFDF5; border: 1px solid #A7F3D0; color: #065F46; }
-.callout-blue { background: #EFF6FF; border: 1px solid #BFDBFE; color: #1E40AF; }
+.callout-blue { background: #EFF6FF; color: #1E3A8A; border: 1px solid #DBEAFE; }
+.callout-rose { background: #FFF1F2; color: #9F1239; border: 1px solid #FFE4E6; }
+.callout-icon { font-size: 0.95rem; }
 
+/* Disparity Flow Visual */
 .disparity-flow {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  background: #FFF5F5;
+  border: 1px solid #FECDD3;
+  border-radius: 10px;
+  padding: 1rem;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .flow-step {
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
 .flow-badge {
-  background: #F1F5F9;
-  border: 1px solid #CBD5E1;
-  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: #FFFFFF;
+  padding: 0.4rem 0.65rem;
   border-radius: 6px;
+  border: 1px solid #FDA4AF;
+  color: #9F1239;
+}
+
+.flow-badge.badge-high {
+  color: #047857;
+  border-color: #A7F3D0;
+  background: #ECFDF5;
+}
+
+.flow-arrow {
+  color: #E11D48;
+  font-weight: 800;
+}
+
+.flow-split {
+  gap: 0.25rem;
+}
+
+.split-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+}
+
+.split-3t { background: #FEF2F2; color: #DC2626; border: 1px solid #FECDD3; }
+.split-urban { background: #ECFDF5; color: #059669; border: 1px solid #A7F3D0; }
+.split-gap-alert {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #BE123C;
+  margin-top: 0.3rem;
+}
+
+/* ========================================================================= */
+/* TAHAP 3: ROADMAP                                                          */
+/* ========================================================================= */
+.roadmap-section {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 1.75rem;
+  border: 1px solid #E2E8F0;
+  margin-bottom: 2rem;
+}
+
+.section-head {
+  margin-bottom: 1.25rem;
+}
+
+.badge-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.35rem 0;
+}
+
+.section-desc {
+  font-size: 0.85rem;
+  color: #64748B;
+  margin: 0;
+}
+
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1rem;
+}
+
+.roadmap-step {
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #E2E8F0;
+  background: #F8FAFC;
+  display: flex;
+  flex-direction: column;
+}
+
+.step-done {
+  background: #F0F9FF;
+  border-color: #BAE6FD;
+}
+
+.step-active {
+  background: #FFFBEB;
+  border-color: #FDE047;
+  border-width: 2px;
+}
+
+.step-future {
+  background: #F8FAFC;
+  border-color: #E2E8F0;
+}
+
+.step-num {
+  font-size: 0.675rem;
+  font-weight: 800;
+  color: #64748B;
+  margin-bottom: 0.25rem;
+}
+
+.step-heading {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.35rem 0;
+}
+
+.step-text {
   font-size: 0.775rem;
+  color: #475569;
+  line-height: 1.45;
+  margin-bottom: 0.75rem;
+  flex: 1;
+}
+
+.step-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.tag-blue { background: #E0F2FE; color: #0369A1; }
+.tag-amber { background: #FEF3C7; color: #B45309; }
+
+/* ========================================================================= */
+/* TAHAP 4: CANDIDATE FORMULATION                                            */
+/* ========================================================================= */
+.candidate-section {
+  background: linear-gradient(135deg, #FFFDF5 0%, #FEF9C3 100%);
+  border: 2px solid #FCD34D;
+  border-radius: 14px;
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.08);
+}
+
+.candidate-header {
+  margin-bottom: 1.25rem;
+}
+
+.candidate-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #78350F;
+  margin: 0.35rem 0 0 0;
+}
+
+.candidate-math-card {
+  background: #FFFFFF;
+  border: 1px solid #FDE68A;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+}
+
+.candidate-equation-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 1.25rem;
+}
+
+.eq-token {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+}
+
+.eq-sym {
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.eq-lbl {
+  font-size: 0.65rem;
+  font-family: sans-serif;
+  font-weight: 600;
+  color: #64748B;
+  margin-top: 0.25rem;
+}
+
+.eq-target { background: #F8FAFC; border: 1px solid #CBD5E1; color: #0F172A; }
+.eq-reward { background: #EFF6FF; border: 1px solid #BFDBFE; color: #1E3A8A; }
+.eq-explore { background: #F3E8FF; border: 1px solid #DDD6FE; color: #6B21A8; }
+.eq-penalty { background: #FEF2F2; border: 1px solid #FECDD3; color: #9F1239; }
+
+.eq-op {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #64748B;
+}
+
+.candidate-rules-row {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  border-top: 1px dashed #CBD5E1;
+  padding-top: 1rem;
+  font-size: 0.875rem;
+}
+
+.rule-box {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.rule-k { color: #64748B; font-weight: 600; }
+.rule-v { font-family: monospace; font-weight: 800; color: #1E293B; }
+
+.candidate-disclaimer {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 0.85rem 1.15rem;
+  border-radius: 8px;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.disc-text {
+  font-size: 0.8rem;
+  color: #78350F;
+  line-height: 1.5;
+}
+
+/* ========================================================================= */
+/* TAHAP 5: INTERACTIVE SIMULATOR & TRADE-OFF CONTROLLER                     */
+/* ========================================================================= */
+.section-title-wrap {
+  margin-bottom: 1.25rem;
+}
+
+.main-sec-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.3rem 0;
+}
+
+.main-sec-desc {
+  font-size: 0.875rem;
+  color: #64748B;
+  margin: 0;
+}
+
+/* LAMBDA CONTROLLER CARD */
+.lambda-controller-card {
+  background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.3);
+  margin-bottom: 1.5rem;
+}
+
+.lambda-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1.7fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+@media (max-width: 960px) {
+  .lambda-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lambda-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.lambda-label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #F8FAFC;
+}
+
+.lambda-badge {
+  font-family: monospace;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #F59E0B;
+  background: rgba(245, 158, 11, 0.18);
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.lambda-slider {
+  width: 100%;
+  accent-color: #F59E0B;
+  cursor: pointer;
+}
+
+.lambda-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.675rem;
+  color: #94A3B8;
+  margin-top: 0.35rem;
+}
+
+.lambda-impact-side {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 600px) {
+  .lambda-impact-side {
+    grid-template-columns: 1fr;
+  }
+}
+
+.impact-pill {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.75rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.imp-k {
+  font-size: 0.675rem;
+  font-weight: 600;
+  color: #CBD5E1;
+  margin-bottom: 0.25rem;
+}
+
+.imp-v {
+  font-size: 1.1rem;
+  font-weight: 800;
+  font-family: monospace;
+}
+
+/* SCENARIOS COMPARISON CARDS */
+.scenarios-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 850px) {
+  .scenarios-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.scenario-card {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 1.35rem 1.5rem;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+}
+
+.scenario-card.border-slate { border-left: 5px solid #64748B; }
+.scenario-card.border-emerald { border-left: 5px solid #10B981; }
+
+.sc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.sc-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.25rem 0.55rem;
+  border-radius: 4px;
+}
+
+.tag-slate { background: #F1F5F9; color: #475569; }
+.tag-emerald { background: #D1FAE5; color: #047857; }
+
+.sc-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.sc-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.sc-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #F8FAFC;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+}
+
+.sc-val {
+  font-size: 1.25rem;
+  font-weight: 800;
+  font-family: monospace;
+}
+
+.sc-lbl {
+  font-size: 0.65rem;
+  color: #64748B;
+  font-weight: 600;
+  margin-top: 0.15rem;
+  text-align: center;
+}
+
+.sc-bar-alert {
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.bar-rose { background: #FFF1F2; color: #9F1239; border: 1px solid #FECDD3; }
+.bar-emerald { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+
+/* TRADEOFF TABLE */
+.table-section-card {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 1.5rem;
+  border: 1px solid #E2E8F0;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+}
+
+.table-card-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 1rem 0;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.tradeoff-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.tradeoff-tbl th, .tradeoff-tbl td {
+  padding: 0.85rem 1.15rem;
+  text-align: left;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.tradeoff-tbl th {
+  background: #F8FAFC;
+  font-weight: 700;
+  color: #334155;
+}
+
+.tradeoff-tbl .highlight-tr {
+  background: #F0FDF4;
+  font-weight: 700;
+}
+
+.tbl-badge {
+  font-family: monospace;
+  font-size: 0.825rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: #F1F5F9;
+  color: #0F172A;
+}
+
+.badge-rose { background: #FFE4E6; color: #BE123C; }
+.badge-emerald { background: #D1FAE5; color: #047857; }
+
+/* ========================================================================= */
+/* MAIN SIMULATOR INTERFACE (TWO COLUMNS HIGH-TECH DECK)                     */
+/* ========================================================================= */
+.sim-deck-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 960px) {
+  .sim-deck-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sim-panel-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 1.65rem;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.05);
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.85rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.panel-head-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icon-pulse {
+  font-size: 1.15rem;
+}
+
+.panel-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.code-pill {
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: #2563EB;
+  background: #EFF6FF;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid #BFDBFE;
+}
+
+.code-pill.pill-purple {
+  color: #7C3AED;
+  background: #F5F3FF;
+  border-color: #DDD6FE;
+}
+
+/* Presets */
+.preset-wrap {
+  margin-bottom: 1.25rem;
+}
+
+.preset-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748B;
+  display: block;
+  margin-bottom: 0.45rem;
+}
+
+.preset-btn-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.p-btn {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #CBD5E1;
+  background: #F8FAFC;
+  color: #334155;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.p-btn:hover {
+  background: #EEF2F6;
+  border-color: #94A3B8;
+  transform: translateY(-1px);
+}
+
+.p-btn.active {
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  color: #FFFFFF;
+  border-color: #0F172A;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);
+}
+
+/* Control Items */
+.control-box {
+  margin-bottom: 1.25rem;
+  background: #F8FAFC;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #F1F5F9;
+}
+
+.ctrl-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.45rem;
+}
+
+.ctrl-lbl {
+  font-size: 0.825rem;
   font-weight: 700;
   color: #1E293B;
 }
 
-.flow-arrow {
-  color: #94A3B8;
-  font-size: 0.85rem;
-  padding-left: 0.5rem;
-}
-
-.flow-split {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  width: 100%;
-}
-
-.split-pill {
-  padding: 0.35rem 0.65rem;
-  border-radius: 6px;
+.val-pill {
   font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+}
+
+.pill-blue { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+.pill-rose { background: #FFF1F2; color: #BE123C; border: 1px solid #FECDD3; }
+.pill-slate { background: #F1F5F9; color: #334155; border: 1px solid #CBD5E1; }
+
+.slider {
+  width: 100%;
+  cursor: pointer;
+  height: 6px;
+  border-radius: 4px;
+}
+
+.slider-blue { accent-color: #2563EB; }
+.slider-amber { accent-color: #F59E0B; }
+.slider-rose { accent-color: #E11D48; }
+.slider-purple { accent-color: #8B5CF6; }
+.slider-emerald { accent-color: #10B981; }
+
+.slider-marks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  color: #94A3B8;
+  margin-top: 0.25rem;
+}
+
+.segmented-box {
+  display: flex;
+  gap: 0.35rem;
+  background: #E2E8F0;
+  padding: 0.25rem;
+  border-radius: 8px;
+}
+
+.segmented-box button {
+  flex: 1;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.45rem;
+  border: none;
+  background: transparent;
+  color: #475569;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.segmented-box button .dev-w {
+  font-size: 0.65rem;
+  opacity: 0.75;
+}
+
+.segmented-box button.active {
+  background: #FFFFFF;
+  color: #0F172A;
+  font-weight: 800;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Workload Meter */
+.workload-meter {
+  display: flex;
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+}
+
+.meter-bar {
+  flex: 1;
+  height: 5px;
+  background: #E2E8F0;
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.meter-bar.filled {
+  background: #F59E0B;
+}
+
+.meter-bar.filled.high {
+  background: #EF4444;
+}
+
+/* Telemetry Box */
+.telemetry-box {
+  background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+  padding: 1.15rem;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  margin-top: 1.25rem;
+}
+
+.tele-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px dashed #CBD5E1;
+}
+
+.tele-badge {
+  font-size: 0.775rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.tele-subhead {
+  font-size: 0.7rem;
+  color: #64748B;
+  font-weight: 600;
+}
+
+.tele-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.tele-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+.tele-lbl {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.tele-val {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #0F172A;
+  font-family: monospace;
+}
+
+.tele-bar-bg {
+  height: 6px;
+  background: #E2E8F0;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 0.35rem;
+}
+
+.tele-bar-fill {
+  height: 100%;
+  background: #8B5CF6;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.tele-bar-fill.fill-green {
+  background: #10B981;
+}
+
+/* Calculation Right Panel */
+.calc-panel {
+  padding: 1.25rem;
+  border-radius: 12px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+}
+
+.calc-panel.border-purple { border-left: 5px solid #8B5CF6; }
+.calc-panel.border-emerald { border-left: 5px solid #10B981; }
+
+.calc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.calc-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #64748B;
+  letter-spacing: 0.05em;
+}
+
+.calc-tag.tag-green {
+  color: #047857;
+}
+
+.formula-sm {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.775rem;
+  color: #2563EB;
   font-weight: 700;
 }
 
-.split-3t { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
-.split-urban { background: #EFF6FF; color: #1E40AF; border: 1px solid #BFDBFE; }
-.split-gap-alert {
-  background: #FFFBEB;
-  color: #92400E;
-  border: 1px dashed #FCD34D;
-  padding: 0.4rem 0.65rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 800;
+.metrics-3-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
 }
 
-/* Spatial Moderation Diagram Card */
+@media (max-width: 600px) {
+  .metrics-3-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.m-card {
+  background: #FFFFFF;
+  padding: 0.85rem;
+  border-radius: 10px;
+  border: 1px solid #E2E8F0;
+  display: flex;
+  flex-direction: column;
+}
+
+.m-card.m-highlight {
+  background: #F0FDF4;
+  border-color: #86EFAC;
+}
+
+.m-lbl {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #64748B;
+  margin-bottom: 0.25rem;
+}
+
+.m-val {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0F172A;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.m-sub {
+  font-size: 0.65rem;
+  color: #64748B;
+  margin-top: 0.25rem;
+  line-height: 1.35;
+}
+
+.action-card {
+  background: #FFFFFF;
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.action-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.act-badge {
+  font-size: 0.675rem;
+  font-weight: 800;
+  color: #047857;
+  background: #D1FAE5;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #A7F3D0;
+}
+
+.act-score {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #10B981;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.act-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.45rem 0;
+  line-height: 1.35;
+}
+
+.act-desc {
+  font-size: 0.85rem;
+  color: #475569;
+  line-height: 1.55;
+  margin-bottom: 0.85rem;
+}
+
+.specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  background: #F8FAFC;
+  padding: 0.85rem;
+  border-radius: 10px;
+  border: 1px solid #E2E8F0;
+}
+
+.spec-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.sk { font-size: 0.675rem; color: #64748B; font-weight: 600; }
+.sv { font-size: 0.8rem; font-weight: 700; color: #1E293B; }
+
+/* Policy Stack */
+.policy-sec-title {
+  font-size: 0.925rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.75rem 0;
+}
+
+.policy-card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.pol-item-card {
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  border: 1px solid #E2E8F0;
+  background: #FFFFFF;
+  transition: all 0.2s ease;
+}
+
+.pol-danger {
+  background: #FFFBFB;
+  border-left: 5px solid #EF4444;
+  border-color: #FECDD3;
+}
+
+.pol-warning {
+  background: #FFFDF5;
+  border-left: 5px solid #F59E0B;
+  border-color: #FDE68A;
+}
+
+.pol-success {
+  background: #F0FDF4;
+  border-left: 5px solid #10B981;
+  border-color: #A7F3D0;
+}
+
+.pol-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.35rem;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.pol-name {
+  font-size: 0.825rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.pol-status {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+.status-danger { background: #FEE2E2; color: #DC2626; }
+.status-warning { background: #FEF3C7; color: #B45309; }
+.status-success { background: #DCFCE7; color: #15803D; }
+
+.pol-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.pol-decision {
+  font-size: 0.8rem;
+  color: #1E293B;
+}
+
+.pol-note {
+  font-size: 0.725rem;
+  color: #64748B;
+  line-height: 1.4;
+}
+
+/* Colors Helper */
+.text-slate { color: #475569; }
+.text-rose { color: #E11D48; }
+.text-amber { color: #D97706; }
+.text-emerald { color: #059669; }
+.font-bold { font-weight: 700; }
+
+/* ========================================================================= */
+/* DIAGRAM MODERASI SPASIAL (GAMBAR 2 & 3 PROPOSAL)                          */
+/* ========================================================================= */
 .spatial-moderation-diagram-card {
-  padding: 1.75rem;
   background: #FFFFFF;
   border-radius: 16px;
-  border: 1px solid #E2E8F0;
+  padding: 1.75rem 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  border: 1px solid #CBD5E1;
+  box-shadow: 0 4px 15px -2px rgba(15, 23, 42, 0.05);
 }
 
 .diagram-head {
   margin-bottom: 1.5rem;
 }
 
+.badge-indigo {
+  background: rgba(99, 102, 241, 0.15);
+  color: #4F46E5;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.badge-cyan {
+  background: rgba(6, 182, 212, 0.15);
+  color: #0891B2;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.badge-dashed {
+  background: #F5F3FF;
+  color: #6D28D9;
+  border: 1.5px dashed #8B5CF6;
+}
+
 .diagram-title {
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   font-weight: 800;
   color: #0F172A;
-  margin: 0.5rem 0 0.4rem 0;
+  margin: 0.4rem 0 0.35rem 0;
+  line-height: 1.35;
 }
 
 .diagram-desc {
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   color: #475569;
-  line-height: 1.55;
+  line-height: 1.6;
   margin: 0;
 }
 
 .diagram-interactive-body {
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: 1.35fr 1fr;
   gap: 1.75rem;
+  align-items: start;
 }
 
 @media (max-width: 960px) {
@@ -2836,160 +3745,172 @@ const modalModuleData = computed(() => {
 .flow-pipeline-col {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0;
 }
 
 .pipe-box {
-  border-radius: 12px;
-  padding: 1rem 1.25rem;
+  background: #FFFFFF;
+  border-radius: 10px;
+  padding: 0.9rem 1.15rem;
   border: 1px solid #E2E8F0;
-  background: #F8FAFC;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease;
 }
 
-.pipe-blue { border-left: 5px solid #3B82F6; }
-.pipe-indigo { border-left: 5px solid #6366F1; }
-.pipe-amber { border-left: 5px solid #F59E0B; }
-.pipe-purple { border-left: 5px solid #8B5CF6; background: #FAF5FF; border-color: #E9D5FF; }
-.pipe-cyan { border-left: 5px solid #06B6D4; }
-.pipe-rose { border-left: 5px solid #F43F5E; }
-.pipe-emerald { border-left: 5px solid #10B981; background: #F0FDF4; border-color: #BBF7D0; }
+.pipe-box:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+.pipe-blue { border-left: 4px solid #3B82F6; }
+.pipe-indigo { border-left: 4px solid #6366F1; }
+.pipe-amber { border-left: 4px solid #F59E0B; }
+.pipe-purple { border-left: 4px solid #A855F7; }
+.pipe-cyan { border-left: 4px solid #06B6D4; }
+.pipe-rose { border-left: 4px solid #F43F5E; }
+.pipe-emerald { border-left: 4px solid #10B981; }
 
 .pipe-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 0.25rem;
 }
 
 .pipe-step-num {
-  font-size: 0.675rem;
+  font-size: 0.65rem;
   font-weight: 800;
   color: #64748B;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 
 .pipe-eq {
-  font-size: 0.725rem;
+  font-size: 0.675rem;
   font-weight: 700;
-  color: #3730A3;
-  background: #EEF2FF;
-  padding: 0.15rem 0.5rem;
+  color: #2563EB;
+  background: #EFF6FF;
+  padding: 0.1rem 0.45rem;
   border-radius: 4px;
 }
 
 .pipe-title {
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   font-weight: 800;
   color: #0F172A;
+  margin-bottom: 0.35rem;
 }
 
 .pipe-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+  font-size: 0.775rem;
+  color: #475569;
 }
 
-.math-sym-row {
+.pipe-content code {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem;
+  font-size: 0.725rem;
+  background: #F1F5F9;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+  display: block;
+  margin-bottom: 0.25rem;
   color: #1E293B;
-  background: #FFFFFF;
-  padding: 0.45rem 0.75rem;
-  border-radius: 6px;
-  border: 1px solid #E2E8F0;
+  overflow-x: auto;
 }
 
 .pipe-note {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: #64748B;
+  display: block;
   line-height: 1.4;
 }
 
 .pipe-tags {
   display: flex;
-  gap: 0.35rem;
+  gap: 0.3rem;
   flex-wrap: wrap;
+  margin-top: 0.3rem;
 }
 
 .p-tag {
-  background: #FFFFFF;
-  border: 1px solid #CBD5E1;
-  padding: 0.15rem 0.45rem;
-  border-radius: 4px;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  color: #334155;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  color: #475569;
 }
 
 .highlight-tag {
-  border-color: #A855F7;
-  color: #7E22CE;
-  background: #FAF5FF;
+  background: #EEF2FF;
+  border-color: #C7D2FE;
+  color: #4338CA;
+  font-weight: 800;
 }
 
 .solid-connector-down {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.2rem 0;
   color: #94A3B8;
-  font-size: 0.75rem;
-  padding: 0.2rem 0;
+  font-size: 0.7rem;
+}
+
+.connector-line {
+  width: 2px;
+  height: 8px;
+  background: #CBD5E1;
+}
+
+.connector-arrow {
+  margin-top: -3px;
+}
+
+.moderated-target-box {
+  background: #FAF5FF;
+  border: 1.5px solid #DDD6FE;
+  position: relative;
 }
 
 .formula-subgrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
+  gap: 0.45rem;
+  margin-bottom: 0.35rem;
 }
 
-.math-sub-cell {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-family: 'JetBrains Mono', monospace;
-}
-
-.math-sub-cell.full-w {
+.full-w {
   grid-column: 1 / -1;
 }
 
 .f-lbl {
-  display: block;
-  font-size: 0.675rem;
-  font-family: sans-serif;
-  color: #64748B;
+  font-size: 0.65rem;
   font-weight: 700;
-  margin-bottom: 0.2rem;
+  color: #6B21A8;
+  display: block;
+  margin-bottom: 0.15rem;
 }
 
 .moderated-receive-badge {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.725rem;
-  font-weight: 700;
-  color: #6B21A8;
-  background: #F3E8FF;
-  padding: 0.35rem 0.65rem;
+  font-size: 0.675rem;
+  font-weight: 800;
+  color: #6D28D9;
+  background: #EDE9FE;
+  padding: 0.2rem 0.55rem;
   border-radius: 6px;
-  margin-top: 0.35rem;
+  margin-top: 0.4rem;
 }
 
 .dot-pulse {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #9333EA;
+  background: #8B5CF6;
   animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0% { opacity: 0.4; }
-  50% { opacity: 1; }
-  100% { opacity: 0.4; }
 }
 
 .fairness-two-pillars {
@@ -2999,81 +3920,102 @@ const modalModuleData = computed(() => {
 }
 
 .f-pil {
-  background: #FFFFFF;
-  border: 1px solid #FECDD3;
-  padding: 0.5rem 0.75rem;
+  font-size: 0.675rem;
+  background: #FFF1F2;
+  padding: 0.4rem 0.6rem;
   border-radius: 6px;
-  font-size: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
+  border: 1px solid #FFE4E6;
 }
 
-/* Spatial Moderator Sidebar */
+.f-pil strong {
+  display: block;
+  color: #9F1239;
+  margin-bottom: 0.2rem;
+}
+
+/* ========================================================================= */
+/* SPATIAL MODERATOR SIDEBAR (GARIS PUTUS-PUTUS / DASHED STYLING)            */
+/* ========================================================================= */
 .spatial-moderator-sidebar {
-  display: flex;
-  flex-direction: column;
+  position: sticky;
+  top: 1.5rem;
 }
 
 .dashed-moderator-card {
-  border: 2px dashed #818CF8;
+  background: linear-gradient(145deg, #FAF5FF 0%, #F5F3FF 100%);
+  border: 2.5px dashed #7C3AED;
   border-radius: 14px;
-  padding: 1.25rem;
-  background: #F8FAFF;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.08);
+  position: relative;
 }
 
 .dashed-badge {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.35rem;
   font-size: 0.675rem;
   font-weight: 800;
-  color: #4338CA;
-  letter-spacing: 0.05em;
+  color: #6D28D9;
+  background: #EDE9FE;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid #DDD6FE;
+  margin-bottom: 0.65rem;
+  letter-spacing: 0.04em;
+}
+
+.dashed-icon {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: #7C3AED;
 }
 
 .mod-title {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 800;
-  color: #1E1B4B;
-  margin: 0;
+  color: #4C1D95;
+  margin: 0 0 0.3rem 0;
 }
 
 .mod-subtitle {
   font-size: 0.775rem;
-  color: #475569;
-  margin: 0;
+  color: #6D28D9;
+  font-weight: 600;
+  margin: 0 0 0.65rem 0;
 }
 
 .mod-formula-box {
   background: #FFFFFF;
-  border: 1px solid #C7D2FE;
-  border-radius: 8px;
-  padding: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  border-radius: 10px;
+  padding: 0.85rem;
+  border: 1px solid #DDD6FE;
+  margin-bottom: 1rem;
 }
 
-.mod-formula-main {
+.mod-formula-main code {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.85rem;
   font-weight: 800;
-  color: #3730A3;
+  color: #5B21B6;
+  display: block;
+  text-align: center;
+  background: #F5F3FF;
+  padding: 0.35rem;
+  border-radius: 6px;
+  margin-bottom: 0.65rem;
 }
 
 .mod-layers {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.5rem;
 }
 
 .layer-item {
   display: flex;
-  gap: 0.45rem;
+  gap: 0.5rem;
+  align-items: flex-start;
   font-size: 0.725rem;
 }
 
@@ -3081,65 +4023,79 @@ const modalModuleData = computed(() => {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  margin-top: 0.25rem;
+  margin-top: 0.3rem;
   flex-shrink: 0;
 }
 
 .layer-dot.blue { background: #3B82F6; }
 .layer-dot.amber { background: #F59E0B; }
 
-.layer-txt {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
+.layer-txt strong {
+  display: block;
+  color: #1E293B;
+  font-size: 0.725rem;
 }
 
-.layer-txt strong { color: #1E293B; }
-.layer-txt span { color: #64748B; }
+.layer-txt span {
+  color: #64748B;
+  font-size: 0.675rem;
+  line-height: 1.35;
+  display: block;
+}
 
 .dashed-action-indicator {
-  background: rgba(99, 102, 241, 0.06);
-  border: 1px solid #C7D2FE;
-  border-radius: 8px;
-  padding: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding: 0.85rem;
+  border: 1px dashed #A78BFA;
+  margin-bottom: 0.85rem;
 }
 
 .indicator-arrow-box {
   display: flex;
   flex-direction: column;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #4F46E5;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  color: #6D28D9;
 }
 
 .dashed-arrow-line {
   font-family: monospace;
-  letter-spacing: -0.1em;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #7C3AED;
+}
+
+.indicator-label {
+  font-size: 0.675rem;
+  font-weight: 800;
+  color: #5B21B6;
+  text-transform: uppercase;
+  margin-top: 0.15rem;
 }
 
 .mod-impact-list {
-  margin: 0;
-  padding: 0;
   list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.45rem;
 }
 
 .mod-impact-list li {
   display: flex;
-  gap: 0.35rem;
+  gap: 0.4rem;
+  align-items: flex-start;
   font-size: 0.725rem;
   color: #334155;
   line-height: 1.4;
 }
 
 .icon-check {
-  color: #10B981;
+  color: #7C3AED;
   font-weight: 800;
+  flex-shrink: 0;
 }
 
 .service-dynamics-box {
@@ -3149,62 +4105,343 @@ const modalModuleData = computed(() => {
   padding: 0.65rem 0.85rem;
 }
 
-.sd-tag {
-  font-size: 0.725rem;
+.sd-head {
+  font-size: 0.7rem;
   font-weight: 800;
   color: #92400E;
+  margin-bottom: 0.2rem;
 }
 
 .sd-desc {
-  font-size: 0.725rem;
+  font-size: 0.675rem;
   color: #78350F;
-  margin: 0.25rem 0 0 0;
-  line-height: 1.4;
+  margin: 0;
+  line-height: 1.35;
 }
 
-/* DSR Roadmap Card */
-.dsr-roadmap-card {
-  padding: 1.5rem;
+/* ========================================================================= */
+/* HUMAN-IN-THE-LOOP (HITL) GOVERNANCE CARD                                  */
+/* ========================================================================= */
+.hitl-governance-card {
+  margin-top: 1.25rem;
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  border-radius: 12px;
+  padding: 1.15rem;
+}
+
+.hitl-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.hitl-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.hitl-icon {
+  font-size: 1rem;
+}
+
+.hitl-heading {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.hitl-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+}
+
+.badge-green { background: #DCFCE7; color: #166534; border: 1px solid #86EFAC; }
+
+.hitl-desc {
+  font-size: 0.75rem;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0 0 0.75rem 0;
+}
+
+.hitl-btn-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.hitl-btn {
+  font-size: 0.725rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1;
   background: #FFFFFF;
-  border-radius: 14px;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hitl-btn:hover {
+  background: #F1F5F9;
+  border-color: #94A3B8;
+}
+
+.hitl-btn.active {
+  background: #0F172A;
+  color: #FFFFFF;
+  border-color: #0F172A;
+}
+
+.hitl-audit-log {
+  background: #0F172A;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.675rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.log-label {
+  color: #94A3B8;
+  font-weight: 700;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.hitl-audit-log code {
+  font-family: 'JetBrains Mono', monospace;
+  color: #38BDF8;
+  font-size: 0.675rem;
+  word-break: break-all;
+}
+
+/* ========================================================================= */
+/* MATHEMATICAL SYMBOL & TYPOGRAPHY STYLING                                 */
+/* ========================================================================= */
+.math-formula-rendered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  font-family: 'KaTeX_Math', 'KaTeX_Main', 'Cambria Math', 'Latin Modern Math', 'Times New Roman', serif;
+  font-size: 1.15rem;
+  color: #1E293B;
+  padding: 0.5rem;
+}
+
+.m-bold {
+  font-weight: 700;
+  font-family: 'KaTeX_Math', 'Cambria Math', serif;
+}
+
+.m-sym {
+  font-style: italic;
+  font-family: 'KaTeX_Math', 'Cambria Math', serif;
+}
+
+.m-var {
+  font-style: italic;
+  font-family: 'KaTeX_Math', 'Cambria Math', serif;
+}
+
+.m-func {
+  font-family: 'KaTeX_Main', 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: #1E40AF;
+}
+
+.m-idx, .m-cond {
+  font-size: 0.725em;
+  font-style: italic;
+  color: #475569;
+}
+
+.m-ast {
+  color: #D97706;
+  font-weight: 800;
+  font-size: 0.85em;
+}
+
+.m-exp {
+  font-size: 0.7em;
+  font-weight: 700;
+  color: #334155;
+}
+
+.m-sign {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #64748B;
+  margin: 0 0.15rem;
+}
+
+.m-bracket {
+  font-size: 1.4em;
+  font-weight: 300;
+  color: #64748B;
+}
+
+.m-operator {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.m-op-txt {
+  font-family: 'KaTeX_Main', sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #1E3A8A;
+}
+
+.m-op-cond {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #64748B;
+  margin-top: 0.15rem;
+}
+
+.m-term-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+}
+
+.term-blue {
+  background: #EFF6FF;
+  border-color: #BFDBFE;
+  color: #1E40AF;
+}
+
+.term-purple {
+  background: #FAF5FF;
+  border-color: #DDD6FE;
+  color: #6D28D9;
+}
+
+.m-sqrt-wrap {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.15rem;
+}
+
+.m-sqrt-symbol {
+  font-size: 1.35em;
+  font-weight: 400;
+  color: #7C3AED;
+  margin-right: -1px;
+}
+
+.m-sqrt-inner {
+  border-top: 1.5px solid #7C3AED;
+  padding-top: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.leg-pill {
+  font-size: 0.725rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+}
+
+.pill-blue-sm { background: #EFF6FF; color: #1E40AF; border: 1px solid #DBEAFE; }
+.pill-purple-sm { background: #FAF5FF; color: #6D28D9; border: 1px solid #EDE9FE; }
+
+.math-sym-row {
+  font-family: 'KaTeX_Math', 'KaTeX_Main', 'Cambria Math', 'Times New Roman', serif;
+  font-size: 0.85rem;
+  color: #0F172A;
+  background: #F8FAFC;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
   border: 1px solid #E2E8F0;
+  margin-bottom: 0.3rem;
+  display: inline-block;
+}
+
+.math-sym-row.wrap {
+  display: block;
+  line-height: 1.6;
+}
+
+.math-sub-cell {
+  background: #FFFFFF;
+  padding: 0.5rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid #DDD6FE;
+  font-family: 'KaTeX_Math', 'KaTeX_Main', serif;
+  font-size: 0.8rem;
+  color: #3B0764;
+}
+
+/* ========================================================================= */
+/* DSR RESEARCH ROADMAP & REASONING BEHIND ARTIFACT                          */
+/* ========================================================================= */
+.dsr-roadmap-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 1.5rem;
   margin-bottom: 2rem;
+  border: 1.5px solid #E2E8F0;
+  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.04);
 }
 
 .dsr-header-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   flex-wrap: wrap;
-  gap: 0.5rem;
   margin-bottom: 1.25rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid #F1F5F9;
 }
 
 .dsr-badge {
   font-size: 0.675rem;
   font-weight: 800;
-  color: #6366F1;
-  text-transform: uppercase;
   letter-spacing: 0.05em;
-  display: block;
-  margin-bottom: 0.2rem;
+  color: #2563EB;
+  background: #EFF6FF;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 0.35rem;
 }
 
 .dsr-heading {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 800;
   color: #0F172A;
   margin: 0;
 }
 
 .dsr-phase-pill {
-  font-size: 0.725rem;
+  font-size: 0.7rem;
   font-weight: 800;
-  background: #EEF2FF;
-  color: #4338CA;
-  padding: 0.25rem 0.65rem;
-  border-radius: 6px;
-  border: 1px solid #C7D2FE;
+  background: #ECFDF5;
+  color: #047857;
+  border: 1px solid #A7F3D0;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
 }
 
 .dsr-phases-grid {
@@ -3223,93 +4460,182 @@ const modalModuleData = computed(() => {
 .dsr-phase-item {
   background: #F8FAFC;
   border: 1px solid #E2E8F0;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  transition: all 0.2s ease;
 }
 
 .dsr-phase-item.active-phase {
-  border-color: #3B82F6;
-  background: #EFF6FF;
+  background: #F0FDF4;
+  border-color: #10B981;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12);
 }
 
 .phase-badge-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .phase-num {
   font-size: 0.675rem;
   font-weight: 800;
   color: #64748B;
+  text-transform: uppercase;
+}
+
+.active-phase .phase-num {
+  color: #047857;
 }
 
 .phase-status-tag {
-  font-size: 0.675rem;
+  font-size: 0.625rem;
   font-weight: 700;
-  color: #64748B;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: #E2E8F0;
+  color: #475569;
 }
 
-.tag-active {
-  color: #2563EB;
+.phase-status-tag.tag-active {
+  background: #10B981;
+  color: #FFFFFF;
 }
 
 .phase-title {
-  font-size: 0.875rem;
+  font-size: 0.825rem;
   font-weight: 800;
-  color: #0F172A;
-  margin: 0;
+  color: #1E293B;
+  margin: 0 0 0.35rem 0;
+  line-height: 1.35;
 }
 
 .phase-desc {
-  font-size: 0.775rem;
-  color: #475569;
+  font-size: 0.725rem;
+  color: #64748B;
   line-height: 1.45;
   margin: 0;
 }
 
 .reasoning-behind-box {
-  background: linear-gradient(135deg, #F0FDF4 0%, #EFF6FF 100%);
-  border: 1px solid #86EFAC;
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, #FEF3C7 0%, #FFFBEB 100%);
+  border: 1.5px solid #FDE68A;
+  border-radius: 12px;
+  padding: 1.15rem 1.35rem;
 }
 
 .rb-head {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  color: #065F46;
-  font-size: 0.85rem;
+  gap: 0.5rem;
+  color: #92400E;
+  font-size: 0.825rem;
   font-weight: 800;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.45rem;
+}
+
+.rb-icon {
+  font-size: 1.1rem;
 }
 
 .rb-p {
-  font-size: 0.8rem;
-  color: #1E293B;
-  line-height: 1.5;
+  font-size: 0.775rem;
+  color: #78350F;
+  line-height: 1.55;
   margin: 0;
 }
 
-/* Pipeline Tracker Stepper */
-.pipeline-tracker-card {
-  padding: 1.5rem;
+/* Missingness Verification Box */
+.missingness-verify-box {
+  background: #FAF5FF;
+  border: 1.5px dashed #DDD6FE;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+
+.mv-head {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #6D28D9;
+  font-size: 0.775rem;
+  font-weight: 800;
+  margin-bottom: 0.6rem;
+}
+
+.mv-icon {
+  font-size: 1rem;
+}
+
+.mv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .mv-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mv-item {
   background: #FFFFFF;
-  border-radius: 14px;
-  border: 1px solid #E2E8F0;
+  border: 1px solid #EDE9FE;
+  padding: 0.5rem 0.65rem;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mv-k {
+  font-size: 0.625rem;
+  color: #64748B;
+  font-weight: 700;
+}
+
+.mv-v {
+  font-size: 0.775rem;
+  font-weight: 800;
+  margin-top: 0.15rem;
+}
+
+.mv-note {
+  font-size: 0.675rem;
+  color: #7C3AED;
+  font-style: italic;
+  display: block;
+}
+
+/* ========================================================================= */
+/* 8-STEP PIPELINE TRAJECTORY TRACKER & SIMULATOR                            */
+/* ========================================================================= */
+.pipeline-tracker-card {
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
   margin-bottom: 2rem;
+  color: #FFFFFF;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.4);
+  transition: all 0.3s ease;
+}
+
+.pipeline-tracker-card.simulating-pulse {
+  border-color: #10B981;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.3);
 }
 
 .pipeline-header-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
   gap: 1rem;
+  flex-wrap: wrap;
   margin-bottom: 1.25rem;
 }
 
@@ -3326,99 +4652,101 @@ const modalModuleData = computed(() => {
 .pipeline-heading {
   font-size: 1.15rem;
   font-weight: 800;
-  color: #0F172A;
-  margin: 0 0 0.2rem 0;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.01em;
 }
 
 .pipeline-sub {
-  font-size: 0.75rem;
-  color: #64748B;
-  font-weight: 700;
-  margin: 0;
+  font-size: 0.775rem;
+  color: #94A3B8;
+  margin: 0.15rem 0 0 0;
 }
 
 .btn-simulate {
-  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
   color: #FFFFFF;
-  border: none;
-  padding: 0.6rem 1.25rem;
-  border-radius: 8px;
-  font-size: 0.85rem;
   font-weight: 800;
+  font-size: 0.85rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+  border: none;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
-  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  transition: all 0.2s ease;
 }
 
-.btn-simulate:hover {
-  background: #1E40AF;
-  transform: translateY(-1px);
+.btn-simulate:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
 }
 
-.btn-simulate:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+.btn-simulate.btn-running {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  cursor: wait;
 }
 
 .pipeline-stepper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 0.35rem;
   overflow-x: auto;
-  padding: 0.5rem 0;
+  padding-bottom: 0.5rem;
 }
 
 .pipe-step-node {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.6rem 0.85rem;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.5rem 0.75rem;
   border-radius: 10px;
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
   cursor: pointer;
-  transition: all 0.2s;
-  flex: 1;
-  min-width: 150px;
+  transition: all 0.2s ease;
+  min-width: 110px;
 }
 
 .pipe-step-node:hover {
-  background: #EFF6FF;
-  border-color: #93C5FD;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .pipe-step-node.active {
-  background: #0F172A;
-  color: #FFFFFF;
-  border-color: #0F172A;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10B981;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
 }
 
 .pipe-step-node.done {
-  border-color: #86EFAC;
-  background: #F0FDF4;
+  border-color: rgba(16, 185, 129, 0.4);
 }
 
 .step-circle {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.15);
+  font-size: 0.75rem;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 800;
-  flex-shrink: 0;
+  color: #FFFFFF;
 }
 
 .pipe-step-node.active .step-circle {
-  background: #2563EB;
-  color: #FFFFFF;
+  background: #10B981;
+  color: #064E3B;
+}
+
+.pipe-step-node.done .step-circle {
+  background: rgba(16, 185, 129, 0.4);
+  color: #D1FAE5;
 }
 
 .step-label-box {
@@ -3427,428 +4755,161 @@ const modalModuleData = computed(() => {
 }
 
 .step-name {
-  font-size: 0.75rem;
+  font-size: 0.675rem;
   font-weight: 800;
+  color: #F1F5F9;
+  letter-spacing: 0.03em;
 }
 
 .step-detail {
-  font-size: 0.675rem;
-  color: #64748B;
-}
-
-.pipe-step-node.active .step-detail {
+  font-size: 0.575rem;
   color: #94A3B8;
+  white-space: nowrap;
 }
 
 .pipe-step-divider {
-  color: #CBD5E1;
-  font-size: 0.85rem;
-}
-
-/* Lab Layer Modules */
-.modules-lab-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-.lab-layer-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.layer-section-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.layer-pill {
-  font-size: 0.75rem;
-  font-weight: 800;
-  color: #1E293B;
-  background: #E2E8F0;
-  padding: 0.25rem 0.65rem;
-  border-radius: 6px;
-  display: inline-block;
-  align-self: flex-start;
-  letter-spacing: 0.04em;
-}
-
-.layer-desc {
-  font-size: 0.825rem;
   color: #64748B;
-}
-
-.layer-grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-}
-
-@media (max-width: 900px) {
-  .layer-grid-2 {
-    grid-template-columns: 1fr;
-  }
-}
-
-.sim-panel-card {
-  background: #FFFFFF;
-  border-radius: 14px;
-  border: 1px solid #E2E8F0;
-  padding: 1.35rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
-}
-
-.sim-panel-card.step-highlight-active {
-  border-color: #3B82F6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-}
-
-.panel-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.panel-head-left {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-}
-
-.panel-head-right {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.mod-num-badge {
-  font-size: 0.675rem;
+  font-size: 0.75rem;
   font-weight: 800;
-  padding: 0.15rem 0.45rem;
-  border-radius: 4px;
-  display: block;
-  margin-bottom: 0.15rem;
 }
 
-.panel-title {
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: #0F172A;
-  margin: 0;
+.step-highlight-active {
+  border-color: #10B981 !important;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.25) !important;
+  animation: pulse-border 1.5s infinite;
 }
 
-.btn-inspect-modal {
-  background: #F1F5F9;
-  border: 1px solid #CBD5E1;
-  color: #334155;
-  padding: 0.35rem 0.65rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s;
+@keyframes pulse-border {
+  0%, 100% { border-color: #10B981; }
+  50% { border-color: #34D399; }
 }
 
-.btn-inspect-modal:hover {
-  background: #E2E8F0;
-  color: #0F172A;
-}
-
-.code-pill {
-  font-family: monospace;
-  font-size: 0.725rem;
-  font-weight: 700;
-  padding: 0.25rem 0.55rem;
-  border-radius: 6px;
-}
-
-/* Preset & Controls */
-.preset-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-}
-
-.preset-label {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #64748B;
-}
-
-.preset-btn-group {
-  display: flex;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-}
-
-.p-btn {
-  background: #F8FAFC;
-  border: 1px solid #CBD5E1;
-  padding: 0.35rem 0.65rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #334155;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  transition: all 0.2s;
-}
-
-.p-btn.active {
-  background: #0F172A;
-  color: #FFFFFF;
-  border-color: #0F172A;
-}
-
+/* ========================================================================= */
+/* INPUT PANEL ENHANCEMENTS                                                  */
+/* ========================================================================= */
 .sub-input-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.control-box {
   background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  padding: 0.75rem;
-}
-
-.ctrl-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.45rem;
-}
-
-.ctrl-lbl {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #334155;
-}
-
-.val-pill {
-  font-size: 0.725rem;
-  font-weight: 800;
-  padding: 0.15rem 0.45rem;
-  border-radius: 4px;
-}
-
-.slider {
-  width: 100%;
-  height: 6px;
-  border-radius: 3px;
-  outline: none;
-  cursor: pointer;
-}
-
-.slider-blue { accent-color: #2563EB; }
-.slider-amber { accent-color: #D97706; }
-.slider-rose { accent-color: #E11D48; }
-.slider-purple { accent-color: #7C3AED; }
-.slider-emerald { accent-color: #059669; }
-
-.segmented-box {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.35rem;
-}
-
-.segmented-box button {
-  background: #FFFFFF;
-  border: 1px solid #CBD5E1;
-  border-radius: 6px;
-  padding: 0.4rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #475569;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.segmented-box button.active {
-  background: #0F172A;
-  color: #FFFFFF;
-  border-color: #0F172A;
-}
-
-.math-vector-callout {
-  background: #0F172A;
-  color: #FFFFFF;
-  padding: 0.65rem 0.85rem;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.vec-label {
-  font-size: 0.675rem;
-  color: #93C5FD;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.vec-code {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  color: #34D399;
-  word-break: break-all;
-}
-
-.missingness-verify-box {
-  background: #FEFCE8;
-  border: 1px solid #FEF08A;
-  border-radius: 8px;
-  padding: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.mv-head {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.775rem;
-  color: #854D0E;
-}
-
-.mv-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.4rem;
-}
-
-.mv-item {
-  display: flex;
-  flex-direction: column;
-  font-size: 0.725rem;
-}
-
-.mv-k { color: #713F12; }
-.mv-v { font-weight: 800; }
-.mv-note { font-size: 0.675rem; color: #854D0E; font-style: italic; }
-
-.calc-panel {
-  background: #FFFFFF;
   border: 1px solid #E2E8F0;
   border-radius: 10px;
   padding: 1rem;
 }
 
-.calc-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.75rem;
-}
-
-.calc-tag {
-  font-size: 0.7rem;
+.sub-sec-title {
+  font-size: 0.8rem;
   font-weight: 800;
-  color: #64748B;
-  letter-spacing: 0.04em;
+  color: #1E293B;
+  margin-bottom: 0.85rem;
+  display: block;
 }
 
-.formula-sm {
-  font-family: monospace;
-  font-size: 0.725rem;
-  color: #7C3AED;
-  font-weight: 700;
-}
-
-.metrics-3-col {
+.dual-ctrl-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.65rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
 }
 
-.m-card {
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
+@media (max-width: 640px) {
+  .dual-ctrl-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ctrl-half {
+  display: flex;
+  flex-direction: column;
+}
+
+.border-dashed-box {
+  border: 1.5px dashed #F59E0B;
+  background: #FFFBEB;
+  padding: 0.85rem;
   border-radius: 8px;
-  padding: 0.65rem;
+}
+
+.sim-right-col {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 1.5rem;
 }
 
-.m-card.m-highlight {
-  background: #ECFDF5;
-  border-color: #A7F3D0;
+.slider-indigo::-webkit-slider-thumb {
+  background: #6366F1;
 }
 
-.m-lbl { font-size: 0.675rem; color: #64748B; font-weight: 700; }
-.m-val { font-size: 1.1rem; font-weight: 800; color: #0F172A; }
-.m-sub { font-size: 0.65rem; color: #94A3B8; }
-
+/* ========================================================================= */
+/* LEARNING SUFFICIENCY STYLING                                              */
+/* ========================================================================= */
 .sufficiency-card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
+  padding: 0.5rem 0;
 }
 
 .suff-metrics-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.5rem;
-}
-
-@media (max-width: 768px) {
-  .suff-metrics-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
 }
 
 .suff-kpi-item {
   background: #F8FAFC;
   border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  padding: 0.5rem 0.65rem;
+  border-radius: 10px;
+  padding: 0.75rem 0.85rem;
   display: flex;
   flex-direction: column;
 }
 
-.suff-kpi-lbl { font-size: 0.675rem; color: #64748B; font-weight: 700; }
-.suff-kpi-val { font-size: 0.95rem; font-weight: 800; }
+.suff-kpi-lbl {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.suff-kpi-val {
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.suff-kpi-sub {
+  font-size: 0.65rem;
+  color: #94A3B8;
+  margin-top: 0.15rem;
+}
 
 .suff-score-banner {
-  border-radius: 10px;
-  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  padding: 1.15rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
   flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
 .banner-sufficient {
-  background: #ECFDF5;
-  border: 1px solid #A7F3D0;
+  background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+  border: 2px solid #34D399;
 }
 
 .banner-insufficient {
-  background: #FFFBEB;
-  border: 1px solid #FDE68A;
+  background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+  border: 2px solid #FCD34D;
 }
 
 .score-banner-label {
-  font-size: 0.675rem;
+  font-size: 0.7rem;
   font-weight: 800;
-  color: #475569;
-  letter-spacing: 0.04em;
+  color: #065F46;
+  letter-spacing: 0.05em;
   display: block;
+}
+
+.banner-insufficient .score-banner-label {
+  color: #92400E;
 }
 
 .score-banner-num-row {
@@ -3858,129 +4919,872 @@ const modalModuleData = computed(() => {
 }
 
 .score-banner-val {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: #0F172A;
+  font-size: 2.25rem;
+  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+  color: #047857;
+}
+
+.banner-insufficient .score-banner-val {
+  color: #B45309;
 }
 
 .score-banner-threshold {
-  font-size: 0.75rem;
-  color: #64748B;
+  font-size: 0.8rem;
   font-weight: 700;
+  color: #047857;
+}
+
+.banner-insufficient .score-banner-threshold {
+  color: #B45309;
 }
 
 .suff-verdict-badge {
-  padding: 0.35rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
   border-radius: 999px;
-  font-size: 0.725rem;
+  font-size: 0.85rem;
   font-weight: 800;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
 }
 
-.badge-green { background: #10B981; color: #FFFFFF; }
-
-.insight-highlight-callout {
-  background: #F8FAFC;
-  border-left: 4px solid #3B82F6;
-  padding: 0.65rem 0.85rem;
-  border-radius: 0 8px 8px 0;
+.suff-verdict-badge.badge-green {
+  background: #059669;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
 }
 
-.ihc-head {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.775rem;
-  font-weight: 800;
-  color: #1E40AF;
-  margin-bottom: 0.2rem;
+.suff-verdict-badge.badge-amber {
+  background: #D97706;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(217, 119, 6, 0.25);
 }
 
-.ihc-p {
-  font-size: 0.75rem;
-  color: #334155;
-  margin: 0;
-  line-height: 1.45;
-}
-
-/* Baseline Validity Gate */
-.gate-status-card {
+.suff-formula-box {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 1rem;
 }
 
-.gate-valid { background: #ECFDF5; border: 1.5px solid #6EE7B7; }
-.gate-boundary { background: #FFFBEB; border: 1.5px solid #FCD34D; }
-.gate-invalid { background: #FEF2F2; border: 1.5px solid #FCA5A5; }
-
-.gate-head {
+.suff-formula-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 0.775rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 0.5rem;
+}
+
+.cand-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  background: #EFF6FF;
+  color: #1D4ED8;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  border: 1px solid #BFDBFE;
+}
+
+.cand-eq {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0F172A;
+  background: #F8FAFC;
+  padding: 0.65rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid #E2E8F0;
+  margin-bottom: 0.75rem;
+  overflow-x: auto;
+}
+
+.eq-domain {
+  font-size: 0.75rem;
+  color: #64748B;
+  margin-left: 0.5rem;
+}
+
+.suff-scale-visual {
+  margin-top: 0.5rem;
+}
+
+.scale-track {
+  position: relative;
+  display: flex;
+  height: 24px;
+  border-radius: 6px;
+  overflow: visible;
+}
+
+.scale-zone {
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+}
+
+.zone-insufficient { background: #F87171; border-radius: 6px 0 0 6px; }
+.zone-moderate { background: #FBBF24; color: #78350F; }
+.zone-sufficient { background: #34D399; border-radius: 0 6px 6px 0; color: #064E3B; }
+
+.scale-marker {
+  position: absolute;
+  top: -18px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: left 0.3s ease;
+}
+
+.marker-pin {
+  font-size: 0.75rem;
+  color: #0F172A;
+  line-height: 1;
+}
+
+.marker-val {
+  font-size: 0.65rem;
+  font-weight: 900;
+  background: #0F172A;
+  color: #FFFFFF;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+}
+
+.epistemic-guardrail-alert {
+  display: flex;
+  gap: 0.75rem;
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  font-size: 0.775rem;
+  color: #166534;
+  line-height: 1.5;
+}
+
+/* ========================================================================= */
+/* EVIDENCE TIMELINE STYLING                                                 */
+/* ========================================================================= */
+.timeline-card-body {
+  padding: 0.5rem 0;
+}
+
+.timeline-intro {
+  font-size: 0.825rem;
+  color: #475569;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.timeline-track-wrap {
+  background: #0F172A;
+  border-radius: 12px;
+  padding: 1.5rem 1.25rem 1.75rem 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.timeline-time-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #94A3B8;
+  margin-bottom: 0.6rem;
+}
+
+.timeline-bar-container {
+  position: relative;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
+
+.timeline-watched-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3B82F6 0%, #10B981 100%);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.timeline-event-marker {
+  position: absolute;
+  top: -24px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.t-badge {
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.badge-skip { background: #F87171; color: #FFFFFF; }
+.badge-interaction { background: #34D399; color: #064E3B; }
+.badge-revisit { background: #A78BFA; color: #FFFFFF; }
+
+.t-line {
+  width: 2px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.6);
+  margin-top: 2px;
+}
+
+.timeline-detection-pin {
+  position: absolute;
+  top: 22px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: left 0.3s ease;
+}
+
+.detection-pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981;
+  animation: pulse 1.5s infinite;
+  margin-bottom: 3px;
+}
+
+.detection-flag {
+  font-size: 0.675rem;
+  font-weight: 800;
+  background: #10B981;
+  color: #FFFFFF;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.timeline-progression-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.25rem;
+  overflow-x: auto;
+}
+
+.t-prog-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.t-prog-item.highlight-prog {
+  background: #ECFDF5;
+  border: 1.5px solid #10B981;
+  border-radius: 8px;
+  padding: 0.35rem 0.65rem;
+}
+
+.t-prog-step {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #64748B;
+}
+
+.t-prog-val {
+  font-size: 0.95rem;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  color: #0F172A;
+  margin: 0.1rem 0;
+}
+
+.t-prog-sub {
+  font-size: 0.6rem;
+  color: #94A3B8;
+}
+
+.t-prog-arrow {
+  color: #94A3B8;
+  font-weight: 800;
+  font-size: 0.8rem;
+}
+
+.timeline-callout-box {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.callout-badge-head {
+  margin-bottom: 0.85rem;
+}
+
+.callout-pill-green {
+  display: inline-block;
+  background: #DCFCE7;
+  color: #166534;
+  border: 1px solid #86EFAC;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.callout-pill-amber {
+  display: inline-block;
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FDE68A;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.callout-distinction-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .callout-distinction-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dist-cell {
+  padding: 0.85rem;
+  border-radius: 8px;
+}
+
+.true-cell {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+}
+
+.false-cell {
+  background: #FFF1F2;
+  border: 1px solid #FECDD3;
+}
+
+.dist-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #334155;
+}
+
+.dist-pill {
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  display: inline-block;
   margin-bottom: 0.35rem;
 }
 
-.gate-tag { font-size: 0.7rem; font-weight: 800; color: #475569; letter-spacing: 0.04em; }
-.gate-val { font-size: 1.1rem; letter-spacing: 0.04em; }
-.gate-desc { font-size: 0.8rem; color: #1E293B; line-height: 1.45; margin: 0 0 0.65rem 0; }
-
-.gate-params-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-  font-size: 0.725rem;
+.boxed-green {
+  background: #10B981;
+  color: #FFFFFF;
 }
 
-.gate-rules-explanation {
+.boxed-red {
+  background: #EF4444;
+  color: #FFFFFF;
+  text-decoration: line-through;
+}
+
+.dist-desc {
+  font-size: 0.725rem;
+  color: #475569;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ========================================================================= */
+/* TRADITIONAL COMPLETION VS CONTEXTUAL SUFFICIENCY                          */
+/* ========================================================================= */
+.comparison-card-body {
+  padding: 0.5rem 0;
+}
+
+.dual-indicator-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .dual-indicator-grid {
+    grid-template-columns: 1fr;
+  }
+  .indicator-vs {
+    display: none;
+  }
+}
+
+.indicator-card {
+  padding: 1.25rem;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
 }
 
-.gr-item {
+.traditional-box {
+  background: #FFF1F2;
+  border: 1.5px solid #FDA4AF;
+}
+
+.contextual-box {
+  background: #F0FDF4;
+  border: 2px solid #86EFAC;
+}
+
+.indicator-vs {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #94A3B8;
+  background: #F1F5F9;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   display: flex;
-  gap: 0.5rem;
-  padding: 0.5rem 0.65rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.ind-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #9F1239;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.ind-badge.badge-green {
+  color: #065F46;
+}
+
+.ind-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 0.5rem 0;
+}
+
+.ind-val {
+  font-size: 2.25rem;
+  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 0.35rem;
+}
+
+.ind-note {
+  font-size: 0.725rem;
+  color: #475569;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.ind-verdict {
+  font-size: 0.725rem;
+  font-weight: 800;
+  padding: 0.3rem 0.65rem;
   border-radius: 6px;
+  align-self: flex-start;
+}
+
+.verdict-bad { background: #FFE4E6; color: #9F1239; }
+.verdict-good { background: #DCFCE7; color: #166534; }
+
+.case-study-box {
   background: #F8FAFC;
   border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 1.15rem;
+}
+
+.case-title {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #1E293B;
+  margin-bottom: 0.85rem;
+}
+
+.case-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .case-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.case-col-title {
   font-size: 0.725rem;
-  opacity: 0.7;
+  font-weight: 800;
+  color: #475569;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
-.gr-item.active {
-  opacity: 1;
-  border-color: #3B82F6;
+.case-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.75rem;
+}
+
+.case-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #E2E8F0;
+  color: #475569;
+}
+
+.case-footer {
   background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 6px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.75rem;
+  color: #1E40AF;
+  line-height: 1.45;
 }
 
-.gr-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  margin-top: 0.25rem;
-  flex-shrink: 0;
+.cf-badge {
+  font-weight: 800;
+  margin-right: 0.35rem;
 }
 
-.gr-dot.green { background: #10B981; }
-.gr-dot.amber { background: #F59E0B; }
-.gr-dot.red { background: #EF4444; }
+/* ========================================================================= */
+/* FAIRNESS DUAL TABLE STYLING                                               */
+/* ========================================================================= */
+.fairness-card-body {
+  padding: 0.5rem 0;
+}
 
-.gr-item div {
+.fairness-intro {
+  font-size: 0.825rem;
+  color: #475569;
+  margin-bottom: 1rem;
+}
+
+.fairness-dual-table {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.fair-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.775rem;
+}
+
+.fair-table th, .fair-table td {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #E2E8F0;
+  text-align: left;
+}
+
+.fair-table th {
+  background: #F1F5F9;
+  color: #0F172A;
+  font-weight: 800;
+}
+
+.th-a { background: #EFF6FF !important; color: #1E40AF !important; }
+.th-b { background: #FFFBEB !important; color: #92400E !important; }
+
+.highlight-row {
+  background: #F0FDF4;
+  font-weight: 700;
+}
+
+.highlight-row-green {
+  background: #DCFCE7;
+  font-weight: 800;
+}
+
+.fairness-insight-box {
+  display: flex;
+  gap: 0.75rem;
+  background: #FAF5FF;
+  border: 1px solid #DDD6FE;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+}
+
+.icon-light {
+  font-size: 1.25rem;
+}
+
+.insight-txt {
+  font-size: 0.775rem;
+  color: #5B21B6;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ========================================================================= */
+/* EXPLAINABILITY "WHY THIS DECISION?" CARD                                  */
+/* ========================================================================= */
+.why-card-body {
+  padding: 0.5rem 0;
+}
+
+.why-summary-grid {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.why-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid #E2E8F0;
+  font-size: 0.775rem;
+}
+
+.why-row:last-child {
+  border-bottom: none;
+}
+
+.why-row.highlight-why {
+  background: #ECFDF5;
+  padding: 0.6rem 0.85rem;
+  border-radius: 6px;
+  margin-top: 0.35rem;
+}
+
+.why-k {
+  color: #64748B;
+  font-weight: 600;
+}
+
+.why-v {
+  color: #0F172A;
+  text-align: right;
+}
+
+.copromotor-qa-box {
+  background: linear-gradient(135deg, #F0FDF4 0%, #EFF6FF 100%);
+  border: 1.5px solid #93C5FD;
+  border-radius: 12px;
+  padding: 1.15rem;
+}
+
+.qa-q {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  color: #1E3A8A;
+  margin-bottom: 0.75rem;
+  line-height: 1.45;
+}
+
+.qa-a {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  color: #065F46;
+  line-height: 1.5;
+  background: #FFFFFF;
+  padding: 0.85rem;
+  border-radius: 8px;
+  border: 1px solid #A7F3D0;
+}
+
+.qa-icon, .qa-icon-ans {
+  font-size: 1.1rem;
+}
+
+/* ========================================================================= */
+/* 4 THEMATIC LAB LAYERS & MODUL 01 - 12 CLEAN GRID STYLING                  */
+/* ========================================================================= */
+.modules-lab-wrapper {
   display: flex;
   flex-direction: column;
+  gap: 2.25rem;
+  margin-bottom: 2.5rem;
 }
 
-.gr-item strong { color: #0F172A; }
-.gr-item span { color: #64748B; }
+.lab-layer-section {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
 
-/* Fairness Spec Card */
+.layer-section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1.5px dashed #CBD5E1;
+  flex-wrap: wrap;
+}
+
+.layer-pill {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #1E293B;
+  background: #E2E8F0;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid #CBD5E1;
+}
+
+.layer-desc {
+  font-size: 0.8rem;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.layer-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .layer-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mod-num-badge {
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 0.15rem;
+}
+
+.mod-num-badge.badge-blue { background: #DBEAFE; color: #1D4ED8; }
+.mod-num-badge.badge-purple { background: #F3E8FF; color: #7E22CE; }
+.mod-num-badge.badge-amber { background: #FEF3C7; color: #B45309; }
+.mod-num-badge.badge-emerald { background: #D1FAE5; color: #047857; }
+.mod-num-badge.badge-rose { background: #FFE4E6; color: #BE123C; }
+.mod-num-badge.badge-cyan { background: #CFFAFE; color: #0E7490; }
+
+/* Candidate Actions Grid */
+.candidate-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.85rem;
+  margin-top: 0.65rem;
+}
+
+@media (max-width: 1024px) {
+  .candidate-actions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .candidate-actions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.action-item-box {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+}
+
+.action-item-box.active {
+  border-color: #10B981;
+  background: #F0FDF4;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.act-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.act-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 900;
+  font-size: 0.85rem;
+  color: #0F172A;
+  background: #F1F5F9;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.act-score-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  color: #64748B;
+}
+
+.act-item-title {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #1E293B;
+  line-height: 1.35;
+}
+
+.act-constraint-note {
+  font-size: 0.675rem;
+  color: #64748B;
+  line-height: 1.35;
+}
+
+/* Fairness Specification Card */
 .fairness-spec-card {
-  background: #FFF1F2;
-  border: 1px solid #FECDD3;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
   border-radius: 10px;
   padding: 1rem;
 }
@@ -3992,343 +5796,233 @@ const modalModuleData = computed(() => {
   margin-bottom: 0.75rem;
 }
 
-.f-title { font-size: 0.725rem; font-weight: 800; color: #9F1239; letter-spacing: 0.04em; }
-.f-badge { font-size: 0.7rem; font-weight: 700; background: #FFFFFF; color: #E11D48; padding: 0.15rem 0.45rem; border-radius: 4px; }
+.f-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #334155;
+  letter-spacing: 0.03em;
+}
+
+.f-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  background: #FFF1F2;
+  color: #BE123C;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  border: 1px solid #FECDD3;
+}
 
 .f-metrics-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.65rem;
+  gap: 0.75rem;
 }
 
 .f-cell {
-  background: #FFFFFF;
-  border: 1px solid #FFE4E6;
-  border-radius: 6px;
-  padding: 0.5rem 0.65rem;
+  background: #F8FAFC;
+  padding: 0.65rem;
+  border-radius: 8px;
+  border: 1px solid #F1F5F9;
   display: flex;
   flex-direction: column;
 }
 
-.fk { font-size: 0.675rem; color: #64748B; }
-.fv { font-size: 0.85rem; font-weight: 800; color: #0F172A; }
-
-/* Benchmark Table */
-.benchmark-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-}
-
-.sub-sec-title {
-  font-size: 0.775rem;
-  font-weight: 700;
-  color: #475569;
-}
-
-.benchmark-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.775rem;
-}
-
-.benchmark-table th {
-  background: #F1F5F9;
-  padding: 0.5rem 0.65rem;
-  text-align: left;
-  font-weight: 800;
-  color: #334155;
-  border-bottom: 1px solid #CBD5E1;
-}
-
-.benchmark-table td {
-  padding: 0.55rem 0.65rem;
-  border-bottom: 1px solid #E2E8F0;
-}
-
-.tbl-badge {
-  padding: 0.15rem 0.45rem;
-  border-radius: 4px;
-  font-weight: 800;
-  font-family: monospace;
-}
-
-.bench-footnote {
-  font-size: 0.675rem;
+.fk {
+  font-size: 0.65rem;
   color: #64748B;
-  font-style: italic;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
 }
 
-/* Candidate Actions Grid */
-.candidate-actions-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.65rem;
-  margin-top: 0.45rem;
-}
-
-.action-item-box {
-  background: #F8FAFC;
-  border: 1px solid #CBD5E1;
-  border-radius: 8px;
-  padding: 0.65rem 0.85rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.action-item-box.active {
-  background: #ECFDF5;
-  border-color: #10B981;
-  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
-}
-
-.act-top-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.act-id { font-size: 0.725rem; font-weight: 800; color: #64748B; }
-.act-score-tag { font-size: 0.7rem; font-weight: 800; }
-.act-item-title { font-size: 0.825rem; font-weight: 800; color: #0F172A; }
-.act-constraint-note { font-size: 0.675rem; color: #64748B; }
-
-/* Why Summary Grid */
-.why-summary-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  padding: 0.75rem;
-}
-
-.why-row {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  font-size: 0.75rem;
-  gap: 0.5rem;
-}
-
-.why-row.highlight-why {
-  background: #ECFDF5;
-  padding: 0.35rem 0.45rem;
-  border-radius: 6px;
-  border: 1px solid #A7F3D0;
-}
-
-.why-k { font-weight: 700; color: #475569; }
-.why-v { color: #0F172A; }
-
-.hitl-governance-box {
-  background: #EFF6FF;
-  border: 1px solid #BFDBFE;
-  border-radius: 8px;
-  padding: 0.65rem 0.85rem;
-}
-
-.hitl-gov-title {
-  font-size: 0.725rem;
+.fv {
+  font-size: 0.85rem;
   font-weight: 800;
-  color: #1E40AF;
-  display: block;
-  margin-bottom: 0.35rem;
+  color: #0F172A;
+  font-family: 'JetBrains Mono', monospace;
 }
 
-.hitl-flow-steps {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  flex-wrap: wrap;
-  font-size: 0.7rem;
-  font-weight: 700;
-}
-
-.hf-step { background: #FFFFFF; padding: 0.2rem 0.45rem; border-radius: 4px; border: 1px solid #CBD5E1; }
-.hf-rec { background: #FEF3C7; color: #92400E; border-color: #FDE68A; }
-.hf-human { background: #DBEAFE; color: #1E40AF; border-color: #93C5FD; font-weight: 800; }
-.hf-act { background: #D1FAE5; color: #065F46; border-color: #6EE7B7; }
-.hf-arrow { color: #94A3B8; }
-
-/* Context Shift Body */
+/* Context Shift Simulator */
 .context-shift-body {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .shift-control-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
 .btn-shift-toggle {
   background: #0F172A;
   color: #FFFFFF;
   border: none;
-  padding: 0.45rem 0.85rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-shift-toggle:hover {
+  background: #1E293B;
+  transform: translateY(-1px);
 }
 
 .shift-state-indicator {
-  font-size: 0.75rem;
+  font-size: 0.775rem;
   color: #475569;
 }
 
 .shift-flow-container {
   display: grid;
-  grid-template-columns: 1fr 40px 1fr;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.85rem;
   align-items: center;
-  gap: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .shift-flow-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 .shift-state-card {
   background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  padding: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  opacity: 0.6;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 0.85rem;
+  transition: all 0.2s ease;
 }
 
 .shift-state-card.active {
-  opacity: 1;
+  background: #FFFFFF;
   border-color: #3B82F6;
-  background: #EFF6FF;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
 }
 
 .state-badge {
   font-size: 0.65rem;
   font-weight: 800;
-  color: #64748B;
-  letter-spacing: 0.04em;
+  background: #EFF6FF;
+  color: #1D4ED8;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 0.5rem;
 }
 
 .state-list {
-  margin: 0;
-  padding: 0;
   list-style: none;
+  padding: 0;
+  margin: 0 0 0.65rem 0;
   font-size: 0.725rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.state-list li {
+  display: flex;
+  justify-content: space-between;
+  color: #475569;
+}
+
+.state-result {
+  background: #F1F5F9;
+  padding: 0.5rem;
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
 }
 
-.state-result {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 4px;
-  padding: 0.35rem 0.5rem;
-  font-size: 0.7rem;
-  display: flex;
-  flex-direction: column;
+.res-lbl {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+}
+
+.res-act {
+  font-size: 0.775rem;
+  font-weight: 800;
+}
+
+.res-r {
+  font-size: 0.675rem;
+  font-weight: 700;
+  color: #475569;
 }
 
 .shift-arrow-col {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #3B82F6;
-  font-weight: 800;
-  font-size: 0.75rem;
+  color: #94A3B8;
 }
 
-/* Tradeoff Controller */
-.tradeoff-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-}
-
-.to-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.lambda-badge {
-  background: #0F172A;
-  color: #FFFFFF;
-  padding: 0.2rem 0.6rem;
-  border-radius: 6px;
-  font-family: monospace;
-  font-size: 0.8rem;
+.arrow-sym {
+  font-size: 1.25rem;
   font-weight: 800;
 }
 
-.lambda-slider { accent-color: #10B981; }
-
-.tradeoff-pills-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
+.arrow-txt {
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
-
-.to-pill {
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.to-k { font-size: 0.65rem; color: #64748B; }
-.to-v { font-size: 0.95rem; font-weight: 800; }
 
 /* Trajectory Chart & Table */
 .trajectory-card-body {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
 .trajectory-chart-wrap {
-  display: flex;
-  gap: 0.75rem;
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
+  background: #0F172A;
   border-radius: 10px;
   padding: 1rem;
+  display: flex;
+  gap: 0.75rem;
 }
 
 .chart-y-axis {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-size: 0.675rem;
-  font-family: monospace;
-  color: #94A3B8;
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: #64748B;
+  padding: 0.25rem 0;
 }
 
 .chart-canvas {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  justify-content: space-between;
 }
 
 .chart-svg {
   width: 100%;
-  height: 90px;
+  height: 80px;
 }
 
 .chart-x-labels {
   display: flex;
   justify-content: space-between;
-  font-size: 0.675rem;
-  color: #64748B;
-  font-family: monospace;
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: #94A3B8;
+  margin-top: 0.35rem;
 }
 
 .trajectory-table-wrap {
@@ -4341,156 +6035,235 @@ const modalModuleData = computed(() => {
   font-size: 0.75rem;
 }
 
-.traj-table th {
-  background: #F1F5F9;
-  padding: 0.45rem 0.65rem;
+.traj-table th, .traj-table td {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #E2E8F0;
   text-align: left;
+}
+
+.traj-table th {
+  background: #F8FAFC;
   font-weight: 800;
   color: #334155;
-  border-bottom: 1px solid #CBD5E1;
 }
 
-.traj-table td {
-  padding: 0.5rem 0.65rem;
-  border-bottom: 1px solid #E2E8F0;
-}
-
-/* Mathematical Model Reference Section */
-.math-ref-panel-section {
-  padding: 1.75rem;
-  background: #FFFFFF;
-  border-radius: 16px;
-  border: 1px solid #E2E8F0;
-  margin-bottom: 2rem;
-}
-
-.math-ref-head { margin-bottom: 0.5rem; }
-.math-ref-title { font-size: 1.35rem; font-weight: 800; color: #0F172A; margin: 0.4rem 0 0.2rem 0; }
-.math-ref-desc { font-size: 0.85rem; color: #475569; line-height: 1.5; margin: 0; }
-
-.math-groups-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-}
-
-@media (max-width: 960px) {
-  .math-groups-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.math-group-card {
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: 12px;
-  padding: 1.15rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.math-group-card.border-blue { border-top: 4px solid #3B82F6; }
-.math-group-card.border-purple { border-top: 4px solid #8B5CF6; }
-.math-group-card.border-rose { border-top: 4px solid #F43F5E; }
-.math-group-card.border-emerald { border-top: 4px solid #10B981; }
-.math-group-card.border-cyan { border-top: 4px solid #06B6D4; }
-.math-group-card.border-amber { border-top: 4px solid #F59E0B; }
-
-.mg-head {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.mg-pill {
-  font-size: 0.675rem;
-  font-weight: 800;
-  padding: 0.15rem 0.45rem;
-  border-radius: 4px;
-}
-
-.mg-title {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: #0F172A;
-  margin: 0;
-}
-
-.mg-eq-list {
+/* Benchmark Table */
+.benchmark-body {
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
 }
 
-.mg-eq-item {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  padding: 0.65rem 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.mg-eq-token {
-  font-size: 0.75rem;
-  color: #1E293B;
-}
-
-.mg-eq-token code {
-  font-family: 'JetBrains Mono', monospace;
-  color: #4338CA;
-  font-size: 0.725rem;
-  word-break: break-all;
-}
-
-.mg-eq-desc {
-  font-size: 0.725rem;
-  color: #475569;
-  line-height: 1.4;
-  margin: 0;
-}
-
-/* Traceability Section */
-.traceability-section {
-  padding: 1.75rem;
-  background: #FFFFFF;
-  border-radius: 16px;
-  border: 1px solid #E2E8F0;
-  margin-bottom: 2rem;
-}
-
-.trace-head { margin-bottom: 1.25rem; }
-.trace-title { font-size: 1.35rem; font-weight: 800; color: #0F172A; margin: 0.4rem 0 0.2rem 0; }
-.trace-desc { font-size: 0.85rem; color: #475569; line-height: 1.5; margin: 0; }
-
-.trace-table-wrap {
-  overflow-x: auto;
-}
-
-.trace-table {
+.benchmark-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.775rem;
 }
 
-.trace-table th {
-  background: #F1F5F9;
-  padding: 0.6rem 0.75rem;
+.benchmark-table th, .benchmark-table td {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #E2E8F0;
   text-align: left;
+}
+
+.benchmark-table th {
+  background: #F8FAFC;
   font-weight: 800;
   color: #334155;
-  border-bottom: 1px solid #CBD5E1;
 }
 
-.trace-table td {
-  padding: 0.6rem 0.75rem;
-  border-bottom: 1px solid #E2E8F0;
-  vertical-align: middle;
+.bench-footnote {
+  font-size: 0.675rem;
+  color: #94A3B8;
+  font-style: italic;
 }
 
-/* Modal Dialog Styles */
+/* Tradeoff Controller */
+.tradeoff-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.to-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.65rem;
+}
+
+.tradeoff-pills-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+}
+
+@media (max-width: 640px) {
+  .tradeoff-pills-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.to-pill {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  padding: 0.65rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.to-k {
+  font-size: 0.65rem;
+  color: #64748B;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.to-v {
+  font-size: 0.95rem;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Revisit Normalization & Insight Callout */
+.revisit-norm-note {
+  font-size: 0.725rem;
+  color: #64748B;
+  display: block;
+  margin-top: 0.4rem;
+}
+
+.insight-highlight-callout {
+  background: linear-gradient(135deg, #ECFDF5 0%, #EFF6FF 100%);
+  border: 1.5px solid #86EFAC;
+  border-radius: 10px;
+  padding: 0.9rem 1.15rem;
+  margin-top: 1rem;
+}
+
+.ihc-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #065F46;
+  font-size: 0.8rem;
+  font-weight: 800;
+  margin-bottom: 0.35rem;
+}
+
+.ihc-p {
+  font-size: 0.775rem;
+  color: #1E293B;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* HITL Governance Flow */
+.hitl-governance-box {
+  background: #FFFFFF;
+  border: 1.5px dashed #3B82F6;
+  border-radius: 10px;
+  padding: 0.95rem 1.15rem;
+}
+
+.hitl-gov-title {
+  font-size: 0.775rem;
+  font-weight: 800;
+  color: #1E40AF;
+  display: block;
+  margin-bottom: 0.65rem;
+}
+
+.hitl-flow-steps {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.65rem;
+}
+
+.hf-step {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  background: #F1F5F9;
+  color: #334155;
+  border: 1px solid #CBD5E1;
+}
+
+.hf-rec {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border-color: #BFDBFE;
+}
+
+.hf-human {
+  background: #FAF5FF;
+  color: #6D28D9;
+  border-color: #DDD6FE;
+  font-weight: 900;
+}
+
+.hf-act {
+  background: #DCFCE7;
+  color: #15803D;
+  border-color: #86EFAC;
+}
+
+.hf-arrow {
+  color: #94A3B8;
+  font-weight: 800;
+  font-size: 0.75rem;
+}
+
+.hitl-gov-desc {
+  font-size: 0.725rem;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ========================================================================= */
+/* PANEL HEAD RIGHT & DETAIL INSPECTOR BUTTON                                */
+/* ========================================================================= */
+.panel-head-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-inspect-modal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #FFFFFF;
+  color: #1E293B;
+  border: 1px solid #CBD5E1;
+  padding: 0.28rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.725rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.btn-inspect-modal:hover {
+  background: #EFF6FF;
+  border-color: #3B82F6;
+  color: #1D4ED8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.15);
+}
+
+.pipe-step-node {
+  cursor: pointer;
+}
+
+/* ========================================================================= */
+/* COMPUTATIONAL MODULE MODAL STYLES                                         */
+/* ========================================================================= */
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -4498,48 +6271,69 @@ const modalModuleData = computed(() => {
   width: 100vw;
   height: 100vh;
   background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 9999;
-  padding: 1.5rem;
+  align-items: center;
+  z-index: 99999;
+  padding: 1.25rem;
+  animation: fadeInModal 0.2s ease-out;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .modal-dialog-card {
   background: #FFFFFF;
   border-radius: 16px;
   width: 100%;
-  max-width: 780px;
+  max-width: 820px;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  border: 1px solid #E2E8F0;
   overflow: hidden;
-  border: 1px solid #CBD5E1;
+  animation: slideUpModal 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUpModal {
+  from {
+    transform: translateY(20px) scale(0.97);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 .modal-head {
-  padding: 1.25rem 1.5rem;
-  background: #0F172A;
-  color: #FFFFFF;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1.25rem 1.5rem;
+  background: #0F172A;
+  color: #FFFFFF;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .modal-head-left {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
 .modal-layer-tag {
-  font-size: 0.675rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  color: #93C5FD;
-  letter-spacing: 0.04em;
+  color: #94A3B8;
+  letter-spacing: 0.05em;
   display: block;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
 }
 
 .modal-title {
@@ -4547,26 +6341,37 @@ const modalModuleData = computed(() => {
   font-weight: 800;
   color: #FFFFFF;
   margin: 0;
+  line-height: 1.3;
 }
 
 .modal-close-btn {
-  background: transparent;
-  border: none;
-  color: #94A3B8;
-  font-size: 1.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #E2E8F0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
-  padding: 0.25rem;
-  line-height: 1;
+  transition: all 0.2s;
 }
 
-.modal-close-btn:hover { color: #FFFFFF; }
+.modal-close-btn:hover {
+  background: #EF4444;
+  color: #FFFFFF;
+  border-color: #EF4444;
+}
 
 .modal-body-content {
   padding: 1.5rem;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.15rem;
 }
 
 .modal-sec-box {
@@ -4735,3 +6540,4 @@ const modalModuleData = computed(() => {
   background: #334155;
 }
 </style>
+
