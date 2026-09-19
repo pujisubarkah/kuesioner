@@ -1,274 +1,224 @@
 <template>
-  <div class="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500 selection:text-white pb-16">
-    <!-- Top Navigation Bar -->
+  <div class="app-container">
+    <!-- Navbar Header -->
     <Navbar />
 
-    <!-- Main Container -->
-    <main id="konten-utama" class="max-w-[1520px] mx-auto px-3 sm:px-6 pt-6 space-y-8">
-
+    <main id="konten-utama" class="main-content">
+      
       <!-- ========================================================================= -->
-      <!-- 1. HERO BANNER & RESEARCH COGNITIVE COCKPIT                               -->
+      <!-- 1. HERO BANNER & RESEARCH COGNITIVE DECK                                  -->
       <!-- ========================================================================= -->
-      <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950/60 to-slate-900 border border-slate-800/80 shadow-2xl p-6 sm:p-8 backdrop-blur-xl">
-        <!-- Glow Orbs in Background -->
-        <div class="absolute -top-24 -right-24 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="relative z-10 flex flex-col gap-6">
-          <!-- Top Micro-Bar: Lineage & Operational Mode -->
-          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800/80 pb-4 text-[11px] font-mono">
-            <div class="flex items-center gap-2.5 flex-wrap">
-              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 font-bold">
-                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
-                CABA–CCBN Research Ecosystem
-              </span>
-              <span class="text-slate-600">/</span>
-              <span class="text-slate-300 font-semibold flex items-center gap-1.5">
-                <span class="text-emerald-400 font-bold">●</span> Data & Evidence Layer (Foundation)
-              </span>
-              <span class="text-slate-600 hidden md:inline">/</span>
-              <span class="text-slate-400 hidden md:inline">Truth Source: Dissertation Proposal Rev 2 (2026)</span>
-            </div>
-
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[10px] font-bold">
-                SYNTHETIC PROTOTYPE DATA
-              </span>
-              <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-[10px] font-bold">
-                OPEN ARTIFACT v2.4
-              </span>
-            </div>
+      <section class="hero-banner">
+        <div class="hero-content">
+          <div class="hero-badge-row">
+            <span class="badge badge-emerald">📁 Data & Evidence Layer</span>
+            <span class="badge badge-indigo">🏛️ CABA Framework Foundation</span>
+            <span class="badge badge-blue">📐 Input to CCBN Engine (Eq. 1–4, 10)</span>
+            <span class="badge badge-purple">🛡️ MNAR Missingness Diagnostics</span>
+            <span class="badge badge-amber">🎯 S1–S4 Situational States</span>
           </div>
 
-          <!-- Hero Main Title & Executive Summary -->
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            <div class="lg:col-span-8 space-y-4">
-              <div class="flex flex-wrap items-center gap-2">
-                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-300 border border-blue-500/20">
-                  📁 Multimodal Telemetry
-                </span>
-                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-300 border border-purple-500/20">
-                  🌐 6D Context Space c_{i,t}
-                </span>
-                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
-                  🛡️ MNAR Missingness (m, q)
-                </span>
-                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-300 border border-amber-500/20">
-                  🎯 S1–S4 Operational States
-                </span>
-              </div>
+          <h1 class="hero-title">
+            CABA Research Data & Evidence Hub
+          </h1>
+          <p class="hero-subtitle-lead">
+            Empirical Foundations for Context-Conditioned Behavioral Analytics
+          </p>
+          <p class="hero-subtitle">
+            Fondasi akuisisi data, telemetri jejak mentah ((X_{i,t})), evidensi perilaku ((B_{i,t})), serta variabel moderator kontekstual enam dimensi ((c_{i,t} = [T, I, O, D, W, S])). Lapisan ini mengisolasi kualitas observabilitas ((q_{i,t})) dan kendala data hilang (*Missing Not At Random*) sebelum diteruskan ke model inferensi non-punitif CCBN di <code class="hero-code-link">/analisis</code>.
+          </p>
 
-              <h1 class="text-2xl sm:text-4xl font-black tracking-tight text-white leading-tight">
-                CABA Data & Evidence Hub
-                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-emerald-300 to-teal-200 text-lg sm:text-2xl font-bold mt-1">
-                  Empirical Foundations for Context-Conditioned Behavioral Analytics
-                </span>
-              </h1>
-
-              <p class="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed max-w-3xl">
-                Hub repositori data riset, telemetri jejak mentah ((X_{i,t})), evidensi perilaku ((B_{i,t})), serta variabel moderator kontekstual 6-dimensi ((c_{i,t} = [T, I, O, D, W, S])). Lapisan ini mengisolasi kualitas observabilitas ((q_{i,t})) dan kendala data hilang (*Missing Not At Random*) sebelum diteruskan ke model inferensi non-punitif CCBN di rute <code class="text-emerald-400 font-bold bg-slate-900 px-2 py-0.5 rounded border border-slate-800">/analisis</code>.
-              </p>
-            </div>
-
-            <!-- Quick Action & Analytics Jump Card -->
-            <div class="lg:col-span-4 flex flex-col gap-3 p-4 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-inner">
-              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center justify-between">
-                <span>⚡ Integrasi Komputasi</span>
-                <span class="text-emerald-400 text-[10px]">Ready</span>
-              </span>
-
-              <p class="text-[11px] text-slate-400 leading-snug">
-                Data yang disiapkan pada hub ini menjadi input langsung bagi estimator ekspektasi wajar (b̂_{i,t}) dan LinUCB reward:
-              </p>
-
-              <NuxtLink
-                to="/analisis"
-                class="w-full py-3 px-4 rounded-xl font-black text-xs text-slate-950 bg-gradient-to-r from-emerald-400 to-teal-300 hover:from-emerald-300 hover:to-teal-200 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 no-underline cursor-pointer group"
-              >
-                <span>🧪</span>
-                <span>Buka Lab Analisis CCBN (/analisis)</span>
-                <span class="group-hover:translate-x-1 transition-transform">→</span>
-              </NuxtLink>
-
-              <div class="flex items-center justify-between pt-2 border-t border-slate-800/80 text-[11px]">
-                <button
-                  type="button"
-                  @click="fetchDatasetHubData"
-                  :disabled="loading"
-                  class="text-slate-400 hover:text-white transition flex items-center gap-1.5 cursor-pointer"
-                >
-                  <span :class="{ 'animate-spin': loading }">🔄</span>
-                  <span>Sinkronisasi Ulang Data</span>
-                </button>
-                <span class="text-slate-500 font-mono text-[10px]">Latency: 14ms</span>
-              </div>
+          <div class="hero-synthetic-warning">
+            <span class="warn-icon">ℹ️</span>
+            <div>
+              <strong>CATATAN DATA PROTOTIPE:</strong> Seluruh metrik numerik, log telemetri, dan stream pada hub ini merupakan <strong>SYNTHETIC PROTOTYPE VALUES — NOT EMPIRICAL RESULTS</strong> untuk pembuktian konsep instrumen riset disertasi.
             </div>
           </div>
+        </div>
 
-          <!-- KPI Metric Pill Gauges -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-            <div class="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-lg">
-                📊
-              </div>
-              <div>
-                <span class="text-[10px] text-slate-400 font-semibold block uppercase">Dimensi Konteks (c)</span>
-                <span class="text-base font-black text-white font-mono">6 Dimensi</span>
-                <span class="text-[10px] text-blue-400 block">[T, I, O, D, W, S]</span>
-              </div>
-            </div>
-
-            <div class="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-lg">
-                📑
-              </div>
-              <div>
-                <span class="text-[10px] text-slate-400 font-semibold block uppercase">Traceability Matrix</span>
-                <span class="text-base font-black text-white font-mono">17 Konstruk</span>
-                <span class="text-[10px] text-purple-400 block">Eq. (1) s.d. (11)</span>
-              </div>
-            </div>
-
-            <div class="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-lg">
-                🎯
-              </div>
-              <div>
-                <span class="text-[10px] text-slate-400 font-semibold block uppercase">Status Situasional</span>
-                <span class="text-base font-black text-white font-mono">4 Status</span>
-                <span class="text-[10px] text-amber-400 block">S1, S2, S3, S4 (Andragogi)</span>
-              </div>
-            </div>
-
-            <div class="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-lg">
-                🛡️
-              </div>
-              <div>
-                <span class="text-[10px] text-slate-400 font-semibold block uppercase">Missingness Policy</span>
-                <span class="text-base font-black text-white font-mono">MNAR Guard</span>
-                <span class="text-[10px] text-emerald-400 block">Non-Punitif</span>
-              </div>
-            </div>
+        <!-- Quick KPI Deck -->
+        <div class="hero-kpi-deck">
+          <div class="kpi-card">
+            <span class="kpi-label">Dimensi Konteks (c)</span>
+            <span class="kpi-val text-blue">6D Space</span>
+            <span class="kpi-sub">[T, I, O, D, W, S]</span>
           </div>
-
-          <!-- SCIENTIFIC DISCLAIMER CALLOUT -->
-          <div class="p-3 rounded-xl bg-amber-950/40 border border-amber-600/40 flex items-center gap-3 text-xs text-amber-200/90">
-            <span class="text-amber-400 text-base">⚠️</span>
-            <div class="flex-1">
-              <strong>PERSISTENT DISCLAIMER:</strong> Data telemetri, log stream, dan estimasi pada antarmuka ini merupakan <strong>SYNTHETIC PROTOTYPE VALUES — NOT EMPIRICAL RESULTS</strong> untuk verifikasi instrumen dan kelayakan pipeline komputasi.
-            </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Traceability Matrix</span>
+            <span class="kpi-val text-purple">17 Constructs</span>
+            <span class="kpi-sub">Eq. (1) s.d. (11)</span>
+          </div>
+          <div class="kpi-card highlight">
+            <span class="kpi-label">Observability Gate</span>
+            <span class="kpi-val text-emerald">MNAR Safe</span>
+            <span class="kpi-sub">Non-Punitif q_{i,t}</span>
           </div>
         </div>
       </section>
 
       <!-- ========================================================================= -->
-      <!-- 2. ARCHITECTURAL BOUNDARY & PIPELINE VISUALIZER                           -->
+      <!-- 2. LIVE PERSONA TELEMETRY SIMULATOR                                       -->
       <!-- ========================================================================= -->
-      <section class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-5">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="px-2.5 py-0.5 rounded-md font-mono text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
-                PIPELINE SEPARATION
-              </span>
-              <h2 class="text-base sm:text-lg font-black text-white">
-                Batas Arsitektural: Lapisan Data & Bukti ➔ Engine Komputasi CCBN
-              </h2>
+      <section class="card persona-simulator-card">
+        <div class="sim-header">
+          <div class="sim-title-group">
+            <div class="badge-row">
+              <span class="badge badge-indigo">⚡ Interactive Telemetry Sandbox</span>
+              <span class="badge badge-cyan">Sensing Pipeline</span>
+              <span class="badge badge-emerald">Real-Time Synthesis</span>
             </div>
-            <p class="text-xs text-slate-400 mt-1">
-              Visualisasi batas domain tanggung jawab sistem antara penyiapan data di <code class="text-indigo-300">/dataset-hub</code> dan pengolahan matematis di <code class="text-emerald-300">/analisis</code>.
+            <h2 class="sim-title">
+              Simulasi Akuisisi Sinyal Telemetri & Transformasi Evidensi
+            </h2>
+            <p class="sim-desc">
+              Pilih profil persona ASN di bawah ini untuk melihat bagaimana data mentah ((X_{i,t})), konteks ((c_{i,t})), dan missingness ((m_{i,t}, q_{i,t})) diolah menjadi evidensi perilaku sebelum dikirim ke engine komputasi CCBN:
             </p>
           </div>
 
-          <div class="flex items-center gap-2 shrink-0">
-            <span class="text-[11px] font-mono text-slate-400 px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800">
-              Flow: <span class="text-indigo-400 font-bold">X → B</span> ➔ <span class="text-purple-400 font-bold">(c, q)</span> ➔ <span class="text-emerald-400 font-bold">b̂ → d → D → π</span>
-            </span>
-          </div>
+          <NuxtLink
+            to="/analisis"
+            class="btn-open-analisis"
+          >
+            <span>🧪 Buka Lab CCBN (/analisis) →</span>
+          </NuxtLink>
         </div>
 
-        <!-- Interactive Flow Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <!-- Persona Selector Pills -->
+        <div class="persona-pills-row">
+          <button
+            type="button"
+            v-for="p in personaList"
+            :key="p.id"
+            @click="activePersonaId = p.id"
+            :class="['persona-btn', { active: activePersonaId === p.id }]"
+          >
+            <span class="p-icon">{{ p.icon }}</span>
+            <div class="p-meta">
+              <strong class="p-name">{{ p.name }}</strong>
+              <span class="p-region">{{ p.region }} • {{ p.infra }}</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- Live Telemetry Telemetry Deck for Active Persona -->
+        <div class="telemetry-live-deck">
           
-          <!-- DOMAIN 1: /dataset-hub (Data & Evidence Layer) -->
-          <div class="p-5 rounded-2xl bg-gradient-to-br from-indigo-950/40 to-slate-900 border border-indigo-500/40 space-y-4">
-            <div class="flex items-center justify-between border-b border-indigo-500/20 pb-3">
-              <div class="flex items-center gap-2">
-                <span class="w-6 h-6 rounded-lg bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center text-indigo-300 text-xs font-bold">1</span>
-                <strong class="text-indigo-200 text-sm font-bold">Data & Evidence Boundary (/dataset-hub)</strong>
-              </div>
-              <span class="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[10px] font-mono font-bold">INPUTS & SENSING</span>
+          <!-- Column 1: Context 6D (c) -->
+          <div class="live-col col-context">
+            <div class="col-head">
+              <span class="col-pill pill-blue">1. KONTEKS 6D (c_{i,t})</span>
+              <span class="col-eq">Eq. (2)</span>
             </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
-                <span class="text-indigo-400 font-mono text-[10px] font-bold block">1. KONTEKS 6D (c_{i,t})</span>
-                <div class="text-slate-200 font-mono text-xs font-semibold">c = [T, I, O, D, W, S]</div>
-                <p class="text-[10px] text-slate-400 leading-relaxed">
-                  Profil spasial (BPS/Podes), telemetri jaringan ((N_{i,t})), beban kerja & gawai.
-                </p>
+            <div class="metrics-stack">
+              <div class="m-row">
+                <span class="m-k">Temporal (T):</span>
+                <span class="m-v">{{ currentPersona.context.T }}</span>
               </div>
-
-              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
-                <span class="text-indigo-400 font-mono text-[10px] font-bold block">2. JEJAK MENTAH (X_{i,t}) → B</span>
-                <div class="text-slate-200 font-mono text-xs font-semibold">X_{i,t} ➔ B_{i,t}</div>
-                <p class="text-[10px] text-slate-400 leading-relaxed">
-                  Log clickstream, revisits, durasi modul, checkpoints, artefak tugas formatif.
-                </p>
+              <div class="m-row">
+                <span class="m-k">Infrastruktur (I):</span>
+                <span class="m-v">{{ currentPersona.context.I }}</span>
+              </div>
+              <div class="m-row">
+                <span class="m-k">Organisasi (O):</span>
+                <span class="m-v">{{ currentPersona.context.O }}</span>
+              </div>
+              <div class="m-row">
+                <span class="m-k">Device (D):</span>
+                <span class="m-v">{{ currentPersona.context.D }}</span>
+              </div>
+              <div class="m-row">
+                <span class="m-k">Workload (W):</span>
+                <span class="m-v">{{ currentPersona.context.W }}</span>
+              </div>
+              <div class="m-row">
+                <span class="m-k">Spasial Komposit (S):</span>
+                <span class="m-v font-bold text-cyan">{{ currentPersona.context.S.toFixed(2) }}</span>
               </div>
             </div>
-
-            <div class="p-3.5 rounded-xl bg-indigo-950/70 border border-indigo-500/30 flex items-center justify-between text-xs">
-              <div>
-                <span class="text-indigo-300 font-bold block text-[11px]">3. OBSERVABILITAS & KUALITAS (Eq. 3 & 4)</span>
-                <span class="font-mono text-slate-300 text-[11px]">m_{i,t} = 1 - (n_{obs}/n_{exp}) & q_{i,t} = 1 - m - λ·noise</span>
+            <div class="bar-progress-wrap">
+              <div class="bar-progress-label">
+                <span>Spatial Index S_{i,t}:</span>
+                <span>{{ (currentPersona.context.S * 100).toFixed(0) }}%</span>
               </div>
-              <span class="px-2.5 py-1 rounded-lg bg-indigo-900/80 text-indigo-200 font-bold text-[10px] border border-indigo-700">
-                MNAR Diagnostics
-              </span>
+              <div class="bar-progress-track">
+                <div class="bar-progress-fill fill-cyan" :style="{ width: (currentPersona.context.S * 100) + '%' }"></div>
+              </div>
             </div>
           </div>
 
-          <!-- DOMAIN 2: /analisis (Analytical CCBN Engine) -->
-          <div class="p-5 rounded-2xl bg-gradient-to-br from-emerald-950/40 to-slate-900 border border-emerald-500/40 space-y-4">
-            <div class="flex items-center justify-between border-b border-emerald-500/20 pb-3">
-              <div class="flex items-center gap-2">
-                <span class="w-6 h-6 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-300 text-xs font-bold">2</span>
-                <strong class="text-emerald-200 text-sm font-bold">CCBN Computational Engine (/analisis)</strong>
-              </div>
-              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold">MATHEMATICAL MODEL</span>
+          <!-- Column 2: Raw Traces (X) -> Evidence (B) -->
+          <div class="live-col col-traces">
+            <div class="col-head">
+              <span class="col-pill pill-purple">2. JEJAK (X) ➔ EVIDENSI (B)</span>
+              <span class="col-eq">Eq. (1)</span>
             </div>
+            <div class="metrics-stack">
+              <div class="m-row">
+                <span class="m-k">Playback Speed:</span>
+                <span class="m-v">{{ currentPersona.traces.playbackSpeed }}</span>
+              </div>
+              <div class="m-row">
+                <span class="m-k">Tab Focus Ratio:</span>
+                <span class="m-v">{{ currentPersona.traces.tabFocus.toFixed(2) }}</span>
+              </div>
+              <div class="m-row">
+                <span class="m-k">Buffer Stalls:</span>
+                <span class="m-v text-rose font-bold">{{ currentPersona.traces.bufferStalls }} kali</span>
+              </div>
+              <div class="m-row">
+                <span class="m-k">Rewind / Revisit:</span>
+                <span class="m-v">{{ currentPersona.traces.rewinds }} kali</span>
+              </div>
+              <div class="m-row">
+                <span class="m-k">Dwell Time Efektif:</span>
+                <span class="m-v">{{ currentPersona.traces.dwellMinutes }} menit</span>
+              </div>
+              <div class="m-row highlight-row">
+                <span class="m-k">Evidence Score (B_{i,t}):</span>
+                <span class="m-v text-emerald font-bold">{{ currentPersona.evidenceB.toFixed(2) }}</span>
+              </div>
+            </div>
+            <div class="bar-progress-wrap">
+              <div class="bar-progress-label">
+                <span>Observed Evidence B_{i,t}:</span>
+                <span>{{ (currentPersona.evidenceB * 100).toFixed(0) }}%</span>
+              </div>
+              <div class="bar-progress-track">
+                <div class="bar-progress-fill fill-emerald" :style="{ width: (currentPersona.evidenceB * 100) + '%' }"></div>
+              </div>
+            </div>
+          </div>
 
-            <div class="space-y-2 text-xs">
-              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
-                <div>
-                  <span class="text-emerald-400 font-mono text-[10px] font-bold block">BASELINE & RESIDUAL (Eq. 5 & 6)</span>
-                  <span class="text-slate-200 font-mono text-xs">b̂_{i,t} = 𝔼[B_{i,t} | c_{i,t}, q_{i,t}] & d_{i,t} = B_{i,t} - b̂_{i,t}</span>
-                </div>
-                <span class="text-[10px] font-bold text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30">
-                  Non-Punitif
+          <!-- Column 3: Observability (m, q) & Situational State -->
+          <div class="live-col col-obs">
+            <div class="col-head">
+              <span class="col-pill pill-amber">3. OBSERVABILITAS (m, q)</span>
+              <span class="col-eq">Eq. (3 & 4)</span>
+            </div>
+            <div class="metrics-stack">
+              <div class="m-row">
+                <span class="m-k">Missingness (m_{i,t}):</span>
+                <span class="m-v" :class="currentPersona.missingnessM > 0.3 ? 'text-amber' : 'text-slate'">
+                  {{ (currentPersona.missingnessM * 100).toFixed(0) }}% ({{ currentPersona.missingnessType }})
                 </span>
               </div>
-
-              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
-                <div>
-                  <span class="text-teal-400 font-mono text-[10px] font-bold block">FAIRNESS & BURDEN (Eq. 7, 8a, 8b)</span>
-                  <span class="text-slate-200 font-mono text-xs">D_t & Gap_{burden} & Gap_{interpretation}</span>
-                </div>
-                <span class="text-[10px] font-bold text-teal-400 px-2 py-0.5 rounded bg-teal-500/10 border border-teal-500/30">
-                  Algorithmic Equity
+              <div class="m-row">
+                <span class="m-k">Evidence Quality (q_{i,t}):</span>
+                <span class="m-v font-bold text-emerald">{{ currentPersona.qualityQ.toFixed(2) }}</span>
+              </div>
+              <div class="m-row">
+                <span class="m-k">Validity Gate Status:</span>
+                <span :class="['gate-badge', currentPersona.gateStatusClass]">
+                  {{ currentPersona.gateStatus }}
                 </span>
               </div>
-
-              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
-                <div>
-                  <span class="text-amber-400 font-mono text-[10px] font-bold block">POLICY REWARD & HITL (Eq. 9 & Governance)</span>
-                  <span class="text-slate-200 font-mono text-xs">r'_{i,a,t+1} = r + ηU - μCB - νOB - ρΔc - γD_t ➔ HITL</span>
-                </div>
-                <span class="text-[10px] font-bold text-amber-400 px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30">
-                  Human Oversight
-                </span>
+              <div class="m-row highlight-row">
+                <span class="m-k">Operational State:</span>
+                <span class="m-v font-bold text-purple">{{ currentPersona.supportState.code }}: {{ currentPersona.supportState.name }}</span>
+              </div>
+              <div class="state-action-box">
+                <span class="sa-label">Aksi Andragogis Lapangan:</span>
+                <span class="sa-text">{{ currentPersona.supportState.action }}</span>
               </div>
             </div>
           </div>
@@ -277,633 +227,513 @@
       </section>
 
       <!-- ========================================================================= -->
-      <!-- 3. MAIN NAVIGATION TABS (6 RICH SCIENTIFIC TABS)                          -->
+      <!-- 3. MATHEMATICAL FORMULAS & EVIDENCE MECHANISM SPECIFICATION               -->
       <!-- ========================================================================= -->
-      <section class="space-y-6">
-        <!-- Segmented Tab Bar -->
-        <div class="p-1.5 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-center gap-1.5 overflow-x-auto">
+      <section class="card math-spec-card">
+        <div class="diagram-head">
+          <div class="badge-row">
+            <span class="badge badge-indigo">📐 Perumusan Matematis Data</span>
+            <span class="badge badge-blue">Persamaan (1) s.d. (4) & (10)</span>
+            <span class="badge badge-emerald">Source of Truth: Proposal Rev 2</span>
+          </div>
+          <h2 class="diagram-title">
+            Spesifikasi Matematis: Transformasi Jejak Menjadi Evidensi Teramati
+          </h2>
+          <p class="diagram-desc">
+            Bagaimana lapisan data mengolah vektor konteks, telemetri jejak mentah, degradasi observabilitas, hingga fusi sinyal visual adaptif:
+          </p>
+        </div>
+
+        <div class="math-grid-2col">
+          
+          <!-- Box 1: Persamaan (1) & (2) -->
+          <div class="math-card">
+            <div class="mc-head">
+              <span class="stage-pill pill-blue">PERSAMAAN (1) & (2): JEJAK & KONTEKS</span>
+              <span class="mc-scope">Input Vektor</span>
+            </div>
+            
+            <div class="math-box math-blue">
+              <div class="math-formula-rendered">
+                <span class="m-lhs">X<sub class="m-idx">i,t</sub></span>
+                <span class="m-sign">=</span>
+                <span class="m-bracket">[</span>
+                <span class="m-term-box term-blue">T<sub class="m-idx">i,t</sub></span>
+                <span class="m-sign">,</span>
+                <span class="m-term-box term-blue">D<sub class="m-idx">i,t</sub></span>
+                <span class="m-sign">,</span>
+                <span class="m-term-box term-blue">C<sub class="m-idx">i,t</sub></span>
+                <span class="m-sign">,</span>
+                <span class="m-term-box term-blue">K<sub class="m-idx">i,t</sub></span>
+                <span class="m-sign">,</span>
+                <span class="m-term-box term-blue">A<sub class="m-idx">i,t</sub></span>
+                <span class="m-bracket">]</span>
+              </div>
+              <div class="math-formula-rendered" style="margin-top: 0.6rem;">
+                <span class="m-lhs">c<sub class="m-idx">i,t</sub></span>
+                <span class="m-sign">=</span>
+                <span class="m-bracket">[</span>
+                <span class="m-term-box term-purple">T</span>
+                <span class="m-sign">,</span>
+                <span class="m-term-box term-purple">I</span>
+                <span class="m-sign">,</span>
+                <span class="m-term-box term-purple">O</span>
+                <span class="m-sign">,</span>
+                <span class="m-term-box term-purple">D</span>
+                <span class="m-sign">,</span>
+                <span class="m-term-box term-purple">W</span>
+                <span class="m-sign">,</span>
+                <span class="m-term-box term-cyan">S</span>
+                <span class="m-bracket">]</span>
+              </div>
+              <div class="math-legend">
+                <span class="leg-pill pill-blue-sm"><strong>X<sub>i,t</sub></strong> : Jejak telemetri mentah (waktu, durasi, klik, komplesi, artefak)</span>
+                <span class="dot">•</span>
+                <span class="leg-pill pill-purple-sm"><strong>c<sub>i,t</sub></strong> : Vektor konteks 6-dimensi pembelajar</span>
+              </div>
+            </div>
+            <p class="mc-note">
+              📌 Kuesioner bertindak sebagai instrumen akuisisi konteks (c_{i,t}); sedangkan telemetri LMS mencatat jejak aktivitas (X_{i,t}).
+            </p>
+          </div>
+
+          <!-- Box 2: Persamaan (3) & (4) -->
+          <div class="math-card">
+            <div class="mc-head">
+              <span class="stage-pill pill-amber">PERSAMAAN (3) & (4): OBSERVABILITAS & KUALITAS</span>
+              <span class="mc-scope">MNAR Filter</span>
+            </div>
+
+            <div class="math-box math-amber">
+              <div class="math-formula-rendered">
+                <span class="m-lhs">m<sub class="m-idx">i,t</sub></span>
+                <span class="m-sign">=</span>
+                <span class="m-term-box term-amber">
+                  1 - <span class="m-frac"><span class="m-num">n<sub class="m-idx">obs</sub></span><span class="m-den">n<sub class="m-idx">exp</sub></span></span>
+                </span>
+                <span class="m-sign">;&nbsp;&nbsp;</span>
+                <span class="m-lhs">q<sub class="m-idx">i,t</sub></span>
+                <span class="m-sign">=</span>
+                <span class="m-term-box term-emerald">
+                  1 - m<sub class="m-idx">i,t</sub> - &lambda;&middot;noise
+                </span>
+              </div>
+              <div class="math-legend">
+                <span class="leg-pill pill-amber-sm"><strong>m<sub>i,t</sub></strong> : Missingness akibat kendala observabilitas telemetri</span>
+                <span class="dot">•</span>
+                <span class="leg-pill pill-emerald-sm"><strong>q<sub>i,t</sub></strong> : Indeks keandalan data evidensi</span>
+              </div>
+            </div>
+            <p class="mc-note">
+              🛡️ Nilai (m_{i,t}) tinggi pada wilayah 3T diklasifikasikan sebagai MNAR (sinyal padam), bukan kegagalan atau defisit motivasi peserta.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- 4. SUB-TABS NAVIGATION DECK (6 TABS)                                      -->
+      <!-- ========================================================================= -->
+      <section class="card tabs-controller-card">
+        
+        <!-- Segmented Tab Navigation -->
+        <div class="nav-tabs-segmented">
           <button
             type="button"
-            v-for="tab in hubTabs"
-            :key="tab.id"
-            @click="activeMainTab = tab.id"
-            :class="`px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 flex items-center gap-2 cursor-pointer whitespace-nowrap ${
-              activeMainTab === tab.id
-                ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-lg shadow-indigo-600/30'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
-            }`"
+            v-for="t in mainHubTabs"
+            :key="t.id"
+            @click="activeTab = t.id"
+            :class="['tab-seg-btn', { active: activeTab === t.id }]"
           >
-            <span>{{ tab.icon }}</span>
-            <span>{{ tab.label }}</span>
-            <span v-if="tab.badge" :class="`text-[10px] px-1.5 py-0.2 rounded ${activeMainTab === tab.id ? 'bg-indigo-400/30 text-white' : 'bg-slate-800 text-slate-400'}`">
-              {{ tab.badge }}
-            </span>
+            <span class="tab-icon">{{ t.icon }}</span>
+            <span class="tab-label">{{ t.label }}</span>
+            <span class="tab-badge">{{ t.badge }}</span>
           </button>
         </div>
 
         <!-- ========================================================================= -->
-        <!-- TAB 1: DATA SOURCE TAXONOMY (6 CATEGORIES WITH LUXURY CARDS)               -->
+        <!-- TAB 1: 6-CATEGORY DATA TAXONOMY                                           -->
         <!-- ========================================================================= -->
-        <div v-if="activeMainTab === 'taxonomy'" class="space-y-6 animate-slide-in">
-          <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
-              <div>
-                <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-400 font-mono">
-                  TAXONOMY & DATA SPECIFICATION
-                </span>
-                <h2 class="text-lg sm:text-xl font-black text-white mt-1">
-                  Klasifikasi 6 Kategori Sumber Data Pendukung CABA–CCBN
-                </h2>
-                <p class="text-xs text-slate-400 mt-1">
-                  Struktur formal klasifikasi sumber data berdasarkan Proposal Disertasi Revisi 2 untuk mengondisikan baseline analitik secara objektif.
-                </p>
-              </div>
+        <div v-if="activeTab === 'taxonomy'" class="tab-pane-content">
+          <div class="pane-header">
+            <div>
+              <span class="sub-pill pill-blue">DATA TAXONOMY</span>
+              <h3 class="pane-title">Klasifikasi 6 Kategori Sumber Data Riset CABA–CCBN</h3>
+              <p class="pane-desc">Struktur formal pembagian data mentah, bukti, konteks, observabilitas, dan sinyal pendukung:</p>
+            </div>
+          </div>
 
-              <div class="flex items-center gap-2">
-                <span class="text-xs text-slate-400">Total Kategori: <strong class="text-white">6 (A s.d. F)</strong></span>
+          <div class="taxonomy-cards-grid">
+            
+            <!-- Category A -->
+            <div class="tax-card card-blue">
+              <div class="tc-top">
+                <span class="tc-tag tag-blue">KATEGORI A</span>
+                <span class="tc-eq">Persamaan (2)</span>
+              </div>
+              <h4 class="tc-title">🌐 Context Data ((c_{i,t}))</h4>
+              <p class="tc-p">Vektor 6-dimensi (c_{i,t} = [T, I, O, D, W, S]) yang mengondisikan lingkungan nyata pembelajaran ASN.</p>
+              <ul class="tc-list">
+                <li>• <strong>Temporal (T):</strong> Jam kerja vs malam</li>
+                <li>• <strong>Infrastruktur (I):</strong> Bandwidth & stabilitas</li>
+                <li>• <strong>Organisasi (O):</strong> Dukungan instansi</li>
+                <li>• <strong>Device (D):</strong> HP, laptop, desktop</li>
+                <li>• <strong>Workload (W):</strong> Beban kedinasan</li>
+                <li>• <strong>Spatial (S):</strong> Indeks komposit spasial</li>
+              </ul>
+              <div class="tc-callout callout-blue">
+                📌 Instrumen kuesioner adalah akuisisi konteks; bukan model inferensi itu sendiri.
               </div>
             </div>
 
-            <!-- 6 Taxonomy Category Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              
-              <!-- CATEGORY A: CONTEXT DATA -->
-              <div class="p-5 rounded-2xl bg-gradient-to-b from-blue-950/30 to-slate-900/90 border border-blue-500/30 flex flex-col justify-between space-y-4 hover:border-blue-500/50 transition shadow-lg">
-                <div class="space-y-3">
-                  <div class="flex items-center justify-between">
-                    <span class="px-2.5 py-1 rounded-md font-mono text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                      KATEGORI A
-                    </span>
-                    <span class="text-xs font-mono font-bold text-blue-400">Persamaan (2)</span>
-                  </div>
-
-                  <h3 class="text-base font-bold text-white flex items-center gap-2">
-                    <span>🌐</span> Context Data ((c_{i,t}))
-                  </h3>
-
-                  <p class="text-xs text-slate-300 leading-relaxed">
-                    Vektor profil 6-dimensi: <strong class="text-blue-300 font-mono">c_{i,t} = [T, I, O, D, W, S]</strong> yang mengondisikan lingkungan nyata pembelajaran ASN.
-                  </p>
-
-                  <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1.5 text-xs text-slate-300">
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Temporal (T):</span> <span class="font-mono text-blue-300">Jam kerja / malam</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Infrastruktur (I):</span> <span class="font-mono text-blue-300">Bandwidth & stabilitas</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Organisasi (O):</span> <span class="font-mono text-blue-300">Dukungan instansi</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Device (D):</span> <span class="font-mono text-blue-300">Smartphone / Desktop</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Workload (W):</span> <span class="font-mono text-blue-300">Beban tugas kedinasan</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Spatial (S):</span> <span class="font-mono text-blue-300">Indeks komposit wilayah</span></div>
-                  </div>
-                </div>
-
-                <div class="p-2.5 rounded-xl bg-blue-950/50 border border-blue-800/40 text-[11px] text-blue-200">
-                  📌 <strong>Pernyataan Kunci:</strong> Kuesioner adalah instrumen akuisisi variabel konteks, bukan model inferensi CCBN itu sendiri.
-                </div>
+            <!-- Category B -->
+            <div class="tax-card card-purple">
+              <div class="tc-top">
+                <span class="tc-tag tag-purple">KATEGORI B</span>
+                <span class="tc-eq">Persamaan (1)</span>
               </div>
-
-              <!-- CATEGORY B: RAW BEHAVIORAL TRACES -->
-              <div class="p-5 rounded-2xl bg-gradient-to-b from-purple-950/30 to-slate-900/90 border border-purple-500/30 flex flex-col justify-between space-y-4 hover:border-purple-500/50 transition shadow-lg">
-                <div class="space-y-3">
-                  <div class="flex items-center justify-between">
-                    <span class="px-2.5 py-1 rounded-md font-mono text-[10px] font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                      KATEGORI B
-                    </span>
-                    <span class="text-xs font-mono font-bold text-purple-400">Persamaan (1)</span>
-                  </div>
-
-                  <h3 class="text-base font-bold text-white flex items-center gap-2">
-                    <span>⚡</span> Raw Traces ((X_{i,t}))
-                  </h3>
-
-                  <p class="text-xs text-slate-300 leading-relaxed">
-                    Jejak telemetri interaksi: <strong class="text-purple-300 font-mono">X_{i,t} = [login, dur, clicks, comp, art]</strong> sebagai log mentah aktivitas.
-                  </p>
-
-                  <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1.5 text-xs text-slate-300">
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Sesi Akses:</span> <span class="font-mono text-purple-300">Timestamp login/logout</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Durasi Materi:</span> <span class="font-mono text-purple-300">Detik efektif interaksi</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Clickstream:</span> <span class="font-mono text-purple-300">Sekuens navigasi tombol</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Checkpoint:</span> <span class="font-mono text-purple-300">Progres pemutaran video</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Formatif:</span> <span class="font-mono text-purple-300">Skor kuis & artefak</span></div>
-                  </div>
-                </div>
-
-                <div class="p-2.5 rounded-xl bg-purple-950/50 border border-purple-800/40 text-[11px] text-purple-200">
-                  📌 <strong>Pernyataan Kunci:</strong> Jejak mentah adalah telemetri bukti; bukan vonis mutlak kecerdasan atau motivasi peserta.
-                </div>
+              <h4 class="tc-title">⚡ Raw Traces ((X_{i,t}))</h4>
+              <p class="tc-p">Jejak telemetri mentah (X_{i,t} = [T, D, C, K, A]) dari interaksi platform e-learning.</p>
+              <ul class="tc-list">
+                <li>• <strong>Sesi Login:</strong> Frekuensi & durasi akses</li>
+                <li>• <strong>Clickstream:</strong> Pola navigasi materi</li>
+                <li>• <strong>Video Logs:</strong> Kecepatan, jeda, checkpoint</li>
+                <li>• <strong>Kuis/Tugas:</strong> Nilai & submission time</li>
+              </ul>
+              <div class="tc-callout callout-purple">
+                📌 Jejak mentah adalah telemetri bukti; bukan vonis mutlak motivasi peserta.
               </div>
-
-              <!-- CATEGORY C: BEHAVIORAL EVIDENCE -->
-              <div class="p-5 rounded-2xl bg-gradient-to-b from-emerald-950/30 to-slate-900/90 border border-emerald-500/30 flex flex-col justify-between space-y-4 hover:border-emerald-500/50 transition shadow-lg">
-                <div class="space-y-3">
-                  <div class="flex items-center justify-between">
-                    <span class="px-2.5 py-1 rounded-md font-mono text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                      KATEGORI C
-                    </span>
-                    <span class="text-xs font-mono font-bold text-emerald-400">(B_{i,t}) Evidence</span>
-                  </div>
-
-                  <h3 class="text-base font-bold text-white flex items-center gap-2">
-                    <span>🎯</span> Behavioral Evidence ((B_{i,t}))
-                  </h3>
-
-                  <p class="text-xs text-slate-300 leading-relaxed">
-                    Evidensi perilaku teramati hasil transformasi jejak mentah menjadi bukti komposit keterlibatan belajar substantif.
-                  </p>
-
-                  <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1.5 text-xs text-slate-300">
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Revisit Frequency:</span> <span class="font-mono text-emerald-300">Pengulangan materi</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Active Engagement:</span> <span class="font-mono text-emerald-300">Diskusi & pengerjaan kuis</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Multimodal Scope:</span> <span class="font-mono text-emerald-300">Fusi interaksi LMS</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Non-Engagement Score:</span> <span class="font-mono text-emerald-300">Bukan angka kaku tunggal</span></div>
-                  </div>
-                </div>
-
-                <div class="p-2.5 rounded-xl bg-emerald-950/50 border border-emerald-800/40 text-[11px] text-emerald-200">
-                  📌 <strong>Pernyataan Kunci:</strong> Evidensi (B_{i,t}) siap dibandingkan terhadap baseline wajar (b̂_{i,t}) di CCBN.
-                </div>
-              </div>
-
-              <!-- CATEGORY D: MISSINGNESS & QUALITY -->
-              <div class="p-5 rounded-2xl bg-gradient-to-b from-amber-950/30 to-slate-900/90 border border-amber-500/30 flex flex-col justify-between space-y-4 hover:border-amber-500/50 transition shadow-lg">
-                <div class="space-y-3">
-                  <div class="flex items-center justify-between">
-                    <span class="px-2.5 py-1 rounded-md font-mono text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                      KATEGORI D
-                    </span>
-                    <span class="text-xs font-mono font-bold text-amber-400">Persamaan (3) & (4)</span>
-                  </div>
-
-                  <h3 class="text-base font-bold text-white flex items-center gap-2">
-                    <span>🛡️</span> Observability & Missingness
-                  </h3>
-
-                  <p class="text-xs text-slate-300 leading-relaxed">
-                    Evaluasi batas keteramatan: <strong class="text-amber-300 font-mono">m_{i,t} = 1 - (n_{obs}/n_{exp})</strong> dan skor keandalan <strong class="text-amber-300 font-mono">q_{i,t}</strong>.
-                  </p>
-
-                  <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1.5 text-xs text-slate-300">
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Missingness (m):</span> <span class="font-mono text-amber-300">Rasio data hilang (MNAR)</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Kualitas (q):</span> <span class="font-mono text-amber-300">Keandalan sinyal telemetri</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Noise Penalty (λ):</span> <span class="font-mono text-amber-300">Diskon kualitas noise</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Non-Punitif:</span> <span class="font-mono text-amber-300">Bukan defisit motivasi</span></div>
-                  </div>
-                </div>
-
-                <div class="p-2.5 rounded-xl bg-amber-950/50 border border-amber-800/40 text-[11px] text-amber-200">
-                  📌 <strong>Pernyataan Kunci:</strong> Missingness (m_{i,t}) memicu *Baseline Validity Gate* (Eq. 18) untuk mencegah vonis salah.
-                </div>
-              </div>
-
-              <!-- CATEGORY E: COMPOSITE SPATIAL DATA -->
-              <div class="p-5 rounded-2xl bg-gradient-to-b from-teal-950/30 to-slate-900/90 border border-teal-500/30 flex flex-col justify-between space-y-4 hover:border-teal-500/50 transition shadow-lg">
-                <div class="space-y-3">
-                  <div class="flex items-center justify-between">
-                    <span class="px-2.5 py-1 rounded-md font-mono text-[10px] font-bold bg-teal-500/20 text-teal-300 border border-teal-500/30">
-                      KATEGORI E
-                    </span>
-                    <span class="text-xs font-mono font-bold text-teal-400">Persamaan (2a, 2b, 2c)</span>
-                  </div>
-
-                  <h3 class="text-base font-bold text-white flex items-center gap-2">
-                    <span>🗺️</span> Spatial Moderator ((S_{i,t}))
-                  </h3>
-
-                  <p class="text-xs text-slate-300 leading-relaxed">
-                    Penggabungan klaster makro (K_i) dan jaringan sesi (N_{i,t}): <strong class="text-teal-300 font-mono">S_{i,t} = δ K_i + (1 - δ) N_{i,t}</strong>.
-                  </p>
-
-                  <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1.5 text-xs text-slate-300">
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Klaster Makro (K):</span> <span class="font-mono text-teal-300">BPS / Podes sinyal desa</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Sesi Jaringan (N):</span> <span class="font-mono text-teal-300">Throughput, latency, jitter</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Bobot Kalibrasi (δ):</span> <span class="font-mono text-teal-300">δ = 0.35 (default riset)</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Grouping (g ∈ G):</span> <span class="font-mono text-teal-300">3T vs Urban ilustratif riset</span></div>
-                  </div>
-                </div>
-
-                <div class="p-2.5 rounded-xl bg-teal-950/50 border border-teal-800/40 text-[11px] text-teal-200">
-                  📌 <strong>Pernyataan Kunci:</strong> Spasial adalah variabel moderator lingkungan dalam konteks (c_{i,t}); bukan penentu tunggal.
-                </div>
-              </div>
-
-              <!-- CATEGORY F: VISUAL OBSERVABILITY -->
-              <div class="p-5 rounded-2xl bg-gradient-to-b from-rose-950/30 to-slate-900/90 border border-rose-500/30 flex flex-col justify-between space-y-4 hover:border-rose-500/50 transition shadow-lg">
-                <div class="space-y-3">
-                  <div class="flex items-center justify-between">
-                    <span class="px-2.5 py-1 rounded-md font-mono text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
-                      KATEGORI F
-                    </span>
-                    <span class="text-xs font-mono font-bold text-rose-400">Persamaan (10 & 10a)</span>
-                  </div>
-
-                  <h3 class="text-base font-bold text-white flex items-center gap-2">
-                    <span>👁️</span> Supporting Visual Signals
-                  </h3>
-
-                  <p class="text-xs text-slate-300 leading-relaxed">
-                    Sinyal kamera/visi on-device sebagai <strong class="text-rose-300">pendukung observabilitas</strong> tanpa pemaksaan bandwidth tinggi.
-                  </p>
-
-                  <div class="p-3 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1.5 text-xs text-slate-300">
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Bobot Adaptif (w):</span> <span class="font-mono text-rose-300">w(S, q_vis) turun di 3T</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Fusi Terbatas (F):</span> <span class="font-mono text-rose-300">F_{i,t} = w V_{i,t} + (1-w) b</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Privacy-Preserving:</span> <span class="font-mono text-rose-300">On-device edge inference</span></div>
-                    <div class="flex items-center justify-between"><span class="text-slate-400">• Graceful Fallback:</span> <span class="font-mono text-rose-300">LMS telemetry primary</span></div>
-                  </div>
-                </div>
-
-                <div class="p-2.5 rounded-xl bg-rose-950/50 border border-rose-800/40 text-[11px] text-rose-200">
-                  📌 <strong>Pernyataan Kunci:</strong> Visual hanya sinyal observabilitas opsional, bukan vonis kepribadian atau kelulusan.
-                </div>
-              </div>
-
             </div>
+
+            <!-- Category C -->
+            <div class="tax-card card-emerald">
+              <div class="tc-top">
+                <span class="tc-tag tag-emerald">KATEGORI C</span>
+                <span class="tc-eq">B_{i,t} Evidence</span>
+              </div>
+              <h4 class="tc-title">🎯 Behavioral Evidence ((B_{i,t}))</h4>
+              <p class="tc-p">Evidensi komposit teramati hasil pemetaan jejak mentah sebagai bukti keterlibatan substantif.</p>
+              <ul class="tc-list">
+                <li>• <strong>Bukan Engagement Tunggal:</strong> Bukti belajar terdistribusi</li>
+                <li>• <strong>Revisits & Quizzes:</strong> Pengulangan dan pengujian pemahaman</li>
+                <li>• <strong>Multimodal Activity:</strong> Fusi interaksi LMS yang terverifikasi</li>
+              </ul>
+              <div class="tc-callout callout-emerald">
+                📌 Evidensi (B_{i,t}) siap dibandingkan dengan baseline wajar (b̂_{i,t}) di CCBN.
+              </div>
+            </div>
+
+            <!-- Category D -->
+            <div class="tax-card card-amber">
+              <div class="tc-top">
+                <span class="tc-tag tag-amber">KATEGORI D</span>
+                <span class="tc-eq">Persamaan (3 & 4)</span>
+              </div>
+              <h4 class="tc-title">🛡️ Observability & Missingness</h4>
+              <p class="tc-p">Evaluasi keteramatan (m_{i,t} = 1 - (n_{obs}/n_{exp})) dan indeks kualitas (q_{i,t}).</p>
+              <ul class="tc-list">
+                <li>• <strong>Batas Observasi (m):</strong> Data hilang akibat sinyal/pemadaman (MNAR)</li>
+                <li>• <strong>Kualitas Evidensi (q):</strong> Diskon reliabilitas sinyal</li>
+                <li>• <strong>Non-Punitif:</strong> Mencegah atribusi salah pada ASN daerah 3T</li>
+              </ul>
+              <div class="tc-callout callout-amber">
+                📌 Memicu *Baseline Validity Gate* (Eq. 18) untuk integritas rekomendasi.
+              </div>
+            </div>
+
+            <!-- Category E -->
+            <div class="tax-card card-cyan">
+              <div class="tc-top">
+                <span class="tc-tag tag-cyan">KATEGORI E</span>
+                <span class="tc-eq">Persamaan (2a, 2b, 2c)</span>
+              </div>
+              <h4 class="tc-title">🗺️ Spatial Moderator ((S_{i,t}))</h4>
+              <p class="tc-p">Penggabungan klaster makro (K_i) dan jaringan sesi (N_{i,t}): (S_{i,t} = delta K_i + (1-delta) N_{i,t}).</p>
+              <ul class="tc-list">
+                <li>• <strong>Klaster Makro (K):</strong> BPS / Podes sinyal desa</li>
+                <li>• <strong>Sesi Jaringan (N):</strong> Latensi riil, retry, buffering</li>
+                <li>• <strong>Grouping (g ∈ G):</strong> 3T vs Urban adalah ilustrasi riset keadilan</li>
+              </ul>
+              <div class="tc-callout callout-cyan">
+                📌 Spasial adalah variabel moderator lingkungan; bukan pengganti model CCBN.
+              </div>
+            </div>
+
+            <!-- Category F -->
+            <div class="tax-card card-rose">
+              <div class="tc-top">
+                <span class="tc-tag tag-rose">KATEGORI F</span>
+                <span class="tc-eq">Persamaan (10 & 10a)</span>
+              </div>
+              <h4 class="tc-title">👁️ Supporting Visual Signals</h4>
+              <p class="tc-p">Sinyal kamera on-device sebagai pendukung observabilitas berbobot sigmoid (w(S, q_{vis})).</p>
+              <ul class="tc-list">
+                <li>• <strong>Bobot Sigmoid:</strong> w mengecil saat sinyal 3T atau kamera redup</li>
+                <li>• <strong>Fusi Terbatas:</strong> (F_{i,t} = w V_{i,t} + (1-w) b_{LMS})</li>
+                <li>• <strong>Fallback Aman:</strong> LMS telemetry tetap berjalan jika kamera mati</li>
+              </ul>
+              <div class="tc-callout callout-rose">
+                📌 Visual hanya sinyal pendukung, bukan vonis mutlak kelulusan atau kepribadian.
+              </div>
+            </div>
+
           </div>
         </div>
 
         <!-- ========================================================================= -->
         <!-- TAB 2: PROPOSAL ↔ DATASET TRACEABILITY MATRIX                             -->
         <!-- ========================================================================= -->
-        <div v-if="activeMainTab === 'traceability'" class="space-y-6 animate-slide-in">
-          <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-5">
-            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-4">
-              <div>
-                <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400 font-mono">
-                  FORMAL TRACEABILITY MATRIX
-                </span>
-                <h2 class="text-lg sm:text-xl font-black text-white mt-1">
-                  Matriks Keterlacakan Proposal Disertasi Revisi 2 ↔ Sumber Data
-                </h2>
-                <p class="text-xs text-slate-400 mt-1">
-                  Pemetaan matematis dari konstruk proposal, persamaan, variabel telemetri, peran sistemik, hingga rute destinasi komputasi.
-                </p>
-              </div>
-
-              <!-- Interactive Category Filter -->
-              <div class="flex items-center gap-1.5 flex-wrap">
-                <button
-                  type="button"
-                  v-for="cat in ['All', 'Context', 'Evidence', 'Observability', 'Spatial', 'Decision']"
-                  :key="cat"
-                  @click="traceFilter = cat"
-                  :class="`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
-                    traceFilter === cat
-                      ? 'bg-emerald-500 text-slate-950 font-black shadow-md'
-                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-                  }`"
-                >
-                  {{ cat }}
-                </button>
-              </div>
+        <div v-if="activeTab === 'traceability'" class="tab-pane-content">
+          <div class="pane-header flex-between">
+            <div>
+              <span class="sub-pill pill-emerald">TRACEABILITY MATRIX</span>
+              <h3 class="pane-title">Matriks Keterlacakan Proposal Disertasi Revisi 2 ↔ Dataset</h3>
+              <p class="pane-desc">Pemetaan formal 17 konstruk matematis terhadap variabel telemetri dan destinasi aplikasi:</p>
             </div>
 
-            <!-- Traceability Data Table -->
-            <div class="overflow-x-auto rounded-2xl border border-slate-800">
-              <table class="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr class="bg-slate-950 text-slate-300 border-b border-slate-800 font-bold uppercase text-[11px] tracking-wider">
-                    <th class="p-3.5">Konstruk Proposal</th>
-                    <th class="p-3.5">Persamaan</th>
-                    <th class="p-3.5">Sumber Data Empiris</th>
-                    <th class="p-3.5">Variabel Kunci</th>
-                    <th class="p-3.5">Peran dalam Arsitektur</th>
-                    <th class="p-3.5">Destinasi Komputasi</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-800/60 font-sans">
-                  <tr
-                    v-for="t in filteredTraceabilityList"
-                    :key="t.equation + t.construct"
-                    class="hover:bg-slate-800/40 transition duration-150"
-                  >
-                    <td class="p-3.5 font-bold text-white flex items-center gap-1.5">
-                      <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                      {{ t.construct }}
-                    </td>
-                    <td class="p-3.5 font-mono font-bold whitespace-nowrap">
-                      <span class="px-2.5 py-1 rounded-md bg-indigo-500/10 text-indigo-300 border border-indigo-500/30">
-                        {{ t.equation }}
-                      </span>
-                    </td>
-                    <td class="p-3.5 text-slate-300">{{ t.dataSource }}</td>
-                    <td class="p-3.5 font-mono text-[11px] text-slate-400">{{ t.variables }}</td>
-                    <td class="p-3.5 text-slate-300">{{ t.role }}</td>
-                    <td class="p-3.5">
-                      <span class="px-2.5 py-1 rounded-md font-mono text-[11px] font-bold bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 whitespace-nowrap">
-                        {{ t.destination }}
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- ========================================================================= -->
-        <!-- TAB 3: DATASET METADATA CATALOG & LIVE STREAM EXPLORER                   -->
-        <!-- ========================================================================= -->
-        <div v-if="activeMainTab === 'metadata_catalog'" class="space-y-6 animate-slide-in">
-          <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
-              <div>
-                <span class="text-[11px] font-bold uppercase tracking-wider text-purple-400 font-mono">
-                  METADATA REPOSITORY & TELEMETRY STREAMS
-                </span>
-                <h2 class="text-lg sm:text-xl font-black text-white mt-1">
-                  Katalog Metadata Sumber Data & Log Stream Interaksi
-                </h2>
-                <p class="text-xs text-slate-400 mt-1">
-                  Eksplorasi skema data, variabel telemetri, dan sampel stream data operasional yang dapat diekspor untuk replikasi riset.
-                </p>
-              </div>
-
-              <!-- Download Export Buttons -->
-              <div class="flex items-center gap-2">
-                <button
-                  type="button"
-                  @click="exportCurrentDatasetCSV"
-                  class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 transition flex items-center gap-1.5 cursor-pointer border border-slate-700"
-                >
-                  <span>📥</span>
-                  <span>Unduh CSV</span>
-                </button>
-                <button
-                  type="button"
-                  @click="exportCurrentDatasetJSON"
-                  class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 transition flex items-center gap-1.5 cursor-pointer border border-slate-700"
-                >
-                  <span>📋</span>
-                  <span>Unduh JSON</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Stream Selector Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div class="filter-pills-row">
               <button
                 type="button"
-                v-for="st in cabaDatasetStreams"
-                :key="st.id"
-                @click="selectedCabaStream = st.id"
-                :class="`p-4 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between cursor-pointer ${
-                  selectedCabaStream === st.id
-                    ? 'border-indigo-500 bg-indigo-950/40 shadow-lg shadow-indigo-500/10 ring-1 ring-indigo-500/50'
-                    : 'border-slate-800 bg-slate-950/60 hover:bg-slate-800/40'
-                }`"
+                v-for="c in ['All', 'Context', 'Evidence', 'Observability', 'Spatial', 'Decision']"
+                :key="c"
+                @click="traceFilter = c"
+                :class="['filter-btn', { active: traceFilter === c }]"
               >
-                <div>
-                  <span class="text-xl mb-2 block">{{ st.icon }}</span>
-                  <strong class="text-xs font-bold text-white block leading-tight">{{ st.title }}</strong>
-                  <span class="text-[10px] text-slate-400 font-mono block mt-1">{{ st.filename }}</span>
-                </div>
-                <div class="mt-3 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[10px]">
-                  <span class="text-slate-400">{{ st.rows.length }} Records</span>
-                  <span :class="selectedCabaStream === st.id ? 'text-indigo-400 font-bold' : 'text-slate-400'">Active Preview</span>
-                </div>
+                {{ c }}
               </button>
             </div>
+          </div>
 
-            <!-- Active Stream Details & Filter -->
-            <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-              <div class="space-y-0.5">
-                <span class="text-indigo-400 font-bold text-[11px] block">Deskripsi Log Stream:</span>
-                <p class="text-slate-300">{{ currentActiveStreamObj.description }}</p>
-              </div>
-              <div class="shrink-0 flex items-center gap-2">
-                <input
-                  type="text"
-                  v-model="datasetSearchQuery"
-                  placeholder="Cari dalam stream..."
-                  class="px-3 py-1.5 rounded-xl border border-slate-700 bg-slate-900 text-white text-xs w-48 focus:outline-none focus:border-indigo-500"
-                />
-              </div>
-            </div>
-
-            <!-- Stream Table Data Preview -->
-            <div class="overflow-x-auto rounded-2xl border border-slate-800">
-              <table class="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr class="bg-slate-950 text-slate-300 border-b border-slate-800 font-mono uppercase text-[11px]">
-                    <th v-for="col in currentActiveStreamObj.columns" :key="col" class="p-3 whitespace-nowrap">
-                      {{ col }}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-800/60 font-mono text-[11px]">
-                  <tr
-                    v-for="(row, rIdx) in filteredStreamRows"
-                    :key="rIdx"
-                    class="hover:bg-slate-800/40 transition duration-150"
-                  >
-                    <td v-for="col in currentActiveStreamObj.columns" :key="col" class="p-3 whitespace-nowrap text-slate-200">
-                      {{ row[col] }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="table-wrap">
+            <table class="benchmark-table">
+              <thead>
+                <tr>
+                  <th>Konstruk Proposal</th>
+                  <th>Persamaan</th>
+                  <th>Sumber Data</th>
+                  <th>Variabel Kunci</th>
+                  <th>Peran dalam Arsitektur</th>
+                  <th>Destinasi Komputasi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="t in filteredTraceabilityList" :key="t.equation + t.construct">
+                  <td><strong>{{ t.construct }}</strong></td>
+                  <td><span class="eq-pill">{{ t.equation }}</span></td>
+                  <td>{{ t.dataSource }}</td>
+                  <td><code class="code-sm">{{ t.variables }}</code></td>
+                  <td>{{ t.role }}</td>
+                  <td><span class="dest-pill">{{ t.destination }}</span></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
         <!-- ========================================================================= -->
-        <!-- TAB 4: OPERATIONAL SUPPORT STATES (S1 TO S4 REPOSITIONED)                 -->
+        <!-- TAB 3: DATASET STREAMS & TELEMETRY LOGS                                   -->
         <!-- ========================================================================= -->
-        <div v-if="activeMainTab === 'states_matrix'" class="space-y-6 animate-slide-in">
-          <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-6">
+        <div v-if="activeTab === 'streams'" class="tab-pane-content">
+          <div class="pane-header flex-between">
             <div>
-              <div class="flex items-center gap-2">
-                <span class="px-2.5 py-1 rounded-md font-mono text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                  🎯 OPERATIONAL SUPPORT STATES
-                </span>
-                <span class="text-xs font-bold text-slate-400">Kategori Dukungan Andragogis Lapangan</span>
-              </div>
-              <h2 class="text-lg sm:text-xl font-black text-white mt-2">
-                4 Status Situasional Operasional Pembelajar (S1–S4)
-              </h2>
-              <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-                Status situasional S1–S4 merupakan <strong>kategori dukungan operasional</strong> untuk memicu logika intervensi adaptif suportif pada prototipe aplikasi. Status ini <strong>BUKAN</strong> definisi matematis CCBN, melainkan pengelompokan intervensi lapangan.
-              </p>
+              <span class="sub-pill pill-purple">DATA STREAMS & LOGS</span>
+              <h3 class="pane-title">Katalog Log Telemetri & Data Stream Operasional</h3>
+              <p class="pane-desc">Eksplorasi sampel data terstruktur yang dapat diekspor untuk verifikasi replikasi:</p>
             </div>
 
-            <!-- S1-S4 Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div
-                v-for="state in SITUATED_OPERATIONAL_STATES"
-                :key="state.code"
-                class="p-5 rounded-2xl border border-slate-800 bg-slate-950/60 flex flex-col justify-between space-y-4 hover:border-slate-700 transition shadow-lg"
-              >
-                <div class="space-y-3">
-                  <div class="flex items-center justify-between">
-                    <span class="px-3 py-1 rounded-lg font-mono font-black text-xs bg-indigo-600 text-white shadow">
-                      {{ state.code }}
-                    </span>
-                    <span class="text-xs font-bold text-slate-400">{{ state.role }}</span>
-                  </div>
+            <div class="export-btns-row">
+              <button type="button" @click="exportCurrentDatasetCSV" class="btn-export">📥 Unduh CSV</button>
+              <button type="button" @click="exportCurrentDatasetJSON" class="btn-export">📋 Unduh JSON</button>
+            </div>
+          </div>
 
-                  <h3 class="text-base font-bold text-white">{{ state.name }}</h3>
+          <!-- Stream Selector Cards -->
+          <div class="stream-selector-grid">
+            <button
+              type="button"
+              v-for="s in cabaDatasetStreams"
+              :key="s.id"
+              @click="selectedStreamId = s.id"
+              :class="['stream-card-btn', { active: selectedStreamId === s.id }]"
+            >
+              <span class="s-icon">{{ s.icon }}</span>
+              <strong class="s-title">{{ s.title }}</strong>
+              <span class="s-file">{{ s.filename }}</span>
+            </button>
+          </div>
 
-                  <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
-                    <span class="text-[10px] font-bold uppercase text-slate-400 block tracking-wider">
-                      Sinyal Pemicu Telemetri (Triggers):
-                    </span>
-                    <ul class="text-xs text-slate-300 space-y-1">
-                      <li v-for="t in state.triggers" :key="t" class="flex items-center gap-1.5">
-                        <span class="text-indigo-400">•</span> {{ t }}
-                      </li>
-                    </ul>
-                  </div>
+          <div class="stream-details-bar">
+            <p><strong>Deskripsi Stream:</strong> {{ currentActiveStreamObj.description }}</p>
+            <input
+              type="text"
+              v-model="searchQuery"
+              placeholder="Cari dalam stream..."
+              class="search-input"
+            />
+          </div>
 
-                  <div class="p-3 rounded-xl bg-emerald-950/50 border border-emerald-500/30 space-y-1">
-                    <span class="text-[10px] font-bold uppercase text-emerald-400 block tracking-wider">
-                      Aksi Dukungan Andragogis:
-                    </span>
-                    <span class="text-xs font-bold text-emerald-200 block">{{ state.supportAction }}</span>
-                  </div>
-                </div>
+          <div class="table-wrap">
+            <table class="benchmark-table">
+              <thead>
+                <tr>
+                  <th v-for="c in currentActiveStreamObj.columns" :key="c">{{ c }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(row, idx) in filteredStreamRows" :key="idx">
+                  <td v-for="c in currentActiveStreamObj.columns" :key="c">{{ row[c] }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-                <div class="p-3 rounded-xl bg-amber-950/40 border border-amber-600/30 text-[11px] text-amber-300 leading-relaxed">
-                  <strong>Disclaimer:</strong> {{ state.disclaimer }}
-                </div>
+        <!-- ========================================================================= -->
+        <!-- TAB 4: OPERATIONAL SUPPORT STATES (S1 TO S4)                              -->
+        <!-- ========================================================================= -->
+        <div v-if="activeTab === 'states'" class="tab-pane-content">
+          <div class="pane-header">
+            <div>
+              <span class="sub-pill pill-amber">ANDRAGOGIC STATES</span>
+              <h3 class="pane-title">4 Status Situasional Operasional Pembelajar (S1–S4)</h3>
+              <p class="pane-desc">Status operasional untuk memicu intervensi andragogis lapangan (bukan model matematika CCBN):</p>
+            </div>
+          </div>
+
+          <div class="states-grid-2col">
+            <div
+              v-for="s in SITUATED_OPERATIONAL_STATES"
+              :key="s.code"
+              class="state-card"
+            >
+              <div class="sc-header">
+                <span class="sc-code">{{ s.code }}</span>
+                <span class="sc-role">{{ s.role }}</span>
+              </div>
+              <h4 class="sc-name">{{ s.name }}</h4>
+
+              <div class="sc-triggers">
+                <span class="sc-label">Sinyal Pemicu (Triggers):</span>
+                <ul>
+                  <li v-for="t in s.triggers" :key="t">• {{ t }}</li>
+                </ul>
+              </div>
+
+              <div class="sc-action">
+                <span class="sc-label">Aksi Dukungan Suportif:</span>
+                <strong>{{ s.supportAction }}</strong>
+              </div>
+
+              <div class="sc-disclaimer">
+                <strong>Disclaimer:</strong> {{ s.disclaimer }}
               </div>
             </div>
           </div>
         </div>
 
         <!-- ========================================================================= -->
-        <!-- TAB 5: 4-LAYER CABA ARCHITECTURE DIAGRAM (MANUSCRIPT LINEAGE)             -->
+        <!-- TAB 5: 4-LAYER CABA ARCHITECTURE DIAGRAM                                  -->
         <!-- ========================================================================= -->
-        <div v-if="activeMainTab === 'architecture'" class="space-y-6 animate-slide-in">
-          <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
-              <div>
-                <span class="text-[11px] font-bold uppercase tracking-wider text-blue-400 font-mono">
-                  MANUSCRIPT LINEAGE ARTIFACT
-                </span>
-                <h2 class="text-lg sm:text-xl font-black text-white mt-1">
-                  Diagram Arsitektur Empat Layer CABA (Figure 1 Manuskrip JISEBI)
-                </h2>
-                <p class="text-xs text-slate-400 mt-1">
-                  Representasi konseptual empat layer awal yang mendasari evolusi menuju model matematika CABA–CCBN Proposal Disertasi Revisi 2.
-                </p>
+        <div v-if="activeTab === 'lineage'" class="tab-pane-content">
+          <div class="pane-header">
+            <div>
+              <span class="sub-pill pill-blue">RESEARCH LINEAGE</span>
+              <h3 class="pane-title">Diagram Arsitektur 4-Layer CABA (Manuskrip JISEBI ➔ Rev 2)</h3>
+              <p class="pane-desc">Evolusi dari model analitik awal hingga model matematika CCBN terdisparitas-aware:</p>
+            </div>
+          </div>
+
+          <div class="lineage-flow-container">
+            <div class="l-layer layer-1">
+              <span class="l-tag">LAYER 1: SENSING & TELEMETRY</span>
+              <h4>EVALUATE MULTIMODAL SIGNALS</h4>
+              <p>Temporal • Device • Network • Tab Focus • Playback Speed • Dwell Time</p>
+            </div>
+
+            <div class="l-arrow">↓</div>
+
+            <div class="l-grid-3">
+              <div class="l-box box-s1">
+                <span class="lb-code">S1</span>
+                <strong>Low-Engagement Risk</strong>
+                <p>Speed 2x • Low Focus ➔ Stop-Gate</p>
+              </div>
+              <div class="l-box box-s2">
+                <span class="lb-code">S2</span>
+                <strong>Office-Hour Learning</strong>
+                <p>Office Hours • Multi-task ➔ Micro-Chunking</p>
+              </div>
+              <div class="l-box box-s3">
+                <span class="lb-code">S3</span>
+                <strong>Cognitive Struggling</strong>
+                <p>Rewinds • High Dwell ➔ Scaffolding</p>
               </div>
             </div>
 
-            <!-- Flow Architecture Diagram -->
-            <div class="p-8 rounded-3xl bg-slate-950/80 border border-slate-800 flex flex-col items-center space-y-4">
-              
-              <!-- Layer 1: Signals -->
-              <div class="w-full max-w-2xl p-5 rounded-2xl border border-indigo-500/40 bg-indigo-950/30 text-center shadow-lg">
-                <div class="text-xs font-mono font-bold text-indigo-400 uppercase tracking-widest">LAYER 1: SENSING & TELEMETRY</div>
-                <div class="text-base font-black text-white mt-1">EVALUATE MULTIMODAL SIGNALS</div>
-                <div class="text-xs text-slate-400 mt-1">
-                  Temporal • Device • Network • Tab Focus • Playback Speed • Dwell Time
-                </div>
-              </div>
+            <div class="l-arrow">↓</div>
 
-              <div class="text-indigo-400 text-lg">↓</div>
+            <div class="l-box box-s4">
+              <span class="lb-code">S4</span>
+              <strong>Infrastructural Constraints (3T Regions)</strong>
+              <p>Low Bandwidth • Buffer Stalls ➔ Audio-First Podcast Mode + Offline PWA Caching</p>
+            </div>
 
-              <!-- Layer 2: Situations S1-S3 -->
-              <div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div class="p-4 rounded-2xl border border-blue-500/30 bg-blue-950/20 text-center space-y-1">
-                  <span class="text-[10px] font-bold text-blue-400 uppercase">Situational S1</span>
-                  <div class="text-sm font-bold text-white">Low-Engagement Risk</div>
-                  <div class="text-[11px] text-slate-400">Speed 2x • Low Tab-Focus ➔ Stop-Gate Verification</div>
-                </div>
+            <div class="l-arrow">↓</div>
 
-                <div class="p-4 rounded-2xl border border-purple-500/30 bg-purple-950/20 text-center space-y-1">
-                  <span class="text-[10px] font-bold text-purple-400 uppercase">Situational S2</span>
-                  <div class="text-sm font-bold text-white">Office-Hour Learning</div>
-                  <div class="text-[11px] text-slate-400">Office Hours • Dual Tasking ➔ Micro-Chunking (3–5m)</div>
-                </div>
-
-                <div class="p-4 rounded-2xl border border-teal-500/30 bg-teal-950/20 text-center space-y-1">
-                  <span class="text-[10px] font-bold text-teal-400 uppercase">Situational S3</span>
-                  <div class="text-sm font-bold text-white">Cognitive Struggling</div>
-                  <div class="text-[11px] text-slate-400">Rewinds • High Dwell ➔ Adaptive Scaffolding</div>
-                </div>
-              </div>
-
-              <div class="text-amber-400 text-lg">↓</div>
-
-              <!-- Layer 3: S4 Spatial Constraint -->
-              <div class="w-full max-w-4xl p-4 rounded-2xl border border-amber-500/40 bg-amber-950/20 text-center space-y-1">
-                <span class="text-[10px] font-bold text-amber-400 uppercase">Situational S4 (Infrastructural Constraint)</span>
-                <div class="text-sm font-bold text-white">Bandwidth & Electricity Constraints (3T Regions)</div>
-                <div class="text-[11px] text-slate-400">Low Bandwidth • Buffer Stalls ➔ Audio-First Podcast Mode + Offline PWA Caching</div>
-              </div>
-
-              <div class="text-emerald-400 text-lg">↓</div>
-
-              <!-- Layer 4: Evidence Accumulation -->
-              <div class="w-full max-w-2xl p-5 rounded-2xl border border-emerald-500/40 bg-emerald-950/30 text-center shadow-lg">
-                <div class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">LAYER 4: EQUITABLE ACCUMULATION</div>
-                <div class="text-base font-black text-white mt-1">ADJUSTED EVIDENCE ACCUMULATION</div>
-                <div class="text-xs text-slate-400 mt-1">
-                  Akumulasi bukti autentik tanpa vonis kaku durasi pemutaran video linear.
-                </div>
-              </div>
-
+            <div class="l-layer layer-4">
+              <span class="l-tag">LAYER 4: EQUITABLE ACCUMULATION</span>
+              <h4>ADJUSTED EVIDENCE ACCUMULATION</h4>
+              <p>Akumulasi bukti autentik tanpa vonis durasi linear 100%.</p>
             </div>
           </div>
         </div>
 
         <!-- ========================================================================= -->
-        <!-- TAB 6: REFERENCES & BENCHMARK DATASETS                                    -->
+        <!-- TAB 6: BIBLIOGRAPHY & BENCHMARK DATASETS                                  -->
         <!-- ========================================================================= -->
-        <div v-if="activeMainTab === 'references'" class="space-y-6 animate-slide-in">
-          <div class="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
-              <div>
-                <span class="text-[11px] font-bold uppercase tracking-wider text-blue-400 font-mono">
-                  BIBLIOGRAPHY & BENCHMARKS
-                </span>
-                <h2 class="text-lg sm:text-xl font-black text-white mt-1">
-                  22 Referensi Manuskrip JISEBI & Benchmark Datasets Terbuka
-                </h2>
-              </div>
-
-              <div class="flex items-center gap-1.5 flex-wrap">
-                <button
-                  type="button"
-                  @click="refCategoryFilter = 'all'"
-                  :class="`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${refCategoryFilter === 'all' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}`"
-                >
-                  Semua
-                </button>
-                <button
-                  type="button"
-                  v-for="c in refCategories"
-                  :key="c"
-                  @click="refCategoryFilter = c"
-                  :class="`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${refCategoryFilter === c ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}`"
-                >
-                  {{ c }}
-                </button>
-              </div>
+        <div v-if="activeTab === 'references'" class="tab-pane-content">
+          <div class="pane-header flex-between">
+            <div>
+              <span class="sub-pill pill-blue">BIBLIOGRAPHY & BENCHMARKS</span>
+              <h3 class="pane-title">22 Referensi Manuskrip JISEBI & Benchmark Terbuka</h3>
+              <p class="pane-desc">Daftar literatur pendukung kerangka kerja CABA dan repositori data terbuka:</p>
             </div>
 
-            <!-- References Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div
-                v-for="r in filteredJisebiReferences"
-                :key="r.key"
-                class="p-4 rounded-2xl border border-slate-800 bg-slate-950/60 flex flex-col justify-between space-y-3 hover:border-slate-700 transition"
+            <div class="filter-pills-row">
+              <button
+                type="button"
+                @click="refFilter = 'all'"
+                :class="['filter-btn', { active: refFilter === 'all' }]"
               >
-                <div class="space-y-1.5">
-                  <div class="flex items-center justify-between gap-2">
-                    <span class="px-2 py-0.5 rounded font-mono text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
-                      [{{ r.key }}]
-                    </span>
-                    <span class="text-[10px] text-slate-400 font-semibold">{{ r.year }} • {{ r.category }}</span>
-                  </div>
+                Semua
+              </button>
+              <button
+                type="button"
+                v-for="c in refCategories"
+                :key="c"
+                @click="refFilter = c"
+                :class="['filter-btn', { active: refFilter === c }]"
+              >
+                {{ c }}
+              </button>
+            </div>
+          </div>
 
-                  <strong class="text-white block text-xs leading-snug">{{ r.title }}</strong>
-                  <p class="text-[11px] text-slate-400 italic">{{ r.authors }} ({{ r.source }})</p>
-                </div>
-
-                <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-300">
-                  <strong class="text-indigo-400">Relevansi CABA:</strong> {{ r.relevance }}
-                </div>
+          <div class="refs-grid">
+            <div
+              v-for="r in filteredJisebiReferences"
+              :key="r.key"
+              class="ref-card"
+            >
+              <div class="rc-top">
+                <span class="rc-key">[{{ r.key }}]</span>
+                <span class="rc-cat">{{ r.year }} • {{ r.category }}</span>
+              </div>
+              <strong class="rc-title">{{ r.title }}</strong>
+              <p class="rc-author">{{ r.authors }} ({{ r.source }})</p>
+              <div class="rc-rel">
+                <strong>Relevansi CABA:</strong> {{ r.relevance }}
               </div>
             </div>
           </div>
@@ -912,33 +742,19 @@
       </section>
 
       <!-- ========================================================================= -->
-      <!-- 4. BOTTOM PROMINENT JUMP TO /analisis                                     -->
+      <!-- 5. BOTTOM CTA TO /analisis                                                -->
       <!-- ========================================================================= -->
-      <section class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-900 via-slate-900 to-emerald-950 border border-indigo-500/40 p-6 sm:p-8 shadow-2xl backdrop-blur-xl">
-        <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div class="space-y-2 max-w-3xl">
-            <div class="flex items-center gap-2">
-              <span class="px-2.5 py-0.5 rounded-md font-mono text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                PROCEED TO ENGINE
-              </span>
-              <span class="text-xs text-slate-300 font-bold">CCBN Computational Decision Lab</span>
-            </div>
-            <h3 class="text-lg sm:text-2xl font-black text-white">
-              Siap Menghitung Baseline Wajar & Kebijakan Intervensi?
-            </h3>
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Gunakan vektor konteks ((c_{i,t})), evidensi perilaku ((B_{i,t})), dan observabilitas ((q_{i,t})) yang telah didefinisikan pada Data Hub ini ke dalam model matematika CCBN ((b̂_{i,t})), analisis disparitas ((D_t)), serta kebijakan multi-objektif LinUCB di <code class="text-emerald-400 font-bold">/analisis</code>.
-            </p>
-          </div>
-
-          <NuxtLink
-            to="/analisis"
-            class="px-6 py-3.5 rounded-2xl font-black text-sm text-slate-950 bg-gradient-to-r from-emerald-400 to-teal-300 hover:from-emerald-300 hover:to-teal-200 transition-all duration-200 flex items-center gap-2 shadow-xl shadow-emerald-500/20 shrink-0 no-underline cursor-pointer group"
-          >
-            <span>Buka Lab Komputasi CCBN (/analisis)</span>
-            <span class="group-hover:translate-x-1 transition-transform">→</span>
-          </NuxtLink>
+      <section class="card cta-jump-card">
+        <div class="cta-content">
+          <span class="badge badge-emerald">⚡ NEXT COMPUTATIONAL STAGE</span>
+          <h2 class="cta-title">Siap Mengeksekusi Estimator CCBN di /analisis?</h2>
+          <p class="cta-desc">
+            Vektor konteks ((c_{i,t})), evidensi perilaku ((B_{i,t})), dan batas observabilitas ((q_{i,t})) yang telah disiapkan di Data Hub ini siap diumpankan ke model matematika CCBN untuk menghitung ekspektasi baseline wajar ((b̂_{i,t})), residual diagnostik ((d_{i,t})), disparitas wilayah ((D_t)), dan optimasi kebijakan LinUCB di rute <code class="code-sm">/analisis</code>.
+          </p>
         </div>
+        <NuxtLink to="/analisis" class="btn-cta-main">
+          <span>Buka Lab Komputasi CCBN (/analisis) →</span>
+        </NuxtLink>
       </section>
 
     </main>
@@ -949,7 +765,6 @@
 import { ref, computed, onMounted } from 'vue';
 import Navbar from '~/components/Navbar.vue';
 
-// Centralized CABA Metadata & Traceability
 import {
   CABA_DATASETS_METADATA,
   SITUATED_OPERATIONAL_STATES,
@@ -957,58 +772,118 @@ import {
   PROPOSAL_DATASET_TRACEABILITY
 } from '~/data/caba';
 
-// Hub Tabs Definition
-const hubTabs = [
-  { id: 'taxonomy', label: '1. Taksonomi Sumber Data (6 Kategori)', icon: '🗂️', badge: 'A–F' },
-  { id: 'traceability', label: '2. Matriks Traceability Proposal', icon: '🔗', badge: '17 Konstruk' },
-  { id: 'metadata_catalog', label: '3. Katalog Metadata & Telemetri', icon: '📋', badge: 'Streams' },
-  { id: 'states_matrix', label: '4. Status Situasional (S1–S4)', icon: '🎯', badge: 'Andragogi' },
-  { id: 'architecture', label: '5. Diagram 4-Layer (Lineage)', icon: '🗺️', badge: 'Figure 1' },
+// Tab list
+const mainHubTabs = [
+  { id: 'taxonomy', label: '1. Taksonomi Sumber Data', icon: '🗂️', badge: '6 Kategori' },
+  { id: 'traceability', label: '2. Matriks Traceability', icon: '🔗', badge: '17 Konstruk' },
+  { id: 'streams', label: '3. Data Streams & Logs', icon: '📋', badge: 'Telemetry' },
+  { id: 'states', label: '4. Status Situasional S1–S4', icon: '🎯', badge: 'Andragogi' },
+  { id: 'lineage', label: '5. Diagram 4-Layer', icon: '🗺️', badge: 'JISEBI Lineage' },
   { id: 'references', label: '6. Referensi & Benchmark', icon: '📚', badge: '22 Papers' }
 ];
 
-// Active State
-const activeMainTab = ref<string>('taxonomy');
+const activeTab = ref<string>('taxonomy');
 const traceFilter = ref<string>('All');
-const selectedCabaStream = ref<string>('telemetry_stream');
-const datasetSearchQuery = ref<string>('');
-const refCategoryFilter = ref<string>('all');
+const selectedStreamId = ref<string>('telemetry_stream');
+const searchQuery = ref<string>('');
+const refFilter = ref<string>('all');
 const jisebiReferences = ref<any[]>([]);
-const benchmarkDatasets = ref<any[]>([]);
-const loading = ref<boolean>(true);
+const loading = ref<boolean>(false);
 
-// Filtered Traceability
+// Live Simulator Personas
+const personaList = [
+  {
+    id: 'urban_jkt',
+    name: 'ASN-0101 (DKI Jakarta)',
+    icon: '🏢',
+    region: 'Metropolitan',
+    infra: 'Fiber 100Mbps',
+    context: { T: 'Malam (19:30)', I: 'Tinggi (95 Mbps)', O: 'Sangat Mendukung', D: 'Laptop Dual Monitor', W: 'Sedang', S: 0.88 },
+    traces: { playbackSpeed: '2.0x', tabFocus: 0.22, bufferStalls: 0, rewinds: 0, dwellMinutes: 12 },
+    evidenceB: 0.82,
+    missingnessM: 0.00,
+    missingnessType: 'MCAR None',
+    qualityQ: 0.98,
+    gateStatus: 'VALID (q >= 0.60)',
+    gateStatusClass: 'gate-valid',
+    supportState: { code: 'S1', name: 'Low-Engagement Risk', action: 'Stop-Gate Verification jika evaluasi formatif rendah' }
+  },
+  {
+    id: 'semi_urban',
+    name: 'ASN-0201 (Banyumas)',
+    icon: '🏛️',
+    region: 'Daratan Jawa',
+    infra: '4G LTE 15Mbps',
+    context: { T: 'Jam Kantor (10:15)', I: 'Sedang (12 Mbps)', O: 'Mendukung', D: 'PC Kantor Bersama', W: 'Tinggi (Pelayanan)', S: 0.68 },
+    traces: { playbackSpeed: '1.25x', tabFocus: 0.65, bufferStalls: 1, rewinds: 1, dwellMinutes: 28 },
+    evidenceB: 0.74,
+    missingnessM: 0.15,
+    missingnessType: 'MAR Low',
+    qualityQ: 0.82,
+    gateStatus: 'VALID (q >= 0.60)',
+    gateStatusClass: 'gate-valid',
+    supportState: { code: 'S2', name: 'Office-Hour Learning', action: 'Micro-Chunking 3–5 menit + Audio Background' }
+  },
+  {
+    id: 'natuna_3t',
+    name: 'ASN-0401 (Natuna - 3T)',
+    icon: '🏝️',
+    region: 'Perbatasan Maritim',
+    infra: 'Satelit 2Mbps',
+    context: { T: 'Sore (16:40)', I: 'Terbatas (1.2 Mbps)', O: 'Sedang', D: 'Smartphone Android 4G', W: 'Tinggi', S: 0.26 },
+    traces: { playbackSpeed: '1.0x', tabFocus: 0.88, bufferStalls: 8, rewinds: 0, dwellMinutes: 45 },
+    evidenceB: 0.52,
+    missingnessM: 0.45,
+    missingnessType: 'MNAR Sinyal 3T',
+    qualityQ: 0.55,
+    gateStatus: 'BOUNDARY (0.40 <= q < 0.60)',
+    gateStatusClass: 'gate-boundary',
+    supportState: { code: 'S4', name: 'Infrastructural Constraint', action: 'Podcast Audio Mode + Offline PWA Sync' }
+  },
+  {
+    id: 'aru_3t',
+    name: 'ASN-0402 (Kep. Aru - 3T)',
+    icon: '⛵',
+    region: 'Pulau Terluar',
+    infra: 'VSAT Sering Padam',
+    context: { T: 'Malam (20:10)', I: 'Kritis (0.4 Mbps)', O: 'Terbatas', D: 'Smartphone Entry Level', W: 'Sangat Tinggi', S: 0.21 },
+    traces: { playbackSpeed: '1.0x', tabFocus: 0.92, bufferStalls: 14, rewinds: 2, dwellMinutes: 60 },
+    evidenceB: 0.42,
+    missingnessM: 0.65,
+    missingnessType: 'MNAR Pemadaman',
+    qualityQ: 0.35,
+    gateStatus: 'INVALID (HITL Widyaiswara)',
+    gateStatusClass: 'gate-invalid',
+    supportState: { code: 'S4', name: 'Severe Offline Mode', action: 'Full Offline PDF Modules + Evaluasi Berbasis Hasil Kerja' }
+  }
+];
+
+const activePersonaId = ref<string>('natuna_3t');
+const currentPersona = computed(() => {
+  return personaList.find(p => p.id === activePersonaId.value) || personaList[0];
+});
+
+// Traceability Filtered
 const filteredTraceabilityList = computed(() => {
   if (traceFilter.value === 'All') return PROPOSAL_DATASET_TRACEABILITY;
   return PROPOSAL_DATASET_TRACEABILITY.filter(t => t.category === traceFilter.value);
 });
 
-// Telemetry Streams Config
-interface CabaStreamConfig {
-  id: string;
-  title: string;
-  icon: string;
-  description: string;
-  filename: string;
-  columns: string[];
-  rows: Record<string, string>[];
-}
-
-const cabaDatasetStreams: CabaStreamConfig[] = [
+// Telemetry Streams
+const cabaDatasetStreams = [
   {
     id: 'telemetry_stream',
-    title: 'Stream 1: Telemetri Sesi & Evidensi (B)',
+    title: 'Stream 1: Telemetri Sesi & Bukti (B)',
     icon: '📡',
     filename: 'caba_telemetry_evidence_stream.csv',
-    description: 'Log telemetri interaksi waktu nyata (durasi, playback speed, tab focus, buffering, rewind, dwell time) dengan evidensi perilaku teramati B_{i,t}.',
+    description: 'Log telemetri interaksi waktu nyata (playback speed, tab focus, buffering, rewind, dwell time) dengan evidensi perilaku teramati B_{i,t}.',
     columns: ['user_id', 'klaster_wilayah', 'jam_akses', 'kecepatan_video', 'tab_focus_ratio', 'buffer_stalls', 'rewind_count', 'evidence_B', 'evidence_quality_q', 'status_gate'],
     rows: [
       { user_id: 'ASN-0101', klaster_wilayah: 'Urban (DKI Jakarta)', jam_akses: '10:15 WIB', kecepatan_video: '2.0x', tab_focus_ratio: '0.22', buffer_stalls: '0', rewind_count: '0', evidence_B: '0.82', evidence_quality_q: '0.98', status_gate: 'VALID' },
       { user_id: 'ASN-0102', klaster_wilayah: 'Urban (Surabaya)', jam_akses: '14:40 WIB', kecepatan_video: '1.75x', tab_focus_ratio: '0.28', buffer_stalls: '0', rewind_count: '1', evidence_B: '0.85', evidence_quality_q: '0.95', status_gate: 'VALID' },
       { user_id: 'ASN-0201', klaster_wilayah: 'Semi-Urban (Banyumas)', jam_akses: '09:30 WIB', kecepatan_video: '1.0x', tab_focus_ratio: '0.65', buffer_stalls: '1', rewind_count: '0', evidence_B: '0.74', evidence_quality_q: '0.88', status_gate: 'VALID' },
       { user_id: 'ASN-0401', klaster_wilayah: '3T (Kab. Natuna)', jam_akses: '14:20 WIB', kecepatan_video: '1.0x', tab_focus_ratio: '0.88', buffer_stalls: '8', rewind_count: '0', evidence_B: '0.52', evidence_quality_q: '0.62', status_gate: 'BOUNDARY' },
-      { user_id: 'ASN-0402', klaster_wilayah: '3T (Kep. Aru)', jam_akses: '16:10 WIT', kecepatan_video: '1.0x', tab_focus_ratio: '0.85', buffer_stalls: '11', rewind_count: '0', evidence_B: '0.45', evidence_quality_q: '0.48', status_gate: 'INVALID (HITL)' },
-      { user_id: 'ASN-0403', klaster_wilayah: '3T (Kab. Belu)', jam_akses: '19:40 WITA', kecepatan_video: '1.0x', tab_focus_ratio: '0.90', buffer_stalls: '9', rewind_count: '1', evidence_B: '0.50', evidence_quality_q: '0.55', status_gate: 'BOUNDARY' }
+      { user_id: 'ASN-0402', klaster_wilayah: '3T (Kep. Aru)', jam_akses: '16:10 WIT', kecepatan_video: '1.0x', tab_focus_ratio: '0.85', buffer_stalls: '11', rewind_count: '0', evidence_B: '0.45', evidence_quality_q: '0.48', status_gate: 'INVALID (HITL)' }
     ]
   },
   {
@@ -1016,7 +891,7 @@ const cabaDatasetStreams: CabaStreamConfig[] = [
     title: 'Stream 2: Bobot Spasial Komposit (S)',
     icon: '⚖️',
     filename: 'spatial_composite_index_stream.csv',
-    description: 'Matriks parameter normalisasi Indeks Spasial Komposit S_{i,t} = δ K_i + (1-δ) N_{i,t} dari data BPS/Podes dan telemetri jaringan.',
+    description: 'Matriks parameter normalisasi Indeks Spasial Komposit S_{i,t} = δ K_i + (1-δ) N_{i,t} dari data terbuka BPS/Podes dan telemetri jaringan.',
     columns: ['wilayah_id', 'klaster_makro_K', 'network_session_N', 'delta_weight', 'composite_S', 'throughput_kbps', 'latency_ms'],
     rows: [
       { wilayah_id: 'Wilayah Urban / Metropolitan', klaster_makro_K: '0.80', network_session_N: '0.92', delta_weight: '0.35', composite_S: '0.88', throughput_kbps: '8500 kbps', latency_ms: '25 ms' },
@@ -1026,9 +901,9 @@ const cabaDatasetStreams: CabaStreamConfig[] = [
     ]
   },
   {
-    id: 'evidence_accumulation',
+    id: 'missingness_log',
     title: 'Stream 3: Missingness (m) & Kualitas (q)',
-    icon: '🎯',
+    icon: '🛡️',
     filename: 'missingness_diagnostics_log.csv',
     description: 'Log evaluasi rasio keteramatan checkpoint dan skor kualitas evidensi q_{i,t} untuk memisahkan MNAR dari kelalaian.',
     columns: ['session_id', 'user_id', 'expected_points', 'observed_points', 'missingness_m', 'noise_level', 'quality_q', 'mcar_test_p'],
@@ -1036,40 +911,26 @@ const cabaDatasetStreams: CabaStreamConfig[] = [
       { session_id: 'SES-001', user_id: 'ASN-0101 (Urban)', expected_points: '10', observed_points: '10', missingness_m: '0.00', noise_level: '0.02', quality_q: '0.98', mcar_test_p: 'p > 0.05' },
       { session_id: 'SES-002', user_id: 'ASN-0201 (Daratan)', expected_points: '10', observed_points: '8', missingness_m: '0.20', noise_level: '0.08', quality_q: '0.72', mcar_test_p: 'p < 0.05' },
       { session_id: 'SES-003', user_id: 'ASN-0401 (3T Natuna)', expected_points: '10', observed_points: '5', missingness_m: '0.50', noise_level: '0.22', quality_q: '0.28', mcar_test_p: 'p < 0.01 (MNAR)' },
-      { session_id: 'SES-004', user_id: 'ASN-0403 (3T Belu)', expected_points: '10', observed_points: '6', missingness_m: '0.40', noise_level: '0.18', quality_q: '0.42', mcar_test_p: 'p < 0.01 (MNAR)' }
-    ]
-  },
-  {
-    id: 'widyaiswara_validation',
-    title: 'Stream 4: Validasi Ahli & HITL Logs',
-    icon: '👨‍🏫',
-    filename: 'widyaiswara_hitl_audit_log.csv',
-    description: 'Rubrik penilaian validasi konseptual oleh Widyaiswara pengelola diklat ASN serta log audit Human-in-the-Loop.',
-    columns: ['evaluator_id', 'institusi_diklat', 'jabatan_fungsional', 'validitas_baseline_skor', 'fairness_equity_skor', 'cooldown_suitability', 'rekomendasi_ahli'],
-    rows: [
-      { evaluator_id: 'EXP-WI-01', institusi_diklat: 'Puslatbang LAN RI', jabatan_fungsional: 'Widyaiswara Ahli Utama', validitas_baseline_skor: '4.8 / 5.0', fairness_equity_skor: '4.9 / 5.0', cooldown_suitability: '4.7 / 5.0', rekomendasi_ahli: 'Sangat Sesuai Praktik Diklat ASN' },
-      { evaluator_id: 'EXP-WI-02', institusi_diklat: 'BPSDM Prov. Sulsel', jabatan_fungsional: 'Widyaiswara Ahli Madya', validitas_baseline_skor: '4.6 / 5.0', fairness_equity_skor: '4.8 / 5.0', cooldown_suitability: '4.5 / 5.0', rekomendasi_ahli: 'Sangat Sesuai untuk Wilayah Kepulauan' },
-      { evaluator_id: 'EXP-WI-03', institusi_diklat: 'Bapelkes Mataram', jabatan_fungsional: 'Widyaiswara Ahli Madya', validitas_baseline_skor: '4.7 / 5.0', fairness_equity_skor: '4.7 / 5.0', cooldown_suitability: '4.6 / 5.0', rekomendasi_ahli: 'Mengatasi Masalah Klasik Sinyal 3T' },
-      { evaluator_id: 'EXP-WI-04', institusi_diklat: 'BPSDM Jawa Tengah', jabatan_fungsional: 'Widyaiswara Ahli Utama', validitas_baseline_skor: '4.9 / 5.0', fairness_equity_skor: '4.8 / 5.0', cooldown_suitability: '4.8 / 5.0', rekomendasi_ahli: 'Efektif Mencegah Attribution Error' }
+      { session_id: 'SES-004', user_id: 'ASN-0402 (3T Aru)', expected_points: '10', observed_points: '4', missingness_m: '0.60', noise_level: '0.25', quality_q: '0.15', mcar_test_p: 'p < 0.01 (MNAR)' }
     ]
   }
 ];
 
-const currentActiveStreamObj = computed<CabaStreamConfig>(() => {
-  return cabaDatasetStreams.find(s => s.id === selectedCabaStream.value) || cabaDatasetStreams[0];
+const currentActiveStreamObj = computed(() => {
+  return cabaDatasetStreams.find(s => s.id === selectedStreamId.value) || cabaDatasetStreams[0];
 });
 
 const filteredStreamRows = computed(() => {
   const stream = currentActiveStreamObj.value;
   let rows = stream.rows;
-  if (datasetSearchQuery.value.trim()) {
-    const q = datasetSearchQuery.value.toLowerCase();
+  if (searchQuery.value.trim()) {
+    const q = searchQuery.value.toLowerCase();
     rows = rows.filter(r => Object.values(r).some(val => String(val).toLowerCase().includes(q)));
   }
   return rows;
 });
 
-// CSV / JSON Exporters
+// Exports
 const exportCurrentDatasetCSV = () => {
   const stream = currentActiveStreamObj.value;
   const rows = filteredStreamRows.value;
@@ -1098,7 +959,7 @@ const exportCurrentDatasetJSON = () => {
   document.body.removeChild(downloadAnchor);
 };
 
-// References and Benchmark state
+// References
 const refCategories = computed(() => {
   const set = new Set<string>();
   jisebiReferences.value.forEach(r => {
@@ -1108,8 +969,8 @@ const refCategories = computed(() => {
 });
 
 const filteredJisebiReferences = computed(() => {
-  if (refCategoryFilter.value === 'all') return jisebiReferences.value;
-  return jisebiReferences.value.filter(r => r.category === refCategoryFilter.value);
+  if (refFilter.value === 'all') return jisebiReferences.value;
+  return jisebiReferences.value.filter(r => r.category === refFilter.value);
 });
 
 const fetchDatasetHubData = async () => {
@@ -1120,7 +981,6 @@ const fetchDatasetHubData = async () => {
     const data = await res.json();
     if (data.success) {
       jisebiReferences.value = data.jisebi_manuscript_references || [];
-      benchmarkDatasets.value = data.open_benchmark_datasets || [];
     }
   } catch (e) {
     console.error('Failed to load dataset hub data:', e);
@@ -1135,18 +995,1022 @@ onMounted(() => {
 </script>
 
 <style scoped>
-@keyframes slideIn {
-  from {
-    transform: translateY(8px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
+/* App Container & Main Content */
+.app-container {
+  min-height: 100vh;
+  background-color: #F8FAFC;
+  color: #0F172A;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.main-content {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Hero Banner */
+.hero-banner {
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+  border: 1px solid #334155;
+  border-radius: 1.25rem;
+  padding: 2rem;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 1024px) {
+  .hero-banner {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    align-items: center;
+    gap: 2rem;
   }
 }
 
-.animate-slide-in {
-  animation: slideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+.hero-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.badge-emerald { background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3); }
+.badge-indigo { background: rgba(99, 102, 241, 0.15); color: #A5B4FC; border: 1px solid rgba(99, 102, 241, 0.3); }
+.badge-blue { background: rgba(59, 130, 246, 0.15); color: #93C5FD; border: 1px solid rgba(59, 130, 246, 0.3); }
+.badge-purple { background: rgba(168, 85, 247, 0.15); color: #D8B4FE; border: 1px solid rgba(168, 85, 247, 0.3); }
+.badge-amber { background: rgba(245, 158, 11, 0.15); color: #FCD34D; border: 1px solid rgba(245, 158, 11, 0.3); }
+.badge-cyan { background: rgba(6, 182, 212, 0.15); color: #67E8F9; border: 1px solid rgba(6, 182, 212, 0.3); }
+
+.hero-title {
+  font-size: 1.75rem;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  margin: 0;
+  line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+  .hero-title { font-size: 2.25rem; }
+}
+
+.hero-subtitle-lead {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #93C5FD;
+  margin-top: 0.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+  font-size: 0.825rem;
+  color: #CBD5E1;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 54rem;
+}
+
+.hero-code-link {
+  font-family: monospace;
+  font-weight: 700;
+  color: #34D399;
+  background: #020617;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.hero-synthetic-warning {
+  margin-top: 1rem;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  color: #FDE68A;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  line-height: 1.45;
+}
+
+.warn-icon { font-size: 1rem; flex-shrink: 0; }
+
+/* Hero KPI Deck */
+.hero-kpi-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.kpi-card {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid #334155;
+  border-radius: 0.875rem;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-card.highlight {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.kpi-label { font-size: 0.7rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.05em; }
+.kpi-val { font-size: 1.25rem; font-weight: 900; font-family: 'JetBrains Mono', monospace; margin-top: 0.15rem; }
+.kpi-sub { font-size: 0.675rem; color: #64748B; margin-top: 0.15rem; }
+
+.text-blue { color: #60A5FA; }
+.text-purple { color: #C084FC; }
+.text-emerald { color: #34D399; }
+.text-cyan { color: #22D3EE; }
+.text-amber { color: #FBBF24; }
+.text-rose { color: #FB7185; }
+
+/* General Cards */
+.card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Simulator Card */
+.persona-simulator-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sim-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .sim-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+.sim-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0.35rem 0 0 0;
+}
+
+.sim-desc {
+  font-size: 0.8rem;
+  color: #64748B;
+  margin: 0.25rem 0 0 0;
+  max-width: 50rem;
+}
+
+.btn-open-analisis {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.15rem;
+  border-radius: 0.75rem;
+  background: #10B981;
+  color: #FFFFFF;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.btn-open-analisis:hover {
+  background: #059669;
+}
+
+.persona-pills-row {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 0.65rem;
+}
+
+@media (min-width: 640px) {
+  .persona-pills-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .persona-pills-row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.persona-btn {
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 0.875rem;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.persona-btn:hover {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+}
+
+.persona-btn.active {
+  background: #EFF6FF;
+  border-color: #3B82F6;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.15);
+}
+
+.p-icon { font-size: 1.5rem; flex-shrink: 0; }
+.p-meta { display: flex; flex-direction: column; overflow: hidden; }
+.p-name { font-size: 0.775rem; font-weight: 800; color: #1E293B; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+.p-region { font-size: 0.675rem; color: #64748B; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+
+/* Live Telemetry Deck */
+.telemetry-live-deck {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .telemetry-live-deck {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.live-col {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 1rem;
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.col-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #E2E8F0;
+  padding-bottom: 0.65rem;
+}
+
+.col-pill {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+}
+
+.pill-blue { background: #DBEAFE; color: #1D4ED8; }
+.pill-purple { background: #F3E8FF; color: #7E22CE; }
+.pill-amber { background: #FEF3C7; color: #B45309; }
+.pill-emerald { background: #D1FAE5; color: #047857; }
+.pill-cyan { background: #CFFAFE; color: #0E7490; }
+
+.col-eq {
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: monospace;
+  color: #64748B;
+}
+
+.metrics-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.m-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.775rem;
+  padding: 0.25rem 0;
+  border-bottom: 1px dashed #E2E8F0;
+}
+
+.m-row.highlight-row {
+  background: #FFFFFF;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #E2E8F0;
+  margin-top: 0.25rem;
+}
+
+.m-k { color: #64748B; font-weight: 600; }
+.m-v { font-weight: 700; color: #1E293B; font-family: 'JetBrains Mono', monospace; }
+
+.bar-progress-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  background: #FFFFFF;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+}
+
+.bar-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.bar-progress-track {
+  height: 6px;
+  background: #E2E8F0;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.bar-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+.fill-cyan { background: #06B6D4; }
+.fill-emerald { background: #10B981; }
+
+.gate-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+.gate-valid { background: #D1FAE5; color: #065F46; }
+.gate-boundary { background: #FEF3C7; color: #92400E; }
+.gate-invalid { background: #FEE2E2; color: #991B1B; }
+
+.state-action-box {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  padding: 0.5rem 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-top: 0.35rem;
+}
+
+.sa-label { font-size: 0.65rem; font-weight: 800; color: #64748B; text-transform: uppercase; }
+.sa-text { font-size: 0.75rem; font-weight: 700; color: #047857; }
+
+/* Math Spec Card */
+.math-spec-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.diagram-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.diagram-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0.25rem 0 0 0;
+}
+
+.diagram-desc {
+  font-size: 0.8rem;
+  color: #64748B;
+  margin: 0;
+}
+
+.math-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .math-grid-2col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.math-card {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.mc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stage-pill {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+}
+
+.mc-scope { font-size: 0.7rem; font-weight: 700; color: #64748B; }
+
+.math-box {
+  background: #FFFFFF;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  border: 1px solid #E2E8F0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.math-blue { border-left: 4px solid #3B82F6; }
+.math-amber { border-left: 4px solid #F59E0B; }
+
+.math-formula-rendered {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  color: #0F172A;
+}
+
+.m-lhs { font-weight: 800; color: #1E293B; }
+.m-sign { color: #64748B; font-weight: 700; }
+.m-bracket { color: #94A3B8; font-weight: 800; }
+
+.m-term-box {
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.term-blue { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+.term-purple { background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; }
+.term-cyan { background: #ECFEFF; color: #0E7490; border: 1px solid #A5F3FC; }
+.term-amber { background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; }
+.term-emerald { background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
+
+.math-legend {
+  font-size: 0.7rem;
+  color: #64748B;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  border-top: 1px dashed #E2E8F0;
+  padding-top: 0.5rem;
+}
+
+.leg-pill { padding: 0.1rem 0.4rem; border-radius: 4px; }
+.pill-blue-sm { background: #EFF6FF; color: #1E40AF; }
+.pill-purple-sm { background: #FAF5FF; color: #6B21A8; }
+.pill-amber-sm { background: #FFFBEB; color: #92400E; }
+.pill-emerald-sm { background: #ECFDF5; color: #065F46; }
+
+.dot { color: #CBD5E1; }
+.mc-note { font-size: 0.75rem; color: #475569; line-height: 1.45; margin: 0; }
+
+/* Tabs Controller Card */
+.tabs-controller-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.nav-tabs-segmented {
+  display: flex;
+  gap: 0.5rem;
+  background: #F1F5F9;
+  padding: 0.35rem;
+  border-radius: 0.875rem;
+  overflow-x: auto;
+}
+
+.tab-seg-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1rem;
+  border-radius: 0.65rem;
+  border: none;
+  background: transparent;
+  color: #475569;
+  font-size: 0.775rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.tab-seg-btn:hover {
+  color: #0F172A;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.tab-seg-btn.active {
+  background: #FFFFFF;
+  color: #0F172A;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.tab-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  background: #E2E8F0;
+  color: #475569;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.tab-seg-btn.active .tab-badge {
+  background: #EFF6FF;
+  color: #1D4ED8;
+}
+
+/* Tab Pane Contents */
+.tab-pane-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.pane-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pane-header.flex-between {
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .pane-header.flex-between {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+.sub-pill {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 0.25rem;
+}
+
+.pane-title { font-size: 1.15rem; font-weight: 800; color: #0F172A; margin: 0; }
+.pane-desc { font-size: 0.775rem; color: #64748B; margin: 0; }
+
+/* Taxonomy Cards Grid */
+.taxonomy-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .taxonomy-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .taxonomy-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.tax-card {
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.85rem;
+}
+
+.tc-top { display: flex; justify-content: space-between; align-items: center; }
+.tc-tag { font-size: 0.65rem; font-weight: 800; padding: 0.15rem 0.5rem; border-radius: 4px; }
+.tag-blue { background: #DBEAFE; color: #1E40AF; }
+.tag-purple { background: #F3E8FF; color: #6B21A8; }
+.tag-emerald { background: #D1FAE5; color: #065F46; }
+.tag-amber { background: #FEF3C7; color: #92400E; }
+.tag-cyan { background: #CFFAFE; color: #155E75; }
+.tag-rose { background: #FFE4E6; color: #9F1239; }
+
+.tc-eq { font-size: 0.7rem; font-weight: 700; font-family: monospace; color: #64748B; }
+.tc-title { font-size: 0.95rem; font-weight: 800; color: #0F172A; margin: 0; }
+.tc-p { font-size: 0.75rem; color: #475569; line-height: 1.45; margin: 0; }
+
+.tc-list {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.725rem;
+  color: #334155;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  list-style: none;
+}
+
+.tc-callout {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.callout-blue { background: #EFF6FF; color: #1E40AF; border: 1px solid #BFDBFE; }
+.callout-purple { background: #FAF5FF; color: #6B21A8; border: 1px solid #E9D5FF; }
+.callout-emerald { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+.callout-amber { background: #FFFBEB; color: #92400E; border: 1px solid #FDE68A; }
+.callout-cyan { background: #ECFEFF; color: #155E75; border: 1px solid #A5F3FC; }
+.callout-rose { background: #FFF1F2; color: #9F1239; border: 1px solid #FECDD3; }
+
+/* Filter Buttons Row */
+.filter-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.filter-btn {
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+}
+
+.filter-btn.active {
+  background: #0F172A;
+  color: #FFFFFF;
+  border-color: #0F172A;
+}
+
+/* Benchmark Table */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid #E2E8F0;
+  border-radius: 0.875rem;
+}
+
+.benchmark-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.775rem;
+}
+
+.benchmark-table th, .benchmark-table td {
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid #E2E8F0;
+  text-align: left;
+}
+
+.benchmark-table th {
+  background: #F8FAFC;
+  font-weight: 800;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.eq-pill {
+  font-family: monospace;
+  font-weight: 700;
+  background: #EFF6FF;
+  color: #1D4ED8;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid #BFDBFE;
+}
+
+.dest-pill {
+  font-family: monospace;
+  font-weight: 700;
+  background: #ECFDF5;
+  color: #047857;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid #A7F3D0;
+}
+
+.code-sm {
+  font-family: monospace;
+  font-size: 0.725rem;
+  color: #475569;
+}
+
+/* Streams & Logs */
+.export-btns-row { display: flex; gap: 0.5rem; }
+.btn-export {
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+}
+.btn-export:hover { background: #F1F5F9; }
+
+.stream-selector-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+}
+
+@media (min-width: 640px) {
+  .stream-selector-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.stream-card-btn {
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 0.875rem;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.stream-card-btn.active {
+  background: #EFF6FF;
+  border-color: #3B82F6;
+}
+
+.s-icon { font-size: 1.25rem; }
+.s-title { font-size: 0.8rem; color: #0F172A; }
+.s-file { font-size: 0.675rem; font-family: monospace; color: #64748B; }
+
+.stream-details-bar {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #334155;
+}
+
+@media (min-width: 768px) {
+  .stream-details-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.search-input {
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1;
+  font-size: 0.725rem;
+  width: 14rem;
+}
+
+/* S1-S4 States Grid */
+.states-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .states-grid-2col { grid-template-columns: repeat(2, 1fr); }
+}
+
+.state-card {
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sc-header { display: flex; justify-content: space-between; align-items: center; }
+.sc-code { font-size: 0.75rem; font-weight: 900; background: #0F172A; color: #FFFFFF; padding: 0.2rem 0.55rem; border-radius: 6px; }
+.sc-role { font-size: 0.725rem; font-weight: 700; color: #64748B; }
+.sc-name { font-size: 0.95rem; font-weight: 800; color: #0F172A; margin: 0; }
+
+.sc-triggers {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  padding: 0.65rem;
+  font-size: 0.725rem;
+}
+
+.sc-triggers ul { margin: 0.25rem 0 0 0; padding-left: 0; list-style: none; color: #475569; }
+
+.sc-action {
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  border-radius: 6px;
+  padding: 0.65rem;
+  font-size: 0.725rem;
+  color: #065F46;
+}
+
+.sc-label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #64748B; display: block; margin-bottom: 0.15rem; }
+.sc-disclaimer { font-size: 0.675rem; color: #92400E; background: #FEF3C7; padding: 0.4rem 0.6rem; border-radius: 6px; }
+
+/* Lineage Flow Container */
+.lineage-flow-container {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.l-layer {
+  width: 100%;
+  max-width: 42rem;
+  background: #FFFFFF;
+  border: 2px solid #334155;
+  border-radius: 0.875rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.layer-1 { border-color: #3B82F6; background: #EFF6FF; }
+.layer-4 { border-color: #10B981; background: #ECFDF5; }
+
+.l-tag { font-size: 0.65rem; font-weight: 800; color: #64748B; letter-spacing: 0.05em; display: block; }
+.l-layer h4 { font-size: 0.95rem; font-weight: 800; color: #0F172A; margin: 0.25rem 0; }
+.l-layer p { font-size: 0.75rem; color: #475569; margin: 0; }
+
+.l-arrow { font-size: 1.25rem; color: #94A3B8; font-weight: 900; }
+
+.l-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 48rem;
+}
+
+@media (min-width: 640px) {
+  .l-grid-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+.l-box {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 0.75rem;
+  padding: 0.85rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.box-s1 { border-color: #93C5FD; background: #EFF6FF; }
+.box-s2 { border-color: #C4B5FD; background: #F5F3FF; }
+.box-s3 { border-color: #A5F3FC; background: #ECFEFF; }
+.box-s4 { border-color: #FDE68A; background: #FFFBEB; max-width: 48rem; width: 100%; }
+
+.lb-code { font-size: 0.65rem; font-weight: 800; background: #0F172A; color: #FFFFFF; padding: 0.1rem 0.4rem; border-radius: 4px; }
+.l-box strong { font-size: 0.8rem; color: #0F172A; }
+.l-box p { font-size: 0.7rem; color: #64748B; margin: 0; }
+
+/* References Grid */
+.refs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+
+@media (min-width: 768px) {
+  .refs-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.ref-card {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 0.875rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.rc-top { display: flex; justify-content: space-between; align-items: center; }
+.rc-key { font-size: 0.7rem; font-weight: 800; font-family: monospace; color: #1D4ED8; }
+.rc-cat { font-size: 0.65rem; font-weight: 700; color: #64748B; }
+.rc-title { font-size: 0.8rem; color: #0F172A; line-height: 1.35; }
+.rc-author { font-size: 0.725rem; color: #64748B; font-style: italic; margin: 0; }
+.rc-rel { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 6px; padding: 0.4rem 0.6rem; font-size: 0.7rem; color: #334155; }
+
+/* Bottom CTA Card */
+.cta-jump-card {
+  background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #064E3B 100%);
+  border: 1px solid #3B82F6;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2rem;
+}
+
+@media (min-width: 768px) {
+  .cta-jump-card {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.cta-content { display: flex; flex-direction: column; gap: 0.5rem; max-width: 48rem; }
+.cta-title { font-size: 1.35rem; font-weight: 900; margin: 0; color: #FFFFFF; }
+.cta-desc { font-size: 0.825rem; color: #CBD5E1; line-height: 1.55; margin: 0; }
+
+.btn-cta-main {
+  background: #10B981;
+  color: #FFFFFF;
+  font-size: 0.875rem;
+  font-weight: 800;
+  padding: 0.85rem 1.5rem;
+  border-radius: 0.875rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-cta-main:hover {
+  background: #059669;
+  transform: translateY(-1px);
 }
 </style>
