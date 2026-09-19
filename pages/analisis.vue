@@ -15,17 +15,17 @@
             <span class="badge badge-amber">⚖️ Fairness: Regional Disparity-Aware</span>
           </div>
           <h1 class="hero-title">
-            Disparity-Aware Learning Adaptation Lab (CABA–CCBN)
+            CABA–CCBN Research Prototype
           </h1>
           <p class="hero-subtitle" style="font-weight: 700; color: #93C5FD; margin-bottom: 0.35rem;">
-            Context-Conditioned Behavioral Baseline & Fair Adaptive Decision Architecture for ASN Training
+            Context-Conditioned Behavioral Baseline for Context-Aware and Disparity-Sensitive Adaptive Learning
           </p>
           <p class="hero-subtitle">
-            Prototipe komputasional untuk menguji bagaimana jejak perilaku digital peserta dikalibrasi oleh konteks enam dimensi ($c_{i,t}$) dan kualitas evidensi ($q_{i,t}$) untuk membentuk baseline perilaku wajar ($hat{b}_{i,t}$), mengukur residual diagnostik ($d_{i,t}$), mengevaluasi disparitas kelompok ($D_t$), serta menghasilkan rekomendasi adaptif yang adil, suportif, dan non-punitif.
+            Prototipe komputasional Disertasi untuk menguji bagaimana jejak perilaku pembelajaran digital ASN dikalibrasi oleh konteks enam dimensi ($c_{i,t}$) dan kualitas evidensi ($q_{i,t}$) untuk membentuk baseline perilaku wajar ($hat{b}_{i,t}$), mengukur residual diagnostik individual ($d_{i,t}$), mengevaluasi disparitas kelompok ($D_t$), serta menghasilkan rekomendasi adaptif suportif yang adil dan non-punitif.
           </p>
           <div class="hero-synthetic-warning">
             <span class="warn-icon">ℹ️</span>
-            <span><strong>CATATAN PROTOTIPE:</strong> Seluruh metrik numerik dan nilai evaluasi dalam simulator ini merupakan <strong>SYNTHETIC PROTOTYPE VALUES — NOT EMPIRICAL RESULTS</strong> (Simulasi Proof-of-Concept, bukan hasil survei/evaluasi lapangan final).</span>
+            <span><strong>CATATAN PROTOTIPE:</strong> Seluruh metrik numerik dan nilai evaluasi dalam simulator ini merupakan <strong>SYNTHETIC PROTOTYPE VALUES — NOT EMPIRICAL RESULTS</strong> (Simulasi Proof-of-Concept terkalibrasi, bukan temuan empiris atau evaluasi lapangan final).</span>
           </div>
         </div>
 
@@ -37,18 +37,18 @@
           </div>
           <div class="kpi-card">
             <span class="kpi-label">Contextual Residual (Eq. 6)</span>
-            <span class="kpi-val" :style="{ color: deltaBColor }">{{ liveDeltaB >= 0 ? '+' : '' }}{{ liveDeltaB.toFixed(2) }}</span>
-            <span class="kpi-sub">d_{i,t} = B_{i,t} - \hat{b}_{i,t}</span>
+            <span class="kpi-val" :style="{ color: deltaBColor }">{{ liveResidual >= 0 ? '+' : '' }}{{ liveResidual.toFixed(2) }}</span>
+            <span class="kpi-sub">d_{i,t} = B_{i,t} - hat{b}_{i,t}</span>
           </div>
           <div class="kpi-card highlight">
             <span class="kpi-label">Disparity Gap (Eq. 7)</span>
             <span class="kpi-val text-amber">{{ liveDisparityGap.toFixed(2) }}*</span>
             <span class="kpi-sub">Gap simulatif: -{{ liveGapReductionPct }}%*</span>
           </div>
-          <div class="kpi-card" :class="'validity-card-' + baselineValidity">
+          <div class="kpi-card" :class="'validity-card-' + validityResult.state">
             <span class="kpi-label">Baseline Validity (Eq. 18)</span>
-            <span class="kpi-val uppercase">{{ baselineValidity }}</span>
-            <span class="kpi-sub">S_{i,t}: {{ spatialIndex.toFixed(2) }} | q_{i,t}: {{ evidenceQuality.toFixed(2) }}</span>
+            <span class="kpi-val uppercase">{{ validityResult.state }}</span>
+            <span class="kpi-sub">S: {{ spatialIndex.toFixed(2) }} | q: {{ evidenceQuality.toFixed(2) }}</span>
           </div>
         </div>
       </section>
@@ -60,13 +60,13 @@
             <span class="stage-pill pill-indigo">PROPOSAL REVISI 2 · PERSAMAAN (1)–(18c)</span>
             <h2 id="proposal-equations-title" class="stage-title">Ledger Persamaan Operasional CABA–CCBN</h2>
             <p class="stage-p">
-              Pemetaan matematis formal dari Proposal Disertasi Revisi 2. Nilai di bawah dihitung secara live dari status simulator aktif saat ini.
+              Pemetaan matematis formal dari Proposal Disertasi Revisi 2. Nilai di bawah dihitung secara dinamis dari status simulator aktif saat ini.
             </p>
           </div>
-          <div class="baseline-status" :class="`status-${baselineValidity}`">
+          <div class="baseline-status" :class="`status-${validityResult.state}`">
             <span>Status Baseline Gate (Eq. 18a–18c)</span>
-            <strong>{{ baselineValidity.toUpperCase() }}</strong>
-            <small>{{ baselineStatusMessage }}</small>
+            <strong>{{ validityResult.state.toUpperCase() }}</strong>
+            <small>{{ validityResult.message }}</small>
           </div>
         </div>
 
@@ -83,7 +83,7 @@
       </section>
 
       <!-- ========================================================================= -->
-      <!-- TAHAP 1 & 2: SCIENTIFIC FOUNDATIONS & RESEARCH POSITIONING DUAL CARDS     -->
+      <!-- TAHAP 1 & 2: SCIENTIFIC FOUNDATIONS DUAL CARDS                            -->
       <!-- ========================================================================= -->
       <section class="theory-grid">
         <!-- 1. Scientific Problem -->
@@ -94,7 +94,7 @@
           </div>
           <h2 class="stage-title">1. Masalah: Bias Ambang Universal pada Learning Analytics</h2>
           <p class="stage-p">
-            Sistem analitik konvensional sering menggunakan ambang tunggal universal (seperti durasi login kaku atau persentase komplesi video 100%) sebagai proksi keterlibatan peserta. Dalam konteks pelatihan ASN dengan ketimpangan infrastruktur digital nyata (wilayah 3T vs perkotaan):
+            Sistem analitik konvensional sering menggunakan ambang tunggal universal (durasi login kaku, komplesi video 100%) sebagai proksi keterlibatan peserta. Dalam konteks pelatihan ASN dengan ketimpangan infrastruktur digital nyata:
           </p>
           
           <div class="disparity-flow">
@@ -107,15 +107,15 @@
             </div>
             <div class="flow-arrow">➔</div>
             <div class="flow-step flow-split">
-              <div class="split-pill split-3t">🏝️ 3T: Terputus / Sinyal Drop → Salah Vonis "Tidak Aktif"</div>
-              <div class="split-pill split-urban">🏢 Urban: Koneksi Cepat → Dianggap "Sangat Terlibat"</div>
-              <div class="split-gap-alert">⚠️ Infrastructural Confounding: Ketimpangan akses terbaca sebagai defisit belajar</div>
+              <div class="split-pill split-3t">🏝️ Wilayah Terkendala: Sinyal Drop → Salah Vonis "Tidak Aktif"</div>
+              <div class="split-pill split-urban">🏢 Wilayah Ideal: Koneksi Cepat → Dianggap "Sangat Terlibat"</div>
+              <div class="split-gap-alert">⚠️ Infrastructural Confounding: Hambatan akses keliru dibaca sebagai defisit belajar</div>
             </div>
           </div>
 
           <div class="stage-callout callout-rose">
             <span class="callout-icon">⚠️</span>
-            <span><strong>Dampak Epistemik:</strong> Peserta di wilayah berinfrastruktur terbatas dihukum secara tidak adil karena hambatan observasi sistem keliru ditafsirkan sebagai kelalaian atau rendahnya motivasi.</span>
+            <span><strong>Dampak Epistemik:</strong> Peserta di wilayah berinfrastruktur terbatas dihukum secara tidak adil karena keterbatasan observasi sistem keliru ditafsirkan sebagai kelalaian atau rendahnya motivasi.</span>
           </div>
         </div>
 
@@ -156,27 +156,27 @@
       </section>
 
       <!-- ========================================================================= -->
-      <!-- DIAGRAM KERANGKA BERPIKIR: PIPELINE CABA-CCBN & MODERASI SPASIAL (GMB 2 & 3)-->
+      <!-- DIAGRAM KERANGKA BERPIKIR: PIPELINE CABA-CCBN (GAMBAR 2 & 3 PROPOSAL)    -->
       <!-- ========================================================================= -->
       <section class="card spatial-moderation-diagram-card">
         <div class="diagram-head">
           <div class="badge-row">
             <span class="badge badge-indigo">🔬 Diagram Kerangka Berpikir (Gambar 2 & 3 Proposal)</span>
             <span class="badge badge-dashed">┆ Moderasi Spasial S_{i,t} (Garis Putus-Putus)</span>
-            <span class="badge badge-cyan">Alur Pipeline Primer: X → B → (c,q) → b̂ → d → D → A</span>
+            <span class="badge badge-cyan">Pipeline Primer: X → B → (c,q) → b̂ → d → D → A</span>
           </div>
           <h2 class="diagram-title">
             Struktur Alur Pipeline Komputasi CABA–CCBN & Peran Moderasi Konteks Spasial
           </h2>
           <p class="diagram-desc">
-            Sesuai perumusan Proposal Disertasi Bab 8 & 11, jalur vertikal padat (<em>solid arrow</em>) menggambarkan <strong>data pipeline primer</strong> dari trace mentah hingga rekomendasi adaptif. Jalur samping bergaris putus-putus (<strong><em>dashed line</em></strong>) merepresentasikan peran <strong>Moderasi Konteks Spasial ($S_{i,t}$)</strong> yang mengondisikan ekspektasi baseline perilaku wajar dan mengatur bobot observabilitas visual ($w_{i,t}$).
+            Sesuai perumusan Proposal Disertasi Bab 8 & 11, jalur vertikal padat menggambarkan <strong>data pipeline primer</strong> dari trace mentah hingga rekomendasi adaptif. Jalur samping bergaris putus-putus merepresentasikan peran <strong>Moderasi Konteks Spasial ($S_{i,t}$)</strong> yang mengondisikan ekspektasi baseline perilaku wajar dan mengatur bobot observabilitas visual ($w_{i,t}$).
           </p>
         </div>
 
         <div class="diagram-interactive-body">
           <!-- Main Sequential Flow Column -->
           <div class="flow-pipeline-col">
-            <!-- Box 1 -->
+            <!-- Step 1 -->
             <div class="pipe-box pipe-blue">
               <div class="pipe-header">
                 <span class="pipe-step-num">LANGKAH 1</span>
@@ -185,18 +185,15 @@
               <div class="pipe-title">1) Raw Behavioral Traces (<strong>X</strong><sub>i,t</sub>) → Behavioral Outcome (<strong>B</strong><sub>i,t</sub>)</div>
               <div class="pipe-content">
                 <div class="math-sym-row">
-                  <span class="m-bold">X</span><sub>i,t</sub> = [<span class="m-var">login</span><sub>i,t</sub>, <span class="m-var">durasi</span><sub>i,t</sub>, <span class="m-var">clickstream</span><sub>i,t</sub>, <span class="m-var">completion</span><sub>i,t</sub>, <span class="m-var">artifact</span><sub>i,t</sub>, ...]
+                  <span class="m-bold">X</span><sub>i,t</sub> = [<span class="m-var">login</span>, <span class="m-var">durasi</span>, <span class="m-var">clickstream</span>, <span class="m-var">completion</span>, <span class="m-var">artifact</span>, ...]
                 </div>
                 <span class="pipe-note">X adalah telemetri mentah; B adalah evidensi perilaku ternormalisasi. X bukan label langsung kompetensi/motivasi.</span>
               </div>
             </div>
 
-            <div class="solid-connector-down">
-              <span class="connector-line"></span>
-              <span class="connector-arrow">▼</span>
-            </div>
+            <div class="solid-connector-down"><span class="connector-arrow">▼</span></div>
 
-            <!-- Box 2 -->
+            <!-- Step 2 -->
             <div class="pipe-box pipe-indigo">
               <div class="pipe-header">
                 <span class="pipe-step-num">LANGKAH 2</span>
@@ -218,12 +215,9 @@
               </div>
             </div>
 
-            <div class="solid-connector-down">
-              <span class="connector-line"></span>
-              <span class="connector-arrow">▼</span>
-            </div>
+            <div class="solid-connector-down"><span class="connector-arrow">▼</span></div>
 
-            <!-- Box 3 -->
+            <!-- Step 3 -->
             <div class="pipe-box pipe-amber">
               <div class="pipe-header">
                 <span class="pipe-step-num">LANGKAH 3</span>
@@ -238,12 +232,9 @@
               </div>
             </div>
 
-            <div class="solid-connector-down">
-              <span class="connector-line"></span>
-              <span class="connector-arrow">▼</span>
-            </div>
+            <div class="solid-connector-down"><span class="connector-arrow">▼</span></div>
 
-            <!-- Box 4: CCBN Baseline (Target of Moderation) -->
+            <!-- Step 4 -->
             <div class="pipe-box pipe-purple moderated-target-box">
               <div class="pipe-header">
                 <span class="pipe-step-num">LANGKAH 4 (INTI CCBN)</span>
@@ -271,12 +262,9 @@
               </div>
             </div>
 
-            <div class="solid-connector-down">
-              <span class="connector-line"></span>
-              <span class="connector-arrow">▼</span>
-            </div>
+            <div class="solid-connector-down"><span class="connector-arrow">▼</span></div>
 
-            <!-- Box 5 -->
+            <!-- Step 5 -->
             <div class="pipe-box pipe-cyan">
               <div class="pipe-header">
                 <span class="pipe-step-num">LANGKAH 5</span>
@@ -287,16 +275,13 @@
                 <div class="math-sym-row">
                   <span class="m-bold">d</span><sub>i,t</sub> = <span class="m-bold">B</span><sub>i,t</sub> - <span class="m-bold">b̂</span><sub>i,t</sub>
                 </div>
-                <span class="pipe-note">Deviasi individual terhadap ekspektasi wajar. Membedakan hambatan akses dari kebutuhan dukungan belajar otentik.</span>
+                <span class="pipe-note">Deviasi individual terhadap ekspektasi wajar. Membedakan hambatan akses dari kebutuhan intervensi belajar otentik.</span>
               </div>
             </div>
 
-            <div class="solid-connector-down">
-              <span class="connector-line"></span>
-              <span class="connector-arrow">▼</span>
-            </div>
+            <div class="solid-connector-down"><span class="connector-arrow">▼</span></div>
 
-            <!-- Box 6 -->
+            <!-- Step 6 -->
             <div class="pipe-box pipe-rose">
               <div class="pipe-header">
                 <span class="pipe-step-num">LANGKAH 6</span>
@@ -317,12 +302,9 @@
               </div>
             </div>
 
-            <div class="solid-connector-down">
-              <span class="connector-line"></span>
-              <span class="connector-arrow">▼</span>
-            </div>
+            <div class="solid-connector-down"><span class="connector-arrow">▼</span></div>
 
-            <!-- Box 7 -->
+            <!-- Step 7 -->
             <div class="pipe-box pipe-emerald">
               <div class="pipe-header">
                 <span class="pipe-step-num">LANGKAH 7 (OUTPUT & HITL)</span>
@@ -410,7 +392,7 @@
       </section>
 
       <!-- ========================================================================= -->
-      <!-- DISTINGSI KONSEPTUAL DISERTASI: RESIDUAL vs DISPARITY                    -->
+      <!-- DISTINGSI KONSEPTUAL: RESIDUAL vs DISPARITY                              -->
       <!-- ========================================================================= -->
       <section class="card disparity-levels-card" style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFFFFF; border-radius: 14px; padding: 1.35rem 1.65rem; margin-bottom: 2rem; border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.35);">
         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
@@ -438,7 +420,7 @@
               <strong>Pertanyaan Diagnostik:</strong> <em>"Apakah perilaku belajar individu menyimpang dari ekspektasi wajar pada konteks kendalanya?"</em>
             </p>
             <div style="font-size: 0.725rem; color: #94A3B8; background: rgba(0,0,0,0.25); padding: 0.45rem 0.75rem; border-radius: 6px; line-height: 1.45;">
-              📌 <strong>Fungsi Diagnostik:</strong> Memisahkan hambatan teknis/infrastruktur dari kebutuhan intervensi otentik agar peserta 3T tidak menerima penalti bias.
+              📌 <strong>Fungsi Diagnostik:</strong> Memisahkan hambatan teknis/infrastruktur dari kebutuhan intervensi otentik agar peserta di wilayah terkendala tidak menerima penalti bias.
             </div>
           </div>
 
@@ -474,7 +456,7 @@
         </div>
       </section>
 
-      <!-- DSR RESEARCH ROADMAP & REASONING BEHIND ARTIFACT -->
+      <!-- DSR RESEARCH ROADMAP -->
       <section class="card dsr-roadmap-card">
         <div class="dsr-header-row">
           <div class="dsr-title-block">
@@ -929,7 +911,7 @@
                 <div class="suff-metrics-grid">
                   <div class="suff-kpi-item">
                     <span class="suff-kpi-lbl">Behavioral Outcome (B_{i,t})</span>
-                    <span class="suff-kpi-val text-blue">{{ behavioralOutcome.toFixed(2) }}</span>
+                    <span class="suff-kpi-val text-blue">{{ behavioralEvidence.toFixed(2) }}</span>
                   </div>
                   <div class="suff-kpi-item">
                     <span class="suff-kpi-lbl">Expected Baseline (b̂_{i,t})</span>
@@ -937,11 +919,11 @@
                   </div>
                   <div class="suff-kpi-item">
                     <span class="suff-kpi-lbl">Contextual Residual (d_{i,t})</span>
-                    <span class="suff-kpi-val" :style="{ color: deltaBColor }">{{ contextualResidual >= 0 ? '+' : '' }}{{ contextualResidual.toFixed(2) }}</span>
+                    <span class="suff-kpi-val" :style="{ color: deltaBColor }">{{ liveResidual >= 0 ? '+' : '' }}{{ liveResidual.toFixed(2) }}</span>
                   </div>
                   <div class="suff-kpi-item">
                     <span class="suff-kpi-lbl">Evidence Sufficiency (LS)</span>
-                    <span class="suff-kpi-val text-amber">{{ sufficiencyScore.toFixed(2) }}</span>
+                    <span class="suff-kpi-val text-amber">{{ behavioralEvidence.toFixed(2) }}</span>
                   </div>
                 </div>
 
@@ -949,14 +931,14 @@
                   <div class="suff-score-left">
                     <span class="score-banner-label">CONTEXT-ADJUSTED RESIDUAL EVALUATION</span>
                     <div class="score-banner-num-row">
-                      <span class="score-banner-val">{{ contextualResidual >= 0 ? '+' : '' }}{{ contextualResidual.toFixed(2) }}</span>
+                      <span class="score-banner-val">{{ liveResidual >= 0 ? '+' : '' }}{{ liveResidual.toFixed(2) }}</span>
                       <span class="score-banner-threshold">Baseline Wajar: {{ contextualBaseline.toFixed(2) }}</span>
                     </div>
                   </div>
                   <div class="suff-score-right">
-                    <div class="suff-verdict-badge" :class="contextualResidual >= -0.05 ? 'badge-green' : 'badge-amber'">
-                      <span class="verdict-icon">{{ contextualResidual >= -0.05 ? '●' : '○' }}</span>
-                      <span class="verdict-text">{{ contextualResidual >= -0.05 ? 'RESIDUAL POSITIF / WAJAR' : 'DEVIASI MEMERLUKAN DUKUNGAN' }}</span>
+                    <div class="suff-verdict-badge" :class="liveResidual >= -0.05 ? 'badge-green' : 'badge-amber'">
+                      <span class="verdict-icon">{{ liveResidual >= -0.05 ? '●' : '○' }}</span>
+                      <span class="verdict-text">{{ liveResidual >= -0.05 ? 'RESIDUAL POSITIF / WAJAR' : 'DEVIASI MEMERLUKAN DUKUNGAN' }}</span>
                     </div>
                   </div>
                 </div>
@@ -992,42 +974,42 @@
               </div>
 
               <div class="timeline-card-body">
-                <div class="gate-status-card" :class="'gate-' + baselineValidity">
+                <div class="gate-status-card" :class="'gate-' + validityResult.state">
                   <div class="gate-head">
                     <span class="gate-tag">BASELINE VALIDITY STATUS:</span>
-                    <strong class="gate-val">{{ baselineValidity.toUpperCase() }}</strong>
+                    <strong class="gate-val">{{ validityResult.state.toUpperCase() }}</strong>
                   </div>
                   <p class="gate-desc">
-                    {{ baselineStatusMessage }}
+                    {{ validityResult.message }}
                   </p>
                   <div class="gate-params-grid">
                     <div class="gp-item">
                       <span>Spatial Index S_{i,t}:</span>
-                      <strong>{{ spatialIndex.toFixed(2) }} (Ambang: &theta;_S = {{ thetaSpatial }}, &theta;'_S = {{ thetaSpatialBoundary }})</strong>
+                      <strong>{{ spatialIndex.toFixed(2) }} (Ambang: &theta;_S = {{ DEFAULT_VALIDITY_THRESHOLDS.thetaSpatial }}, &theta;'_S = {{ DEFAULT_VALIDITY_THRESHOLDS.thetaSpatialBoundary }})</strong>
                     </div>
                     <div class="gp-item">
                       <span>Evidence Quality q_{i,t}:</span>
-                      <strong>{{ evidenceQuality.toFixed(2) }} (Ambang: &theta;_q = {{ thetaQuality }}, &theta;'_q = {{ thetaQualityBoundary }})</strong>
+                      <strong>{{ evidenceQuality.toFixed(2) }} (Ambang: &theta;_q = {{ DEFAULT_VALIDITY_THRESHOLDS.thetaQuality }}, &theta;'_q = {{ DEFAULT_VALIDITY_THRESHOLDS.thetaQualityBoundary }})</strong>
                     </div>
                   </div>
                 </div>
 
                 <div class="gate-rules-explanation">
-                  <div class="gr-item" :class="{ active: baselineValidity === 'valid' }">
+                  <div class="gr-item" :class="{ active: validityResult.state === 'valid' }">
                     <span class="gr-dot green"></span>
                     <div>
                       <strong>18a: VALID (S &ge; &theta;_S &and; q &ge; &theta;_q)</strong>
                       <span>Residual dihitung normal; rekomendasi adaptif otomatis diizinkan.</span>
                     </div>
                   </div>
-                  <div class="gr-item" :class="{ active: baselineValidity === 'boundary' }">
+                  <div class="gr-item" :class="{ active: validityResult.state === 'boundary' }">
                     <span class="gr-dot amber"></span>
                     <div>
                       <strong>18b: BOUNDARY (&theta;'_S &le; S &lt; &theta;_S &or; &theta;'_q &le; q &lt; &theta;_q)</strong>
                       <span>Residual berkepercayaan rendah; dibatasi pada dukungan berbeban rendah.</span>
                     </div>
                   </div>
-                  <div class="gr-item" :class="{ active: baselineValidity === 'invalid' }">
+                  <div class="gr-item" :class="{ active: validityResult.state === 'invalid' }">
                     <span class="gr-dot red"></span>
                     <div>
                       <strong>18c: INVALID (S &lt; &theta;'_S &or; q &lt; &theta;'_q)</strong>
@@ -1076,7 +1058,7 @@
                 <div class="f-metrics-grid">
                   <div class="f-cell">
                     <span class="fk">Individual Residual (d_{i,t}):</span>
-                    <span class="fv text-emerald">{{ contextualResidual >= 0 ? '+' : '' }}{{ contextualResidual.toFixed(2) }}</span>
+                    <span class="fv text-emerald">{{ liveResidual >= 0 ? '+' : '' }}{{ liveResidual.toFixed(2) }}</span>
                   </div>
                   <div class="f-cell">
                     <span class="fk">Group Disparity Gap (D_t):</span>
@@ -1242,11 +1224,11 @@
                   </div>
                   <div class="why-row">
                     <span class="why-k">4. Contextual Residual (d_{i,t}):</span>
-                    <span class="why-v text-emerald"><strong>{{ contextualResidual >= 0 ? '+' : '' }}{{ contextualResidual.toFixed(2) }}</strong> (Residual Wajar — Dukungan Adaptif Suportif)</span>
+                    <span class="why-v text-emerald"><strong>{{ liveResidual >= 0 ? '+' : '' }}{{ liveResidual.toFixed(2) }}</strong> (Residual Wajar — Dukungan Adaptif Suportif)</span>
                   </div>
                   <div class="why-row">
                     <span class="why-k">5. Status Baseline Gate:</span>
-                    <span class="why-v text-emerald"><strong>{{ baselineValidity.toUpperCase() }}</strong> ({{ baselineStatusMessage }})</span>
+                    <span class="why-v text-emerald"><strong>{{ validityResult.state.toUpperCase() }}</strong> ({{ validityResult.message }})</span>
                   </div>
                   <div class="why-row highlight-why">
                     <span class="why-k">6. Rekomendasi Aksi:</span>
@@ -1358,7 +1340,7 @@
                   <span class="icon-pulse emerald">🎛️</span>
                   <div>
                     <span class="mod-num-badge badge-emerald">MODUL 12</span>
-                    <h3 class="panel-title">Kontroler Trade-off Reward ↔ Disparitas (λ / γ)</h3>
+                    <h3 class="panel-title">Kontroler Trade-off Multi-Objektif Reward ↔ Disparitas (λ / γ)</h3>
                   </div>
                 </div>
                 <div class="panel-head-right">
@@ -1381,7 +1363,7 @@
                     <span class="to-v text-slate">{{ dynamicOverallReward.toFixed(2) }}</span>
                   </div>
                   <div class="to-pill">
-                    <span class="to-k">Disparity Gap (D)*:</span>
+                    <span class="to-k">Disparity Gap (D_t)*:</span>
                     <span class="to-v text-emerald">{{ liveDisparityGap.toFixed(2) }} (-{{ liveGapReductionPct }}%)</span>
                   </div>
                   <div class="to-pill">
@@ -1477,11 +1459,12 @@
       <!-- SECTION 10: MATHEMATICAL MODEL — CABA-CCBN REFERENCE PANEL (GROUPS A-G)   -->
       <!-- ========================================================================= -->
       <section class="card math-ref-panel-section">
-        <div class="math-ref-head">
+        <div class="math-ref-head" @click="isMathPanelCollapsed = !isMathPanelCollapsed" style="cursor: pointer;">
           <div class="badge-row">
             <span class="badge badge-indigo">📐 SECTION 10 · MATHEMATICAL MODEL</span>
             <span class="badge badge-blue">Formulasi Lengkap CABA–CCBN</span>
             <span class="badge badge-cyan">Grup A s/d G (Proposal Revisi 2)</span>
+            <span class="badge badge-yellow" style="margin-left: auto;">{{ isMathPanelCollapsed ? '▼ Buka Panel' : '▲ Tutup Panel' }}</span>
           </div>
           <h2 class="math-ref-title">Mathematical Model — CABA–CCBN Reference Taxonomy</h2>
           <p class="math-ref-desc">
@@ -1489,7 +1472,7 @@
           </p>
         </div>
 
-        <div class="math-groups-grid">
+        <div v-show="!isMathPanelCollapsed" class="math-groups-grid" style="margin-top: 1.25rem;">
           <!-- GROUP A: Evidence Formation -->
           <div class="math-group-card border-blue">
             <div class="mg-head">
@@ -1666,6 +1649,7 @@ u_t OB_{i,a,t} - ho_t Delta c_{i,t} - gamma_t D_t</code></div>
                 <th>Modul Aplikasi</th>
                 <th>Input Data</th>
                 <th>Output / Representasi</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -1675,6 +1659,7 @@ u_t OB_{i,a,t} - ho_t Delta c_{i,t} - gamma_t D_t</code></div>
                 <td><span class="tbl-badge badge-purple">{{ t.module }}</span></td>
                 <td><code class="code-sm">{{ t.input }}</code></td>
                 <td><code class="code-sm">{{ t.output }}</code></td>
+                <td><span class="tbl-badge badge-emerald">Implemented</span></td>
               </tr>
             </tbody>
           </table>
@@ -1768,6 +1753,25 @@ import { ref, computed } from 'vue';
 import Navbar from '~/components/Navbar.vue';
 import CcbnLiteratureGrounding from '~/components/CcbnLiteratureGrounding.vue';
 
+// Import centralized CABA-CCBN computational engine functions and constants
+import {
+  computeSpatialIndex,
+  createContextProfile,
+  computeMissingness,
+  computeEvidenceQuality,
+  computeBehavioralEvidence,
+  computeCCBNBaseline,
+  computeResidual,
+  computeDisparity,
+  computeContextualBurden,
+  computeCalibratedReward,
+  computeVisualObservabilityQuality,
+  computeVisualObservabilityWeight,
+  computeValidityGate,
+  DEFAULT_VALIDITY_THRESHOLDS,
+  selectAdaptiveAction
+} from '~/utils/caba-ccbn';
+
 // Dynamic Lambda (Disparity Penalty Weight)
 const lambdaWeight = ref<number>(0.50);
 
@@ -1779,13 +1783,6 @@ const deviceType = ref<'smartphone' | 'tablet' | 'desktop'>('smartphone');
 const workloadLevel = ref<number>(4);
 const spatialType = ref<'3T' | 'Urban'>('3T');
 
-// Proposal revisi 2: design parameters for Persamaan (18a)–(18c).
-// They are deliberately visible implementation assumptions, not universal cut-offs.
-const thetaSpatial = 0.35;
-const thetaSpatialBoundary = 0.15;
-const thetaQuality = 0.65;
-const thetaQualityBoundary = 0.35;
-
 // Behavioral Signals (Module 02)
 const observedFocus = ref<number>(0.35);
 const observedRetention = ref<number>(0.70);
@@ -1796,13 +1793,8 @@ const revisitEvents = ref<number>(2);
 const interactionEvents = ref<number>(8);
 const sufficiencyThreshold = ref<number>(0.70);
 
-// Selected Action Key
-const selectedActionKey = computed(() => {
-  if (bandwidthKbps.value < 200) return 'A2'; // Text-First + Audio Mikro
-  if (workloadLevel.value >= 4) return 'A4'; // Microlearning Chunk
-  if (contextualResidual.value < -0.15) return 'A3'; // Interactive Scenario
-  return 'A1'; // Full Video HD
-});
+// UI Panel State
+const isMathPanelCollapsed = ref<boolean>(false);
 
 // Trajectory Simulation Animation State
 const isSimulating = ref<boolean>(false);
@@ -1862,7 +1854,7 @@ const trajectoryLogs = ref([
 
 // Module 11: Benchmark Algorithms Matrix (Synthetic Demo Values)
 const benchmarkAlgorithms = ref([
-  { name: 'Standard Analytics (Universal Threshold)', reward: '0.68*', disparity: '0.31*', note: 'Bias punitif: menghukum data hilang di 3T' },
+  { name: 'Standard Analytics (Universal Threshold)', reward: '0.68*', disparity: '0.31*', note: 'Bias punitif: menghukum data hilang di wilayah terkendala' },
   { name: 'Standard LinUCB (Tanpa Kalibrasi Disparitas)', reward: '0.71*', disparity: '0.29*', note: 'Eksploitasi format berat di perkotaan' },
   { name: 'CABA–CCBN Adaptive LinUCB (Usulan)', reward: '0.69*', disparity: '0.15*', note: 'Reduksi gap disparitas -48%* dengan rekomendasi adil' }
 ]);
@@ -1917,52 +1909,91 @@ const interactionCoveragePct = computed(() => {
   return Math.min(Math.round((interactionEvents.value / 10) * 100), 100);
 });
 
-const bWatch = computed(() => {
-  return Math.min(watchedMin.value / videoDurationMin.value, 1.0);
+// Context & Spatial Index Computation using Engine
+const spatialIndex = computed(() => {
+  return computeSpatialIndex(spatialType.value, {
+    bandwidthKbps: bandwidthKbps.value,
+    latencyMs: latencyMs.value
+  });
 });
 
-const bInteraction = computed(() => {
-  return Math.min(interactionEvents.value / 10, 1.0);
+const contextProfile = computed(() => {
+  return createContextProfile(
+    'Sesi Mandiri / Rutin',
+    bandwidthKbps.value,
+    latencyMs.value,
+    'Instansi Daerah',
+    deviceType.value,
+    workloadLevel.value,
+    spatialIndex.value
+  );
 });
 
-const bRevisit = computed(() => {
-  return Math.min(revisitEvents.value / 3, 1.0);
+// Evidence & Missingness Computation using Engine
+const missingnessRate = computed(() => {
+  return computeMissingness(interactionEvents.value, 10);
 });
 
-const bRetention = computed(() => {
-  return Math.min(Math.max(observedRetention.value, 0), 1.0);
+const evidenceNoise = computed(() => {
+  return Math.round((1 - observedRetention.value) * 100) / 100;
 });
 
-// Candidate Evidence Sufficiency Score: LS_t = 0.35*B_watch + 0.25*B_int + 0.20*B_revisit + 0.20*B_retention
-const sufficiencyScore = computed(() => {
-  const score = (0.35 * bWatch.value) + (0.25 * bInteraction.value) + (0.20 * bRevisit.value) + (0.20 * bRetention.value);
-  return Math.min(Math.max(Math.round(score * 100) / 100, 0), 1.0);
+const evidenceQuality = computed(() => {
+  return computeEvidenceQuality(missingnessRate.value, evidenceNoise.value);
+});
+
+const behavioralEvidence = computed(() => {
+  return computeBehavioralEvidence({
+    loginCount: 1,
+    durationMinutes: watchedMin.value,
+    clickstreamCount: 15,
+    substantiveCompletionRatio: watchedMin.value / videoDurationMin.value,
+    quizArtifactScore: observedRetention.value,
+    revisitCount: revisitEvents.value,
+    interactionCount: interactionEvents.value
+  });
 });
 
 const isSufficient = computed(() => {
-  return sufficiencyScore.value >= sufficiencyThreshold.value;
+  return behavioralEvidence.value >= sufficiencyThreshold.value;
 });
 
-// Contextual Expectation & Residual (Module 04 / Equations 5 & 6)
-const expectedFocus = computed(() => {
-  let base = 0.85;
-  base -= (workloadLevel.value / 5) * 0.40;
-  if (bandwidthKbps.value < 250) base -= 0.12;
-  if (deviceType.value === 'smartphone') base -= 0.08;
-  return Math.max(Math.min(base, 0.95), 0.25);
+// Contextual Baseline & Residual Computation using Engine
+const networkReadiness = computed(() => {
+  const bandwidthScore = Math.min(bandwidthKbps.value / 5000, 1);
+  const latencyScore = Math.max(0, 1 - (latencyMs.value / 1200));
+  return Math.round(((bandwidthScore * 0.6) + (latencyScore * 0.4)) * 100) / 100;
 });
 
-const liveDeltaB = computed(() => {
-  return observedFocus.value - expectedFocus.value;
+const contextualBaseline = computed(() => {
+  return computeCCBNBaseline(contextProfile.value, evidenceQuality.value, networkReadiness.value);
+});
+
+const liveResidual = computed(() => {
+  return computeResidual(behavioralEvidence.value, contextualBaseline.value);
 });
 
 const deltaBColor = computed(() => {
-  if (liveDeltaB.value >= -0.05) return '#10B981';
-  if (liveDeltaB.value >= -0.20) return '#F59E0B';
+  if (liveResidual.value >= -0.05) return '#10B981';
+  if (liveResidual.value >= -0.20) return '#F59E0B';
   return '#EF4444';
 });
 
-// Trade-off Computations (Module 12 / Synthetic Demonstration)
+// Baseline Validity Gate Evaluation using Engine
+const validityResult = computed(() => {
+  return computeValidityGate(spatialIndex.value, evidenceQuality.value);
+});
+
+// Visual Observability Computation using Engine
+const visualObservabilityQuality = computed(() => {
+  return computeVisualObservabilityQuality(evidenceQuality.value, spatialType.value === '3T');
+});
+
+const visualFusionWeight = computed(() => {
+  return computeVisualObservabilityWeight(spatialIndex.value, visualObservabilityQuality.value);
+});
+
+// Disparity & Multi-Objective Trade-offs
 const dynamicOverallReward = computed(() => {
   const reward = 0.71 - (lambdaWeight.value * 0.05);
   return Math.round(reward * 100) / 100;
@@ -1979,8 +2010,7 @@ const dynamicUrbanOutcome = computed(() => {
 });
 
 const liveDisparityGap = computed(() => {
-  const gap = Math.abs(dynamicUrbanOutcome.value - dynamic3TOutcome.value);
-  return Math.round(gap * 100) / 100;
+  return computeDisparity(dynamicUrbanOutcome.value, dynamic3TOutcome.value);
 });
 
 const liveGapReductionPct = computed(() => {
@@ -1990,15 +2020,25 @@ const liveGapReductionPct = computed(() => {
   return Math.round(reduction);
 });
 
-// Live Multi-Objective Reward Score (Equation 9)
-const liveRewardScore = computed(() => {
-  let utility = observedRetention.value * 1.2;
-  let workBurden = (workloadLevel.value / 5) * 0.3;
-  let infraBurden = (1000 / Math.max(bandwidthKbps.value, 100)) * 0.15;
-  let residualBonus = liveDeltaB.value >= -0.05 ? 0.35 : -0.25;
-  let disparityPenalty = lambdaWeight.value * liveDisparityGap.value * 0.4;
+const selectedActionKey = computed(() => {
+  return selectAdaptiveAction(contextProfile.value, liveResidual.value);
+});
 
-  return Math.max(utility - workBurden - infraBurden + residualBonus - disparityPenalty, 0.1);
+const liveContextualBurden = computed(() => {
+  return computeContextualBurden(selectedActionKey.value, contextProfile.value);
+});
+
+// Multi-Objective Calibrated Reward Score (Equation 9)
+const liveRewardScore = computed(() => {
+  return computeCalibratedReward(
+    0.70,
+    liveResidual.value,
+    liveContextualBurden.value,
+    (workloadLevel.value / 5) * 0.30,
+    0.05,
+    liveDisparityGap.value,
+    lambdaWeight.value
+  );
 });
 
 const bandwidthQuality = computed(() => {
@@ -2025,62 +2065,21 @@ const workloadDesc = computed(() => {
   return 'Rendah / Mandiri';
 });
 
-// -------------------------------------------------------------------------
-// Proposal revisi 2 — Persamaan (1)–(18c)
-// -------------------------------------------------------------------------
-const networkReadiness = computed(() => {
-  const bandwidthScore = Math.min(bandwidthKbps.value / 5000, 1);
-  const latencyScore = Math.max(0, 1 - (latencyMs.value / 1200));
-  return Math.round(((bandwidthScore * 0.6) + (latencyScore * 0.4)) * 100) / 100;
-});
-
-const spatialClusterScore = computed(() => spatialType.value === '3T' ? 0.30 : 0.80);
-const spatialIndex = computed(() => Math.round(((0.6 * spatialClusterScore.value) + (0.4 * networkReadiness.value)) * 100) / 100);
-const missingnessRate = computed(() => Math.round((1 - (interactionEvents.value / 10)) * 100) / 100);
-const evidenceNoise = computed(() => Math.round((1 - observedRetention.value) * 100) / 100);
-const evidenceQuality = computed(() => Math.max(0, Math.min(1, Math.round((1 - missingnessRate.value - (0.5 * evidenceNoise.value)) * 100) / 100)));
-const behavioralOutcome = computed(() => sufficiencyScore.value);
-const contextualBaseline = computed(() => {
-  let base = 0.82;
-  base -= (workloadLevel.value / 5) * 0.22;
-  base -= (1 - networkReadiness.value) * 0.12;
-  base -= (1 - evidenceQuality.value) * 0.08;
-  return Math.max(0.20, Math.min(0.90, Math.round(base * 100) / 100));
-});
-const contextualResidual = computed(() => Math.round((behavioralOutcome.value - contextualBaseline.value) * 100) / 100);
-const visualObservabilityQuality = computed(() => Math.max(0, Math.min(1, Math.round((evidenceQuality.value - (spatialType.value === '3T' ? 0.10 : 0)) * 100) / 100)));
-const visualFusionWeight = computed(() => {
-  const sigmoidInput = (1 - spatialIndex.value) + visualObservabilityQuality.value - 1;
-  return Math.round((1 / (1 + Math.exp(-sigmoidInput))) * 100) / 100;
-});
-
-// Baseline Validity Gate (Equations 18a–18c)
-const baselineValidity = computed<'valid' | 'boundary' | 'invalid'>(() => {
-  if (spatialIndex.value >= thetaSpatial && evidenceQuality.value >= thetaQuality) return 'valid';
-  if (spatialIndex.value < thetaSpatialBoundary || evidenceQuality.value < thetaQualityBoundary) return 'invalid';
-  return 'boundary';
-});
-
-const baselineStatusMessage = computed(() => {
-  if (baselineValidity.value === 'valid') return 'Persamaan (18a) VALID: Evidensi cukup teramati; residual d_{i,t} dihitung normal dan rekomendasi adaptif otomatis diizinkan.';
-  if (baselineValidity.value === 'boundary') return 'Persamaan (18b) BOUNDARY: Zona batas observabilitas; residual berkepercayaan rendah, rekomendasi dibatasi pada dukungan berbeban rendah.';
-  return 'Persamaan (18c) INVALID: Not observable; sistem tidak memaksa rekomendasi otomatis, eskalasi langsung ke Human-in-the-Loop.';
-});
-
+// Proposal Equation Ledger (1 to 18c)
 const proposalEquationLedger = computed(() => [
-  { id: '(1)', title: 'Raw behavioral traces', formula: 'X_{i,t} = [login, duration, clickstream, completion, artifact, ...]', live: `Trace sesi: tonton ${watchedMin.value.toFixed(1)}/${videoDurationMin.value} menit; ${interactionEvents.value}/10 checkpoint.` },
+  { id: '(1)', title: 'Raw behavioral traces', formula: 'X_{i,t} = [login, duration, clickstream, completion, artifact, ...]', live: `Trace sesi: tonton ${watchedMin.value.toFixed(1)}/${videoDurationMin.value} menit; ${interactionEvents.value}/10 checkpoint; B_{i,t} = ${behavioralEvidence.value.toFixed(2)}.` },
   { id: '(2)', title: 'Konteks enam dimensi', formula: 'c_{i,t} = [T_{i,t}, I_{i,t}, O_{i,t}, D_{i,t}, W_{i,t}, S_{i,t}]', live: `I: ${bandwidthKbps.value} kbps / ${latencyMs.value} ms; D: ${deviceName.value}; W: ${workloadLevel.value}/5; S: ${spatialIndex.value.toFixed(2)}.` },
-  { id: '(2a–2c)', title: 'Indeks spasial komposit', formula: 'S_{i,t} = δK_i + (1 − δ)N_{i,t}', live: `K: ${spatialClusterScore.value.toFixed(2)}; N: ${networkReadiness.value.toFixed(2)}; S: ${spatialIndex.value.toFixed(2)}.` },
-  { id: '(3)', title: 'Missingness (Observabilitas)', formula: 'm_{i,t} = 1 − n_{observed,i,t} / n_{expected,i,t}', live: `m: ${missingnessRate.value.toFixed(2)} dari ${interactionEvents.value} observasi atas 10 checkpoint.` },
-  { id: '(4)', title: 'Kualitas evidensi', formula: 'q_{i,t} = 1 − m_{i,t} − λ · noise_{i,t}', live: `noise: ${evidenceNoise.value.toFixed(2)}; q: ${evidenceQuality.value.toFixed(2)}.` },
+  { id: '(2a–2c)', title: 'Indeks spasial komposit', formula: 'S_{i,t} = δK_i + (1 − δ)N_{i,t}', live: `K: ${spatialType.value === '3T' ? '0.30' : '0.80'}; N: ${networkReadiness.value.toFixed(2)}; S_{i,t}: ${spatialIndex.value.toFixed(2)}.` },
+  { id: '(3)', title: 'Missingness (Observabilitas)', formula: 'm_{i,t} = 1 − n_{observed,i,t} / n_{expected,i,t}', live: `m_{i,t}: ${missingnessRate.value.toFixed(2)} dari ${interactionEvents.value} observasi atas 10 checkpoint (MNAR).` },
+  { id: '(4)', title: 'Kualitas evidensi', formula: 'q_{i,t} = 1 − m_{i,t} − λ · noise_{i,t}', live: `noise: ${evidenceNoise.value.toFixed(2)}; q_{i,t}: ${evidenceQuality.value.toFixed(2)}.` },
   { id: '(5)', title: 'CCBN expected baseline', formula: 'b̂_{i,t} = E[B_{i,t} | c_{i,t}, q_{i,t}] = f(c_{i,t}, q_{i,t})', live: `Expected Baseline CCBN: ${contextualBaseline.value.toFixed(2)}.` },
-  { id: '(6)', title: 'Contextual residual', formula: 'd_{i,t} = B_{i,t} − b̂_{i,t}', live: `B: ${behavioralOutcome.value.toFixed(2)}; d: ${contextualResidual.value >= 0 ? '+' : ''}${contextualResidual.value.toFixed(2)}.` },
+  { id: '(6)', title: 'Contextual residual', formula: 'd_{i,t} = B_{i,t} − b̂_{i,t}', live: `B: ${behavioralEvidence.value.toFixed(2)}; d_{i,t}: ${liveResidual.value >= 0 ? '+' : ''}${liveResidual.value.toFixed(2)}.` },
   { id: '(7)', title: 'Contextual disparity', formula: 'D_t = disparity(d_{i,t} | context/group)', live: `Gap disparitas kelompok: ${liveDisparityGap.value.toFixed(2)}* (Synthetic).` },
-  { id: '(8, 8a, 8b)', title: 'Beban & gap fairness', formula: 'CB_{i,a,t} = cost_a(c_{i,t}, Δc_{i,t}); max |E[CB|g] − E[CB|h]|; max |MAE_g(d) − MAE_h(d)|', live: `Guardrail rekomendasi: toleransi beban & kesetaraan kesalahan interpretasi.` },
-  { id: '(9)', title: 'Reward terkalibrasi LinUCB', formula: "r′_{i,a,t+1} = r_{i,a,t} + ηU(a,d_{i,t}) − μCB_{i,a,t} − νOB_{i,a,t} − ρΔc_{i,t} − γD_t", live: `Candidate reward: ${liveRewardScore.value.toFixed(2)}*; D: ${liveDisparityGap.value.toFixed(2)}*.` },
+  { id: '(8, 8a, 8b)', title: 'Beban & gap fairness', formula: 'CB_{i,a,t} = cost_a(c_{i,t}, Δc_{i,t}); max |E[CB|g] − E[CB|h]|; max |MAE_g(d) − MAE_h(d)|', live: `CB: ${liveContextualBurden.value.toFixed(2)}; Guardrail toleransi beban & interpretasi.` },
+  { id: '(9)', title: 'Reward terkalibrasi LinUCB', formula: "r′_{i,a,t+1} = r_{i,a,t} + ηU(a,d_{i,t}) − μCB_{i,a,t} − νOB_{i,a,t} − ρΔc_{i,t} − γD_t", live: `Candidate reward: ${liveRewardScore.value.toFixed(2)}*; D_t: ${liveDisparityGap.value.toFixed(2)}*.` },
   { id: '(10, 10a)', title: 'Observabilitas & fusi visual', formula: 'w_{i,t} = σ(α₁(1 − S_{i,t}) + α₂q_{visual,i,t}); F_{i,t} = w_{i,t}V_{i,t} + (1 − w_{i,t})b_{LMS,i,t}', live: `q_visual: ${visualObservabilityQuality.value.toFixed(2)}; w: ${visualFusionWeight.value.toFixed(2)}. Visual adalah pendukung observabilitas.` },
   { id: '(11–17)', title: 'Tujuh metrik fairness spasial', formula: 'Spatial performance, low-engagement, FPR/FNR, calibration, missingness, visual-observability, & override gaps', live: 'Dihitung pada evaluasi kelompok saat data empiris / sandbox multi-wilayah tersedia.' },
-  { id: '(18a–18c)', title: 'Baseline Validity Gate', formula: 'valid / boundary / invalid berdasarkan S_{i,t} dan q_{i,t} terhadap ambang metodologis', live: `Status: ${baselineValidity.value.toUpperCase()} — ${baselineStatusMessage.value}` }
+  { id: '(18a–18c)', title: 'Baseline Validity Gate', formula: 'valid / boundary / invalid berdasarkan S_{i,t} dan q_{i,t} terhadap ambang metodologis', live: `Status: ${validityResult.value.state.toUpperCase()} — ${validityResult.value.message}` }
 ]);
 
 // Section 11: Traceability Table Data
@@ -2199,13 +2198,13 @@ const modalModuleData = computed(() => {
         layer: 'TAHAP 2: EVIDENCE (CCBN BASELINE MECHANISM)',
         badgeClass: 'badge-emerald',
         role: 'Level 1: Menghitung baseline ekspektasi perilaku wajar b̂_{i,t} = E[B|c,q] berdasarkan kendala lingkungan, lalu mengkalkulasi deviasi residual individual d_{i,t}.',
-        formula: 'b̂_{i,t} = f(c_{i,t}, q_{i,t}), \quad d_{i,t} = B_{i,t} - b̂_{i,t} = ' + (contextualResidual.value >= 0 ? '+' : '') + contextualResidual.value.toFixed(2),
+        formula: 'b̂_{i,t} = f(c_{i,t}, q_{i,t}), \quad d_{i,t} = B_{i,t} - b̂_{i,t} = ' + (liveResidual.value >= 0 ? '+' : '') + liveResidual.value.toFixed(2),
         equationRef: 'Persamaan (5) & (6) — Core CCBN Mechanism',
         liveState: {
-          'Observed Evidence (B_{i,t})': `${behavioralOutcome.value.toFixed(2)}`,
+          'Observed Evidence (B_{i,t})': `${behavioralEvidence.value.toFixed(2)}`,
           'Expected Baseline (b̂_{i,t})': `${contextualBaseline.value.toFixed(2)} (Ekspektasi Wajar 3T)`,
-          'Contextual Residual (d_{i,t})': `${contextualResidual.value >= 0 ? '+' : ''}${contextualResidual.value.toFixed(2)}`,
-          'Interpretasi Residual': contextualResidual.value >= 0 ? 'Positif Wajar (Belajar sungguh-sungguh di tengah kendala)' : 'Deviasi Memerlukan Dukungan'
+          'Contextual Residual (d_{i,t})': `${liveResidual.value >= 0 ? '+' : ''}${liveResidual.value.toFixed(2)}`,
+          'Interpretasi Residual': liveResidual.value >= 0 ? 'Positif Wajar (Belajar sungguh-sungguh di tengah kendala)' : 'Deviasi Memerlukan Dukungan'
         },
         insight: 'CCBN memisahkan kendala infrastruktur dari penurunan atensi otentik. Residual positif di tengah kendala membuktikan partisipasi belajar yang layak diapresiasi.'
       };
@@ -2216,13 +2215,13 @@ const modalModuleData = computed(() => {
         layer: 'TAHAP 2: EVIDENCE (EPISTEMIC SAFEGUARD)',
         badgeClass: 'badge-blue',
         role: 'Mengevaluasi kelayakan epistemik baseline sebelum residual digunakan: VALID (18a), BOUNDARY (18b), atau INVALID (18c).',
-        formula: "\\text{Status: } \\begin{cases} \\text{VALID} & S_{i,t} \\ge \\theta_S \\land q_{i,t} \\ge \\theta_q \\\\ \\text{BOUNDARY} & \\theta'_S \\le S < \\theta_S \\lor \\theta'_q \\le q < \\theta_q \\\\ \\text{INVALID} & S < \\theta'_S \\lor q < \\theta'_q \\end{cases}",
+        formula: "\text{Status: } \begin{cases} \text{VALID} & S_{i,t} \ge \theta_S \land q_{i,t} \ge \theta_q \\ \text{BOUNDARY} & \theta'_S \le S < \theta_S \lor \theta'_q \le q < \theta_q \\ \text{INVALID} & S < \theta'_S \lor q < \theta'_q \end{cases}",
         equationRef: 'Persamaan (18a)–(18c) Proposal Revisi 2',
         liveState: {
-          'Spatial Index S_{i,t}': `${spatialIndex.value.toFixed(2)} (&theta;_S = ${thetaSpatial})`,
-          'Evidence Quality q_{i,t}': `${evidenceQuality.value.toFixed(2)} (&theta;_q = ${thetaQuality})`,
-          'Status Gerbang': baselineValidity.value.toUpperCase(),
-          'Respon Sistem': baselineStatusMessage.value
+          'Spatial Index S_{i,t}': `${spatialIndex.value.toFixed(2)} (&theta;_S = ${DEFAULT_VALIDITY_THRESHOLDS.thetaSpatial})`,
+          'Evidence Quality q_{i,t}': `${evidenceQuality.value.toFixed(2)} (&theta;_q = ${DEFAULT_VALIDITY_THRESHOLDS.thetaQuality})`,
+          'Status Gerbang': validityResult.value.state.toUpperCase(),
+          'Respon Sistem': validityResult.value.message
         },
         insight: 'Safeguard epistemik: jika observabilitas tidak memadai (INVALID), sistem tidak memaksa inferensi otomatis, melainkan mengeskalasi kasus ke Human-in-the-Loop.'
       };
@@ -2236,7 +2235,7 @@ const modalModuleData = computed(() => {
         formula: 'D_t = \text{disparity}(d_{i,t} \mid \text{group}), \quad \text{Gap}_{\text{burden}} = \max_{g,h} |\mathbb{E}[CB \mid g] - \mathbb{E}[CB \mid h]|',
         equationRef: 'Persamaan (7), (8), (8a), (8b) Proposal Revisi 2',
         liveState: {
-          'Individual Residual (d_{i,t})': `${contextualResidual.value >= 0 ? '+' : ''}${contextualResidual.value.toFixed(2)}`,
+          'Individual Residual (d_{i,t})': `${liveResidual.value >= 0 ? '+' : ''}${liveResidual.value.toFixed(2)}`,
           'Group Disparity Gap (D_t)': `${liveDisparityGap.value.toFixed(2)}* (Synthetic)`,
           'Recommendation Burden Gap': '< 0.15* (Toleransi Tercapai)',
           'Interpretation Error Gap': 'ΔMAE = 0.04* (< 0.05)'
@@ -2250,7 +2249,7 @@ const modalModuleData = computed(() => {
         layer: 'TAHAP 4: DECISION (ADAPTIVE DECISION LAYER)',
         badgeClass: 'badge-purple',
         role: 'Memilih aksi modalitas adaptif yang memaksimalkan reward terkalibrasi multi-objektif (Eq. 9) dengan eksplorasi LinUCB.',
-        formula: "a^*_{t+1} = \\arg\\max_{a \\in \\mathcal{A}} [ r'_{i,a,t+1} + \\alpha_t \\sqrt{z_{i,t}^T A_{a,t}^{-1} z_{i,t}} ]",
+        formula: "a^*_{t+1} = \arg\max_{a \in \mathcal{A}} [ r'_{i,a,t+1} + \alpha_t \sqrt{z_{i,t}^T A_{a,t}^{-1} z_{i,t}} ]",
         equationRef: 'Persamaan (9) & Adaptive LinUCB Decision Layer',
         liveState: {
           'Aksi Terpilih': selectedActionKey.value === 'A2' ? 'A2: Text-First + Audio Mikro' : selectedActionKey.value === 'A4' ? 'A4: Dynamic Microlearning' : 'A3: Interactive Scenario',
@@ -2267,10 +2266,10 @@ const modalModuleData = computed(() => {
         layer: 'TAHAP 4: DECISION (EXPLAINABLE AI & HITL)',
         badgeClass: 'badge-cyan',
         role: 'Menyajikan rantai inferensi explainable AI (XAI) dan menempatkan Widyaiswara sebagai reviewer akhir intervensi.',
-        formula: 'c_{i,t} \\to X_{i,t} \\to (b̂, d) \\to \\text{Validity Gate} \\to D_t \\to \\text{Rekomendasi Aksi} \\to \\text{Review HITL}',
+        formula: 'c_{i,t} \to X_{i,t} \to (b̂, d) \to \text{Validity Gate} \to D_t \to \text{Rekomendasi Aksi} \to \text{Review HITL}',
         equationRef: 'Persamaan (17) — Human Override Governance',
         liveState: {
-          'Rantai Inferensi': `Konteks (${bandwidthKbps.value}k) → Evidensi (${(observedFocus.value * 100).toFixed(0)}%) → Residual (${contextualResidual.value >= 0 ? '+' : ''}${contextualResidual.value.toFixed(2)}) → Format ${selectedActionKey.value}`,
+          'Rantai Inferensi': `Konteks (${bandwidthKbps.value}k) → Evidensi (${(observedFocus.value * 100).toFixed(0)}%) → Residual (${liveResidual.value >= 0 ? '+' : ''}${liveResidual.value.toFixed(2)}) → Format ${selectedActionKey.value}`,
           'Tipe Intervensi': 'Decision-Support bagi Pengampu/Widyaiswara',
           'Wewenang Review': 'Persetujuan, Pengubahan Moda, Penjadwalan Ulang'
         },
@@ -2283,8 +2282,8 @@ const modalModuleData = computed(() => {
         layer: 'TAHAP 5: LEARNING LOOP (NON-STATIONARY ADAPTATION)',
         badgeClass: 'badge-amber',
         role: 'Menguji ketangguhan adaptasi real-time saat konteks jaringan/perangkat bergeser secara tiba-tiba (analogi YouTube bitrate).',
-        formula: 't_1 (110 \\text{ kbps, Phone, 3T}) \\rightleftharpoons t_2 (8000 \\text{ kbps, Desktop, WiFi})',
-        equationRef: 'Context Drift & Non-Stationary Shift (\\Delta c_{i,t})',
+        formula: 't_1 (110 \text{ kbps, Phone, 3T}) \rightleftharpoons t_2 (8000 \text{ kbps, Desktop, WiFi})',
+        equationRef: 'Context Drift & Non-Stationary Shift (\Delta c_{i,t})',
         liveState: {
           'State Aktif': contextShiftState.value === 't1' ? 'State t1 (3T Terkendala)' : 'State t2 (WiFi Kantor Lancar)',
           'Bandwidth Sesi': `${bandwidthKbps.value} kbps`,
@@ -2300,7 +2299,7 @@ const modalModuleData = computed(() => {
         layer: 'TAHAP 5: LEARNING LOOP (MODEL PARAMETER UPDATE)',
         badgeClass: 'badge-emerald',
         role: 'Mencatat log pembelajaran sekuensial dan memperbarui parameter bobot bandit θ_a setelah intervensi selesai.',
-        formula: "A_{a, t+1} \\leftarrow A_{a, t} + z_{i,t} z_{i,t}^T, \\quad b_{a, t+1} \\leftarrow b_{a, t} + r'_t z_{i,t}",
+        formula: "A_{a, t+1} \leftarrow A_{a, t} + z_{i,t} z_{i,t}^T, \quad b_{a, t+1} \leftarrow b_{a, t} + r'_t z_{i,t}",
         equationRef: 'Online Ridge Regression Parameter Update',
         liveState: {
           'Time Step Terkini': 't6 (Reward 0.91*)',
@@ -2316,7 +2315,7 @@ const modalModuleData = computed(() => {
         layer: 'TAHAP 3: FAIRNESS & EVALUATION (METRICS & BENCHMARK)',
         badgeClass: 'badge-rose',
         role: 'Evaluasi komparatif multi-metrik (Spatial Performance, Low-Engagement Misinterpretation, FPR/FNR, Calibration, Missingness Bias, Visual Observability, Override Gaps).',
-        formula: '\\text{Evaluasi: } [\\text{Eq. 11: Perf Gap} \\mid \\text{Eq. 12: Low-Eng Gap} \\mid \\text{Eq. 13c: FPR/FNR} \\mid \\text{Eq. 14: Calib} \\mid \\text{Eq. 15: Miss} \\mid \\text{Eq. 16: Visual} \\mid \\text{Eq. 17: Override}]',
+        formula: '\text{Evaluasi: } [\text{Eq. 11: Perf Gap} \mid \text{Eq. 12: Low-Eng Gap} \mid \text{Eq. 13c: FPR/FNR} \mid \text{Eq. 14: Calib} \mid \text{Eq. 15: Miss} \mid \text{Eq. 16: Visual} \mid \text{Eq. 17: Override}]',
         equationRef: 'Persamaan (11)–(17) Proposal Revisi 2',
         liveState: {
           'Spatial Performance Gap (11)': '0.06* (Terkalibrasi)',
@@ -2333,7 +2332,7 @@ const modalModuleData = computed(() => {
         layer: 'TAHAP 5: LEARNING LOOP (MULTI-OBJECTIVE TUNING)',
         badgeClass: 'badge-emerald',
         role: 'Menyediakan instrumen kendali interaktif untuk mengatur bobot penalti disparitas (γ / λ) antara efisiensi agregat vs keadilan kesetaraan luaran.',
-        formula: "r'_{i,a,t+1} = \\dots - \\gamma_t D_t \\quad (\\text{Slider } \\lambda = " + lambdaWeight.value.toFixed(2) + ")",
+        formula: "r'_{i,a,t+1} = \dots - \gamma_t D_t \quad (\text{Slider } \lambda = " + lambdaWeight.value.toFixed(2) + ")",
         equationRef: 'Multi-Objective Equity Optimization (Persamaan 9)',
         liveState: {
           'Bobot Penalti (λ)': `${lambdaWeight.value.toFixed(2)}`,
@@ -4365,7 +4364,7 @@ const modalModuleData = computed(() => {
   margin-bottom: 2rem;
 }
 
-.math-ref-head { margin-bottom: 1.5rem; }
+.math-ref-head { margin-bottom: 0.5rem; }
 .math-ref-title { font-size: 1.35rem; font-weight: 800; color: #0F172A; margin: 0.4rem 0 0.2rem 0; }
 .math-ref-desc { font-size: 0.85rem; color: #475569; line-height: 1.5; margin: 0; }
 
