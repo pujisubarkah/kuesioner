@@ -592,13 +592,166 @@
         <!-- ========================================================================= -->
         <!-- TAB 4: OPERATIONAL SUPPORT STATES (S1 TO S4)                              -->
         <!-- ========================================================================= -->
+        <!-- ========================================================================= -->
+        <!-- TAB 4: OPERATIONAL SUPPORT STATES (S1 TO S4)                              -->
+        <!-- ========================================================================= -->
         <div v-if="activeTab === 'states'" class="tab-pane-content">
           <div class="pane-header">
             <div>
-              <span class="sub-pill pill-amber">ANDRAGOGIC STATES</span>
-              <h3 class="pane-title">4 Status Situasional Operasional Pembelajar (S1–S4)</h3>
-              <p class="pane-desc">Status operasional untuk memicu intervensi andragogis lapangan (bukan model matematika CCBN):</p>
+              <span class="sub-pill pill-amber">ANDRAGOGIC STATES & SURVEY MAPPING</span>
+              <h3 class="pane-title">Pemetaan Butir Kuesioner Konteks (c_{i,t}) ➔ 4 Status Situasional (S1–S4)</h3>
+              <p class="pane-desc">
+                Bagaimana jawaban instrumen kuesioner profil peserta mengondisikan aktivasi status operasional lapangan untuk mencegah kesalahan atribusi (*attribution error*):
+              </p>
             </div>
+          </div>
+
+          <!-- Prominent Questionnaire ➔ S1-S4 Mapping Table -->
+          <div class="table-wrap" style="box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+            <table class="benchmark-table">
+              <thead>
+                <tr style="background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);">
+                  <th style="width: 18%;">Status Situasional</th>
+                  <th style="width: 25%;">Butir Kuesioner Pemicu (c_{i,t})</th>
+                  <th style="width: 22%;">Pola Telemetri Jejak (X_{i,t})</th>
+                  <th style="width: 20%;">Aksi Adaptif Andragogis</th>
+                  <th style="width: 15%;">Mekanisme Epistemik</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- S1 Row -->
+                <tr style="background: rgba(239, 246, 255, 0.3);">
+                  <td>
+                    <div style="display: flex; flex-direction: column; gap: 0.2rem;">
+                      <span class="sc-code" style="background: #1D4ED8; width: fit-content;">S1: Low-Engagement Risk</span>
+                      <strong style="color: #1E40AF; font-size: 0.775rem;">Risiko Atensi Murni</strong>
+                    </div>
+                  </td>
+                  <td>
+                    <ul style="margin: 0; padding-left: 1rem; font-size: 0.725rem; color: #334155; line-height: 1.4;">
+                      <li>• Dukungan pimpinan tinggi (<strong>O</strong>)</li>
+                      <li>• Koneksi internet lancar / stabil (<strong>I</strong>)</li>
+                      <li>• Beban kerja dinas rendah (<strong>W</strong>)</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <div style="font-size: 0.725rem; color: #475569;">
+                      Kecepatan video <strong>2.0x</strong>, tab-focus rendah (<strong>&lt; 0.30</strong>), zero rewind, kuis formatif rendah.
+                    </div>
+                  </td>
+                  <td>
+                    <span class="dest-pill" style="background: #EFF6FF; color: #1D4ED8; border-color: #BFDBFE;">
+                      Stop-Gate Verification
+                    </span>
+                    <p style="font-size: 0.7rem; color: #64748B; margin: 0.25rem 0 0 0;">Kuis konseptual sebelum modul berikutnya.</p>
+                  </td>
+                  <td>
+                    <span style="font-size: 0.7rem; font-weight: 700; color: #1E40AF;">Verifikasi Atensi</span>
+                  </td>
+                </tr>
+
+                <!-- S2 Row -->
+                <tr style="background: rgba(250, 245, 255, 0.3);">
+                  <td>
+                    <div style="display: flex; flex-direction: column; gap: 0.2rem;">
+                      <span class="sc-code" style="background: #7E22CE; width: fit-content;">S2: Office-Hour Learning</span>
+                      <strong style="color: #6B21A8; font-size: 0.775rem;">Konflik Jam Dinas</strong>
+                    </div>
+                  </td>
+                  <td>
+                    <ul style="margin: 0; padding-left: 1rem; font-size: 0.725rem; color: #334155; line-height: 1.4;">
+                      <li>• Waktu akses saat jam kerja dinas (<strong>T</strong>)</li>
+                      <li>• Beban tugas kedinasan / pelayanan tinggi (<strong>W</strong>)</li>
+                      <li>• Menggunakan PC kantor bersama (<strong>D</strong>)</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <div style="font-size: 0.725rem; color: #475569;">
+                      Sering *tab-switching* ke aplikasi persuratan/layanan, sesi belajar terpecah-pecah.
+                    </div>
+                  </td>
+                  <td>
+                    <span class="dest-pill" style="background: #FAF5FF; color: #7E22CE; border-color: #E9D5FF;">
+                      Micro-Chunking (3–5 min)
+                    </span>
+                    <p style="font-size: 0.7rem; color: #64748B; margin: 0.25rem 0 0 0;">Ringkasan modular + audio background.</p>
+                  </td>
+                  <td>
+                    <span style="font-size: 0.7rem; font-weight: 700; color: #6B21A8;">Akomodasi Tugas</span>
+                  </td>
+                </tr>
+
+                <!-- S3 Row -->
+                <tr style="background: rgba(236, 254, 255, 0.3);">
+                  <td>
+                    <div style="display: flex; flex-direction: column; gap: 0.2rem;">
+                      <span class="sc-code" style="background: #0E7490; width: fit-content;">S3: Cognitive Struggling</span>
+                      <strong style="color: #155E75; font-size: 0.775rem;">Kesulitan Pemahaman</strong>
+                    </div>
+                  </td>
+                  <td>
+                    <ul style="margin: 0; padding-left: 1rem; font-size: 0.725rem; color: #334155; line-height: 1.4;">
+                      <li>• Latar belakang pendidikan non-linier</li>
+                      <li>• Materi dinilai rumit / terlalu teoritis</li>
+                      <li>• Pengalaman e-learning pemula</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <div style="font-size: 0.725rem; color: #475569;">
+                      Pengulangan video berulang (*rewinds* tinggi), *dwell time* sangat lama pada paragraf/soal.
+                    </div>
+                  </td>
+                  <td>
+                    <span class="dest-pill" style="background: #ECFEFF; color: #0E7490; border-color: #A5F3FC;">
+                      Adaptive Scaffolding
+                    </span>
+                    <p style="font-size: 0.7rem; color: #64748B; margin: 0.25rem 0 0 0;">Infografis, studi kasus instansi, glosarium.</p>
+                  </td>
+                  <td>
+                    <span style="font-size: 0.7rem; font-weight: 700; color: #0E7490;">Bantuan Kognitif</span>
+                  </td>
+                </tr>
+
+                <!-- S4 Row -->
+                <tr style="background: rgba(255, 251, 235, 0.4);">
+                  <td>
+                    <div style="display: flex; flex-direction: column; gap: 0.2rem;">
+                      <span class="sc-code" style="background: #B45309; width: fit-content;">S4: Infrastructural Constraint</span>
+                      <strong style="color: #92400E; font-size: 0.775rem;">Kendala Sinyal / Listrik 3T</strong>
+                    </div>
+                  </td>
+                  <td>
+                    <ul style="margin: 0; padding-left: 1rem; font-size: 0.725rem; color: #334155; line-height: 1.4;">
+                      <li>• Kualitas sinyal buruk / latensi tinggi (<strong>I</strong>)</li>
+                      <li>• Wilayah 3T / Kepulauan terpencil (<strong>S</strong>)</li>
+                      <li>• Keterbatasan kuota mandiri / sering padam</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <div style="font-size: 0.725rem; color: #475569;">
+                      *Buffering stalls* tinggi (<strong>&gt; 5x</strong>), paket data *dropped*, durasi memanjang akibat teknis.
+                    </div>
+                  </td>
+                  <td>
+                    <span class="dest-pill" style="background: #FFFBEB; color: #B45309; border-color: #FDE68A;">
+                      Audio-First &amp; Offline PWA
+                    </span>
+                    <p style="font-size: 0.7rem; color: #64748B; margin: 0.25rem 0 0 0;">Modul PDF ringkas + sinkronisasi offline.</p>
+                  </td>
+                  <td>
+                    <span style="font-size: 0.7rem; font-weight: 700; color: #B45309;">Fairness (Non-Punitif)</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Section Divider & Heading for Deep-Dive Cards -->
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem;">
+            <h4 style="font-size: 0.875rem; font-weight: 800; color: #1E293B; margin: 0;">
+              🔍 Rincian Kartu Spesifikasi Situasional (S1–S4)
+            </h4>
+            <span style="font-size: 0.725rem; color: #64748B;">4 Status Andragogis Operasional</span>
           </div>
 
           <div class="states-grid-2col">
