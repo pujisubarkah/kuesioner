@@ -4,11 +4,11 @@
     <div class="navbar-top-bar">
       <div style="display: flex; align-items: center; gap: 0.5rem;">
         <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #22C55E;"></span>
-        <span>RISET MANDIRI • KUESIONER PEMBELAJARAN DIGITAL ASN</span>
+        <span>SURVEI PEMETAAN • PEMBELAJARAN DIGITAL ASN</span>
       </div>
       <div style="display: flex; align-items: center; gap: 1rem;">
         <span style="font-size: 0.75rem; opacity: 0.85; font-weight: 500;">
-          Instrumen Penelitian Akademis
+          Instrumen Kajian Pembelajaran ASN
         </span>
       </div>
     </div>
@@ -18,11 +18,11 @@
       <div class="logo-group">
         <div class="logo-badge-lan" style="background: var(--brand-lan-navy);">
           <span class="logo-badge-emblem" style="background: var(--brand-lan-blue);">ASN</span>
-          <span class="logo-badge-text">RISET</span>
+          <span class="logo-badge-text">SURVEI</span>
         </div>
         <div class="logo-text">
           <h1>Kuesioner Pembelajaran Digital ASN</h1>
-          <p>Riset Konteks, Perangkat & Kendala Kedinasan E-Learning</p>
+          <p>Pemetaan Konteks Belajar, Perangkat & Kendala Kedinasan</p>
         </div>
       </div>
 
@@ -72,6 +72,15 @@
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
           Dataset Telemetri
+        </NuxtLink>
+
+        <NuxtLink 
+          to="/matematis" 
+          class="nav-tab" 
+          active-class="active"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Formulasi Matematis
         </NuxtLink>
 
         <NuxtLink 

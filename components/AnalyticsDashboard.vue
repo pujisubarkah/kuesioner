@@ -106,6 +106,21 @@
         </div>
       </div>
 
+      <!-- Mathematical Grounding Bridge Banner -->
+      <div style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: white; padding: 1rem 1.5rem; border-radius: var(--radius-lg); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border: 1px solid #334155; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span style="font-size: 1.5rem;">📐</span>
+          <div>
+            <div style="font-weight: 800; font-size: 0.95rem; color: #93C5FD;">Jembatan Empiris & Formulasi Formal CCBN</div>
+            <div style="font-size: 0.8rem; color: #CBD5E1;">Seluruh temuan kendala ASN di bawah ini dipetakan secara matematis ke dalam 7 Blok Persamaan (Pers. 1–18c).</div>
+          </div>
+        </div>
+        <NuxtLink to="/matematis" class="btn btn-primary" style="font-size: 0.825rem; padding: 0.45rem 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Buka Formulasi Matematis CCBN
+        </NuxtLink>
+      </div>
+
       <!-- Key KPI Stats Cards -->
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
         <div class="card" style="padding: 1.25rem; margin-bottom: 0; border-top: 4px solid var(--brand-lan-navy);">
@@ -156,9 +171,14 @@
       <!-- TAB 1: Demografi & Profil ASN -->
       <div v-if="activeTab === 'demografi'" style="display: flex; flex-direction: column; gap: 1.5rem;">
         <div class="card">
-          <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1.25rem;">
-            Sebaran Demografi & Lokasi Tugas ASN
-          </h3>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-primary); margin: 0;">
+              Sebaran Demografi & Lokasi Tugas ASN
+            </h3>
+            <NuxtLink to="/matematis#blok-1" class="math-bridge-pill" title="Lihat bagaimana wilayah ini dikluster dalam Persamaan (2a)">
+              📐 Persamaan (2a): Klaster Spasial K_i
+            </NuxtLink>
+          </div>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
             <!-- Provinsi -->
             <div>
@@ -222,9 +242,14 @@
       <!-- TAB 2: Perangkat & Konektivitas -->
       <div v-if="activeTab === 'perangkat'" style="display: flex; flex-direction: column; gap: 1.5rem;">
         <div class="card">
-          <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1.25rem;">
-            Perangkat, Lokasi Belajar & Sumber Internet ASN
-          </h3>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-primary); margin: 0;">
+              Perangkat, Lokasi Belajar & Sumber Internet ASN
+            </h3>
+            <NuxtLink to="/matematis#blok-1" class="math-bridge-pill" title="Lihat formula kualitas jaringan N_it & rasio missingness m_it">
+              📐 Persamaan (2b & 3): Sinyal N_it & Missingness m_it
+            </NuxtLink>
+          </div>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
             <!-- Q9 Main Device -->
             <div>
@@ -289,9 +314,14 @@
       <div v-if="activeTab === 'kedinasan'" style="display: flex; flex-direction: column; gap: 1.5rem;">
         <!-- Section D & E Likert Means -->
         <div class="card">
-          <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
-            Dinamika Pekerjaan, Beban Kerja & Dukungan Atasan (Skala 1-5)
-          </h3>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.75rem;">
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-primary); margin: 0;">
+              Dinamika Pekerjaan, Beban Kerja & Dukungan Atasan (Skala 1-5)
+            </h3>
+            <NuxtLink to="/matematis#blok-3" class="math-bridge-pill" title="Lihat bagaimana beban kerja dihitung dalam Persamaan (8) CB_iat">
+              📐 Persamaan (8 & 9): Beban Kerja CB_iat & Reward
+            </NuxtLink>
+          </div>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
             <div v-for="item in likertMetrics" :key="item.code" style="background: var(--color-surface-secondary); padding: 1.1rem; border-radius: var(--radius-md); border: 1px solid var(--color-stroke-secondary);">
@@ -306,9 +336,14 @@
 
         <!-- Synchronous Zoom Matrix breakdown -->
         <div class="card">
-          <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">
-            Dinamika Perilaku Pembelajaran Synchronous / Zoom / Google Meet (Q33)
-          </h3>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.75rem;">
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-primary); margin: 0;">
+              Dinamika Perilaku Pembelajaran Synchronous / Zoom / Google Meet (Q33)
+            </h3>
+            <NuxtLink to="/matematis#blok-5" class="math-bridge-pill" title="Lihat proteksi fusi kamera non-diskriminatif pada Persamaan (10)">
+              📐 Persamaan (10): Fusi Gated Kamera w(S, q_vis)
+            </NuxtLink>
+          </div>
           <p style="font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 1.25rem;">
             Persentase frekuensi perilaku ASN saat menghadiri webinar synchronous (Skala 1 = Tidak Pernah s.d. 5 = Selalu):
           </p>
@@ -730,5 +765,27 @@ function formatDate(isoStr: string) {
   height: 100%;
   border-radius: 999px;
   transition: width 0.4s ease;
+}
+
+.math-bridge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  color: #1D4ED8;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.math-bridge-pill:hover {
+  background: #2563EB;
+  color: #FFFFFF;
+  border-color: #2563EB;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
 }
 </style>

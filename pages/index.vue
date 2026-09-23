@@ -27,7 +27,7 @@
         <!-- Welcome / Introduction Screen -->
         <div v-else-if="!isStarted" class="card" style="padding: 2.5rem 2rem;">
           <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
-            <span class="section-badge" style="margin-bottom: 0;">Pengantar Riset Disertasi Doktoral</span>
+            <span class="section-badge" style="margin-bottom: 0;">Kajian Pemetaan Pembelajaran Digital ASN</span>
             <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted);">• Estimasi Waktu: 5–7 Menit</span>
           </div>
 
@@ -35,13 +35,13 @@
             Kuesioner Pembelajaran Digital ASN: Konteks Belajar & Kendala Kedinasan
           </h2>
 
-          <!-- Researcher Academic Intro Box -->
+          <!-- Researcher Intro Box -->
           <div style="background: var(--color-surface-secondary); border: 1.5px solid var(--color-stroke-secondary); padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.25rem; border-left: 4px solid var(--brand-lan-blue);">
             <div style="font-size: 0.775rem; font-weight: 800; text-transform: uppercase; color: var(--brand-lan-blue); margin-bottom: 0.5rem; letter-spacing: 0.5px;">
-              Pengantar Riset
+              Pengantar Kajian
             </div>
             <p style="font-size: 0.95rem; color: var(--color-text-primary); line-height: 1.6; margin-bottom: 1rem;">
-              Bapak/Ibu/Saudara/i ASN yang terhormat, perkenalkan saya <strong>Pujiatmo Subarkah</strong>, Analis Kebijakan Madya Direktorat Strategi Peningkatan Kualitas Kebijakan LAN, Mahasiswa Program Doktoral (S3). Kuesioner ini dirancang khusus sebagai instrumen pengumpulan data riset akademis disertasi untuk memetakan pengalaman nyata, kendala teknis jaringan, sarana perangkat, serta dinamika beban tugas kedinasan saat ASN mengikuti pembelajaran digital (e-learning/LMS/MOOC).
+              Bapak/Ibu/Saudara/i Rekan ASN yang terhormat, dalam rangka mewujudkan ekosistem pembelajaran digital (<em>e-learning</em>/LMS/MOOC) yang lebih inklusif dan adil bagi seluruh ASN, instrumen kuesioner ini dirancang untuk menangkap potret nyata pengalaman belajar, kendala teknis jaringan, sarana perangkat, serta tantangan dinamika beban tugas kedinasan yang dihadapi rekan-rekan ASN di berbagai wilayah.
             </p>
 
             <div style="background: #FFFFFF; border: 1px solid var(--color-stroke-secondary); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1rem;">
@@ -50,15 +50,15 @@
                 Penting untuk Kami Sampaikan:
               </div>
               <p style="font-size: 0.9rem; color: var(--color-text-primary); line-height: 1.6; margin-bottom: 0.75rem;">
-                Penelitian ini <strong>bukan bertujuan untuk membangun aplikasi e-learning baru</strong>, maupun untuk mengevaluasi kinerja atau kedisiplinan individu. Sebaliknya, riset ini berfokus pada <strong>memperbaiki cara sistem membaca dan menginterpretasi data pembelajaran</strong>, agar tidak terjadi kesalahpahaman yang secara tidak adil "menyalahkan" peserta dengan kendala infrastruktur.
+                Kajian ini <strong>bukan bertujuan untuk membangun aplikasi e-learning baru</strong>, maupun untuk mengevaluasi kinerja atau kedisiplinan individu. Sebaliknya, survei ini berfokus pada <strong>memperbaiki cara sistem membaca dan menginterpretasi data pembelajaran</strong>, agar peserta yang mengalami kendala infrastruktur atau tugas kedinasan mendesak tidak secara keliru dinilai kurang berpartisipasi.
               </p>
               <p style="font-size: 0.9rem; color: var(--color-text-primary); line-height: 1.6;">
-                Secara spesifik, penelitian <em>Data Science</em> ini bertujuan mengembangkan model yang mampu membedakan antara rendahnya aktivitas karena faktor motivasi dengan rendahnya aktivitas karena hambatan teknis (seperti sinyal yang tidak stabil, perangkat terbatas, atau kendala kelistrikan). Pemahaman ini nantinya akan digunakan untuk merancang mekanisme rekomendasi pelatihan yang lebih adil, kontekstual, dan sesuai dengan kondisi wilayah Bapak/Ibu bertugas.
+                Data yang terkumpul diolah secara agregat untuk mengembangkan model analitik yang mampu membedakan antara rendahnya aktivitas karena faktor motivasi dengan rendahnya aktivitas akibat hambatan teknis (seperti sinyal tidak stabil, perangkat terbatas, atau kendala kelistrikan). Pemahaman ini digunakan untuk merancang mekanisme rekomendasi pelatihan yang lebih adil, kontekstual, dan ramah terhadap kondisi riil di lapangan.
               </p>
             </div>
 
             <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.6; font-style: italic;">
-              Oleh karena itu, pengalaman dan jawaban jujur dari kondisi lapangan Bapak/Ibu sangat berharga untuk menghasilkan analisis empiris yang objektif, demi kemajuan kualitas pelatihan ASN di Indonesia.
+              Oleh karena itu, pengalaman dan jawaban jujur dari kondisi lapangan Bapak/Ibu sangat berharga untuk menghasilkan analisis empiris yang objektif demi kemajuan kualitas pembelajaran ASN di Indonesia.
             </p>
           </div>
 
