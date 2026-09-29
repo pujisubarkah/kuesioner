@@ -44,16 +44,12 @@
               </div>
               <div class="option-details">
                 <div class="option-title">Belum Mengisi Presensi?</div>
-                <div class="option-desc">Isi formulir daftar hadir sekarang (dapat diisi langsung di sini atau dibuka di tab baru).</div>
+                <div class="option-desc">Isi formulir daftar hadir webinar sekarang langsung di sini.</div>
                 <div class="option-btn-group">
                   <button class="btn-action-primary" @click="viewMode = 'embed'">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                    Buka di Sini
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    Buka Form Presensi
                   </button>
-                  <a :href="formUrl" target="_blank" rel="noopener noreferrer" class="btn-action-secondary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                    Buka Tab Baru ↗
-                  </a>
                 </div>
               </div>
             </div>
@@ -87,10 +83,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
               Kembali
             </button>
-            <span class="toolbar-status">Pratinjau Google Forms</span>
-            <a :href="formUrl" target="_blank" rel="noopener noreferrer" class="toolbar-link">
-              Buka di Tab Baru ↗
-            </a>
+            <span class="toolbar-status">Formulir Daftar Hadir Webinar</span>
           </div>
 
           <div class="iframe-wrapper">
