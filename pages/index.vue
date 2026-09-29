@@ -105,15 +105,32 @@
             </div>
           </div>
 
-          <!-- Thank You Note Banner -->
-          <div style="background: #EFF6FF; border: 1px dashed var(--brand-lan-blue); padding: 0.9rem 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.75rem; text-align: center;">
-            <p style="font-size: 0.925rem; font-weight: 600; color: var(--brand-lan-navy); margin: 0;">
-              Terima kasih atas waktu, partisipasi, dan kontribusi berharga Bapak/Ibu untuk riset ini.
-            </p>
+          <!-- Webinar Attendance & Thank You Note Banner -->
+          <div style="background: #EFF6FF; border: 1.5px dashed var(--brand-lan-blue); padding: 1.1rem 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.75rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="width: 38px; height: 38px; border-radius: 8px; background: #DBEAFE; color: var(--brand-lan-blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14l2 2 4-4"/></svg>
+              </div>
+              <div>
+                <strong style="color: var(--brand-lan-navy); font-size: 0.925rem;">Peserta Kegiatan Webinar ASN:</strong>
+                <p style="color: var(--color-text-secondary); font-size: 0.85rem; margin-top: 0.1rem; line-height: 1.4;">
+                  Bagi peserta kegiatan hari ini, mohon kesediaannya mengisi formulir presensi kehadiran.
+                </p>
+              </div>
+            </div>
+
+            <button 
+              class="btn" 
+              style="background: #FFFFFF; color: var(--brand-lan-blue); border: 1.5px solid var(--brand-lan-blue); padding: 0.55rem 1rem; font-size: 0.875rem; font-weight: 700; white-space: nowrap;"
+              @click="showAttendanceModal = true"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Isi Presensi Webinar
+            </button>
           </div>
 
-          <div style="display: flex; justify-content: flex-end;">
-            <button class="btn btn-primary" style="padding: 0.9rem 2.25rem; font-size: 1.05rem; width: 100%; max-width: 320px;" @click="isStarted = true">
+          <div style="display: flex; justify-content: flex-end; gap: 0.85rem; flex-wrap: wrap;">
+            <button class="btn btn-primary" style="padding: 0.9rem 2.25rem; font-size: 1.05rem; width: 100%; max-width: 320px;" @click="startSurveyFlow">
               Mulai Pengisian Kuesioner
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </button>
@@ -364,6 +381,12 @@
         </div>
       </div>
     </main>
+
+    <!-- Webinar Attendance Modal -->
+    <AttendanceModal 
+      v-model="showAttendanceModal" 
+      @proceed="onAttendanceProceed" 
+    />
   </div>
 </template>
 
@@ -396,6 +419,15 @@ const {
 
 const validationError = ref<string | null>(null);
 const isStarted = ref(false);
+const showAttendanceModal = ref(false);
+
+const startSurveyFlow = () => {
+  showAttendanceModal.value = true;
+};
+
+const onAttendanceProceed = () => {
+  isStarted.value = true;
+};
 
 const handleRestart = () => {
   resetForm();
