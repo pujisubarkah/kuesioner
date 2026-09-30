@@ -1,0 +1,744 @@
+{
+  "totalRows": 4091,
+  "areaCounts": {
+    "Perkotaan": 3023,
+    "Wilayah Kepulauan": 237,
+    "Perdesaan": 525,
+    "Wilayah Terpencil/3T": 30,
+    "Lainnya": 167,
+    "Wilayah Perbatasan": 91,
+    "Unspecified": 18
+  },
+  "indicatorsSummary": [
+    {
+      "code": "Q12",
+      "name": "Technical Disruption Frequency",
+      "n": 4067,
+      "mean": 2.9092697319891814,
+      "sd": 0.9277278320844062
+    },
+    {
+      "code": "Q15",
+      "name": "Workload Overlap (Continuing Official Duties)",
+      "n": 4077,
+      "mean": 3.8798135884228597,
+      "sd": 0.8809270947155432
+    },
+    {
+      "code": "Q16",
+      "name": "Leaving/Discontinuing learning for work",
+      "n": 4078,
+      "mean": 3.4019127023050517,
+      "sd": 0.977332631745121
+    },
+    {
+      "code": "Q17",
+      "name": "Sufficient Time for Learning",
+      "n": 4078,
+      "mean": 3.8565473271211377,
+      "sd": 0.7089394128471387
+    },
+    {
+      "code": "Q18",
+      "name": "Supervisor Support (Allocated Time)",
+      "n": 4078,
+      "mean": 3.9767042667974497,
+      "sd": 0.6945576488179318
+    },
+    {
+      "code": "Q19",
+      "name": "Location Mobility during Learning",
+      "n": 4078,
+      "mean": 3.4664051005394803,
+      "sd": 0.9213486689762549
+    },
+    {
+      "code": "Q20",
+      "name": "Device Ease of Access",
+      "n": 4076,
+      "mean": 4.114573110893033,
+      "sd": 0.643131593974996
+    },
+    {
+      "code": "Q21",
+      "name": "Large File / Bandwidth Difficulty",
+      "n": 4076,
+      "mean": 3.1680569185475957,
+      "sd": 1.0571266775864625
+    },
+    {
+      "code": "Q22",
+      "name": "Material Relevance",
+      "n": 4076,
+      "mean": 3.990431795878312,
+      "sd": 0.6662092819614681
+    },
+    {
+      "code": "Q24",
+      "name": "Training Format Suitability",
+      "n": 4074,
+      "mean": 4.037309769268532,
+      "sd": 0.6464940510807199
+    },
+    {
+      "code": "Q25",
+      "name": "Q&A Opportunity",
+      "n": 4078,
+      "mean": 3.934526728788622,
+      "sd": 0.6580604610642795
+    },
+    {
+      "code": "Q26",
+      "name": "Peer Interaction Opportunity",
+      "n": 4077,
+      "mean": 3.780475840078489,
+      "sd": 0.7440516282708131
+    },
+    {
+      "code": "Q27",
+      "name": "Learning Focus Level",
+      "n": 4078,
+      "mean": 3.9163805787150565,
+      "sd": 0.6813118716176435
+    }
+  ],
+  "rq2Results": [
+    {
+      "code": "Q12",
+      "name": "Technical Disruption Frequency",
+      "breakdown": [
+        {
+          "area": "Perkotaan",
+          "n": 3014,
+          "mean": 2.8642999336429993,
+          "sd": 0.9191510160985276
+        },
+        {
+          "area": "Perdesaan",
+          "n": 522,
+          "mean": 2.9578544061302683,
+          "sd": 0.9325349812407832
+        },
+        {
+          "area": "Wilayah Kepulauan",
+          "n": 236,
+          "mean": 3.1440677966101696,
+          "sd": 0.9699784926662666
+        },
+        {
+          "area": "Wilayah Perbatasan",
+          "n": 90,
+          "mean": 3.011111111111111,
+          "sd": 0.9539326577937738
+        },
+        {
+          "area": "Wilayah Terpencil/3T",
+          "n": 30,
+          "mean": 3.3,
+          "sd": 0.7943767889097848
+        }
+      ],
+      "anova": {
+        "fStat": 7.482678490619201,
+        "df1": 4,
+        "df2": 3887,
+        "pVal": 0.000005315942622723923,
+        "etaSquared": 0.00764136926287319
+      },
+      "kruskalWallis": {
+        "hStat": 32.22088530311037,
+        "df": 4,
+        "pVal": 0.0000017241883728535967,
+        "epsilonSquared": 0.007260325521767526
+      }
+    },
+    {
+      "code": "Q15",
+      "name": "Workload Overlap (Continuing Official Duties)",
+      "breakdown": [
+        {
+          "area": "Perkotaan",
+          "n": 3020,
+          "mean": 3.8463576158940396,
+          "sd": 0.8969252866225558
+        },
+        {
+          "area": "Perdesaan",
+          "n": 524,
+          "mean": 4.015267175572519,
+          "sd": 0.8248968445798226
+        },
+        {
+          "area": "Wilayah Kepulauan",
+          "n": 237,
+          "mean": 3.8776371308016877,
+          "sd": 0.8523434216593507
+        },
+        {
+          "area": "Wilayah Perbatasan",
+          "n": 91,
+          "mean": 3.934065934065934,
+          "sd": 0.7717541030693622
+        },
+        {
+          "area": "Wilayah Terpencil/3T",
+          "n": 30,
+          "mean": 4.233333333333333,
+          "sd": 0.773854362727667
+        }
+      ],
+      "anova": {
+        "fStat": 5.456943465607528,
+        "df1": 4,
+        "df2": 3897,
+        "pVal": 0.00022244156301148951,
+        "etaSquared": 0.005569975289043252
+      },
+      "kruskalWallis": {
+        "hStat": 20.38487948382168,
+        "df": 4,
+        "pVal": 0.0004191837389607711,
+        "epsilonSquared": 0.004204485369212646
+      }
+    },
+    {
+      "code": "Q16",
+      "name": "Leaving/Discontinuing learning for work",
+      "breakdown": [
+        {
+          "area": "Perkotaan",
+          "n": 3021,
+          "mean": 3.3965574313141342,
+          "sd": 0.9729664133387801
+        },
+        {
+          "area": "Perdesaan",
+          "n": 524,
+          "mean": 3.4083969465648853,
+          "sd": 1.020444035463312
+        },
+        {
+          "area": "Wilayah Kepulauan",
+          "n": 237,
+          "mean": 3.50210970464135,
+          "sd": 0.8666342090643989
+        },
+        {
+          "area": "Wilayah Perbatasan",
+          "n": 91,
+          "mean": 3.21978021978022,
+          "sd": 1.0520054689570335
+        },
+        {
+          "area": "Wilayah Terpencil/3T",
+          "n": 30,
+          "mean": 3.8333333333333335,
+          "sd": 1.0199166069132668
+        }
+      ],
+      "anova": {
+        "fStat": 2.909049890288345,
+        "df1": 4,
+        "df2": 3898,
+        "pVal": 0.02039643410038508,
+        "etaSquared": 0.0029762870423748157
+      },
+      "kruskalWallis": {
+        "hStat": 12.08414304897909,
+        "df": 4,
+        "pVal": 0.016736402406534845,
+        "epsilonSquared": 0.002073920741143943
+      }
+    },
+    {
+      "code": "Q17",
+      "name": "Sufficient Time for Learning",
+      "breakdown": [
+        {
+          "area": "Perkotaan",
+          "n": 3021,
+          "mean": 3.8507116848725587,
+          "sd": 0.7023307860773594
+        },
+        {
+          "area": "Perdesaan",
+          "n": 524,
+          "mean": 3.9026717557251906,
+          "sd": 0.7317391467296003
+        },
+        {
+          "area": "Wilayah Kepulauan",
+          "n": 237,
+          "mean": 3.7974683544303796,
+          "sd": 0.7256746744268301
+        },
+        {
+          "area": "Wilayah Perbatasan",
+          "n": 91,
+          "mean": 3.901098901098901,
+          "sd": 0.7461746154731862
+        },
+        {
+          "area": "Wilayah Terpencil/3T",
+          "n": 30,
+          "mean": 4.066666666666666,
+          "sd": 0.8276819867946674
+        }
+      ],
+      "anova": {
+        "fStat": 1.7604121078595016,
+        "df1": 4,
+        "df2": 3898,
+        "pVal": 0.1339405937892309,
+        "etaSquared": 0.0018032198028583044
+      },
+      "kruskalWallis": {
+        "hStat": 7.920117384239247,
+        "df": 4,
+        "pVal": 0.09454861631848988,
+        "epsilonSquared": 0.0010056740339248966
+      }
+    },
+    {
+      "code": "Q18",
+      "name": "Supervisor Support (Allocated Time)",
+      "breakdown": [
+        {
+          "area": "Perkotaan",
+          "n": 3021,
+          "mean": 3.9675604104601128,
+          "sd": 0.6964481601739294
+        },
+        {
+          "area": "Perdesaan",
+          "n": 524,
+          "mean": 4.0248091603053435,
+          "sd": 0.6839843357425439
+        },
+        {
+          "area": "Wilayah Kepulauan",
+          "n": 237,
+          "mean": 3.911392405063291,
+          "sd": 0.7223409463843428
+        },
+        {
+          "area": "Wilayah Perbatasan",
+          "n": 91,
+          "mean": 4.054945054945055,
+          "sd": 0.6559579485613611
+        },
+        {
+          "area": "Wilayah Terpencil/3T",
+          "n": 30,
+          "mean": 4.233333333333333,
+          "sd": 0.7279320417946061
+        }
+      ],
+      "anova": {
+        "fStat": 2.585877301350352,
+        "df1": 4,
+        "df2": 3898,
+        "pVal": 0.03518476935764305,
+        "etaSquared": 0.0026465199850113303
+      },
+      "kruskalWallis": {
+        "hStat": 9.9279725814456,
+        "df": 4,
+        "pVal": 0.041658610688566244,
+        "epsilonSquared": 0.001520772853115854
+      }
+    },
+    {
+      "code": "Q19",
+      "name": "Location Mobility during Learning",
+      "breakdown": [
+        {
+          "area": "Perkotaan",
+          "n": 3021,
+          "mean": 3.443230718305197,
+          "sd": 0.923482121038226
+        },
+        {
+          "area": "Perdesaan",
+          "n": 524,
+          "mean": 3.5267175572519083,
+          "sd": 0.9178763774912988
+        },
+        {
+          "area": "Wilayah Kepulauan",
+          "n": 237,
+          "mean": 3.5316455696202533,
+          "sd": 0.8806119266579551
+        },
+        {
+          "area": "Wilayah Perbatasan",
+          "n": 91,
+          "mean": 3.3846153846153846,
+          "sd": 1.0410382719961278
+        },
+        {
+          "area": "Wilayah Terpencil/3T",
+          "n": 30,
+          "mean": 3.9,
+          "sd": 0.9228890171255884
+        }
+      ],
+      "anova": {
+        "fStat": 3.141968717396506,
+        "df1": 4,
+        "df2": 3898,
+        "pVal": 0.013692134319509304,
+        "etaSquared": 0.00321382348337456
+      },
+      "kruskalWallis": {
+        "hStat": 12.884978596117984,
+        "df": 4,
+        "pVal": 0.011851700469249993,
+        "epsilonSquared": 0.0022793685469774203
+      }
+    },
+    {
+      "code": "Q20",
+      "name": "Device Ease of Access",
+      "breakdown": [
+        {
+          "area": "Perkotaan",
+          "n": 3019,
+          "mean": 4.126531964226565,
+          "sd": 0.632577272634227
+        },
+        {
+          "area": "Perdesaan",
+          "n": 523,
+          "mean": 4.101338432122371,
+          "sd": 0.6718606050369417
+        },
+        {
+          "area": "Wilayah Kepulauan",
+          "n": 237,
+          "mean": 4.012658227848101,
+          "sd": 0.6605147752246465
+        },
+        {
+          "area": "Wilayah Perbatasan",
+          "n": 91,
+          "mean": 4.065934065934066,
+          "sd": 0.6799051862363328
+        },
+        {
+          "area": "Wilayah Terpencil/3T",
+          "n": 30,
+          "mean": 4.2,
+          "sd": 0.7143842296595069
+        }
+      ],
+      "anova": {
+        "fStat": 2.0758999278675203,
+        "df1": 4,
+        "df2": 3895,
+        "pVal": 0.08128853175178999,
+        "etaSquared": 0.0021273261224373833
+      },
+      "kruskalWallis": {
+        "hStat": 7.8074897080725,
+        "df": 4,
+        "pVal": 0.09889014564561405,
+        "epsilonSquared": 0.000977532659325417
+      }
+    },
+    {
+      "code": "Q21",
+      "name": "Large File / Bandwidth Difficulty",
+      "breakdown": [
+        {
+          "area": "Perkotaan",
+          "n": 3019,
+          "mean": 3.147399801258695,
+          "sd": 1.0515864326473419
+        },
+        {
+          "area": "Perdesaan",
+          "n": 523,
+          "mean": 3.158699808795411,
+          "sd": 1.0879238865346619
+        },
+        {
+          "area": "Wilayah Kepulauan",
+          "n": 237,
+          "mean": 3.2953586497890295,
+          "sd": 1.0237122843671806
+        },
+        {
+          "area": "Wilayah Perbatasan",
+          "n": 91,
+          "mean": 3.142857142857143,
+          "sd": 1.121223821162776
+        },
+        {
+          "area": "Wilayah Terpencil/3T",
+          "n": 30,
+          "mean": 3.7666666666666666,
+          "sd": 1.0063019815944514
+        }
+      ],
+      "anova": {
+        "fStat": 3.5554050484905573,
+        "df1": 4,
+        "df2": 3895,
+        "pVal": 0.006685216281893713,
+        "etaSquared": 0.0036379672414828717
+      },
+      "kruskalWallis": {
+        "hStat": 12.93821624379323,
+        "df": 4,
+        "pVal": 0.011581659326958982,
+        "epsilonSquared": 0.002294792360409045
+      }
+    },
+    {
+      "code": "Q22",
+      "name": "Material Relevance",
+      "breakdown": [
+        {
+          "area": "Perkotaan",
+          "n": 3019,
+          "mean": 3.9920503477972837,
+          "sd": 0.6622974472725434
+        },
+        {
+          "area": "Perdesaan",
+          "n": 523,
+          "mean": 4.0325047801147225,
+          "sd": 0.6843172321451693
+        },
+        {
+          "area": "Wilayah Kepulauan",
+          "n": 237,
+          "mean": 3.949367088607595,
+          "sd": 0.6290711644394466
+        },
+        {
+          "area": "Wilayah Perbatasan",
+          "n": 91,
+          "mean": 3.956043956043956,
+          "sd": 0.7289579764154667
+        },
+        {
+          "area": "Wilayah Terpencil/3T",
+          "n": 30,
+          "mean": 4.1,
+          "sd": 0.8030115728972382
+        }
+      ],
+      "anova": {
+        "fStat": 0.971527005518406,
+        "df1": 4,
+        "df2": 3895,
+        "pVal": 0.4217697227857844,
+        "etaSquared": 0.0009967226316454439
+      },
+      "kruskalWallis": {
+        "hStat": 4.357651959566547,
+        "df": 4,
+        "pVal": 0.359761473800276,
+        "epsilonSquared": 0.00009182335290540355
+      }
+    },
+    {
+      "code": "Q24",
+      "name": "Training Format Suitability",
+      "breakdown": [
+        {
+          "area": "Perkotaan",
+          "n": 3017,
+          "mean": 4.026184951939012,
+          "sd": 0.6445371822550596
+        },
+        {
+          "area": "Perdesaan",
+          "n": 523,
+          "mean": 4.107074569789675,
+          "sd": 0.646244417321433
+        },
+        {
+          "area": "Wilayah Kepulauan",
+          "n": 237,
+          "mean": 4.025316455696203,
+          "sd": 0.6306040326874087
+        },
+        {
+          "area": "Wilayah Perbatasan",
+          "n": 91,
+          "mean": 4.043956043956044,
+          "sd": 0.681698661222879
+        },
+        {
+          "area": "Wilayah Terpencil/3T",
+          "n": 30,
+          "mean": 4.166666666666667,
+          "sd": 0.7466399831028446
+        }
+      ],
+      "anova": {
+        "fStat": 2.0713093499910316,
+        "df1": 4,
+        "df2": 3893,
+        "pVal": 0.08189097435072401,
+        "etaSquared": 0.0021237199783643284
+      },
+      "kruskalWallis": {
+        "hStat": 9.251652050401145,
+        "df": 4,
+        "pVal": 0.05510811814162975,
+        "epsilonSquared": 0.0013489987285900706
+      }
+    },
+    {
+      "code": "Q25",
+      "name": "Q&A Opportunity",
+      "breakdown": [
+        {
+          "area": "Perkotaan",
+          "n": 3020,
+          "mean": 3.9264900662251656,
+          "sd": 0.6556202847947802
+        },
+        {
+          "area": "Perdesaan",
+          "n": 524,
+          "mean": 3.982824427480916,
+          "sd": 0.68141880419179
+        },
+        {
+          "area": "Wilayah Kepulauan",
+          "n": 237,
+          "mean": 3.928270042194093,
+          "sd": 0.609878394093262
+        },
+        {
+          "area": "Wilayah Perbatasan",
+          "n": 91,
+          "mean": 3.923076923076923,
+          "sd": 0.6705017893881042
+        },
+        {
+          "area": "Wilayah Terpencil/3T",
+          "n": 30,
+          "mean": 4.166666666666667,
+          "sd": 0.7466399831028446
+        }
+      ],
+      "anova": {
+        "fStat": 1.762137938988958,
+        "df1": 4,
+        "df2": 3897,
+        "pVal": 0.1335816527486306,
+        "etaSquared": 0.0018054467465025625
+      },
+      "kruskalWallis": {
+        "hStat": 7.417147708660587,
+        "df": 4,
+        "pVal": 0.11541871267325998,
+        "epsilonSquared": 0.0008768662326560397
+      }
+    },
+    {
+      "code": "Q26",
+      "name": "Peer Interaction Opportunity",
+      "breakdown": [
+        {
+          "area": "Perkotaan",
+          "n": 3019,
+          "mean": 3.7731036767141437,
+          "sd": 0.7464464120351524
+        },
+        {
+          "area": "Perdesaan",
+          "n": 524,
+          "mean": 3.799618320610687,
+          "sd": 0.7698425799006917
+        },
+        {
+          "area": "Wilayah Kepulauan",
+          "n": 237,
+          "mean": 3.8059071729957807,
+          "sd": 0.6672474763807384
+        },
+        {
+          "area": "Wilayah Perbatasan",
+          "n": 91,
+          "mean": 3.901098901098901,
+          "sd": 0.6840231486489822
+        },
+        {
+          "area": "Wilayah Terpencil/3T",
+          "n": 30,
+          "mean": 3.6333333333333333,
+          "sd": 1.1290317283753197
+        }
+      ],
+      "anova": {
+        "fStat": 1.1115363396950337,
+        "df1": 4,
+        "df2": 3896,
+        "pVal": 0.3491489900741013,
+        "etaSquared": 0.0011399068704155018
+      },
+      "kruskalWallis": {
+        "hStat": 3.199496671089054,
+        "df": 4,
+        "pVal": 0.5250122469051524,
+        "epsilonSquared": -0.0002054680002338157
+      }
+    },
+    {
+      "code": "Q27",
+      "name": "Learning Focus Level",
+      "breakdown": [
+        {
+          "area": "Perkotaan",
+          "n": 3020,
+          "mean": 3.904635761589404,
+          "sd": 0.6811071543643552
+        },
+        {
+          "area": "Perdesaan",
+          "n": 524,
+          "mean": 3.969465648854962,
+          "sd": 0.6962223255127711
+        },
+        {
+          "area": "Wilayah Kepulauan",
+          "n": 237,
+          "mean": 3.8987341772151898,
+          "sd": 0.6560333427772103
+        },
+        {
+          "area": "Wilayah Perbatasan",
+          "n": 91,
+          "mean": 3.934065934065934,
+          "sd": 0.6463950942160819
+        },
+        {
+          "area": "Wilayah Terpencil/3T",
+          "n": 30,
+          "mean": 4.133333333333334,
+          "sd": 0.8193072487266863
+        }
+      ],
+      "anova": {
+        "fStat": 1.8295213225696747,
+        "df1": 4,
+        "df2": 3897,
+        "pVal": 0.12023892488612833,
+        "etaSquared": 0.0018743568352819317
+      },
+      "kruskalWallis": {
+        "hStat": 7.428918577800462,
+        "df": 4,
+        "pVal": 0.11488483831503415,
+        "epsilonSquared": 0.0008798867276880837
+      }
+    }
+  ]
+}

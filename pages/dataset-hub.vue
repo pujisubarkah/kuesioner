@@ -527,12 +527,11 @@
                 <span class="tc-eq">Persamaan (1)</span>
               </div>
               <h4 class="tc-title">⚡ Raw Traces (\(X_{i,t}\))</h4>
-              <p class="tc-p">Jejak telemetri mentah \(X_{i,t} = [T, D, C, K, A]\) dari interaksi platform e-learning.</p>
+              <p class="tc-p">Himpunan jejak mentah \(X_{i,t} = \{x_{i,t,1}, \dots, x_{i,t,K}\}\) dari interaksi platform e-learning (fleksibel mengikuti dataset).</p>
               <ul class="tc-list">
-                <li>• <strong>Sesi Login:</strong> Frekuensi & durasi akses</li>
-                <li>• <strong>Clickstream:</strong> Pola navigasi materi</li>
-                <li>• <strong>Video Logs:</strong> Kecepatan, jeda, checkpoint</li>
-                <li>• <strong>Kuis/Tugas:</strong> Nilai & submission time</li>
+                <li>• <strong>Contoh Jejak:</strong> Login, durasi, clickstream, kuis, video, dsb.</li>
+                <li>• <strong>Non-Mandatori:</strong> Keberadaan fitur bergantung pada log dataset riil</li>
+                <li>• <strong>Bukan Label Mental:</strong> Murni bukti observasi telemetri terukur</li>
               </ul>
               <div class="tc-callout callout-purple">
                 📌 Jejak mentah adalah telemetri bukti; bukan vonis mutlak motivasi peserta.

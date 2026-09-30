@@ -412,27 +412,35 @@
             </div>
             
             <MathFormula 
-              formula="X_{i,t} = \left[ \text{login}_{i,t},\, \text{durasi}_{i,t},\, \text{clickstream}_{i,t},\, \text{completion}_{i,t},\, \text{artefak}_{i,t},\, \dots \right]" 
+              formula="X_{i,t} = \left\{ x_{i,t,1},\, x_{i,t,2},\, \dots,\, x_{i,t,K} \right\}" 
             />
 
             <!-- Grounding Badge -->
             <div class="emp-grounding-badge">
-              <span class="emp-grounding-tag">📊 INPUT LMS & DATASET:</span>
-              <span>Dihasilkan dari log platform e-learning (Moodle/LAN) sebelum dihubungkan dengan faktor konteks.</span>
+              <span class="emp-grounding-tag">📊 INPUT LMS & DATASET FLEKSIBEL:</span>
+              <span>Dihasilkan dari log platform e-learning; jumlah ($K$) dan jenis jejak ($x_{i,t,k}$) mengikuti karakteristik ketersediaan dataset pelatihan riil.</span>
             </div>
 
             <div class="eq-breakdown-grid">
               <div class="eq-explanation">
-                <h4 class="sub-heading">📖 Makna Matematis:</h4>
+                <h4 class="sub-heading">📖 Makna Matematis & Contoh Ilustratif:</h4>
                 <p>
-                  Vektor $X_{i,t}$ adalah representasi <em>bahan mentah</em> dari seluruh rekaman jejak digital peserta $i$ pada sesi pembelajaran $t$. 
-                  Mencakup waktu login, durasi aktif, frekuensi klik modul, proporsi materi yang diselesaikan, hingga interaksi artefak penugasan.
+                  Himpunan $X_{i,t}$ adalah representasi <em>jejak perilaku teramati</em> dari peserta $i$ pada sesi $t$. Jenis fitur tidak dikunci kaku, melainkan merupakan subset observasional:
+                </p>
+                <div style="margin: 0.5rem 0; padding: 0.5rem 0.75rem; background: rgba(0, 0, 0, 0.25); border-radius: 6px; font-size: 0.85rem;">
+                  <MathFormula 
+                    formula="x_{i,t,k} \in \left\{ \text{login},\, \text{durasi},\, \text{clickstream},\, \text{video interaction},\, \text{quiz attempt},\, \text{completion},\, \text{forum},\, \text{assignment},\, \text{latency},\, \dots \right\}" 
+                    :displayMode="false"
+                  />
+                </div>
+                <p style="font-size: 0.82rem; color: #94A3B8; margin-top: 0.35rem;">
+                  <em>*Catatan: Seluruh contoh di atas bersifat ilustratif (bukan variabel wajib) dan bukan merupakan label psikologis langsung (engagement / kompetensi).</em>
                 </p>
               </div>
               <div class="eq-analogy">
                 <h4 class="sub-heading">💡 Analogi Konseptual E-Learning ASN:</h4>
                 <p>
-                  Seperti <strong>log rekaman klik mentah di portal MOOC / LMS ASN</strong> — sistem hanya mencatat peserta login 30 menit dan klik modul 4 kali, tanpa mengetahui apakah waktu belajarnya terputus karena pemadaman listrik kantor, kuota habis, atau dipanggil rapat mendadak oleh pimpinan.
+                  Seperti <strong>rekaman jejak aktivitas di LMS/SIMDiklat</strong> — sistem mencatat interaksi unit belajar apa pun yang tersedia (teks, kuis, video, atau unduh berkas), tanpa langsung menghakimi kualitas belajar peserta sebelum dikondisikan terhadap kendala konteksnya.
                 </p>
               </div>
             </div>
@@ -794,8 +802,8 @@
           <div class="block-header">
             <div class="block-number-badge accent-emerald">BLOK 4</div>
             <div class="block-header-info">
-              <h2 class="block-title">Adaptive Decision (Keputusan Adaptif)</h2>
-              <div class="block-range-pill">Persamaan (9)</div>
+              <h2 class="block-title">Adaptive Decision & Luaran Pelatihan</h2>
+              <div class="block-range-pill">Persamaan (9) – (9b)</div>
             </div>
           </div>
 
@@ -852,6 +860,67 @@
                   <div class="term-title">Penalti Disparitas Spasial (-)</div>
                   <p>Safeguard keadilan agar rekomendasi yang dipilih tidak memperlebar jurang disparitas regional.</p>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Persamaan 9a & 9b Grid -->
+          <div class="grid-2-col" style="margin-top: 1rem;">
+            <!-- Persamaan 9a -->
+            <div class="equation-card clickable" @click="openFormulaModal('eq9a')">
+              <div class="eq-header">
+                <div style="display: flex; align-items: center; gap: 0.6rem;">
+                  <span class="eq-badge">Persamaan (9a)</span>
+                  <h3 class="eq-name">Keputusan Dukungan Adaptif ($A^*_{i,t}$)</h3>
+                </div>
+                <button class="btn-inspect-pill">Detail</button>
+              </div>
+              
+              <MathFormula 
+                formula="A^*_{i,t} = \arg\max_{a \in \mathcal{A}} U\left( a \mid d_{i,t},\, Q_{i,t},\, C_{i,t} \right)" 
+              />
+
+              <div class="emp-grounding-badge">
+                <span class="emp-grounding-tag">🎯 RUANG AKSI LMS:</span>
+                <span>Terhubung dengan varian materi di basis data LMS: <code>unit_kind</code> &isin; {article, video, audio, document, quiz}.</span>
+              </div>
+
+              <div class="eq-explanation">
+                <p>
+                  Pemilihan modalitas atau intervensi pembelajaran ($A^*$) dari ruang aksi $\mathcal{A}$ yang memaksimalkan utilitas berdasarkan residual ($d$), kualitas evidensi ($Q$), dan konteks peserta ($C$).
+                </p>
+                <p style="font-size: 0.82rem; color: #94A3B8;">
+                  <em>Contoh: Pengalihan ke materi audio/ringkasan teks saat jam kerja sibuk atau jaringan 3T terhambat.</em>
+                </p>
+              </div>
+            </div>
+
+            <!-- Persamaan 9b -->
+            <div class="equation-card clickable" @click="openFormulaModal('eq9b')">
+              <div class="eq-header">
+                <div style="display: flex; align-items: center; gap: 0.6rem;">
+                  <span class="eq-badge">Persamaan (9b)</span>
+                  <h3 class="eq-name">Downstream Training Outcome ($Y_{i,m}$)</h3>
+                </div>
+                <button class="btn-inspect-pill">Detail</button>
+              </div>
+              
+              <MathFormula 
+                formula="Y_{i,m} = h\left( B_{i,t},\, A^*_{i,t},\, C_{i,t} \right)" 
+              />
+
+              <div class="emp-grounding-badge">
+                <span class="emp-grounding-tag">📊 BASIS DATA DIKLAT:</span>
+                <span>Dipetakan ke kolom riil: <code>nilai</code>, <code>ranking</code>, <code>sertifikat</code>, dan <code>proyek_perubahan</code>.</span>
+              </div>
+
+              <div class="eq-explanation">
+                <p>
+                  Memodelkan capaian hasil belajar hilir peserta $i$ pada periode/diklat ke-$m$ sebagai fungsi dari keaktifan ($B$), dukungan yang diterima ($A^*$), dan kondisi kontekstual ($C$).
+                </p>
+                <p style="font-size: 0.82rem; color: #94A3B8;">
+                  <em>*Catatan: Digunakan saat data hasil evaluasi tersedia; memodelkan asosiasi tanpa klaim kausalitas mutlak yang prematur.</em>
+                </p>
               </div>
             </div>
           </div>
@@ -1324,17 +1393,16 @@ const formulaDatabase: Record<string, FormulaDetail> = {
     blockTag: 'BLOK 1',
     equationNum: 'Persamaan (1)',
     title: 'Raw Behavioral Traces (Jejak Perilaku Mentah)',
-    subtitle: 'Vektor akumulasi rekaman sinyal telemetri interaksi peserta LMS sebelum dikalibrasi konteks',
-    formula: 'X_{i,t} = \\left[ \\text{login}_{i,t},\\, \\text{durasi}_{i,t},\\, \\text{clickstream}_{i,t},\\, \\text{completion}_{i,t},\\, \\text{artefak}_{i,t},\\, \\dots \\right]',
+    subtitle: 'Himpunan akumulasi rekaman sinyal telemetri interaksi peserta LMS sebelum dikalibrasi konteks',
+    formula: 'X_{i,t} = \\left\\{ x_{i,t,1},\\, x_{i,t,2},\\, \\dots,\\, x_{i,t,K} \\right\\}',
     variables: [
-      { symbol: 'X_{i,t}', name: 'Vektor jejak perilaku mentah peserta i pada sesi t', domain: '\\mathbb{R}^k', source: 'LMS Telemetri' },
-      { symbol: '\\text{login}_{i,t}', name: 'Timestamp dan durasi sesi login', domain: '[0, \\infty)', source: 'Log Autentikasi' },
-      { symbol: '\\text{durasi}_{i,t}', name: 'Lama waktu aktif membaca modul', domain: 'detik / menit', source: 'Client Heartbeat' },
-      { symbol: '\\text{clickstream}', name: 'Frekuensi navigasi dan interaksi konten', domain: '\\mathbb{Z}^+', source: 'Event Tracker' },
-      { symbol: '\\text{completion}', name: 'Rasio materi/tugas yang diselesaikan', domain: '[0, 1]', source: 'Database LMS' }
+      { symbol: 'X_{i,t}', name: 'Himpunan jejak perilaku mentah peserta i pada waktu/sesi t', domain: '\\mathcal{X}', source: 'Log LMS / Dataset' },
+      { symbol: 'x_{i,t,k}', name: 'Elemen jejak teramati ke-k (login, durasi, kuis, video, dsb. bersifat non-wajib)', domain: '\\text{Fitur Observasional}', source: 'Event Tracker' },
+      { symbol: 'K', name: 'Kardinalitas / jumlah fitur jejak yang tersedia pada dataset', domain: '\\mathbb{N}^+', source: 'Karakteristik Dataset' },
+      { symbol: 'x_{i,t,k} \\in \\{ \\dots \\}', name: 'Contoh ilustratif: login, durasi, clickstream, kuis, forum, dsb.', domain: '\\text{Subset Teramati}', source: 'Database Pelatihan' }
     ],
-    derivation: 'Vektor X merupakan himpunan mentah (uncalibrated) yang merefleksikan kuantitas observasi tanpa memperhitungkan kendala eksternal peserta seperti pemadaman listrik atau overload tugas kedinasan.',
-    analogy: 'Seperti log rekaman klik mentah di portal MOOC / LMS ASN — sistem hanya mencatat peserta login 30 menit dan klik modul 4 kali, tanpa mengetahui apakah waktu belajarnya terputus karena pemadaman listrik kantor, kuota habis, atau dipanggil rapat mendadak oleh pimpinan.',
+    derivation: 'Himpunan X merepresentasikan raw behavioral traces yang bersifat generik dan tidak mengunci jenis variabel tertentu. Variasi fitur x_{i,t,k} dan jumlah K ditentukan oleh ketersediaan log dataset pelatihan riil, serta bukan merupakan label psikologis langsung (engagement / kompetensi).',
+    analogy: 'Seperti rekaman jejak aktivitas di LMS/SIMDiklat — sistem mencatat interaksi unit belajar apa pun yang tersedia (teks, kuis, video, atau unduh berkas), tanpa langsung menghakimi kualitas belajar peserta sebelum dikondisikan terhadap kendala konteksnya.',
     policyImpact: 'Mencegah pimpinan instansi menjatuhkan sanksi/hukuman disiplin belajar hanya berdasarkan angka login mentah.'
   },
   eq2: {
@@ -1554,6 +1622,45 @@ const formulaDatabase: Record<string, FormulaDetail> = {
     derivation: 'Algoritma memilih aksi a* = \\arg\\max_a r\'_{i,a,t+1}. Pembobotan dinamis (\\eta, \\mu, \\nu, \\rho, \\gamma) dioptimalkan secara daring via Fair-LinUCB dengan batasan keadilan Pareto.',
     analogy: 'Seperti Widyaiswara bijak yang memilihkan metode belajar terbaik — bukan hanya materi yang bermutu tinggi (manfaat U), tapi juga memperhatikan kemampuan kuota peserta (beban CB), kapasitas server pelatihan (OB), dan tidak memperlebar jurang antar daerah (penalti D).',
     policyImpact: 'Mekanisme komputasional yang menjamin rekomendasi LMS ASN selalu relevan, hemat kuota, dan berkeadilan sosial.'
+  },
+  eq9a: {
+    id: 'eq9a',
+    blockTag: 'BLOK 4',
+    equationNum: 'Persamaan (9a)',
+    title: 'Keputusan Dukungan Adaptif (A^*_{i,t})',
+    subtitle: 'Pemilihan modalitas belajar optimal berbasis residual, kualitas evidensi, dan matriks konteks',
+    formula: 'A^*_{i,t} = \\arg\\max_{a \\in \\mathcal{A}} U\\left( a \\mid d_{i,t},\\, Q_{i,t},\\, C_{i,t} \\right)',
+    variables: [
+      { symbol: 'A^*_{i,t}', name: 'Tindakan atau modalitas dukungan pembelajaran terpilih', domain: 'a \\in \\mathcal{A}', source: 'Decision Engine' },
+      { symbol: '\\mathcal{A}', name: 'Ruang aksi modalitas materi yang didukung LMS (article, video, audio, quiz)', domain: '\\text{Set Aksi}', source: 'LMS Unit Kind' },
+      { symbol: 'U(a \\mid \\cdot)', name: 'Fungsi utilitas terkondisi multi-kendala', domain: '\\mathbb{R}', source: 'Persamaan (9)' },
+      { symbol: 'd_{i,t}', name: 'Contextual residual (kebutuhan bimbingan/dukungan)', domain: '[-1, 1]', source: 'Persamaan (6)' },
+      { symbol: 'Q_{i,t}', name: 'Kualitas evidensi data pengamatan', domain: '[0, 1]', source: 'Persamaan (4)' },
+      { symbol: 'C_{i,t}', name: 'Vektor konteks enam dimensi ASN', domain: '[0, 1]^6', source: 'Persamaan (2)' }
+    ],
+    derivation: 'Intervensi adaptif dipilih untuk memberikan perlakuan yang proporsional sesuai tingkat beban kerja dan keterbatasan sinyal, seperti menyajikan rangkuman teks ringkas bagi ASN yang sedang sibuk melayani masyarakat.',
+    analogy: 'Seperti asisten belajar digital yang otomatis menyodorkan modul audio atau infografis ringkas ketika mendeteksi ASN sedang bertugas lapangan atau memiliki sinyal lemah.',
+    policyImpact: 'Menyediakan intervensi adaptif non-punitif yang ramah beban kerja birokrasi.'
+  },
+  eq9b: {
+    id: 'eq9b',
+    blockTag: 'BLOK 4',
+    equationNum: 'Persamaan (9b)',
+    title: 'Downstream Training Outcome (Y_{i,m})',
+    subtitle: 'Pemodelan capaian hasil belajar hilir peserta pelatihan berdasarkan keaktifan, dukungan adaptif, dan konteks',
+    formula: 'Y_{i,m} = h\\left( B_{i,t},\\, A^*_{i,t},\\, C_{i,t} \\right)',
+    variables: [
+      { symbol: 'Y_{i,m}', name: 'Indikator capaian hasil belajar peserta i pada modul/diklat m', domain: '\\text{Skor / Status}', source: 'Basis Data Diklat' },
+      { symbol: 'Y^{\\text{score}}', name: 'Nilai evaluasi akhir pelatihan peserta (kolom nilai)', domain: '[0, 100]', source: 'Tabel SIMDiklat' },
+      { symbol: 'Y^{\\text{rank}}', name: 'Peringkat kelulusan peserta (kolom ranking)', domain: '\\mathbb{N}^+', source: 'Tabel SIMDiklat' },
+      { symbol: 'Y^{\\text{cert}}', name: 'Status kelulusan sertifikasi (kolom sertifikat / statuskirimbkn)', domain: '\\{0, 1\\}', source: 'Sistem BKN' },
+      { symbol: 'B_{i,t}', name: 'Evidensi keaktifan teramati peserta', domain: '[0, 1]', source: 'Persamaan (1b)' },
+      { symbol: 'A^*_{i,t}', name: 'Dukungan/modalitas intervensi adaptif yang diterima', domain: 'a \\in \\mathcal{A}', source: 'Persamaan (9a)' },
+      { symbol: 'C_{i,t}', name: 'Kondisi konteks organisasi dan spasial peserta', domain: '[0, 1]^6', source: 'Persamaan (2)' }
+    ],
+    derivation: 'Persamaan hilir memodelkan hubungan asosiatif antara proses pembelajaran kontekstual dan hasil akhir pelatihan tanpa membuat klaim kausalitas mutlak yang prematur, serta hanya dihitung jika data hasil evaluasi peserta tersedia.',
+    analogy: 'Membuktikan apakah ASN yang diberikan intervensi materi adaptif (A*) sesuai kondisi daerahnya (C) mampu mencapai nilai evaluasi akhir (nilai/ranking) yang optimal.',
+    policyImpact: 'Menghubungkan efektivitas algoritma adaptif secara nyata dengan pencapaian sertifikasi dan indeks kompetensi ASN di instansi.'
   },
   eq10: {
     id: 'eq10',
