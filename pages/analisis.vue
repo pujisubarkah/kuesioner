@@ -36,9 +36,9 @@
             <span class="kpi-sub">Score_{a,t} aktif</span>
           </div>
           <div class="kpi-card">
-            <span class="kpi-label">Residual CCBN (ΔB)</span>
+            <span class="kpi-label">Residual CCBN ($d_{i,t}$)</span>
             <span class="kpi-val" :style="{ color: deltaBColor }">{{ liveDeltaB >= 0 ? '+' : '' }}{{ liveDeltaB.toFixed(2) }}</span>
-            <span class="kpi-sub">B_obs - E[B|C]</span>
+            <span class="kpi-sub">B_{i,t} - \mathbb{E}[B \mid c, q]</span>
           </div>
           <div class="kpi-card highlight">
             <span class="kpi-label">Disparity Gap (D)</span>
@@ -531,7 +531,7 @@
           <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(147, 197, 253, 0.25); border-radius: 10px; padding: 1.1rem;">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.35rem;">
               <span style="font-size: 0.725rem; font-weight: 800; color: #93C5FD; text-transform: uppercase; letter-spacing: 0.03em;">Level 1 — Behavioral Residual (Individual Signal)</span>
-              <code style="color: #34D399; font-size: 0.8rem; background: rgba(0,0,0,0.4); padding: 0.15rem 0.45rem; border-radius: 4px; font-family: monospace;">ΔB_{i,t} = B_{i,t}^{obs} - E[B_{i,t}|C_{i,t}]</code>
+              <code style="color: #34D399; font-size: 0.8rem; background: rgba(0,0,0,0.4); padding: 0.15rem 0.45rem; border-radius: 4px; font-family: monospace;">d_{i,t} = B_{i,t} - \mathbb{E}[B_{i,t} \mid c_{i,t}, q_{i,t}]</code>
             </div>
             <p style="font-size: 0.8rem; color: #E2E8F0; line-height: 1.5; margin: 0 0 0.65rem 0;">
               <strong>Pertanyaan Kausal:</strong> <em>"Apakah perilaku belajar individu menyimpang dari ekspektasi wajar pada konteks kendalanya?"</em>

@@ -12,7 +12,7 @@
           </div>
           <h1 class="hero-title">Formulasi Matematis CCBN</h1>
           <p class="hero-subtitle">
-            <strong>Context-Calibrated Behavioral Norms (CCBN)</strong> — Kerangka 7 Blok Persamaan (Persamaan 1–18c) untuk 
+            <strong>Context-Conditioned Behavioral Baseline (CCBN)</strong> — Kerangka 7 Blok Persamaan (Persamaan 1–18c) untuk 
             pembentukan evidensi terkalibrasi, baseline kontekstual, disparitas keadilan, keputusan adaptif, dan safeguard sistemik pada pelatihan digital ASN.
           </p>
         </div>
@@ -446,6 +446,45 @@
             </div>
           </div>
 
+          <!-- Persamaan 1a -->
+          <div class="equation-card clickable" @click="openFormulaModal('eq1a')">
+            <div class="eq-header">
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <span class="eq-badge">Persamaan (1a)</span>
+                <h3 class="eq-name">Behavioral Evidence ($B_{i,t}$)</h3>
+              </div>
+              <button class="btn-inspect-pill">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                Klik Detail Rumus
+              </button>
+            </div>
+            
+            <MathFormula 
+              formula="B_{i,t} = g\left(X_{i,t}\right)" 
+            />
+
+            <!-- Grounding Badge -->
+            <div class="emp-grounding-badge">
+              <span class="emp-grounding-tag">🎯 PEMETAAN EVIDENSI TERKALIBRASI:</span>
+              <span>Mentransformasikan jejak mentah menjadi skor evidensi perilaku terukur melalui fungsi validasi empiris $g(\cdot)$.</span>
+            </div>
+
+            <div class="eq-breakdown-grid">
+              <div class="eq-explanation">
+                <h4 class="sub-heading">📖 Makna Matematis:</h4>
+                <p>
+                  Fungsi $g$ adalah pemetaan terkalibrasi dari jejak mentah $X_{i,t}$ ke evidensi perilaku terukur $B_{i,t}$ (berupa normalisasi, agregasi temporal, reduksi dimensi, atau representasi komposit). Bentuk $g$ dipilih lewat validasi empiris dan analisis sensitivitas, bukan ditetapkan secara arbitrer.
+                </p>
+              </div>
+              <div class="eq-analogy">
+                <h4 class="sub-heading">💡 Analogi Konseptual E-Learning ASN:</h4>
+                <p>
+                  Seperti <strong>proses standardisasi bukti keaktifan</strong> — mengubah ribuan log timestamp klik dan durasi belajar menjadi skor evidensi keikutsertaan yang valid dan dapat dibandingkan secara adil antar-modul pelatihan.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <!-- Persamaan 2 -->
           <div class="equation-card clickable" @click="openFormulaModal('eq2')">
             <div class="eq-header">
@@ -772,7 +811,7 @@
                 <h4 class="eq-name">Kesenjangan Beban Rekomendasi</h4>
               </div>
               <MathFormula 
-                formula="\text{Gap}_{\text{beban}} = \max_{g,h \in G} \left\| \mathbb{E}[CB_{i,a,t} \mid g] - \mathbb{E}[CB_{i,a,t} \mid h] \right\|" 
+                formula="\text{Gap}_{\text{beban}} = \max_{g,h \in G} \left| \mathbb{E}[CB_{i,a,t} \mid g] - \mathbb{E}[CB_{i,a,t} \mid h] \right|" 
               />
               <p class="sub-eq-desc">
                 Selisih maksimum beban rekomendasi antara kelompok wilayah $g$ dan $h$. Menjamin rekomendasi tidak timpang membebani daerah tertentu.
@@ -786,7 +825,7 @@
                 <h4 class="eq-name">Kesenjangan Kesalahan Interpretasi</h4>
               </div>
               <MathFormula 
-                formula="\text{Gap}_{\text{interpretasi}} = \max_{g,h \in G} \left\| \text{MAE}_{g,t}(d) - \text{MAE}_{h,t}(d) \right\|" 
+                formula="\text{Gap}_{\text{interpretasi}} = \max_{g,h \in G} \left| \text{MAE}_{g,t}(d) - \text{MAE}_{h,t}(d) \right|" 
               />
               <p class="sub-eq-desc">
                 Selisih galat pembacaan residual ($d$) antar-kelompok wilayah. Menjamin akurasi model seimbang di seluruh pelosok.
@@ -877,17 +916,17 @@
               </div>
               
               <MathFormula 
-                formula="A^*_{i,t} = \arg\max_{a \in \mathcal{A}} U\left( a \mid d_{i,t},\, Q_{i,t},\, C_{i,t} \right)" 
+                formula="A^*_{i,t} = \arg\max_{a \in \mathcal{A}} U\left( a \mid d_{i,t},\, q_{i,t},\, c_{i,t} \right)" 
               />
 
               <div class="emp-grounding-badge">
                 <span class="emp-grounding-tag">🎯 RUANG AKSI LMS:</span>
-                <span>Terhubung dengan varian materi di basis data LMS: <code>unit_kind</code> &isin; {article, video, audio, document, quiz}.</span>
+                <span>Terhubung dengan varian materi di basis data LMS: <code>unit_kind</code> &isin; {article, video, audio, document, quiz, microlearning} (microlearning apabila didukung LMS).</span>
               </div>
 
               <div class="eq-explanation">
                 <p>
-                  Pemilihan modalitas atau intervensi pembelajaran ($A^*$) dari ruang aksi $\mathcal{A}$ yang memaksimalkan utilitas berdasarkan residual ($d$), kualitas evidensi ($Q$), dan konteks peserta ($C$).
+                  Pemilihan modalitas atau intervensi pembelajaran ($A^*$) dari ruang aksi $\mathcal{A}$ yang memaksimalkan utilitas berdasarkan residual ($d$), kualitas evidensi ($q$), dan konteks peserta ($c$).
                 </p>
                 <p style="font-size: 0.82rem; color: #94A3B8;">
                   <em>Contoh: Pengalihan ke materi audio/ringkasan teks saat jam kerja sibuk atau jaringan 3T terhambat.</em>
@@ -906,7 +945,7 @@
               </div>
               
               <MathFormula 
-                formula="Y_{i,m} = h\left( B_{i,t},\, A^*_{i,t},\, C_{i,t} \right)" 
+                formula="Y_{i,m} = h\left( B_{i,t},\, A^*_{i,t},\, c_{i,t} \right)" 
               />
 
               <div class="emp-grounding-badge">
@@ -916,7 +955,7 @@
 
               <div class="eq-explanation">
                 <p>
-                  Memodelkan capaian hasil belajar hilir peserta $i$ pada periode/diklat ke-$m$ sebagai fungsi dari keaktifan ($B$), dukungan yang diterima ($A^*$), dan kondisi kontekstual ($C$).
+                  Memodelkan capaian hasil belajar hilir peserta $i$ pada periode/diklat ke-$m$ sebagai fungsi dari keaktifan ($B$), dukungan yang diterima ($A^*$), dan kondisi kontekstual ($c$).
                 </p>
                 <p style="font-size: 0.82rem; color: #94A3B8;">
                   <em>*Catatan: Digunakan saat data hasil evaluasi tersedia; memodelkan asosiasi tanpa klaim kausalitas mutlak yang prematur.</em>
@@ -979,19 +1018,19 @@
               <div class="eq-header">
                 <div style="display: flex; align-items: center; gap: 0.6rem;">
                   <span class="eq-badge">Persamaan (10a)</span>
-                  <h3 class="eq-name">Evidensi Fusi Multimodal ($F_{i,t}$)</h3>
+                  <h3 class="eq-name">Evidensi Fusi Multimodal ($B^{\text{fusi}}_{i,t}$)</h3>
                 </div>
                 <button class="btn-inspect-pill">Detail</button>
               </div>
               <MathFormula 
-                formula="F_{i,t} = w_{i,t} \cdot V_{i,t} + (1 - w_{i,t}) \cdot b_{i,t}^{\text{LMS}}" 
+                formula="B^{\text{fusi}}_{i,t} = w_{i,t} \cdot B^{\text{MM}}_{i,t} + \left(1 - w_{i,t}\right) \cdot B^{\text{LMS}}_{i,t}" 
               />
               <div class="eq-explanation">
                 <p>
-                  Evidensi gabungan akhir menggabungkan fitur visual $V_{i,t}$ dengan baseline telemetri LMS $b_{i,t}^{\text{LMS}}$.
+                  Evidensi fusi terintegrasi menggabungkan fitur visual/multimodal $B^{\text{MM}}_{i,t}$ dengan evidensi telemetri LMS $B^{\text{LMS}}_{i,t}$.
                 </p>
                 <p>
-                  Jika $w_{i,t} \approx 0$, sistem secara otomatis sepenuhnya bertumpu pada telemetri LMS tanpa kehilangan keabsahan bukti.
+                  Jika $w_{i,t} \approx 0$, sistem secara otomatis sepenuhnya bertumpu pada evidensi telemetri LMS $B^{\text{LMS}}_{i,t}$ tanpa kehilangan keabsahan bukti.
                 </p>
               </div>
             </div>
@@ -1405,6 +1444,22 @@ const formulaDatabase: Record<string, FormulaDetail> = {
     analogy: 'Seperti rekaman jejak aktivitas di LMS/SIMDiklat — sistem mencatat interaksi unit belajar apa pun yang tersedia (teks, kuis, video, atau unduh berkas), tanpa langsung menghakimi kualitas belajar peserta sebelum dikondisikan terhadap kendala konteksnya.',
     policyImpact: 'Mencegah pimpinan instansi menjatuhkan sanksi/hukuman disiplin belajar hanya berdasarkan angka login mentah.'
   },
+  eq1a: {
+    id: 'eq1a',
+    blockTag: 'BLOK 1',
+    equationNum: 'Persamaan (1a)',
+    title: 'Behavioral Evidence (B_{i,t})',
+    subtitle: 'Pemetaan terkalibrasi dari himpunan jejak mentah menjadi evidensi perilaku terukur',
+    formula: 'B_{i,t} = g\\left(X_{i,t}\\right)',
+    variables: [
+      { symbol: 'B_{i,t}', name: 'Skor evidensi perilaku terukur peserta i pada sesi t', domain: '[0, 1] \\text{ atau } \\mathbb{R}^p', source: 'Transformasi LMS' },
+      { symbol: 'X_{i,t}', name: 'Himpunan jejak perilaku mentah (Persamaan 1)', domain: '\\mathcal{X}', source: 'Log Aktivitas' },
+      { symbol: 'g(\\cdot)', name: 'Fungsi pemetaan/normalisasi/agregasi terkalibrasi', domain: 'g: \\mathcal{X} \\to \\mathcal{B}', source: 'Validasi Empiris' }
+    ],
+    derivation: 'Fungsi g mentransformasikan jejak mentah multi-fitur menjadi representasi evidensi yang siap dianalisis. Bentuk fungsi g (apakah penskalaan, agregasi temporal, PCA, atau representasi komposit) dipilih melalui validasi empiris dan analisis sensitivitas dataset, bukan ditetapkan secara arbitrer.',
+    analogy: 'Seperti merangkum ribuan timestamp interaksi menjadi skor keaktifan terstandar sebelum dievaluasi kewajarannya.',
+    policyImpact: 'Menjamin bukti keaktifan belajar peserta dinilai secara objektif dan terstandar sebelum dikomparasikan dengan baseline konteks.'
+  },
   eq2: {
     id: 'eq2',
     blockTag: 'BLOK 1',
@@ -1580,7 +1635,7 @@ const formulaDatabase: Record<string, FormulaDetail> = {
     equationNum: 'Persamaan (8a)',
     title: 'Kesenjangan Beban Rekomendasi (Gap_{beban})',
     subtitle: 'Selisih maksimum beban rekomendasi antara kelompok wilayah paling beruntung dan paling terbebani',
-    formula: '\\text{Gap}_{\\text{beban}} = \\max_{g,h \\in G} \\left\\| \\mathbb{E}[CB_{i,a,t} \\mid g] - \\mathbb{E}[CB_{i,a,t} \\mid h] \\right\\|',
+    formula: '\\text{Gap}_{\\text{beban}} = \\max_{g,h \\in G} \\left| \\mathbb{E}[CB_{i,a,t} \\mid g] - \\mathbb{E}[CB_{i,a,t} \\mid h] \\right|',
     variables: [
       { symbol: '\\text{Gap}_{\\text{beban}}', name: 'Kesenjangan beban rekomendasi antar grup', domain: '[0, 1]', source: 'Audit Algoritma' },
       { symbol: 'g, h', name: 'Dua klaster wilayah yang dibandingkan', domain: 'g, h \\in G', source: 'Regional Cluster' },
@@ -1596,7 +1651,7 @@ const formulaDatabase: Record<string, FormulaDetail> = {
     equationNum: 'Persamaan (8b)',
     title: 'Kesenjangan Kesalahan Interpretasi (Gap_{interpretasi})',
     subtitle: 'Selisih galat pembacaan residual (MAE) antar kelompok wilayah',
-    formula: '\\text{Gap}_{\\text{interpretasi}} = \\max_{g,h \\in G} \\left\\| \\text{MAE}_{g,t}(d) - \\text{MAE}_{h,t}(d) \\right\\|',
+    formula: '\\text{Gap}_{\\text{interpretasi}} = \\max_{g,h \\in G} \\left| \\text{MAE}_{g,t}(d) - \\text{MAE}_{h,t}(d) \\right|',
     variables: [
       { symbol: '\\text{Gap}_{\\text{interpretasi}}', name: 'Kesenjangan galat pembacaan residual model', domain: '[0, 1]', source: 'Model Audit' },
       { symbol: '\\text{MAE}_g(d)', name: 'Mean Absolute Error residual pada grup g', domain: '\\mathbb{R}^+', source: 'Validasi Model' }
@@ -1629,14 +1684,14 @@ const formulaDatabase: Record<string, FormulaDetail> = {
     equationNum: 'Persamaan (9a)',
     title: 'Keputusan Dukungan Adaptif (A^*_{i,t})',
     subtitle: 'Pemilihan modalitas belajar optimal berbasis residual, kualitas evidensi, dan matriks konteks',
-    formula: 'A^*_{i,t} = \\arg\\max_{a \\in \\mathcal{A}} U\\left( a \\mid d_{i,t},\\, Q_{i,t},\\, C_{i,t} \\right)',
+    formula: 'A^*_{i,t} = \\arg\\max_{a \\in \\mathcal{A}} U\\left( a \\mid d_{i,t},\\, q_{i,t},\\, c_{i,t} \\right)',
     variables: [
       { symbol: 'A^*_{i,t}', name: 'Tindakan atau modalitas dukungan pembelajaran terpilih', domain: 'a \\in \\mathcal{A}', source: 'Decision Engine' },
-      { symbol: '\\mathcal{A}', name: 'Ruang aksi modalitas materi yang didukung LMS (article, video, audio, quiz)', domain: '\\text{Set Aksi}', source: 'LMS Unit Kind' },
+      { symbol: '\\mathcal{A}', name: 'Ruang aksi modalitas materi yang didukung LMS (article, video, audio, document, quiz, microlearning - microlearning apabila didukung LMS)', domain: '\\text{Set Aksi}', source: 'LMS Unit Kind' },
       { symbol: 'U(a \\mid \\cdot)', name: 'Fungsi utilitas terkondisi multi-kendala', domain: '\\mathbb{R}', source: 'Persamaan (9)' },
       { symbol: 'd_{i,t}', name: 'Contextual residual (kebutuhan bimbingan/dukungan)', domain: '[-1, 1]', source: 'Persamaan (6)' },
-      { symbol: 'Q_{i,t}', name: 'Kualitas evidensi data pengamatan', domain: '[0, 1]', source: 'Persamaan (4)' },
-      { symbol: 'C_{i,t}', name: 'Vektor konteks enam dimensi ASN', domain: '[0, 1]^6', source: 'Persamaan (2)' }
+      { symbol: 'q_{i,t}', name: 'Kualitas evidensi data pengamatan', domain: '[0, 1]', source: 'Persamaan (4)' },
+      { symbol: 'c_{i,t}', name: 'Vektor konteks enam dimensi ASN', domain: '[0, 1]^6', source: 'Persamaan (2)' }
     ],
     derivation: 'Intervensi adaptif dipilih untuk memberikan perlakuan yang proporsional sesuai tingkat beban kerja dan keterbatasan sinyal, seperti menyajikan rangkuman teks ringkas bagi ASN yang sedang sibuk melayani masyarakat.',
     analogy: 'Seperti asisten belajar digital yang otomatis menyodorkan modul audio atau infografis ringkas ketika mendeteksi ASN sedang bertugas lapangan atau memiliki sinyal lemah.',
@@ -1648,18 +1703,18 @@ const formulaDatabase: Record<string, FormulaDetail> = {
     equationNum: 'Persamaan (9b)',
     title: 'Downstream Training Outcome (Y_{i,m})',
     subtitle: 'Pemodelan capaian hasil belajar hilir peserta pelatihan berdasarkan keaktifan, dukungan adaptif, dan konteks',
-    formula: 'Y_{i,m} = h\\left( B_{i,t},\\, A^*_{i,t},\\, C_{i,t} \\right)',
+    formula: 'Y_{i,m} = h\\left( B_{i,t},\\, A^*_{i,t},\\, c_{i,t} \\right)',
     variables: [
       { symbol: 'Y_{i,m}', name: 'Indikator capaian hasil belajar peserta i pada modul/diklat m', domain: '\\text{Skor / Status}', source: 'Basis Data Diklat' },
       { symbol: 'Y^{\\text{score}}', name: 'Nilai evaluasi akhir pelatihan peserta (kolom nilai)', domain: '[0, 100]', source: 'Tabel SIMDiklat' },
       { symbol: 'Y^{\\text{rank}}', name: 'Peringkat kelulusan peserta (kolom ranking)', domain: '\\mathbb{N}^+', source: 'Tabel SIMDiklat' },
       { symbol: 'Y^{\\text{cert}}', name: 'Status kelulusan sertifikasi (kolom sertifikat / statuskirimbkn)', domain: '\\{0, 1\\}', source: 'Sistem BKN' },
-      { symbol: 'B_{i,t}', name: 'Evidensi keaktifan teramati peserta', domain: '[0, 1]', source: 'Persamaan (1b)' },
+      { symbol: 'B_{i,t}', name: 'Evidensi keaktifan teramati peserta', domain: '[0, 1]', source: 'Persamaan (1a)' },
       { symbol: 'A^*_{i,t}', name: 'Dukungan/modalitas intervensi adaptif yang diterima', domain: 'a \\in \\mathcal{A}', source: 'Persamaan (9a)' },
-      { symbol: 'C_{i,t}', name: 'Kondisi konteks organisasi dan spasial peserta', domain: '[0, 1]^6', source: 'Persamaan (2)' }
+      { symbol: 'c_{i,t}', name: 'Kondisi konteks organisasi dan spasial peserta', domain: '[0, 1]^6', source: 'Persamaan (2)' }
     ],
     derivation: 'Persamaan hilir memodelkan hubungan asosiatif antara proses pembelajaran kontekstual dan hasil akhir pelatihan tanpa membuat klaim kausalitas mutlak yang prematur, serta hanya dihitung jika data hasil evaluasi peserta tersedia.',
-    analogy: 'Membuktikan apakah ASN yang diberikan intervensi materi adaptif (A*) sesuai kondisi daerahnya (C) mampu mencapai nilai evaluasi akhir (nilai/ranking) yang optimal.',
+    analogy: 'Membuktikan apakah ASN yang diberikan intervensi materi adaptif (A*) sesuai kondisi daerahnya (c) mampu mencapai nilai evaluasi akhir (nilai/ranking) yang optimal.',
     policyImpact: 'Menghubungkan efektivitas algoritma adaptif secara nyata dengan pencapaian sertifikasi dan indeks kompetensi ASN di instansi.'
   },
   eq10: {
@@ -1683,15 +1738,15 @@ const formulaDatabase: Record<string, FormulaDetail> = {
     id: 'eq10a',
     blockTag: 'BLOK 5',
     equationNum: 'Persamaan (10a)',
-    title: 'Evidensi Fusi Multimodal (F_{i,t})',
-    subtitle: 'Integrasi linear adaptif antara sinyal visual dan jejak telemetri LMS',
-    formula: 'F_{i,t} = w_{i,t} \\cdot V_{i,t} + (1 - w_{i,t}) \\cdot b_{i,t}^{\\text{LMS}}',
+    title: 'Evidensi Fusi Multimodal (B^{\\text{fusi}}_{i,t})',
+    subtitle: 'Integrasi linear adaptif antara evidensi multimodal/visual dan evidensi telemetri LMS',
+    formula: 'B^{\\text{fusi}}_{i,t} = w_{i,t} \\cdot B^{\\text{MM}}_{i,t} + \\left(1 - w_{i,t}\\right) \\cdot B^{\\text{LMS}}_{i,t}',
     variables: [
-      { symbol: 'F_{i,t}', name: 'Vektor evidensi multimodal terintegrasi final', domain: '\\mathbb{R}^d', source: 'Fusion Module' },
-      { symbol: 'V_{i,t}', name: 'Fitur visual (atensi wajah / tatapan webcam)', domain: '\\mathbb{R}^d', source: 'Computer Vision' },
-      { symbol: 'b^{\\text{LMS}}', name: 'Baseline telemetri LMS terbukti', domain: '\\mathbb{R}^d', source: 'LMS Engine' }
+      { symbol: 'B^{\\text{fusi}}_{i,t}', name: 'Skor evidensi fusi multimodal terintegrasi final', domain: '[0, 1]', source: 'Fusion Module' },
+      { symbol: 'B^{\\text{MM}}_{i,t}', name: 'Evidensi fitur visual/multimodal (atensi wajah / tatapan webcam)', domain: '[0, 1]', source: 'Computer Vision' },
+      { symbol: 'B^{\\text{LMS}}_{i,t}', name: 'Evidensi telemetri aktivitas LMS terbukti', domain: '[0, 1]', source: 'LMS Engine' }
     ],
-    derivation: 'Mekanisme ini mencegah catastrophic failure jika sinyal kamera macet atau mati mendadak di tengah sesi synchronous.',
+    derivation: 'Menggabungkan fitur visual/multimodal B^{MM} dengan evidensi telemetri LMS B^{LMS}. Jika sinyal kamera macet atau mati, sistem secara otomatis sepenuhnya bertumpu pada evidensi LMS tanpa kehilangan keabsahan bukti.',
     analogy: 'Penilaian kelulusan pelatihan daring yang sah dan kokoh — jika kamera video peserta mati, sistem secara otomatis 100% beralih ke bukti pengerjaan modul dan kuis di LMS.',
     policyImpact: 'Memastikan proses asesmen kelulusan pelatihan tetap sah meskipun terjadi gangguan video meeting.'
   },
@@ -1811,7 +1866,7 @@ const fairnessMetrics = [
     goal: 'Mencegah vonis keliru akibat sinyal terputus'
   },
   {
-    no: '13a–c',
+    no: '13a–b',
     name: 'FPR / FNR Parity Gap',
     alias: 'Kesenjangan Galat Tipe I & II',
     formula: '\\Delta_{\\text{FPR},t} = \\max_{g,h} |\\text{FPR}_g - \\text{FPR}_h|; \\; \\Delta_{\\text{FNR},t} = \\max_{g,h} |\\text{FNR}_g - \\text{FNR}_h|',
@@ -1832,10 +1887,10 @@ const fairnessMetrics = [
     alias: 'Bias Akibat Data Hilang',
     formula: '\\Delta_{\\text{miss},t} = \\text{Corr}\\left( m_{i,t},\\, |d_{i,t}| \\right)',
     measured: 'Seberapa kuat hilangnya data telemetri mendistorsi pembacaan residual',
-    goal: 'Menghindari penalti pada peserta saat koneksi hilang'
+    goal: 'Menghindari penalti pada peserta saat koneksi hilang. Berbeda dari metrik lain yang mengukur kesenjangan disparitas antar-kelompok (\\max_{g,h}), metrik ini berupa koefisien korelasi yang mengukur seberapa kuat data hilang (m_{i,t}) mendistorsi nilai residual (|d_{i,t}|).'
   },
   {
-    no: '16–16a',
+    no: '16',
     name: 'Visual Observability Fairness',
     alias: 'Keadilan Observabilitas Visual',
     formula: '\\Delta_{\\text{vis},t} = \\max_{g,h} \\left| \\bar{q}_{g}^{\\text{vis}} - \\bar{q}_{h}^{\\text{vis}} \\right|',
