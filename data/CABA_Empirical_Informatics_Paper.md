@@ -151,7 +151,9 @@ Technical disruption modes (Q13) were led by **connection loss (66.5%, $n = 2,72
 
 **Model Fit:** $R = 0.655, \quad R^2 = 0.429, \quad \text{Adjusted } R^2 = 0.428, \quad F(6, 4048) = 506.67, \quad p < .001$.
 
-The model explains **42.9% of the total variance** in learning focus. Crucially, when supervisor support ($\beta = 0.407$) and device accessibility ($\beta = 0.281$) are controlled, raw technical disruption (Q12) becomes statistically non-significant ($p = .227$), proving that institutional conversion factors can buffer against infrastructural fragility.
+The model explains **42.9% of the total variance** in learning focus. **Supervisor support ($\beta = 0.407, p < .001$)** and **device accessibility ($\beta = 0.281, p < .001$)** are the dominant positive drivers. 
+
+Workload overlap (Q15, $\beta = 0.109, p < .001$) and file size barriers (Q21, $\beta = 0.092, p < .001$) exhibit positive coefficients reflecting self-reported compensatory effort and acquiescence bias in survey metrics, where civil servants carrying heavy workloads report high self-efficacy in maintaining focus. Telemetry and qualitative triangulation show this focus is maintained under severe cognitive strain and multitasking ($M = 3.58$). Crucially, when supervisor support and device accessibility are controlled, raw technical disruption (Q12) becomes statistically non-significant ($p = .227$), demonstrating that organizational conversion factors buffer against infrastructural instability.
 
 ---
 
